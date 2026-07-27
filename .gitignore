@@ -1,0 +1,5 @@
+_update_inbox/*
+!_update_inbox/.gitkeep
+_update_done/*
+!_update_done/.gitkeep
+_update_temp/

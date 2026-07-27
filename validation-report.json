@@ -1,149 +1,18 @@
 {
-  "sourceFiles": 17,
+  "generatedAt": "2026-07-27T20:00:00+09:00",
+  "siteVersion": 2,
   "rangePages": 17,
   "jpegFiles": 516,
-  "jpegMiB": 229.14,
-  "base64Remaining": 0,
-  "changedImages": 0,
-  "badReferences": 0,
-  "nodeSyntaxChecks": 18,
-  "nodeSyntaxFailures": 0,
-  "perRange": [
-    {
-      "file": "No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
-      "externalizedJpegs": 34,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 48704
-    },
-    {
-      "file": "No010-015_古代ローマ.html",
-      "externalizedJpegs": 26,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 37332
-    },
-    {
-      "file": "No016-018_古代インド.html",
-      "externalizedJpegs": 12,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 24965
-    },
-    {
-      "file": "No019-021_東南アジアの諸文明.html",
-      "externalizedJpegs": 10,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 24601
-    },
-    {
-      "file": "No022-040_中国史〜元.html",
-      "externalizedJpegs": 74,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 80026
-    },
-    {
-      "file": "No041-046_明・清.html",
-      "externalizedJpegs": 22,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 38150
-    },
-    {
-      "file": "No047-069_ローマ分裂〜大航海時代.html",
-      "externalizedJpegs": 74,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 69402
-    },
-    {
-      "file": "No070-081_イスラーム史.html",
-      "externalizedJpegs": 48,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 47648
-    },
-    {
-      "file": "No082-084_大航海.html",
-      "externalizedJpegs": 10,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 22444
-    },
-    {
-      "file": "No085_ルネサンス.html",
-      "externalizedJpegs": 6,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 25321
-    },
-    {
-      "file": "No086-104_宗教改革〜産業革命.html",
-      "externalizedJpegs": 72,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 58340
-    },
-    {
-      "file": "No105-108_アメリカの成立.html",
-      "externalizedJpegs": 14,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 28228
-    },
-    {
-      "file": "No109-114_フランス革命.html",
-      "externalizedJpegs": 24,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 28791
-    },
-    {
-      "file": "No115-123_ウィーン体制と各国の統一.html",
-      "externalizedJpegs": 40,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 44364
-    },
-    {
-      "file": "No124-126_東アジアの激動.html",
-      "externalizedJpegs": 12,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 24450
-    },
-    {
-      "file": "No127-129_帝国主義の植民地支配.html",
-      "externalizedJpegs": 12,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 31299
-    },
-    {
-      "file": "No130-135_第一次世界大戦への道.html",
-      "externalizedJpegs": 26,
-      "remainingBase64": 0,
-      "changedImages": [],
-      "badReferences": [],
-      "htmlBytes": 39399
-    }
-  ]
+  "assetReferences": 516,
+  "base64ImageReferences": 0,
+  "missingReferences": 0,
+  "javascriptScriptsChecked": 18,
+  "javascriptSyntaxFailures": 0,
+  "no081": {
+    "status": "complete",
+    "answerOverlays": 22,
+    "base": "numbered blank sheet",
+    "answerSource": "filled sheet"
+  },
+  "errors": []
 }
