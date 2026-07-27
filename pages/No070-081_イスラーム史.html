@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>古プリ 解答レイヤー｜イスラーム史（No.081原本待ち）</title>
+<style>
+:root{
+  --bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;
+  --accent:#de6f3c;--green:#16866f;--shadow:0 12px 35px rgba(34,28,20,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr}
+.top{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:max(9px,env(safe-area-inset-top)) 12px 9px;
+  display:flex;gap:10px;align-items:center;z-index:20
+}
+.brand{font-weight:800;white-space:nowrap}
+.privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
+.topspacer{flex:1}
+.main{min-height:0;display:grid;grid-template-columns:290px 1fr}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.sectionTitle{font-weight:800;margin:4px 0 10px}
+.help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
+.ranges{display:grid;gap:7px}
+.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
+.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{border:0;background:transparent;color:#a34734;font-size:18px}
+.empty{font-size:13px;color:var(--sub)}
+.viewer{min-width:0;min-height:0;display:grid;grid-template-rows:auto 1fr auto}
+.controls{
+  background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center
+}
+.switchWrap{display:flex;align-items:center;gap:7px;font-size:14px}
+.switch{position:relative;width:44px;height:25px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#c9c5bd;border-radius:99px;transition:.2s}
+.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 4px #777;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch.green input:checked+.slider{background:var(--green)}
+.switch input:checked+.slider:before{transform:translateX(19px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 11px}
+.seg button.active{background:#25231f;color:#fff}
+.action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
+.action.primary{background:#25231f;color:#fff;border-color:#25231f}
+.pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
+.scroller{min-height:0;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
+.stage img{display:block;width:100%;height:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+#overlayCanvas{pointer-events:none}
+#drawCanvas{cursor:crosshair;pointer-events:none;touch-action:none}
+.stage.drawing #drawCanvas{pointer-events:auto}
+.stage.drawing{touch-action:none}
+.stage.pinching{will-change:width}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
+.nav{
+  background:#fff;border-top:1px solid var(--line);
+  padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom));
+  display:flex;justify-content:center;gap:8px;align-items:center
+}
+.nav button,.nav select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px}
+.zoom{display:flex;align-items:center;gap:8px}
+#zoomLabel{min-width:44px;text-align:center}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1}
+@media(max-width:760px){
+  .main{grid-template-columns:1fr}
+  .side{display:none}
+  .top{font-size:14px}
+  .privacy{display:none}
+  .controls{padding:7px;gap:7px}
+  .controls .action{padding:7px 9px}
+  .pageInfo{width:100%;margin:0;text-align:right}
+  .scroller{padding:8px}
+  .nav{gap:5px}
+  .nav button,.nav select{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">古プリ 解答レイヤー</div>
+    <div class="privacy">高速静的サイト版</div>
+    <div class="topspacer"></div>
+    <div>イスラーム史（No.081原本待ち）</div>
+  </header>
+  <div class="main">
+    <aside class="side">
+      <div class="sectionTitle">指定範囲</div>
+      <div class="help">
+        「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
+        範囲は端末内に保存されます。
+      </div>
+      <div class="ranges" id="ranges"></div>
+    </aside>
+    <section class="viewer">
+      <div class="controls">
+        <label class="switchWrap">
+          <span class="switch"><input id="orangeToggle" type="checkbox" checked><span class="slider"></span></span>
+          オレンジ文字
+        </label>
+        <label class="switchWrap">
+          <span class="switch green"><input id="greenToggle" type="checkbox" checked><span class="slider"></span></span>
+          緑マーカー
+        </label>
+        <div class="seg">
+          <button id="allMode" class="active">全体</button>
+          <button id="rangeMode">指定範囲</button>
+        </div>
+        <button class="action primary" id="addRange">＋ 範囲を追加</button>
+        <button class="action" id="clearRanges">範囲を削除</button>
+        <div class="pageInfo" id="pageInfo"></div>
+      </div>
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage">
+          <img id="baseImg" alt="古プリ">
+          <canvas id="overlayCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+          <div class="loading" id="loading">PDF原本を読み込み中…</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="prev">← 前</button>
+        <select id="pageSelect"></select>
+        <button id="next">次 →</button>
+        <div class="zoom">
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// KOPURI_HIGH_SPEED_V1: full-quality rendering, redraw-free zoom
+const PAGES=[{"key":"No070_p1","no":70,"part":1,"parts":2,"label":"No.70（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No070_p1_base.jpg","baseOff":"../assets/No070-081/No070_p1_baseOff.jpg","hide":[[1358,444,115,40],[1282,495,139,35],[499,577,126,34],[482,661,121,40],[512,715,109,43],[748,791,151,29],[1041,800,74,20],[1353,794,221,29],[1435,823,165,36],[1209,869,222,36],[481,810,158,39],[497,949,122,44],[492,1041,119,39],[498,1173,128,31],[493,1268,132,36],[529,1837,172,36],[692,1947,150,42],[733,1995,186,35],[458,2025,431,50],[822,2080,158,39]],"keep":[],"greenHide":[{"x":675,"y":1534,"width":117,"height":29,"color":"#58cf68"},{"x":405,"y":1564,"width":148,"height":35,"color":"#58cf68"},{"x":562,"y":2076,"width":89,"height":33,"color":"#58cf68"},{"x":714,"y":1058,"width":75,"height":27,"color":"#58cf68"},{"x":722,"y":582,"width":216,"height":36,"color":"#58cf68"},{"x":730,"y":670,"width":89,"height":27,"color":"#58cf68"},{"x":727,"y":723,"width":149,"height":25,"color":"#58cf68"},{"x":717,"y":827,"width":185,"height":26,"color":"#58cf68"},{"x":713,"y":960,"width":248,"height":25,"color":"#58cf68"},{"x":793,"y":1011,"width":128,"height":22,"color":"#58cf68"},{"x":756,"y":1107,"width":189,"height":22,"color":"#58cf68"},{"x":767,"y":1139,"width":142,"height":30,"color":"#58cf68"},{"x":703,"y":1178,"width":366,"height":29,"color":"#58cf68"},{"x":711,"y":1272,"width":352,"height":29,"color":"#58cf68"},{"x":1190,"y":1281,"width":238,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No070_p2","no":70,"part":2,"parts":2,"label":"No.70（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No070_p2_base.jpg","baseOff":"../assets/No070-081/No070_p2_baseOff.jpg","hide":[[431,293,185,34],[902,339,149,37],[708,474,103,33],[589,520,166,38],[573,624,243,34],[989,564,375,49],[642,705,150,34],[1134,744,200,45],[1146,829,215,44],[1100,862,30,33],[1145,906,158,30],[665,893,159,35],[858,939,124,26],[987,987,120,30],[1076,1161,121,32],[428,1298,184,35],[791,1267,45,38],[716,1488,233,30],[454,1521,182,36],[473,1356,111,37],[863,1613,76,32],[506,1625,105,37],[425,1776,393,43],[469,1891,121,39],[459,1992,157,40],[431,2088,164,50]],"keep":[],"greenHide":[{"x":697,"y":1905,"width":124,"height":28,"color":"#58cf68"},{"x":695,"y":1997,"width":129,"height":31,"color":"#58cf68"},{"x":601,"y":1576,"width":143,"height":26,"color":"#58cf68"},{"x":784,"y":1411,"width":83,"height":29,"color":"#58cf68"},{"x":900,"y":1411,"width":120,"height":26,"color":"#58cf68"},{"x":530,"y":1447,"width":252,"height":28,"color":"#58cf68"},{"x":531,"y":1409,"width":188,"height":30,"color":"#58cf68"},{"x":343,"y":1174,"width":172,"height":31,"color":"#58cf68"},{"x":934,"y":1221,"width":88,"height":28,"color":"#58cf68"},{"x":822,"y":1222,"width":62,"height":28,"color":"#58cf68"},{"x":727,"y":986,"width":59,"height":28,"color":"#58cf68"},{"x":741,"y":940,"width":81,"height":32,"color":"#58cf68"},{"x":1267,"y":995,"width":74,"height":30,"color":"#58cf68"},{"x":1152,"y":714,"width":251,"height":31,"color":"#58cf68"},{"x":780,"y":441,"width":29,"height":35,"color":"#58cf68"},{"x":560,"y":577,"width":332,"height":28,"color":"#58cf68"},{"x":1121,"y":486,"width":124,"height":32,"color":"#58cf68"},{"x":1084,"y":1155,"width":113,"height":34,"color":"#58cf68"}],"numberPairs":[]},{"key":"No071_p1","no":71,"part":1,"parts":3,"label":"No.71（1/3）","width":1600,"height":2278,"base":"../assets/No070-081/No071_p1_base.jpg","baseOff":"../assets/No070-081/No071_p1_baseOff.jpg","hide":[[1147,232,175,41],[922,272,151,42],[871,323,252,29],[1049,426,111,41],[562,524,204,28],[539,578,121,27],[538,664,305,34],[978,626,220,29],[1384,438,91,43],[1010,714,233,34],[534,866,266,42],[552,931,225,35],[759,1228,295,43],[887,1290,124,27],[1156,1462,146,49],[1183,1639,135,43],[1379,923,128,32],[1410,716,60,32],[1408,762,61,34],[1400,805,71,45]],"keep":[],"greenHide":[{"x":1184,"y":1690,"width":98,"height":27,"color":"#58cf68"},{"x":1331,"y":1688,"width":85,"height":30,"color":"#58cf68"},{"x":661,"y":284,"width":154,"height":27,"color":"#58cf68"},{"x":1236,"y":331,"width":170,"height":34,"color":"#58cf68"}],"numberPairs":[]},{"key":"No071_p2","no":71,"part":2,"parts":3,"label":"No.71（2/3）","width":1600,"height":2278,"base":"../assets/No070-081/No071_p2_base.jpg","baseOff":"../assets/No070-081/No071_p2_baseOff.jpg","hide":[[468,375,311,35],[935,286,237,41],[908,462,178,31],[470,504,231,35],[686,564,136,29],[442,645,335,43],[1367,372,123,50],[1297,695,218,40],[1321,789,221,40],[1090,833,106,40],[441,955,124,39],[715,1003,126,30],[792,1053,89,35],[484,1158,261,34],[1259,1663,98,31],[1252,1743,144,28],[1197,1971,139,38],[1207,2023,102,32]],"keep":[],"greenHide":[{"x":316,"y":228,"width":155,"height":44,"color":"#58cf68"},{"x":817,"y":425,"width":84,"height":27,"color":"#58cf68"},{"x":947,"y":603,"width":128,"height":36,"color":"#58cf68"},{"x":516,"y":1009,"width":109,"height":34,"color":"#58cf68"},{"x":527,"y":1059,"width":140,"height":27,"color":"#58cf68"},{"x":896,"y":1012,"width":81,"height":25,"color":"#58cf68"},{"x":942,"y":1060,"width":60,"height":27,"color":"#58cf68"},{"x":839,"y":1360,"width":93,"height":24,"color":"#58cf68"},{"x":1254,"y":1738,"width":121,"height":27,"color":"#58cf68"}],"numberPairs":[]},{"key":"No071_p3","no":71,"part":3,"parts":3,"label":"No.71（3/3）","width":1600,"height":2278,"base":"../assets/No070-081/No071_p3_base.jpg","baseOff":"../assets/No070-081/No071_p3_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No072_p1","no":72,"part":1,"parts":2,"label":"No.72（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No072_p1_base.jpg","baseOff":"../assets/No070-081/No072_p1_baseOff.jpg","hide":[[1070,421,193,39],[723,800,184,38],[484,1161,166,42],[534,1254,141,46],[913,1209,369,33],[888,1310,149,31],[488,1403,155,38],[993,1458,352,31],[480,1544,42,34],[820,1593,174,36],[617,1677,134,44],[1143,1679,157,50],[630,1833,230,42],[1117,1821,182,41]],"keep":[],"greenHide":[{"x":705,"y":427,"width":82,"height":37,"color":"#58cf68"},{"x":548,"y":504,"width":137,"height":33,"color":"#58cf68"},{"x":395,"y":810,"width":296,"height":30,"color":"#58cf68"},{"x":815,"y":470,"width":108,"height":24,"color":"#58cf68"},{"x":764,"y":943,"width":182,"height":26,"color":"#58cf68"},{"x":981,"y":946,"width":146,"height":23,"color":"#58cf68"}],"numberPairs":[]},{"key":"No072_p2","no":72,"part":2,"parts":2,"label":"No.72（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No072_p2_base.jpg","baseOff":"../assets/No070-081/No072_p2_baseOff.jpg","hide":[[389,296,169,36],[424,443,144,30],[574,574,505,31],[572,755,387,41],[418,872,186,44],[953,914,106,42],[589,969,107,37],[734,1019,127,32],[412,1237,167,35],[838,1289,110,34],[435,1547,153,36],[776,1548,174,37],[1134,1462,375,45],[1114,1702,371,43],[352,1773,152,42],[433,1893,174,38],[987,1980,347,42]],"keep":[],"greenHide":[{"x":890,"y":1806,"width":106,"height":28,"color":"#58cf68"},{"x":1036,"y":1609,"width":100,"height":32,"color":"#58cf68"},{"x":1240,"y":1377,"width":140,"height":29,"color":"#58cf68"},{"x":869,"y":1336,"width":141,"height":35,"color":"#58cf68"},{"x":576,"y":1340,"width":139,"height":32,"color":"#58cf68"},{"x":571,"y":929,"width":133,"height":36,"color":"#58cf68"},{"x":1199,"y":966,"width":88,"height":39,"color":"#58cf68"},{"x":1281,"y":1015,"width":83,"height":30,"color":"#58cf68"},{"x":452,"y":535,"width":119,"height":28,"color":"#58cf68"},{"x":649,"y":489,"width":100,"height":35,"color":"#58cf68"}],"numberPairs":[]},{"key":"No073_p1","no":73,"part":1,"parts":2,"label":"No.73（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No073_p1_base.jpg","baseOff":"../assets/No070-081/No073_p1_baseOff.jpg","hide":[[480,356,166,41],[476,413,137,35],[493,495,137,44],[479,636,171,48],[547,743,214,40],[1344,403,167,39],[1032,558,98,41],[950,792,178,44],[1081,846,184,25],[1139,978,133,38],[573,1032,232,42],[780,1090,388,33],[1152,1140,207,31],[661,1182,118,36],[1258,1385,87,50],[464,1542,192,45],[467,1667,192,34],[491,1826,164,33],[1091,1660,108,46],[1333,1590,142,55],[807,2117,124,35],[1008,2103,582,53]],"keep":[],"greenHide":[{"x":692,"y":417,"width":100,"height":29,"color":"#58cf68"},{"x":954,"y":704,"width":100,"height":32,"color":"#58cf68"},{"x":524,"y":888,"width":321,"height":38,"color":"#58cf68"},{"x":639,"y":942,"width":175,"height":26,"color":"#58cf68"},{"x":1075,"y":947,"width":113,"height":27,"color":"#58cf68"},{"x":1322,"y":946,"width":103,"height":24,"color":"#58cf68"},{"x":778,"y":1240,"width":112,"height":25,"color":"#58cf68"},{"x":465,"y":1616,"width":119,"height":31,"color":"#58cf68"},{"x":719,"y":1731,"width":161,"height":31,"color":"#58cf68"}],"numberPairs":[]},{"key":"No073_p2","no":73,"part":2,"parts":2,"label":"No.73（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No073_p2_base.jpg","baseOff":"../assets/No070-081/No073_p2_baseOff.jpg","hide":[[415,327,112,30],[484,425,205,31],[400,539,173,36],[740,514,285,42],[865,460,195,39],[1045,366,173,33],[1388,575,105,47],[647,739,489,40],[886,821,149,43],[568,828,93,33],[410,1003,169,29],[1203,1048,191,33],[507,1142,229,31],[762,1235,370,28],[406,1327,113,40],[994,1334,103,37],[535,1462,298,37],[1344,1362,130,46],[663,1829,137,27]],"keep":[],"greenHide":[{"x":467,"y":646,"width":167,"height":35,"color":"#58cf68"},{"x":978,"y":923,"width":80,"height":36,"color":"#58cf68"},{"x":619,"y":1055,"width":115,"height":33,"color":"#58cf68"},{"x":528,"y":890,"width":220,"height":30,"color":"#58cf68"},{"x":866,"y":1101,"width":156,"height":28,"color":"#58cf68"},{"x":421,"y":1104,"width":156,"height":27,"color":"#58cf68"},{"x":411,"y":1059,"width":127,"height":27,"color":"#58cf68"},{"x":588,"y":1193,"width":317,"height":24,"color":"#58cf68"},{"x":1207,"y":1278,"width":66,"height":26,"color":"#58cf68"},{"x":893,"y":1285,"width":73,"height":23,"color":"#58cf68"},{"x":1306,"y":1490,"width":220,"height":49,"color":"#58cf68"},{"x":1219,"y":1611,"width":100,"height":33,"color":"#58cf68"},{"x":1039,"y":1612,"width":96,"height":32,"color":"#58cf68"},{"x":841,"y":1614,"width":121,"height":31,"color":"#58cf68"},{"x":662,"y":1620,"width":100,"height":35,"color":"#58cf68"},{"x":484,"y":1626,"width":87,"height":27,"color":"#58cf68"},{"x":480,"y":1681,"width":64,"height":24,"color":"#58cf68"},{"x":652,"y":1682,"width":76,"height":24,"color":"#58cf68"},{"x":848,"y":1683,"width":73,"height":20,"color":"#58cf68"},{"x":1033,"y":1681,"width":80,"height":17,"color":"#58cf68"},{"x":1198,"y":1677,"width":112,"height":24,"color":"#58cf68"},{"x":811,"y":1731,"width":103,"height":20,"color":"#58cf68"}],"numberPairs":[]},{"key":"No074_p1","no":74,"part":1,"parts":2,"label":"No.74（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No074_p1_base.jpg","baseOff":"../assets/No070-081/No074_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No074_p2","no":74,"part":2,"parts":2,"label":"No.74（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No074_p2_base.jpg","baseOff":"../assets/No070-081/No074_p2_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No075_p1","no":75,"part":1,"parts":2,"label":"No.75（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No075_p1_base.jpg","baseOff":"../assets/No070-081/No075_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No075_p2","no":75,"part":2,"parts":2,"label":"No.75（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No075_p2_base.jpg","baseOff":"../assets/No070-081/No075_p2_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No076_p1","no":76,"part":1,"parts":2,"label":"No.76（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No076_p1_base.jpg","baseOff":"../assets/No070-081/No076_p1_baseOff.jpg","hide":[[458,430,172,33],[613,562,135,35],[1312,473,187,42],[987,613,223,31],[596,730,200,37],[607,782,190,36],[443,1130,224,27],[490,1224,103,31],[832,1176,281,38],[867,1270,108,32],[607,1361,261,36],[792,1424,237,28],[1268,1228,243,43],[1206,1280,216,36],[681,1511,163,38],[1143,1773,249,41],[530,1906,178,43],[1086,1993,87,40]],"keep":[],"greenHide":[{"x":931,"y":485,"width":142,"height":25,"color":"#58cf68"},{"x":433,"y":478,"width":256,"height":33,"color":"#58cf68"},{"x":1022,"y":786,"width":173,"height":27,"color":"#58cf68"},{"x":440,"y":841,"width":131,"height":35,"color":"#58cf68"},{"x":1304,"y":868,"width":141,"height":38,"color":"#58cf68"},{"x":440,"y":1188,"width":91,"height":30,"color":"#58cf68"},{"x":671,"y":1232,"width":170,"height":33,"color":"#58cf68"},{"x":1194,"y":1427,"width":154,"height":26,"color":"#58cf68"},{"x":652,"y":1966,"width":84,"height":28,"color":"#58cf68"},{"x":706,"y":2006,"width":118,"height":31,"color":"#58cf68"}],"numberPairs":[]},{"key":"No076_p2","no":76,"part":2,"parts":2,"label":"No.76（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No076_p2_base.jpg","baseOff":"../assets/No070-081/No076_p2_baseOff.jpg","hide":[[445,281,104,40],[577,381,127,39],[531,546,149,31],[908,395,228,30],[955,596,187,35],[821,644,97,33],[936,695,84,29],[671,749,443,41],[518,808,207,40],[726,906,221,35],[484,976,284,41],[1020,1008,118,38],[709,1173,106,37],[923,1231,214,31],[528,1389,137,35],[560,1500,74,23],[1073,1502,122,26],[1292,1314,138,28],[1253,1580,173,28],[562,1803,117,36],[497,1922,131,34],[876,1926,95,33],[1021,2095,209,34],[1073,2150,159,33]],"keep":[],"greenHide":[{"x":697,"y":483,"width":226,"height":38,"color":"#58cf68"},{"x":1333,"y":440,"width":123,"height":31,"color":"#58cf68"},{"x":608,"y":440,"width":95,"height":33,"color":"#58cf68"},{"x":1360,"y":772,"width":240,"height":39,"color":"#58cf68"},{"x":1383,"y":878,"width":217,"height":46,"color":"#58cf68"},{"x":1390,"y":1042,"width":210,"height":52,"color":"#58cf68"},{"x":553,"y":1093,"width":102,"height":33,"color":"#58cf68"},{"x":286,"y":1446,"width":155,"height":42,"color":"#58cf68"},{"x":869,"y":1438,"width":163,"height":32,"color":"#58cf68"},{"x":1070,"y":1548,"width":73,"height":22,"color":"#58cf68"},{"x":1228,"y":1542,"width":153,"height":25,"color":"#58cf68"},{"x":1417,"y":1544,"width":94,"height":30,"color":"#58cf68"},{"x":527,"y":1998,"width":114,"height":29,"color":"#58cf68"},{"x":556,"y":2060,"width":132,"height":23,"color":"#58cf68"}],"numberPairs":[]},{"key":"No077_p1","no":77,"part":1,"parts":2,"label":"No.77（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No077_p1_base.jpg","baseOff":"../assets/No070-081/No077_p1_baseOff.jpg","hide":[[1388,384,67,40],[1398,437,163,37],[1034,517,259,47],[514,594,224,42],[629,645,177,39],[629,738,150,44],[576,904,182,38],[791,1055,175,25],[572,1111,147,40],[781,1157,161,42],[580,1388,218,35],[866,1412,75,40],[962,1418,98,27],[1323,1383,51,36],[1416,1383,53,45],[1365,1556,235,40],[635,1547,193,41],[768,1495,235,40],[629,1641,314,40],[1133,1730,222,38],[623,1767,278,46],[701,1720,168,47],[711,1851,155,40],[950,1979,199,26],[1090,2048,39,46]],"keep":[],"greenHide":[{"x":508,"y":486,"width":171,"height":37,"color":"#58cf68"},{"x":605,"y":1328,"width":93,"height":39,"color":"#58cf68"},{"x":733,"y":1326,"width":213,"height":35,"color":"#58cf68"},{"x":1091,"y":1353,"width":123,"height":30,"color":"#58cf68"},{"x":1296,"y":1354,"width":87,"height":25,"color":"#58cf68"},{"x":1457,"y":1355,"width":139,"height":33,"color":"#58cf68"},{"x":1511,"y":1401,"width":89,"height":23,"color":"#58cf68"},{"x":602,"y":1453,"width":129,"height":38,"color":"#58cf68"},{"x":665,"y":1604,"width":118,"height":29,"color":"#58cf68"},{"x":800,"y":1596,"width":169,"height":36,"color":"#58cf68"},{"x":993,"y":1605,"width":148,"height":27,"color":"#58cf68"},{"x":1285,"y":1699,"width":163,"height":23,"color":"#58cf68"},{"x":1060,"y":1779,"width":193,"height":40,"color":"#58cf68"},{"x":1013,"y":1943,"width":232,"height":30,"color":"#58cf68"},{"x":883,"y":1908,"width":121,"height":25,"color":"#58cf68"},{"x":1024,"y":1905,"width":162,"height":27,"color":"#58cf68"}],"numberPairs":[]},{"key":"No077_p2","no":77,"part":2,"parts":2,"label":"No.77（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No077_p2_base.jpg","baseOff":"../assets/No070-081/No077_p2_baseOff.jpg","hide":[[884,264,204,42],[745,323,248,35],[1364,346,138,23],[1042,406,194,36],[890,516,209,41],[853,460,97,40],[691,574,197,37],[589,571,84,43],[911,760,235,40],[1288,826,121,30],[1175,975,262,38],[383,882,192,59],[398,1096,161,31],[392,1227,172,48],[1360,1126,157,47],[1208,1391,176,53]],"keep":[],"greenHide":[{"x":453,"y":1288,"width":276,"height":29,"color":"#58cf68"},{"x":1247,"y":1456,"width":270,"height":32,"color":"#58cf68"},{"x":749,"y":371,"width":173,"height":27,"color":"#58cf68"},{"x":965,"y":377,"width":142,"height":25,"color":"#58cf68"},{"x":1138,"y":370,"width":251,"height":23,"color":"#58cf68"},{"x":441,"y":944,"width":344,"height":25,"color":"#58cf68"},{"x":444,"y":1141,"width":88,"height":31,"color":"#58cf68"}],"numberPairs":[]},{"key":"No078_p1","no":78,"part":1,"parts":2,"label":"No.78（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No078_p1_base.jpg","baseOff":"../assets/No070-081/No078_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No078_p2","no":78,"part":2,"parts":2,"label":"No.78（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No078_p2_base.jpg","baseOff":"../assets/No070-081/No078_p2_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No079_p1","no":79,"part":1,"parts":2,"label":"No.79（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No079_p1_base.jpg","baseOff":"../assets/No070-081/No079_p1_baseOff.jpg","hide":[[748,336,149,41],[495,439,1096,43],[811,496,164,40],[766,562,150,33],[767,622,131,27],[1114,560,123,37],[1219,806,78,35],[1050,965,374,43],[1537,1164,55,64],[1212,1301,212,39],[479,1307,225,38],[471,1480,95,34],[459,1559,129,43],[1051,1436,135,30],[1332,1445,136,34],[1068,1520,123,29],[478,1642,107,37],[420,1720,201,45],[443,1821,155,36],[425,1950,82,28],[763,1929,92,28],[1289,1968,188,34],[1355,2037,168,42]],"keep":[],"greenHide":[{"x":1141,"y":1356,"width":109,"height":32,"color":"#58cf68"},{"x":881,"y":1481,"width":104,"height":26,"color":"#58cf68"},{"x":922,"y":1546,"width":74,"height":41,"color":"#58cf68"},{"x":1159,"y":1641,"width":69,"height":35,"color":"#58cf68"},{"x":724,"y":1683,"width":129,"height":30,"color":"#58cf68"}],"numberPairs":[]},{"key":"No079_p2","no":79,"part":2,"parts":2,"label":"No.79（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No079_p2_base.jpg","baseOff":"../assets/No070-081/No079_p2_baseOff.jpg","hide":[[381,1637,104,23],[407,1676,267,31],[716,1661,182,34],[1087,1654,127,38],[1241,1646,62,42],[1332,1643,165,55],[1525,1693,75,23]],"keep":[],"greenHide":[{"x":1191,"y":434,"width":195,"height":32,"color":"#58cf68"},{"x":1011,"y":435,"width":113,"height":28,"color":"#58cf68"},{"x":787,"y":440,"width":115,"height":26,"color":"#58cf68"},{"x":523,"y":443,"width":144,"height":28,"color":"#58cf68"},{"x":759,"y":354,"width":167,"height":26,"color":"#58cf68"},{"x":1094,"y":395,"width":170,"height":28,"color":"#58cf68"},{"x":1105,"y":661,"width":57,"height":29,"color":"#58cf68"},{"x":553,"y":662,"width":131,"height":29,"color":"#58cf68"},{"x":822,"y":709,"width":108,"height":25,"color":"#58cf68"},{"x":559,"y":795,"width":112,"height":29,"color":"#58cf68"},{"x":553,"y":973,"width":80,"height":30,"color":"#58cf68"},{"x":875,"y":970,"width":80,"height":29,"color":"#58cf68"},{"x":549,"y":1065,"width":170,"height":25,"color":"#58cf68"},{"x":833,"y":1064,"width":86,"height":25,"color":"#58cf68"},{"x":1206,"y":1060,"width":106,"height":35,"color":"#58cf68"},{"x":353,"y":1547,"width":146,"height":38,"color":"#58cf68"},{"x":816,"y":1596,"width":119,"height":34,"color":"#58cf68"},{"x":1019,"y":1593,"width":83,"height":35,"color":"#58cf68"}],"numberPairs":[{"id":"rms1kpvbv_6051","body":[367,352,120,33],"answer":[325,1732,131,28],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ガザーリー","fontSize":34},{"id":"rms1kqacw_6056","body":[364,440,131,34],"answer":[760,1728,205,27],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"イブン=ルシュド","fontSize":34},{"id":"rms1kqo7h_6061","body":[1339,483,128,32],"answer":[1169,1720,173,36],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アヴェロエス","fontSize":34},{"id":"rms1krc8n_6066","body":[366,664,120,32],"answer":[321,1777,287,29],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ラシード=ウッディーン","fontSize":34},{"id":"rms1krvfr_6071","body":[367,707,116,33],"answer":[757,1772,259,29],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"イブン=ハルドゥーン","fontSize":34},{"id":"rms1ktalk_6076","body":[622,750,127,31],"answer":[1169,1775,140,25],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"世界史序説","fontSize":34},{"id":"rms1kuk9p_6081","body":[362,795,123,35],"answer":[316,1822,260,28],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"イブン=バットゥータ","fontSize":34},{"id":"rms1kv0eq_6086","body":[1195,794,129,33],"answer":[751,1820,169,28],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"三大陸周遊記","fontSize":34},{"id":"rms1kve6l_6091","body":[387,929,117,32],"answer":[1163,1815,170,28],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"千夜一夜物語","fontSize":34},{"id":"rms1kzptq_6096","body":[365,970,134,38],"answer":[330,1863,194,33],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"フィルドゥシー","fontSize":34},{"id":"rms1l0i11_6101","body":[1421,966,157,39],"answer":[756,1858,181,35],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"シャー=ナーメ","fontSize":34},{"id":"rms1l0yw0_6106","body":[360,1060,138,40],"answer":[1169,1862,244,32],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"オマル=ハイヤーム","fontSize":34},{"id":"rms1l1hbd_6118","body":[1320,1052,146,37],"answer":[334,1912,175,24],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ルバイヤート","fontSize":34},{"id":"rms1l24sx_6123","body":[365,1281,133,35],"answer":[754,1907,202,33],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"フワーリーズミー","fontSize":34},{"id":"rms1l2eds_6128","body":[1039,1329,142,32],"answer":[1172,1903,104,34],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ゼロ","fontSize":34},{"id":"rms1l2syd_6133","body":[362,1369,138,38],"answer":[332,1950,183,32],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"イブン=シーナ","fontSize":34},{"id":"rms1l3cpm_6138","body":[1249,1412,144,36],"answer":[756,1946,172,33],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アヴィケンナ","fontSize":34},{"id":"rms1l3rw4_6143","body":[362,1587,139,39],"answer":[1164,1954,172,27],"bodyPageKey":"No079_p2","answerPageKey":"No079_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アルハンブラ","fontSize":34}]},{"key":"No080_p1","no":80,"part":1,"parts":2,"label":"No.80（1/2）","width":1600,"height":2278,"base":"../assets/No070-081/No080_p1_base.jpg","baseOff":"../assets/No070-081/No080_p1_baseOff.jpg","hide":[[1134,1040,79,33],[1214,957,145,24],[1297,1171,64,23],[1288,1207,112,41],[1289,1276,131,38],[1181,1301,71,34],[995,1534,150,27],[1001,1741,129,33]],"keep":[],"greenHide":[{"x":597,"y":459,"width":61,"height":37,"color":"#58cf68"},{"x":607,"y":688,"width":80,"height":29,"color":"#58cf68"},{"x":720,"y":683,"width":135,"height":32,"color":"#58cf68"},{"x":1017,"y":859,"width":160,"height":38,"color":"#58cf68"},{"x":633,"y":1082,"width":107,"height":30,"color":"#58cf68"},{"x":490,"y":1254,"width":164,"height":33,"color":"#58cf68"},{"x":458,"y":2046,"width":85,"height":34,"color":"#58cf68"}],"numberPairs":[{"id":"rms08whdf_3574","body":[448,415,157,38],"answer":[336,363,83,30],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"クシュ","fontSize":34},{"id":"rms08wqu9_3579","body":[578,543,148,41],"answer":[335,399,82,35],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"メロエ","fontSize":34},{"id":"rms08x13m_3584","body":[444,588,128,38],"answer":[333,442,108,34],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アクスム","fontSize":34},{"id":"rms08xd2b_3589","body":[1070,681,151,36],"answer":[328,489,112,32],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"キリスト","fontSize":34},{"id":"rms08y19i_3604","body":[1157,898,153,46],"answer":[324,531,119,38],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"スワヒリ","fontSize":34},{"id":"rms08yiwr_3609","body":[557,1036,144,36],"answer":[327,574,141,36],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"モノモタパ","fontSize":34},{"id":"rms08zikx_3620","body":[850,1117,143,53],"answer":[323,621,144,32],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ジンバブエ","fontSize":34},{"id":"rms08ztfz_3625","body":[465,1300,149,36],"answer":[324,661,103,40],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ガーナ","fontSize":34},{"id":"rms090a2h_3630","body":[453,1514,176,48],"answer":[333,756,75,25],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"マリ","fontSize":34},{"id":"rms090pdi_3635","body":[715,1431,129,36],"answer":[322,712,136,29],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ムラービト","fontSize":34},{"id":"rms0914tk_3640","body":[801,1608,163,38],"answer":[336,800,169,35],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"トンブクトゥ","fontSize":34},{"id":"rms092cbf_3659","body":[616,1649,149,46],"answer":[338,844,403,41],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"マンサ=ムーサ","fontSize":34},{"id":"rms092td8_3664","body":[478,1738,154,42],"answer":[339,889,108,31],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ソンガイ","fontSize":34},{"id":"rms093tju_3669","body":[1062,1874,166,37],"answer":[336,797,170,36],"bodyPageKey":"No080_p1","answerPageKey":"No080_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"トンブクトゥ","fontSize":34}]},{"key":"No080_p2","no":80,"part":2,"parts":2,"label":"No.80（2/2）","width":1600,"height":2278,"base":"../assets/No070-081/No080_p2_base.jpg","baseOff":"../assets/No070-081/No080_p2_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No081_p1","no":81,"part":1,"parts":1,"label":"No.81","width":2200,"height":1554,"base":"../assets/No070-081/No081_p1_base.jpg","baseOff":"../assets/No070-081/No081_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]}];
+const $=s=>document.querySelector(s);
+const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
+let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
+const storageKey='kopuri-ranges-'+"No070-081_イスラーム史-v5";
+const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+
+function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
+function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
+
+function applyZoom(options={}){
+  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  const scroller=$('#scroller');
+  const available=Math.max(280,scroller.clientWidth-36);
+  const baseWidth=Math.min(980,available);
+  stage.style.width=Math.round(baseWidth*zoom/100)+'px';
+  stage.style.height='auto';
+  $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
+  // canvasは元画像と同じ解像度のままCSSだけで拡大する。
+  // 画質を維持しつつ、ズームごとの高解像度再描画を避ける。
+  if(options.redraw===true){
+    requestAnimationFrame(()=>{drawOverlays();drawGuides()});
+  }
+}
+function drawCoverRect(ctx,r,p,fill='#fff'){
+  ctx.fillStyle=fill;
+  ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawGreenRect(ctx,r,p){
+  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
+  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+}
+function fittedFontSize(ctx,text,r,maxSize){
+  const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
+  let size=Math.min(Number(maxSize)||34,maxH);
+  for(;size>=8;size--){
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    const m=ctx.measureText(text);
+    const h=(m.actualBoundingBoxAscent||size*.8)+(m.actualBoundingBoxDescent||size*.2);
+    if(m.width<=maxW && h<=maxH) return size;
+  }
+  return 8;
+}
+function applyNumberPairsOn(ctx,p){
+  (p.numberPairs||[]).forEach(pair=>{
+    if(pair.answer && pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+    if(pair.body && pair.bodyPageKey===p.key){
+      const r=pair.body,text=String(pair.answerText||'');
+      drawCoverRect(ctx,r,p,'#fff');
+      ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+      const size=fittedFontSize(ctx,text,r,pair.fontSize);
+      ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+      ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+      ctx.restore();
+    }
+  });
+}
+function drawState(ctx,p){
+  if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+}
+function drawOverlays(){
+  const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode==='all') drawState(ctx,p);
+  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
+function drawGuides(){
+  const p=PAGES[idx],ctx=dc.getContext('2d');
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode!=='range'&&!drawing)return;
+  ctx.lineWidth=Math.max(2,p.width/500);
+  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
+  rangesFor().forEach(r=>{
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
+    ctx.setLineDash(r.enabled===false?[8,7]:[]);
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,255,255,.82)';
+    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
+    ctx.fillStyle='#512b1a';
+    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
+  });
+  ctx.setLineDash([]);
+  if(tempRect){
+    ctx.strokeStyle='#16866f';
+    ctx.strokeRect(tempRect.x*p.width,tempRect.y*p.height,tempRect.w*p.width,tempRect.h*p.height);
+  }
+}
+function renderRanges(){
+  const box=$('#ranges'),r=rangesFor();box.innerHTML='';
+  if(!r.length){box.innerHTML='<div class="empty">まだ範囲はありません。</div>';return}
+  r.forEach((x,i)=>{
+    const row=document.createElement('div');row.className='rangeRow';
+    const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
+    c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
+    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
+    const d=document.createElement('button');d.className='del';d.textContent='×';
+    d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
+    row.append(c,n,d);box.appendChild(row);
+  });
+}
+function renderPageSelect(){
+  const sel=$('#pageSelect');sel.innerHTML='';
+  PAGES.forEach((p,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=`${p.label}　${i+1}/${PAGES.length}`;
+    if(i===idx)o.selected=true;sel.appendChild(o);
+  });
+}
+function loadPage(){
+  const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
+  base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  // canvasの実画素数は常に原寸。倍率変更では変更しない。
+  if(oc.width!==p.width) oc.width=p.width;
+  if(oc.height!==p.height) oc.height=p.height;
+  if(dc.width!==p.width) dc.width=p.width;
+  if(dc.height!==p.height) dc.height=p.height;
+  $('#pageInfo').textContent=`イスラーム史（No.081原本待ち）　${p.label}`;
+  renderPageSelect();renderRanges();applyZoom();drawOverlays();drawGuides();
+}
+function point(e){
+  const b=dc.getBoundingClientRect();
+  return{x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))}
+}
+dc.addEventListener('pointerdown',e=>{
+  if(!drawing)return;e.preventDefault();dc.setPointerCapture(e.pointerId);
+  dragStart=point(e);tempRect={x:dragStart.x,y:dragStart.y,w:0,h:0};drawGuides()
+});
+dc.addEventListener('pointermove',e=>{
+  if(!drawing||!dragStart)return;e.preventDefault();const p=point(e);
+  tempRect={x:Math.min(p.x,dragStart.x),y:Math.min(p.y,dragStart.y),w:Math.abs(p.x-dragStart.x),h:Math.abs(p.y-dragStart.y)};drawGuides()
+});
+dc.addEventListener('pointerup',e=>{
+  if(!drawing||!tempRect)return;e.preventDefault();
+  if(tempRect.w>.015&&tempRect.h>.015){
+    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
+    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+  }
+  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+});
+$('#orangeToggle').onchange=drawOverlays;
+$('#greenToggle').onchange=drawOverlays;
+$('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#rangeMode').onclick=()=>{mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
+$('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
+$('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
+$('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+
+// Mobile pinch zoom (50%–200%)
+let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
+let pinchCenterX=0, pinchCenterY=0;
+function touchDistance(touches){
+  const dx=touches[0].clientX-touches[1].clientX;
+  const dy=touches[0].clientY-touches[1].clientY;
+  return Math.hypot(dx,dy);
+}
+let pinchFrame=0,pendingPinchZoom=100;
+function beginPinch(e){
+  if(e.touches.length!==2 || drawing)return;
+  const scroller=$('#scroller');
+  const rect=scroller.getBoundingClientRect();
+  pinchStartDistance=touchDistance(e.touches);
+  pinchStartZoom=zoom;
+  pendingPinchZoom=zoom;
+  pinchStartScrollLeft=scroller.scrollLeft;
+  pinchStartScrollTop=scroller.scrollTop;
+  pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2-rect.left;
+  pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2-rect.top;
+  stage.classList.add('pinching');
+  e.preventDefault();
+}
+function flushPinch(){
+  pinchFrame=0;
+  const scroller=$('#scroller');
+  zoom=pendingPinchZoom;
+  applyZoom();
+  const ratio=zoom/pinchStartZoom;
+  scroller.scrollLeft=(pinchStartScrollLeft+pinchCenterX)*ratio-pinchCenterX;
+  scroller.scrollTop=(pinchStartScrollTop+pinchCenterY)*ratio-pinchCenterY;
+}
+function movePinch(e){
+  if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
+  e.preventDefault();
+  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
+  if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
+}
+function endPinch(e){
+  if(e.touches.length<2){
+    if(pinchFrame){cancelAnimationFrame(pinchFrame);flushPinch();}
+    pinchStartDistance=0;
+    stage.classList.remove('pinching');
+  }
+}
+
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>applyZoom(),80)},{passive:true});
+const scrollerEl=$('#scroller');
+scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
+scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
+scrollerEl.addEventListener('touchend',endPinch,{passive:true});
+scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+loadPage();
+</script>
+</body>
+</html>

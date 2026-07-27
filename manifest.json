@@ -1,0 +1,143 @@
+{
+  "name": "古プリ比較システム",
+  "version": 1,
+  "updated": "2026-07-27",
+  "ranges": [
+    {
+      "id": "No001-009",
+      "start": 1,
+      "end": 9,
+      "title": "古代オリエント・ギリシャ・ヘレニズム",
+      "file": "pages/No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
+      "pages": 17
+    },
+    {
+      "id": "No010-015",
+      "start": 10,
+      "end": 15,
+      "title": "古代ローマ",
+      "file": "pages/No010-015_古代ローマ.html",
+      "pages": 13
+    },
+    {
+      "id": "No016-018",
+      "start": 16,
+      "end": 18,
+      "title": "古代インド",
+      "file": "pages/No016-018_古代インド.html",
+      "pages": 6
+    },
+    {
+      "id": "No019-021",
+      "start": 19,
+      "end": 21,
+      "title": "東南アジアの諸文明",
+      "file": "pages/No019-021_東南アジアの諸文明.html",
+      "pages": 5
+    },
+    {
+      "id": "No022-040",
+      "start": 22,
+      "end": 40,
+      "title": "中国史〜元",
+      "file": "pages/No022-040_中国史〜元.html",
+      "pages": 37
+    },
+    {
+      "id": "No041-046",
+      "start": 41,
+      "end": 46,
+      "title": "明・清",
+      "file": "pages/No041-046_明・清.html",
+      "pages": 11
+    },
+    {
+      "id": "No047-069",
+      "start": 47,
+      "end": 69,
+      "title": "ローマ分裂〜大航海時代",
+      "file": "pages/No047-069_ローマ分裂〜大航海時代.html",
+      "pages": 37
+    },
+    {
+      "id": "No070-081",
+      "start": 70,
+      "end": 81,
+      "title": "イスラーム史",
+      "file": "pages/No070-081_イスラーム史.html",
+      "pages": 24
+    },
+    {
+      "id": "No082-084",
+      "start": 82,
+      "end": 84,
+      "title": "大航海",
+      "file": "pages/No082-084_大航海.html",
+      "pages": 5
+    },
+    {
+      "id": "No085",
+      "start": 85,
+      "end": 85,
+      "title": "ルネサンス",
+      "file": "pages/No085_ルネサンス.html",
+      "pages": 3
+    },
+    {
+      "id": "No086-104",
+      "start": 86,
+      "end": 104,
+      "title": "宗教改革〜産業革命",
+      "file": "pages/No086-104_宗教改革〜産業革命.html",
+      "pages": 36
+    },
+    {
+      "id": "No105-108",
+      "start": 105,
+      "end": 108,
+      "title": "アメリカの成立",
+      "file": "pages/No105-108_アメリカの成立.html",
+      "pages": 7
+    },
+    {
+      "id": "No109-114",
+      "start": 109,
+      "end": 114,
+      "title": "フランス革命",
+      "file": "pages/No109-114_フランス革命.html",
+      "pages": 12
+    },
+    {
+      "id": "No115-123",
+      "start": 115,
+      "end": 123,
+      "title": "ウィーン体制と各国の統一",
+      "file": "pages/No115-123_ウィーン体制と各国の統一.html",
+      "pages": 20
+    },
+    {
+      "id": "No124-126",
+      "start": 124,
+      "end": 126,
+      "title": "東アジアの激動",
+      "file": "pages/No124-126_東アジアの激動.html",
+      "pages": 6
+    },
+    {
+      "id": "No127-129",
+      "start": 127,
+      "end": 129,
+      "title": "帝国主義の植民地支配",
+      "file": "pages/No127-129_帝国主義の植民地支配.html",
+      "pages": 6
+    },
+    {
+      "id": "No130-135",
+      "start": 130,
+      "end": 135,
+      "title": "第一次世界大戦への道",
+      "file": "pages/No130-135_第一次世界大戦への道.html",
+      "pages": 13
+    }
+  ]
+}

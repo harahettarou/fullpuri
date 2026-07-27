@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>古プリ 解答レイヤー｜ウィーン体制と各国の統一</title>
+<style>
+:root{
+  --bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;
+  --accent:#de6f3c;--green:#16866f;--shadow:0 12px 35px rgba(34,28,20,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr}
+.top{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:max(9px,env(safe-area-inset-top)) 12px 9px;
+  display:flex;gap:10px;align-items:center;z-index:20
+}
+.brand{font-weight:800;white-space:nowrap}
+.privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
+.topspacer{flex:1}
+.main{min-height:0;display:grid;grid-template-columns:290px 1fr}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.sectionTitle{font-weight:800;margin:4px 0 10px}
+.help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
+.ranges{display:grid;gap:7px}
+.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
+.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{border:0;background:transparent;color:#a34734;font-size:18px}
+.empty{font-size:13px;color:var(--sub)}
+.viewer{min-width:0;min-height:0;display:grid;grid-template-rows:auto 1fr auto}
+.controls{
+  background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center
+}
+.switchWrap{display:flex;align-items:center;gap:7px;font-size:14px}
+.switch{position:relative;width:44px;height:25px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#c9c5bd;border-radius:99px;transition:.2s}
+.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 4px #777;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch.green input:checked+.slider{background:var(--green)}
+.switch input:checked+.slider:before{transform:translateX(19px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 11px}
+.seg button.active{background:#25231f;color:#fff}
+.action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
+.action.primary{background:#25231f;color:#fff;border-color:#25231f}
+.pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
+.scroller{min-height:0;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
+.stage img{display:block;width:100%;height:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+#overlayCanvas{pointer-events:none}
+#drawCanvas{cursor:crosshair;pointer-events:none;touch-action:none}
+.stage.drawing #drawCanvas{pointer-events:auto}
+.stage.drawing{touch-action:none}
+.stage.pinching{will-change:width}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
+.nav{
+  background:#fff;border-top:1px solid var(--line);
+  padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom));
+  display:flex;justify-content:center;gap:8px;align-items:center
+}
+.nav button,.nav select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px}
+.zoom{display:flex;align-items:center;gap:8px}
+#zoomLabel{min-width:44px;text-align:center}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1}
+@media(max-width:760px){
+  .main{grid-template-columns:1fr}
+  .side{display:none}
+  .top{font-size:14px}
+  .privacy{display:none}
+  .controls{padding:7px;gap:7px}
+  .controls .action{padding:7px 9px}
+  .pageInfo{width:100%;margin:0;text-align:right}
+  .scroller{padding:8px}
+  .nav{gap:5px}
+  .nav button,.nav select{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">古プリ 解答レイヤー</div>
+    <div class="privacy">高速静的サイト版</div>
+    <div class="topspacer"></div>
+    <div>大航海</div>
+  </header>
+  <div class="main">
+    <aside class="side">
+      <div class="sectionTitle">指定範囲</div>
+      <div class="help">
+        「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
+        範囲は端末内に保存されます。
+      </div>
+      <div class="ranges" id="ranges"></div>
+    </aside>
+    <section class="viewer">
+      <div class="controls">
+        <label class="switchWrap">
+          <span class="switch"><input id="orangeToggle" type="checkbox" checked><span class="slider"></span></span>
+          オレンジ文字
+        </label>
+        <label class="switchWrap">
+          <span class="switch green"><input id="greenToggle" type="checkbox" checked><span class="slider"></span></span>
+          緑マーカー
+        </label>
+        <div class="seg">
+          <button id="allMode" class="active">全体</button>
+          <button id="rangeMode">指定範囲</button>
+        </div>
+        <button class="action primary" id="addRange">＋ 範囲を追加</button>
+        <button class="action" id="clearRanges">範囲を削除</button>
+        <div class="pageInfo" id="pageInfo"></div>
+      </div>
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage">
+          <img id="baseImg" alt="古プリ">
+          <canvas id="overlayCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+          <div class="loading" id="loading">PDF原本を読み込み中…</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="prev">← 前</button>
+        <select id="pageSelect"></select>
+        <button id="next">次 →</button>
+        <div class="zoom">
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// KOPURI_HIGH_SPEED_V1: full-quality rendering, redraw-free zoom
+const PAGES=[{"key":"No130_p1","no":130,"part":1,"parts":2,"label":"No.130（1/2）","width":1600,"height":2280,"base":"../assets/No130-135/No130_p1_base.jpg","baseOff":"../assets/No130-135/No130_p1_baseOff.jpg","hide":[[872,244,370,45],[426,302,155,37],[255,406,171,42],[878,452,232,40],[891,628,316,43],[212,711,129,34],[961,721,105,39],[258,831,169,34],[648,1181,311,42],[650,1271,108,34],[908,1273,81,34],[386,1333,162,38],[336,1578,98,43],[375,1674,142,31]],"keep":[],"greenHide":[{"x":449,"y":586,"width":152,"height":25,"color":"#58cf68"},{"x":228,"y":1405,"width":146,"height":26,"color":"#58cf68"},{"x":344,"y":1634,"width":154,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No130_p2","no":130,"part":2,"parts":2,"label":"No.130（2/2）","width":1600,"height":2280,"base":"../assets/No130-135/No130_p2_base.jpg","baseOff":"../assets/No130-135/No130_p2_baseOff.jpg","hide":[[203,44,181,42],[373,409,241,35],[209,511,116,32],[194,697,290,37],[883,875,228,44],[245,1079,227,30],[544,1162,94,31],[377,1247,100,30],[1042,1084,177,33],[1022,1163,236,31],[551,1365,154,44],[705,1454,131,38]],"keep":[],"greenHide":[{"x":973,"y":705,"width":129,"height":28,"color":"#58cf68"},{"x":318,"y":1122,"width":130,"height":25,"color":"#58cf68"},{"x":586,"y":1123,"width":131,"height":21,"color":"#58cf68"},{"x":240,"y":1361,"width":172,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No131_p1","no":131,"part":1,"parts":2,"label":"No.131（1/2）","width":1600,"height":2280,"base":"../assets/No130-135/No131_p1_base.jpg","baseOff":"../assets/No130-135/No131_p1_baseOff.jpg","hide":[[1043,135,154,35],[1045,188,199,26],[1050,224,188,24],[1071,266,109,20],[1075,306,148,23],[1078,343,164,23],[1075,381,152,29],[1117,522,120,40],[1123,579,114,35],[769,916,90,34],[924,964,151,27],[1039,1041,146,34],[796,1041,111,34],[402,1214,72,43],[491,1216,121,40],[168,1273,90,40],[289,1324,243,36],[173,1484,179,38],[342,1571,60,36]],"keep":[],"greenHide":[{"x":1085,"y":914,"width":152,"height":42,"color":"#58cf68"},{"x":471,"y":1282,"width":118,"height":28,"color":"#58cf68"}],"numberPairs":[]},{"key":"No131_p2","no":131,"part":2,"parts":2,"label":"No.131（2/2）","width":1600,"height":2280,"base":"../assets/No130-135/No131_p2_base.jpg","baseOff":"../assets/No130-135/No131_p2_baseOff.jpg","hide":[[155,146,160,44],[503,244,121,32],[765,127,99,32],[752,181,148,33],[206,334,141,35],[377,423,62,29],[194,745,149,43],[945,739,86,34],[801,780,101,33],[136,964,195,39],[422,1356,89,31],[616,1355,65,36],[313,1402,93,35],[164,1641,141,44],[388,1743,82,37],[743,1607,86,45],[355,1836,192,44]],"keep":[],"greenHide":[{"x":154,"y":1227,"width":192,"height":33,"color":"#58cf68"},{"x":229,"y":381,"width":75,"height":32,"color":"#58cf68"},{"x":608,"y":391,"width":148,"height":24,"color":"#58cf68"},{"x":290,"y":464,"width":177,"height":26,"color":"#58cf68"},{"x":207,"y":1046,"width":33,"height":30,"color":"#58cf68"},{"x":267,"y":1051,"width":151,"height":20,"color":"#58cf68"},{"x":824,"y":1762,"width":248,"height":33,"color":"#58cf68"}],"numberPairs":[]},{"key":"No132_p1","no":132,"part":1,"parts":2,"label":"No.132（1/2）","width":1600,"height":2280,"base":"../assets/No130-135/No132_p1_base.jpg","baseOff":"../assets/No130-135/No132_p1_baseOff.jpg","hide":[[711,151,412,48],[964,222,168,35],[206,435,324,36],[281,524,165,34],[869,491,333,37],[802,576,102,36],[886,727,168,47]],"keep":[],"greenHide":[{"x":131,"y":518,"width":92,"height":35,"color":"#58cf68"}],"numberPairs":[{"id":"rms1233ln_5546","body":[803,1250,137,39],"answer":[149,1702,143,35],"bodyPageKey":"No132_p1","answerPageKey":"No132_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"血の日曜日","fontSize":34},{"id":"rms123dm4_5551","body":[159,1290,155,36],"answer":[407,1705,145,38],"bodyPageKey":"No132_p1","answerPageKey":"No132_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ポーツマス","fontSize":34},{"id":"rms123vsk_5556","body":[776,1291,140,40],"answer":[658,1712,291,48],"bodyPageKey":"No132_p1","answerPageKey":"No132_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"セオドア=ルーズベルト","fontSize":34},{"id":"rms1249h6_5561","body":[415,1377,140,40],"answer":[1125,1727,60,33],"bodyPageKey":"No132_p1","answerPageKey":"No132_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"旅順","fontSize":34},{"id":"rms124iow_5566","body":[583,1376,136,41],"answer":[1203,1728,69,39],"bodyPageKey":"No132_p1","answerPageKey":"No132_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"大連","fontSize":34}]},{"key":"No132_p2","no":132,"part":2,"parts":2,"label":"No.132（2/2）","width":1600,"height":2280,"base":"../assets/No130-135/No132_p2_base.jpg","baseOff":"../assets/No130-135/No132_p2_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No133_p1","no":133,"part":1,"parts":2,"label":"No.133（1/2）","width":1600,"height":2280,"base":"../assets/No130-135/No133_p1_base.jpg","baseOff":"../assets/No130-135/No133_p1_baseOff.jpg","hide":[[171,476,125,38],[232,766,183,33],[572,770,209,28],[544,883,320,41],[690,1063,256,46],[644,1208,176,30],[147,1329,98,31],[1086,1401,147,47],[402,1453,202,40],[357,1503,277,38]],"keep":[],"greenHide":[{"x":1333,"y":221,"width":31,"height":21,"color":"#58cf68"},{"x":63,"y":267,"width":77,"height":22,"color":"#58cf68"},{"x":307,"y":267,"width":98,"height":23,"color":"#58cf68"},{"x":255,"y":964,"width":212,"height":27,"color":"#58cf68"},{"x":236,"y":1180,"width":281,"height":29,"color":"#58cf68"},{"x":871,"y":1289,"width":312,"height":31,"color":"#58cf68"},{"x":786,"y":1391,"width":127,"height":22,"color":"#58cf68"},{"x":792,"y":1424,"width":159,"height":23,"color":"#58cf68"},{"x":794,"y":1457,"width":107,"height":25,"color":"#58cf68"},{"x":806,"y":1531,"width":78,"height":20,"color":"#58cf68"},{"x":912,"y":1522,"width":164,"height":29,"color":"#58cf68"},{"x":162,"y":1239,"width":107,"height":48,"color":"#58cf68"},{"x":389,"y":1241,"width":101,"height":51,"color":"#58cf68"}],"numberPairs":[]},{"key":"No133_p2","no":133,"part":2,"parts":2,"label":"No.133（2/2）","width":1600,"height":2280,"base":"../assets/No130-135/No133_p2_base.jpg","baseOff":"../assets/No130-135/No133_p2_baseOff.jpg","hide":[[883,1609,412,39]],"keep":[],"greenHide":[{"x":205,"y":765,"width":67,"height":40,"color":"#58cf68"},{"x":287,"y":770,"width":104,"height":34,"color":"#58cf68"},{"x":421,"y":773,"width":83,"height":30,"color":"#58cf68"},{"x":622,"y":768,"width":96,"height":34,"color":"#58cf68"},{"x":732,"y":773,"width":78,"height":28,"color":"#58cf68"},{"x":846,"y":772,"width":104,"height":31,"color":"#58cf68"},{"x":764,"y":686,"width":189,"height":30,"color":"#58cf68"},{"x":1028,"y":684,"width":146,"height":33,"color":"#58cf68"},{"x":510,"y":679,"width":199,"height":37,"color":"#58cf68"},{"x":588,"y":196,"width":359,"height":30,"color":"#58cf68"},{"x":988,"y":992,"width":66,"height":34,"color":"#58cf68"},{"x":212,"y":1210,"width":292,"height":33,"color":"#58cf68"},{"x":326,"y":1086,"width":105,"height":24,"color":"#58cf68"},{"x":342,"y":1261,"width":83,"height":27,"color":"#58cf68"},{"x":564,"y":1483,"width":178,"height":28,"color":"#58cf68"},{"x":424,"y":1434,"width":68,"height":34,"color":"#58cf68"},{"x":627,"y":1613,"width":133,"height":40,"color":"#58cf68"},{"x":421,"y":1837,"width":159,"height":30,"color":"#58cf68"},{"x":631,"y":1882,"width":237,"height":29,"color":"#58cf68"}],"numberPairs":[{"id":"rms16hoqr_4213","body":[251,145,149,38],"answer":[86,104,197,45],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"サラエボ","fontSize":34},{"id":"rms16i4a3_4218","body":[333,588,135,39],"answer":[82,151,101,39],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"総力","fontSize":34},{"id":"rms16ilrs_4223","body":[615,896,147,44],"answer":[79,196,117,29],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ベルギー","fontSize":34},{"id":"rms16iya7_4228","body":[398,947,115,32],"answer":[81,233,196,41],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"タンネンベルク","fontSize":34},{"id":"rms16ja63_4233","body":[323,987,125,45],"answer":[81,286,88,33],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"マルヌ","fontSize":34},{"id":"rms16jtes_4238","body":[1055,1082,128,41],"answer":[85,334,164,30],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ルシタニア","fontSize":34},{"id":"rms16ka7d_4243","body":[349,1345,153,35],"answer":[86,375,226,39],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"無制限潜水艦","fontSize":34},{"id":"rms16kpo9_4248","body":[576,1524,137,39],"answer":[81,422,147,33],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ロシア革命","fontSize":34},{"id":"rms16l1vb_4253","body":[452,1610,147,45],"answer":[456,97,146,42],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ウィルソン","fontSize":34},{"id":"rms16lspa_4258","body":[535,1657,154,37],"answer":[474,147,257,39],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ブレスト=リトフスク","fontSize":34},{"id":"rms16m5bn_4263","body":[570,1745,160,37],"answer":[467,196,154,32],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"キール","fontSize":34},{"id":"rms16mglh_4268","body":[599,1790,127,31],"answer":[467,238,88,30],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"レーテ","fontSize":34},{"id":"rms16mui3_4273","body":[1012,1793,133,31],"answer":[470,280,227,39],"bodyPageKey":"No133_p2","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ヴィルヘルム2世","fontSize":34}]},{"key":"No134_p1","no":134,"part":1,"parts":2,"label":"No.134（1/2）","width":1600,"height":2280,"base":"../assets/No130-135/No134_p1_base.jpg","baseOff":"../assets/No130-135/No134_p1_baseOff.jpg","hide":[[192,153,151,39],[663,199,226,36],[656,379,467,37],[994,512,97,36],[186,557,358,32],[203,685,259,38],[197,773,164,39],[954,648,126,34],[404,860,236,38],[156,902,66,25],[353,897,259,54],[647,907,117,34],[982,952,158,48],[406,1034,81,43],[771,1131,337,41],[357,1219,191,37],[592,1216,85,42],[380,1269,52,35],[373,1843,243,36],[1023,1848,142,35],[297,1891,107,31],[790,1885,147,38]],"keep":[],"greenHide":[{"x":152,"y":738,"width":106,"height":27,"color":"#58cf68"},{"x":285,"y":738,"width":118,"height":29,"color":"#58cf68"},{"x":423,"y":741,"width":81,"height":26,"color":"#58cf68"},{"x":400,"y":608,"width":103,"height":24,"color":"#58cf68"},{"x":563,"y":823,"width":217,"height":37,"color":"#58cf68"},{"x":1078,"y":1082,"width":50,"height":28,"color":"#58cf68"},{"x":100,"y":1398,"width":251,"height":35,"color":"#58cf68"},{"x":313,"y":1449,"width":118,"height":27,"color":"#58cf68"},{"x":461,"y":1440,"width":119,"height":41,"color":"#58cf68"},{"x":606,"y":1443,"width":131,"height":42,"color":"#58cf68"},{"x":310,"y":1666,"width":191,"height":37,"color":"#58cf68"},{"x":569,"y":1496,"width":44,"height":27,"color":"#58cf68"},{"x":309,"y":1538,"width":192,"height":28,"color":"#58cf68"},{"x":393,"y":1624,"width":110,"height":32,"color":"#58cf68"},{"x":528,"y":1629,"width":78,"height":25,"color":"#58cf68"},{"x":870,"y":1671,"width":133,"height":38,"color":"#58cf68"},{"x":475,"y":1715,"width":52,"height":29,"color":"#58cf68"},{"x":637,"y":1718,"width":53,"height":28,"color":"#58cf68"},{"x":955,"y":1722,"width":106,"height":28,"color":"#58cf68"},{"x":758,"y":1764,"width":84,"height":27,"color":"#58cf68"},{"x":86,"y":1844,"width":185,"height":30,"color":"#58cf68"},{"x":87,"y":1888,"width":137,"height":33,"color":"#58cf68"},{"x":757,"y":1849,"width":179,"height":35,"color":"#58cf68"},{"x":579,"y":1893,"width":133,"height":30,"color":"#58cf68"}],"numberPairs":[{"id":"rms16oix5_4278","body":[320,1488,141,36],"answer":[463,328,144,32],"bodyPageKey":"No134_p1","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ザール","fontSize":34},{"id":"rms16osit_4283","body":[320,1577,142,36],"answer":[469,373,138,27],"bodyPageKey":"No134_p1","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ダンツィヒ","fontSize":34},{"id":"rms16par1_4288","body":[480,1757,131,39],"answer":[469,414,171,42],"bodyPageKey":"No134_p1","answerPageKey":"No134_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ロンドン","fontSize":34}]},{"key":"No134_p2","no":134,"part":2,"parts":2,"label":"No.134（2/2）","width":1600,"height":2280,"base":"../assets/No130-135/No134_p2_base.jpg","baseOff":"../assets/No130-135/No134_p2_baseOff.jpg","hide":[[147,759,80,37],[282,850,155,37],[621,855,154,37],[307,939,256,37],[320,1000,181,37],[289,1064,116,38],[487,1071,112,32],[304,1120,295,35],[225,1171,181,37],[67,1263,185,33],[347,1573,358,35],[270,1752,201,38],[261,1805,93,34],[440,1809,124,33],[1000,1863,120,36]],"keep":[],"greenHide":[{"x":563,"y":1191,"width":83,"height":21,"color":"#58cf68"},{"x":112,"y":1405,"width":245,"height":24,"color":"#58cf68"},{"x":545,"y":1527,"width":32,"height":31,"color":"#58cf68"}],"numberPairs":[]},{"key":"No135_p1","no":135,"part":1,"parts":3,"label":"No.135（1/3）","width":1600,"height":2280,"base":"../assets/No130-135/No135_p1_base.jpg","baseOff":"../assets/No130-135/No135_p1_baseOff.jpg","hide":[[292,157,165,31],[296,273,126,33],[296,394,120,39],[440,524,281,42],[922,612,391,42],[113,1425,167,36],[892,1505,334,46]],"keep":[],"greenHide":[{"x":470,"y":206,"width":168,"height":26,"color":"#58cf68"},{"x":584,"y":286,"width":28,"height":21,"color":"#58cf68"},{"x":635,"y":284,"width":31,"height":25,"color":"#58cf68"},{"x":694,"y":289,"width":38,"height":20,"color":"#58cf68"},{"x":764,"y":287,"width":30,"height":20,"color":"#58cf68"},{"x":309,"y":320,"width":300,"height":28,"color":"#58cf68"},{"x":464,"y":358,"width":138,"height":26,"color":"#58cf68"},{"x":586,"y":405,"width":38,"height":24,"color":"#58cf68"},{"x":645,"y":405,"width":31,"height":23,"color":"#58cf68"},{"x":694,"y":404,"width":48,"height":30,"color":"#58cf68"},{"x":763,"y":410,"width":34,"height":23,"color":"#58cf68"},{"x":821,"y":411,"width":32,"height":23,"color":"#58cf68"},{"x":868,"y":410,"width":42,"height":26,"color":"#58cf68"},{"x":932,"y":413,"width":43,"height":23,"color":"#58cf68"},{"x":1073,"y":412,"width":38,"height":24,"color":"#58cf68"},{"x":1002,"y":411,"width":50,"height":26,"color":"#58cf68"},{"x":312,"y":444,"width":173,"height":25,"color":"#58cf68"},{"x":505,"y":445,"width":312,"height":25,"color":"#58cf68"},{"x":713,"y":482,"width":206,"height":30,"color":"#58cf68"},{"x":458,"y":578,"width":62,"height":26,"color":"#58cf68"}],"numberPairs":[]},{"key":"No135_p2","no":135,"part":2,"parts":3,"label":"No.135（2/3）","width":1600,"height":2280,"base":"../assets/No130-135/No135_p2_base.jpg","baseOff":"../assets/No130-135/No135_p2_baseOff.jpg","hide":[[695,569,151,53],[554,674,78,17],[629,916,196,39],[823,1473,203,24],[838,1497,158,36]],"keep":[],"greenHide":[{"x":130,"y":150,"width":211,"height":36,"color":"#58cf68"},{"x":506,"y":157,"width":109,"height":29,"color":"#58cf68"},{"x":995,"y":249,"width":105,"height":30,"color":"#58cf68"},{"x":101,"y":512,"width":259,"height":26,"color":"#58cf68"},{"x":1160,"y":425,"width":130,"height":31,"color":"#58cf68"},{"x":585,"y":515,"width":78,"height":24,"color":"#58cf68"},{"x":380,"y":557,"width":105,"height":26,"color":"#58cf68"},{"x":156,"y":777,"width":246,"height":30,"color":"#58cf68"},{"x":424,"y":911,"width":109,"height":27,"color":"#58cf68"},{"x":800,"y":999,"width":211,"height":33,"color":"#58cf68"},{"x":284,"y":1043,"width":133,"height":24,"color":"#58cf68"},{"x":152,"y":1130,"width":139,"height":26,"color":"#58cf68"},{"x":130,"y":1306,"width":322,"height":33,"color":"#58cf68"},{"x":338,"y":1354,"width":189,"height":29,"color":"#58cf68"},{"x":511,"y":1404,"width":189,"height":24,"color":"#58cf68"},{"x":211,"y":1617,"width":231,"height":36,"color":"#58cf68"},{"x":752,"y":1671,"width":165,"height":24,"color":"#58cf68"},{"x":867,"y":1845,"width":233,"height":33,"color":"#58cf68"},{"x":208,"y":1844,"width":191,"height":27,"color":"#58cf68"}],"numberPairs":[{"id":"rms16vc1r_4348","body":[202,238,135,36],"answer":[140,1673,187,28],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ホセ=リサール","fontSize":34},{"id":"rms17nv9d_4353","body":[153,378,141,33],"answer":[145,1713,140,30],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アギナルド","fontSize":34},{"id":"rms17ow3e_4360","body":[145,596,142,38],"answer":[145,1755,259,37],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ファン=ボイ=チャウ","fontSize":34},{"id":"rms17pe7h_4365","body":[331,634,144,40],"answer":[146,1803,90,28],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"維新会","fontSize":34},{"id":"rms17q7pk_4370","body":[525,685,152,36],"answer":[146,1844,246,39],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ドンズー","fontSize":34},{"id":"rms17t1a0_4375","body":[768,868,117,27],"answer":[151,1888,159,36],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ドンキン義塾","fontSize":34},{"id":"rms17xh7k_4380","body":[255,1077,150,41],"answer":[802,1681,500,37],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"サレカット=イスラーム(イスラーム同盟)","fontSize":34},{"id":"rms17xwre_4385","body":[819,1352,143,36],"answer":[798,1723,175,29],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アフガーニー","fontSize":34},{"id":"rms17yhob_4390","body":[897,1574,148,36],"answer":[794,1764,142,34],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"青年トルコ","fontSize":34},{"id":"rms181hr1_4395","body":[923,1710,161,33],"answer":[800,1804,248,40],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"エンヴォル=パシャ","fontSize":34},{"id":"rms183nod_4400","body":[880,1798,161,33],"answer":[800,1849,291,38],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"タバコ=ボイコット","fontSize":34},{"id":"rms1853uw_4405","body":[212,1885,143,30],"answer":[809,1899,118,34],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"英露協商","fontSize":34},{"id":"rms185nj1_4410","body":[229,1795,120,35],"answer":[798,1723,174,28],"bodyPageKey":"No135_p2","answerPageKey":"No135_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アフガーニー","fontSize":34}]},{"key":"No135_p3","no":135,"part":3,"parts":3,"label":"No.135（3/3）","width":1600,"height":2280,"base":"../assets/No130-135/No135_p3_base.jpg","baseOff":"../assets/No130-135/No135_p3_baseOff.jpg","hide":[[225,556,49,277],[168,186,48,212],[107,157,43,121],[157,506,55,321],[92,621,60,204]],"keep":[],"greenHide":[],"numberPairs":[]}];
+const $=s=>document.querySelector(s);
+const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
+let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
+const storageKey='kopuri-ranges-'+"No082-084_大航海-v5";
+const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+
+function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
+function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
+
+function applyZoom(options={}){
+  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  const scroller=$('#scroller');
+  const available=Math.max(280,scroller.clientWidth-36);
+  const baseWidth=Math.min(980,available);
+  stage.style.width=Math.round(baseWidth*zoom/100)+'px';
+  stage.style.height='auto';
+  $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
+  // canvasは元画像と同じ解像度のままCSSだけで拡大する。
+  // 画質を維持しつつ、ズームごとの高解像度再描画を避ける。
+  if(options.redraw===true){
+    requestAnimationFrame(()=>{drawOverlays();drawGuides()});
+  }
+}
+function drawCoverRect(ctx,r,p,fill='#fff'){
+  ctx.fillStyle=fill;
+  ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawGreenRect(ctx,r,p){
+  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
+  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+}
+function fittedFontSize(ctx,text,r,maxSize){
+  const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
+  let size=Math.min(Number(maxSize)||34,maxH);
+  for(;size>=8;size--){
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    const m=ctx.measureText(text);
+    const h=(m.actualBoundingBoxAscent||size*.8)+(m.actualBoundingBoxDescent||size*.2);
+    if(m.width<=maxW && h<=maxH) return size;
+  }
+  return 8;
+}
+function applyNumberPairsOn(ctx,p){
+  (p.numberPairs||[]).forEach(pair=>{
+    if(pair.answer && pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+    if(pair.body && pair.bodyPageKey===p.key){
+      const r=pair.body,text=String(pair.answerText||'');
+      drawCoverRect(ctx,r,p,'#fff');
+      ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+      const size=fittedFontSize(ctx,text,r,pair.fontSize);
+      ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+      ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+      ctx.restore();
+    }
+  });
+}
+function drawState(ctx,p){
+  if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+}
+function drawOverlays(){
+  const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode==='all') drawState(ctx,p);
+  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
+function drawGuides(){
+  const p=PAGES[idx],ctx=dc.getContext('2d');
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode!=='range'&&!drawing)return;
+  ctx.lineWidth=Math.max(2,p.width/500);
+  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
+  rangesFor().forEach(r=>{
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
+    ctx.setLineDash(r.enabled===false?[8,7]:[]);
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,255,255,.82)';
+    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
+    ctx.fillStyle='#512b1a';
+    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
+  });
+  ctx.setLineDash([]);
+  if(tempRect){
+    ctx.strokeStyle='#16866f';
+    ctx.strokeRect(tempRect.x*p.width,tempRect.y*p.height,tempRect.w*p.width,tempRect.h*p.height);
+  }
+}
+function renderRanges(){
+  const box=$('#ranges'),r=rangesFor();box.innerHTML='';
+  if(!r.length){box.innerHTML='<div class="empty">まだ範囲はありません。</div>';return}
+  r.forEach((x,i)=>{
+    const row=document.createElement('div');row.className='rangeRow';
+    const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
+    c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
+    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
+    const d=document.createElement('button');d.className='del';d.textContent='×';
+    d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
+    row.append(c,n,d);box.appendChild(row);
+  });
+}
+function renderPageSelect(){
+  const sel=$('#pageSelect');sel.innerHTML='';
+  PAGES.forEach((p,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=`${p.label}　${i+1}/${PAGES.length}`;
+    if(i===idx)o.selected=true;sel.appendChild(o);
+  });
+}
+function loadPage(){
+  const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
+  base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  // canvasの実画素数は常に原寸。倍率変更では変更しない。
+  if(oc.width!==p.width) oc.width=p.width;
+  if(oc.height!==p.height) oc.height=p.height;
+  if(dc.width!==p.width) dc.width=p.width;
+  if(dc.height!==p.height) dc.height=p.height;
+  $('#pageInfo').textContent=`ルネサンス　${p.label}`;
+  renderPageSelect();renderRanges();applyZoom();drawOverlays();drawGuides();
+}
+function point(e){
+  const b=dc.getBoundingClientRect();
+  return{x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))}
+}
+dc.addEventListener('pointerdown',e=>{
+  if(!drawing)return;e.preventDefault();dc.setPointerCapture(e.pointerId);
+  dragStart=point(e);tempRect={x:dragStart.x,y:dragStart.y,w:0,h:0};drawGuides()
+});
+dc.addEventListener('pointermove',e=>{
+  if(!drawing||!dragStart)return;e.preventDefault();const p=point(e);
+  tempRect={x:Math.min(p.x,dragStart.x),y:Math.min(p.y,dragStart.y),w:Math.abs(p.x-dragStart.x),h:Math.abs(p.y-dragStart.y)};drawGuides()
+});
+dc.addEventListener('pointerup',e=>{
+  if(!drawing||!tempRect)return;e.preventDefault();
+  if(tempRect.w>.015&&tempRect.h>.015){
+    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
+    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+  }
+  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+});
+$('#orangeToggle').onchange=drawOverlays;
+$('#greenToggle').onchange=drawOverlays;
+$('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#rangeMode').onclick=()=>{mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
+$('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
+$('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
+$('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+
+// Mobile pinch zoom (50%–200%)
+let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
+let pinchCenterX=0, pinchCenterY=0;
+function touchDistance(touches){
+  const dx=touches[0].clientX-touches[1].clientX;
+  const dy=touches[0].clientY-touches[1].clientY;
+  return Math.hypot(dx,dy);
+}
+let pinchFrame=0,pendingPinchZoom=100;
+function beginPinch(e){
+  if(e.touches.length!==2 || drawing)return;
+  const scroller=$('#scroller');
+  const rect=scroller.getBoundingClientRect();
+  pinchStartDistance=touchDistance(e.touches);
+  pinchStartZoom=zoom;
+  pendingPinchZoom=zoom;
+  pinchStartScrollLeft=scroller.scrollLeft;
+  pinchStartScrollTop=scroller.scrollTop;
+  pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2-rect.left;
+  pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2-rect.top;
+  stage.classList.add('pinching');
+  e.preventDefault();
+}
+function flushPinch(){
+  pinchFrame=0;
+  const scroller=$('#scroller');
+  zoom=pendingPinchZoom;
+  applyZoom();
+  const ratio=zoom/pinchStartZoom;
+  scroller.scrollLeft=(pinchStartScrollLeft+pinchCenterX)*ratio-pinchCenterX;
+  scroller.scrollTop=(pinchStartScrollTop+pinchCenterY)*ratio-pinchCenterY;
+}
+function movePinch(e){
+  if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
+  e.preventDefault();
+  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
+  if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
+}
+function endPinch(e){
+  if(e.touches.length<2){
+    if(pinchFrame){cancelAnimationFrame(pinchFrame);flushPinch();}
+    pinchStartDistance=0;
+    stage.classList.remove('pinching');
+  }
+}
+
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>applyZoom(),80)},{passive:true});
+const scrollerEl=$('#scroller');
+scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
+scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
+scrollerEl.addEventListener('touchend',endPinch,{passive:true});
+scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+loadPage();
+</script>
+</body>
+</html>

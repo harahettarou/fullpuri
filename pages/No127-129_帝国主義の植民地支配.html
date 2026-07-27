@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>古プリ 解答レイヤー｜ウィーン体制と各国の統一</title>
+<style>
+:root{
+  --bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;
+  --accent:#de6f3c;--green:#16866f;--shadow:0 12px 35px rgba(34,28,20,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr}
+.top{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:max(9px,env(safe-area-inset-top)) 12px 9px;
+  display:flex;gap:10px;align-items:center;z-index:20
+}
+.brand{font-weight:800;white-space:nowrap}
+.privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
+.topspacer{flex:1}
+.main{min-height:0;display:grid;grid-template-columns:290px 1fr}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.sectionTitle{font-weight:800;margin:4px 0 10px}
+.help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
+.ranges{display:grid;gap:7px}
+.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
+.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{border:0;background:transparent;color:#a34734;font-size:18px}
+.empty{font-size:13px;color:var(--sub)}
+.viewer{min-width:0;min-height:0;display:grid;grid-template-rows:auto 1fr auto}
+.controls{
+  background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center
+}
+.switchWrap{display:flex;align-items:center;gap:7px;font-size:14px}
+.switch{position:relative;width:44px;height:25px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#c9c5bd;border-radius:99px;transition:.2s}
+.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 4px #777;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch.green input:checked+.slider{background:var(--green)}
+.switch input:checked+.slider:before{transform:translateX(19px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 11px}
+.seg button.active{background:#25231f;color:#fff}
+.action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
+.action.primary{background:#25231f;color:#fff;border-color:#25231f}
+.pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
+.scroller{min-height:0;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
+.stage img{display:block;width:100%;height:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+#overlayCanvas{pointer-events:none}
+#drawCanvas{cursor:crosshair;pointer-events:none;touch-action:none}
+.stage.drawing #drawCanvas{pointer-events:auto}
+.stage.drawing{touch-action:none}
+.stage.pinching{will-change:width}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
+.nav{
+  background:#fff;border-top:1px solid var(--line);
+  padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom));
+  display:flex;justify-content:center;gap:8px;align-items:center
+}
+.nav button,.nav select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px}
+.zoom{display:flex;align-items:center;gap:8px}
+#zoomLabel{min-width:44px;text-align:center}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1}
+@media(max-width:760px){
+  .main{grid-template-columns:1fr}
+  .side{display:none}
+  .top{font-size:14px}
+  .privacy{display:none}
+  .controls{padding:7px;gap:7px}
+  .controls .action{padding:7px 9px}
+  .pageInfo{width:100%;margin:0;text-align:right}
+  .scroller{padding:8px}
+  .nav{gap:5px}
+  .nav button,.nav select{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">古プリ 解答レイヤー</div>
+    <div class="privacy">高速静的サイト版</div>
+    <div class="topspacer"></div>
+    <div>大航海</div>
+  </header>
+  <div class="main">
+    <aside class="side">
+      <div class="sectionTitle">指定範囲</div>
+      <div class="help">
+        「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
+        範囲は端末内に保存されます。
+      </div>
+      <div class="ranges" id="ranges"></div>
+    </aside>
+    <section class="viewer">
+      <div class="controls">
+        <label class="switchWrap">
+          <span class="switch"><input id="orangeToggle" type="checkbox" checked><span class="slider"></span></span>
+          オレンジ文字
+        </label>
+        <label class="switchWrap">
+          <span class="switch green"><input id="greenToggle" type="checkbox" checked><span class="slider"></span></span>
+          緑マーカー
+        </label>
+        <div class="seg">
+          <button id="allMode" class="active">全体</button>
+          <button id="rangeMode">指定範囲</button>
+        </div>
+        <button class="action primary" id="addRange">＋ 範囲を追加</button>
+        <button class="action" id="clearRanges">範囲を削除</button>
+        <div class="pageInfo" id="pageInfo"></div>
+      </div>
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage">
+          <img id="baseImg" alt="古プリ">
+          <canvas id="overlayCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+          <div class="loading" id="loading">PDF原本を読み込み中…</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="prev">← 前</button>
+        <select id="pageSelect"></select>
+        <button id="next">次 →</button>
+        <div class="zoom">
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// KOPURI_HIGH_SPEED_V1: full-quality rendering, redraw-free zoom
+const PAGES=[{"key":"No127_p1","no":127,"part":1,"parts":2,"label":"No.127（1/2）","width":1600,"height":2280,"base":"../assets/No127-129/No127_p1_base.jpg","baseOff":"../assets/No127-129/No127_p1_baseOff.jpg","hide":[[440,375,85,44],[474,429,166,32],[644,493,91,40],[301,596,120,32],[292,638,134,35],[295,691,183,29],[1078,378,93,40],[974,429,116,34],[754,639,171,28],[778,689,149,33],[1170,644,174,25],[800,805,98,30],[965,797,82,43],[1308,1065,106,93],[364,1033,112,34],[538,1031,111,38],[295,1096,290,38],[630,1307,69,40],[730,1381,83,39],[1090,1281,93,39],[679,1548,252,44],[971,1555,74,38],[680,1603,83,38],[356,1602,96,37],[413,1771,101,31],[605,1772,139,34]],"keep":[[773,1604,22,38],[649,1596,25,39]],"greenHide":[{"x":884,"y":220,"width":159,"height":29,"color":"#58cf68"},{"x":129,"y":332,"width":204,"height":31,"color":"#58cf68"},{"x":258,"y":222,"width":166,"height":28,"color":"#58cf68"},{"x":986,"y":506,"width":192,"height":23,"color":"#58cf68"},{"x":482,"y":606,"width":117,"height":25,"color":"#58cf68"},{"x":473,"y":646,"width":126,"height":26,"color":"#58cf68"},{"x":538,"y":699,"width":122,"height":24,"color":"#58cf68"},{"x":1095,"y":730,"width":123,"height":27,"color":"#58cf68"},{"x":1154,"y":697,"width":76,"height":23,"color":"#58cf68"},{"x":455,"y":773,"width":226,"height":29,"color":"#58cf68"},{"x":361,"y":833,"width":96,"height":29,"color":"#58cf68"},{"x":520,"y":833,"width":63,"height":30,"color":"#58cf68"},{"x":568,"y":875,"width":75,"height":26,"color":"#58cf68"},{"x":441,"y":878,"width":68,"height":24,"color":"#58cf68"},{"x":134,"y":1204,"width":150,"height":34,"color":"#58cf68"}],"numberPairs":[]},{"key":"No127_p2","no":127,"part":2,"parts":2,"label":"No.127（2/2）","width":1600,"height":2280,"base":"../assets/No127-129/No127_p2_base.jpg","baseOff":"../assets/No127-129/No127_p2_baseOff.jpg","hide":[[590,179,118,39],[530,291,139,35],[640,427,54,36],[602,528,92,33],[437,571,100,30],[667,618,62,27],[1190,528,92,34],[1158,602,146,34],[1175,680,157,41],[1066,764,212,29],[1057,806,174,36],[578,758,192,34],[711,814,100,35],[528,672,243,44],[195,837,86,34],[585,913,175,30],[914,914,149,38],[367,1034,132,32],[954,990,103,46],[678,1137,148,42],[272,1142,109,35],[372,1190,64,21],[625,1242,116,36],[1041,1195,211,31],[1192,1274,115,36],[1085,1348,208,39],[1094,1424,199,37],[696,1379,73,28],[242,1287,175,42],[334,1518,186,45],[186,1598,137,41],[381,1656,340,36],[1045,1523,92,50],[901,1762,130,30],[704,1758,106,30],[1093,1802,92,35],[66,1683,165,36]],"keep":[],"greenHide":[{"x":55,"y":475,"width":116,"height":31,"color":"#58cf68"},{"x":66,"y":794,"width":100,"height":25,"color":"#58cf68"},{"x":170,"y":529,"width":183,"height":32,"color":"#58cf68"},{"x":728,"y":1068,"width":146,"height":24,"color":"#58cf68"},{"x":924,"y":1069,"width":134,"height":21,"color":"#58cf68"},{"x":1109,"y":1067,"width":108,"height":24,"color":"#58cf68"},{"x":158,"y":1357,"width":82,"height":27,"color":"#58cf68"},{"x":294,"y":1360,"width":206,"height":25,"color":"#58cf68"},{"x":957,"y":1655,"width":158,"height":33,"color":"#58cf68"},{"x":1242,"y":1625,"width":118,"height":34,"color":"#58cf68"},{"x":1134,"y":1581,"width":142,"height":27,"color":"#58cf68"},{"x":718,"y":1708,"width":87,"height":31,"color":"#58cf68"},{"x":835,"y":1708,"width":14,"height":22,"color":"#58cf68"},{"x":831,"y":1767,"width":20,"height":25,"color":"#58cf68"},{"x":900,"y":1701,"width":98,"height":32,"color":"#58cf68"},{"x":60,"y":946,"width":89,"height":25,"color":"#58cf68"},{"x":64,"y":1206,"width":79,"height":25,"color":"#58cf68"},{"x":56,"y":1476,"width":98,"height":26,"color":"#58cf68"},{"x":58,"y":1736,"width":69,"height":25,"color":"#58cf68"}],"numberPairs":[]},{"key":"No128_p1","no":128,"part":1,"parts":2,"label":"No.128（1/2）","width":1600,"height":2280,"base":"../assets/No127-129/No128_p1_base.jpg","baseOff":"../assets/No127-129/No128_p1_baseOff.jpg","hide":[[15,278,104,110],[6,430,115,122],[281,364,262,46],[305,479,163,64],[767,285,250,41],[778,420,137,36],[792,464,130,30],[1135,597,121,38],[213,785,164,38],[228,885,118,29],[250,980,96,47],[293,1202,159,50],[773,1194,143,58],[238,1322,47,42],[126,1478,192,50]],"keep":[],"greenHide":[{"x":197,"y":283,"width":302,"height":32,"color":"#58cf68"},{"x":279,"y":412,"width":139,"height":39,"color":"#58cf68"},{"x":774,"y":332,"width":94,"height":33,"color":"#58cf68"},{"x":187,"y":1376,"width":134,"height":32,"color":"#58cf68"},{"x":189,"y":1420,"width":196,"height":31,"color":"#58cf68"},{"x":443,"y":1332,"width":254,"height":37,"color":"#58cf68"},{"x":586,"y":1503,"width":176,"height":25,"color":"#58cf68"},{"x":629,"y":1729,"width":134,"height":26,"color":"#58cf68"},{"x":714,"y":1813,"width":131,"height":35,"color":"#58cf68"},{"x":122,"y":1729,"width":232,"height":37,"color":"#58cf68"},{"x":125,"y":1815,"width":291,"height":35,"color":"#58cf68"}],"numberPairs":[]},{"key":"No128_p2","no":128,"part":2,"parts":2,"label":"No.128（2/2）","width":1600,"height":2280,"base":"../assets/No127-129/No128_p2_base.jpg","baseOff":"../assets/No127-129/No128_p2_baseOff.jpg","hide":[[386,164,182,44],[929,346,188,39],[1052,318,65,37],[808,438,284,34],[548,488,218,34],[272,661,236,31],[689,815,68,34],[194,872,276,45],[232,967,168,36],[416,1063,222,34],[174,1349,310,40],[485,1398,66,34],[125,1488,137,34],[430,1551,191,34],[270,1776,109,38],[511,1826,169,48]],"keep":[],"greenHide":[{"x":96,"y":170,"width":191,"height":33,"color":"#58cf68"},{"x":309,"y":396,"width":83,"height":26,"color":"#58cf68"},{"x":199,"y":440,"width":90,"height":35,"color":"#58cf68"},{"x":676,"y":354,"width":202,"height":33,"color":"#58cf68"},{"x":369,"y":708,"width":64,"height":27,"color":"#58cf68"},{"x":818,"y":715,"width":113,"height":24,"color":"#58cf68"},{"x":603,"y":928,"width":227,"height":29,"color":"#58cf68"},{"x":764,"y":904,"width":67,"height":27,"color":"#58cf68"},{"x":668,"y":1014,"width":185,"height":29,"color":"#58cf68"},{"x":783,"y":1064,"width":79,"height":24,"color":"#58cf68"},{"x":192,"y":931,"width":108,"height":28,"color":"#58cf68"},{"x":193,"y":1021,"width":109,"height":27,"color":"#58cf68"}],"numberPairs":[]},{"key":"No129_p1","no":129,"part":1,"parts":2,"label":"No.129（1/2）","width":1600,"height":2280,"base":"../assets/No127-129/No129_p1_base.jpg","baseOff":"../assets/No127-129/No129_p1_baseOff.jpg","hide":[[786,106,136,46],[1054,121,100,37],[808,579,117,49],[942,936,123,45],[820,1386,86,35],[332,879,228,44]],"keep":[],"greenHide":[{"x":807,"y":232,"width":136,"height":34,"color":"#58cf68"},{"x":1010,"y":324,"width":200,"height":25,"color":"#58cf68"},{"x":919,"y":277,"width":133,"height":33,"color":"#58cf68"},{"x":1012,"y":415,"width":164,"height":25,"color":"#58cf68"},{"x":391,"y":540,"width":214,"height":28,"color":"#58cf68"},{"x":716,"y":540,"width":159,"height":33,"color":"#58cf68"},{"x":522,"y":453,"width":194,"height":28,"color":"#58cf68"},{"x":357,"y":761,"width":232,"height":27,"color":"#58cf68"},{"x":270,"y":804,"width":85,"height":31,"color":"#58cf68"},{"x":386,"y":802,"width":204,"height":33,"color":"#58cf68"},{"x":623,"y":809,"width":107,"height":24,"color":"#58cf68"},{"x":762,"y":808,"width":108,"height":26,"color":"#58cf68"},{"x":784,"y":762,"width":88,"height":36,"color":"#58cf68"},{"x":461,"y":981,"width":77,"height":29,"color":"#58cf68"},{"x":568,"y":979,"width":160,"height":36,"color":"#58cf68"},{"x":724,"y":1861,"width":93,"height":34,"color":"#58cf68"}],"numberPairs":[{"id":"rms112j8y_5327","body":[443,179,146,37],"answer":[70,640,70,35],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"縦断","fontSize":34},{"id":"rms112x5m_5332","body":[332,229,133,31],"answer":[374,648,115,29],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"エジプト","fontSize":34},{"id":"rms113f4x_5337","body":[571,276,125,29],"answer":[781,650,151,33],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"マフディー","fontSize":34},{"id":"rms11415t_5342","body":[643,404,133,35],"answer":[1076,655,119,31],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ケープ","fontSize":34},{"id":"rms114dcs_5347","body":[745,452,120,31],"answer":[72,686,190,38],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ブール","fontSize":34},{"id":"rms115hzq_5375","body":[365,581,157,40],"answer":[375,687,327,46],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"南ア","fontSize":34},{"id":"rms1164jd_5380","body":[809,708,146,45],"answer":[782,696,192,32],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アパルトヘイト","fontSize":21},{"id":"rms116okv_5385","body":[445,931,135,37],"answer":[1081,699,64,36],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"横断","fontSize":34},{"id":"rms117dcc_5390","body":[248,1020,107,37],"answer":[69,733,170,30],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アルジェリア","fontSize":20},{"id":"rms117wx5_5395","body":[251,1065,152,36],"answer":[383,736,141,31],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"チュニジア","fontSize":34},{"id":"rms118aa6_5400","body":[246,1244,146,30],"answer":[793,738,117,38],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"モロッコ","fontSize":34},{"id":"rms118s4g_5405","body":[329,1413,155,40],"answer":[1082,743,232,33],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ヴィルヘルム2世","fontSize":34},{"id":"rms119ff0_5410","body":[262,1462,155,36],"answer":[88,771,138,40],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"タンジール","fontSize":34},{"id":"rms11a95n_5415","body":[356,1510,127,32],"answer":[1082,742,231,34],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ヴィルヘルム2世","fontSize":34},{"id":"rms11alpf_5420","body":[262,1593,158,38],"answer":[386,778,171,31],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アガディール","fontSize":34},{"id":"rms11b1fw_5425","body":[143,1812,155,39],"answer":[792,784,91,30],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"コンゴ","fontSize":34},{"id":"rms11bi3h_5430","body":[521,1856,150,40],"answer":[1083,786,213,37],"bodyPageKey":"No129_p1","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"レオポルド2世","fontSize":34}]},{"key":"No129_p2","no":129,"part":2,"parts":2,"label":"No.129（2/2）","width":1600,"height":2280,"base":"../assets/No127-129/No129_p2_base.jpg","baseOff":"../assets/No127-129/No129_p2_baseOff.jpg","hide":[[882,166,118,33],[926,1603,157,59],[932,1671,177,65]],"keep":[[859,1598,55,141]],"greenHide":[{"x":296,"y":116,"width":160,"height":28,"color":"#58cf68"},{"x":228,"y":245,"width":93,"height":33,"color":"#58cf68"},{"x":955,"y":210,"width":99,"height":34,"color":"#58cf68"},{"x":621,"y":120,"width":164,"height":28,"color":"#58cf68"},{"x":811,"y":126,"width":136,"height":23,"color":"#58cf68"},{"x":743,"y":295,"width":118,"height":33,"color":"#58cf68"},{"x":893,"y":299,"width":148,"height":30,"color":"#58cf68"},{"x":866,"y":1519,"width":212,"height":55,"color":"#58cf68"}],"numberPairs":[{"id":"rms11coq5_5445","body":[222,151,163,41],"answer":[87,817,140,38],"bodyPageKey":"No129_p2","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"エチオピア","fontSize":34},{"id":"rms11di8t_5456","body":[338,467,147,34],"answer":[382,823,204,35],"bodyPageKey":"No129_p2","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"エチオピア帝国","fontSize":34},{"id":"rms11duso_5461","body":[690,470,152,40],"answer":[795,827,192,37],"bodyPageKey":"No129_p2","answerPageKey":"No129_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"リベリア共和国","fontSize":34}]}];
+const $=s=>document.querySelector(s);
+const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
+let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
+const storageKey='kopuri-ranges-'+"No082-084_大航海-v5";
+const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+
+function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
+function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
+
+function applyZoom(options={}){
+  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  const scroller=$('#scroller');
+  const available=Math.max(280,scroller.clientWidth-36);
+  const baseWidth=Math.min(980,available);
+  stage.style.width=Math.round(baseWidth*zoom/100)+'px';
+  stage.style.height='auto';
+  $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
+  // canvasは元画像と同じ解像度のままCSSだけで拡大する。
+  // 画質を維持しつつ、ズームごとの高解像度再描画を避ける。
+  if(options.redraw===true){
+    requestAnimationFrame(()=>{drawOverlays();drawGuides()});
+  }
+}
+function drawCoverRect(ctx,r,p,fill='#fff'){
+  ctx.fillStyle=fill;
+  ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawGreenRect(ctx,r,p){
+  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
+  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+}
+function fittedFontSize(ctx,text,r,maxSize){
+  const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
+  let size=Math.min(Number(maxSize)||34,maxH);
+  for(;size>=8;size--){
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    const m=ctx.measureText(text);
+    const h=(m.actualBoundingBoxAscent||size*.8)+(m.actualBoundingBoxDescent||size*.2);
+    if(m.width<=maxW && h<=maxH) return size;
+  }
+  return 8;
+}
+function applyNumberPairsOn(ctx,p){
+  (p.numberPairs||[]).forEach(pair=>{
+    if(pair.answer && pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+    if(pair.body && pair.bodyPageKey===p.key){
+      const r=pair.body,text=String(pair.answerText||'');
+      drawCoverRect(ctx,r,p,'#fff');
+      ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+      const size=fittedFontSize(ctx,text,r,pair.fontSize);
+      ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+      ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+      ctx.restore();
+    }
+  });
+}
+function drawState(ctx,p){
+  if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+}
+function drawOverlays(){
+  const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode==='all') drawState(ctx,p);
+  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
+function drawGuides(){
+  const p=PAGES[idx],ctx=dc.getContext('2d');
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode!=='range'&&!drawing)return;
+  ctx.lineWidth=Math.max(2,p.width/500);
+  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
+  rangesFor().forEach(r=>{
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
+    ctx.setLineDash(r.enabled===false?[8,7]:[]);
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,255,255,.82)';
+    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
+    ctx.fillStyle='#512b1a';
+    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
+  });
+  ctx.setLineDash([]);
+  if(tempRect){
+    ctx.strokeStyle='#16866f';
+    ctx.strokeRect(tempRect.x*p.width,tempRect.y*p.height,tempRect.w*p.width,tempRect.h*p.height);
+  }
+}
+function renderRanges(){
+  const box=$('#ranges'),r=rangesFor();box.innerHTML='';
+  if(!r.length){box.innerHTML='<div class="empty">まだ範囲はありません。</div>';return}
+  r.forEach((x,i)=>{
+    const row=document.createElement('div');row.className='rangeRow';
+    const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
+    c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
+    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
+    const d=document.createElement('button');d.className='del';d.textContent='×';
+    d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
+    row.append(c,n,d);box.appendChild(row);
+  });
+}
+function renderPageSelect(){
+  const sel=$('#pageSelect');sel.innerHTML='';
+  PAGES.forEach((p,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=`${p.label}　${i+1}/${PAGES.length}`;
+    if(i===idx)o.selected=true;sel.appendChild(o);
+  });
+}
+function loadPage(){
+  const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
+  base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  // canvasの実画素数は常に原寸。倍率変更では変更しない。
+  if(oc.width!==p.width) oc.width=p.width;
+  if(oc.height!==p.height) oc.height=p.height;
+  if(dc.width!==p.width) dc.width=p.width;
+  if(dc.height!==p.height) dc.height=p.height;
+  $('#pageInfo').textContent=`ルネサンス　${p.label}`;
+  renderPageSelect();renderRanges();applyZoom();drawOverlays();drawGuides();
+}
+function point(e){
+  const b=dc.getBoundingClientRect();
+  return{x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))}
+}
+dc.addEventListener('pointerdown',e=>{
+  if(!drawing)return;e.preventDefault();dc.setPointerCapture(e.pointerId);
+  dragStart=point(e);tempRect={x:dragStart.x,y:dragStart.y,w:0,h:0};drawGuides()
+});
+dc.addEventListener('pointermove',e=>{
+  if(!drawing||!dragStart)return;e.preventDefault();const p=point(e);
+  tempRect={x:Math.min(p.x,dragStart.x),y:Math.min(p.y,dragStart.y),w:Math.abs(p.x-dragStart.x),h:Math.abs(p.y-dragStart.y)};drawGuides()
+});
+dc.addEventListener('pointerup',e=>{
+  if(!drawing||!tempRect)return;e.preventDefault();
+  if(tempRect.w>.015&&tempRect.h>.015){
+    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
+    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+  }
+  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+});
+$('#orangeToggle').onchange=drawOverlays;
+$('#greenToggle').onchange=drawOverlays;
+$('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#rangeMode').onclick=()=>{mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
+$('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
+$('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
+$('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+
+// Mobile pinch zoom (50%–200%)
+let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
+let pinchCenterX=0, pinchCenterY=0;
+function touchDistance(touches){
+  const dx=touches[0].clientX-touches[1].clientX;
+  const dy=touches[0].clientY-touches[1].clientY;
+  return Math.hypot(dx,dy);
+}
+let pinchFrame=0,pendingPinchZoom=100;
+function beginPinch(e){
+  if(e.touches.length!==2 || drawing)return;
+  const scroller=$('#scroller');
+  const rect=scroller.getBoundingClientRect();
+  pinchStartDistance=touchDistance(e.touches);
+  pinchStartZoom=zoom;
+  pendingPinchZoom=zoom;
+  pinchStartScrollLeft=scroller.scrollLeft;
+  pinchStartScrollTop=scroller.scrollTop;
+  pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2-rect.left;
+  pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2-rect.top;
+  stage.classList.add('pinching');
+  e.preventDefault();
+}
+function flushPinch(){
+  pinchFrame=0;
+  const scroller=$('#scroller');
+  zoom=pendingPinchZoom;
+  applyZoom();
+  const ratio=zoom/pinchStartZoom;
+  scroller.scrollLeft=(pinchStartScrollLeft+pinchCenterX)*ratio-pinchCenterX;
+  scroller.scrollTop=(pinchStartScrollTop+pinchCenterY)*ratio-pinchCenterY;
+}
+function movePinch(e){
+  if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
+  e.preventDefault();
+  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
+  if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
+}
+function endPinch(e){
+  if(e.touches.length<2){
+    if(pinchFrame){cancelAnimationFrame(pinchFrame);flushPinch();}
+    pinchStartDistance=0;
+    stage.classList.remove('pinching');
+  }
+}
+
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>applyZoom(),80)},{passive:true});
+const scrollerEl=$('#scroller');
+scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
+scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
+scrollerEl.addEventListener('touchend',endPinch,{passive:true});
+scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+loadPage();
+</script>
+</body>
+</html>

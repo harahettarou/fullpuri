@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>古プリ 解答レイヤー｜大航海</title>
+<style>
+:root{
+  --bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;
+  --accent:#de6f3c;--green:#16866f;--shadow:0 12px 35px rgba(34,28,20,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr}
+.top{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:max(9px,env(safe-area-inset-top)) 12px 9px;
+  display:flex;gap:10px;align-items:center;z-index:20
+}
+.brand{font-weight:800;white-space:nowrap}
+.privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
+.topspacer{flex:1}
+.main{min-height:0;display:grid;grid-template-columns:290px 1fr}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.sectionTitle{font-weight:800;margin:4px 0 10px}
+.help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
+.ranges{display:grid;gap:7px}
+.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
+.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{border:0;background:transparent;color:#a34734;font-size:18px}
+.empty{font-size:13px;color:var(--sub)}
+.viewer{min-width:0;min-height:0;display:grid;grid-template-rows:auto 1fr auto}
+.controls{
+  background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center
+}
+.switchWrap{display:flex;align-items:center;gap:7px;font-size:14px}
+.switch{position:relative;width:44px;height:25px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#c9c5bd;border-radius:99px;transition:.2s}
+.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 4px #777;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch.green input:checked+.slider{background:var(--green)}
+.switch input:checked+.slider:before{transform:translateX(19px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 11px}
+.seg button.active{background:#25231f;color:#fff}
+.action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
+.action.primary{background:#25231f;color:#fff;border-color:#25231f}
+.pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
+.scroller{min-height:0;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
+.stage img{display:block;width:100%;height:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+#overlayCanvas{pointer-events:none}
+#drawCanvas{cursor:crosshair;pointer-events:none;touch-action:none}
+.stage.drawing #drawCanvas{pointer-events:auto}
+.stage.drawing{touch-action:none}
+.stage.pinching{will-change:width}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
+.nav{
+  background:#fff;border-top:1px solid var(--line);
+  padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom));
+  display:flex;justify-content:center;gap:8px;align-items:center
+}
+.nav button,.nav select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px}
+.zoom{display:flex;align-items:center;gap:8px}
+#zoomLabel{min-width:44px;text-align:center}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1}
+@media(max-width:760px){
+  .main{grid-template-columns:1fr}
+  .side{display:none}
+  .top{font-size:14px}
+  .privacy{display:none}
+  .controls{padding:7px;gap:7px}
+  .controls .action{padding:7px 9px}
+  .pageInfo{width:100%;margin:0;text-align:right}
+  .scroller{padding:8px}
+  .nav{gap:5px}
+  .nav button,.nav select{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">古プリ 解答レイヤー</div>
+    <div class="privacy">高速静的サイト版</div>
+    <div class="topspacer"></div>
+    <div>大航海</div>
+  </header>
+  <div class="main">
+    <aside class="side">
+      <div class="sectionTitle">指定範囲</div>
+      <div class="help">
+        「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
+        範囲は端末内に保存されます。
+      </div>
+      <div class="ranges" id="ranges"></div>
+    </aside>
+    <section class="viewer">
+      <div class="controls">
+        <label class="switchWrap">
+          <span class="switch"><input id="orangeToggle" type="checkbox" checked><span class="slider"></span></span>
+          オレンジ文字
+        </label>
+        <label class="switchWrap">
+          <span class="switch green"><input id="greenToggle" type="checkbox" checked><span class="slider"></span></span>
+          緑マーカー
+        </label>
+        <div class="seg">
+          <button id="allMode" class="active">全体</button>
+          <button id="rangeMode">指定範囲</button>
+        </div>
+        <button class="action primary" id="addRange">＋ 範囲を追加</button>
+        <button class="action" id="clearRanges">範囲を削除</button>
+        <div class="pageInfo" id="pageInfo"></div>
+      </div>
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage">
+          <img id="baseImg" alt="古プリ">
+          <canvas id="overlayCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+          <div class="loading" id="loading">PDF原本を読み込み中…</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="prev">← 前</button>
+        <select id="pageSelect"></select>
+        <button id="next">次 →</button>
+        <div class="zoom">
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// KOPURI_HIGH_SPEED_V1: full-quality rendering, redraw-free zoom
+const PAGES=[{"key":"No085_p1","no":85,"part":1,"parts":3,"label":"No.85（1/3）","width":1600,"height":2259,"base":"../assets/No085/No085_p1_base.jpg","baseOff":"../assets/No085/No085_p1_baseOff.jpg","hide":[[1248,118,278,40],[759,411,123,41],[234,679,107,47],[1116,660,291,50],[365,829,116,40],[320,934,151,32],[319,997,105,37],[1198,1031,143,45],[1304,1099,115,42],[281,1098,225,44],[294,1215,257,42],[821,1325,217,36],[258,1442,430,42],[310,1560,309,51],[301,1679,252,41],[296,1870,206,32]],"keep":[],"greenHide":[{"x":720,"y":993,"width":89,"height":39,"color":"#58cf68"},{"x":365,"y":1060,"width":101,"height":32,"color":"#58cf68"},{"x":361,"y":1281,"width":238,"height":31,"color":"#58cf68"},{"x":688,"y":1281,"width":177,"height":26,"color":"#58cf68"},{"x":952,"y":1283,"width":304,"height":27,"color":"#58cf68"},{"x":1448,"y":1157,"width":175,"height":27,"color":"#58cf68"},{"x":768,"y":1507,"width":196,"height":34,"color":"#58cf68"},{"x":364,"y":1502,"width":300,"height":44,"color":"#58cf68"},{"x":370,"y":1632,"width":175,"height":32,"color":"#58cf68"},{"x":669,"y":1630,"width":235,"height":31,"color":"#58cf68"},{"x":789,"y":1747,"width":52,"height":31,"color":"#58cf68"},{"x":359,"y":1744,"width":303,"height":34,"color":"#58cf68"},{"x":354,"y":1926,"width":203,"height":30,"color":"#58cf68"},{"x":664,"y":1921,"width":295,"height":26,"color":"#58cf68"},{"x":268,"y":2004,"width":243,"height":35,"color":"#58cf68"},{"x":370,"y":2068,"width":191,"height":29,"color":"#58cf68"},{"x":361,"y":2115,"width":295,"height":32,"color":"#58cf68"},{"x":746,"y":2002,"width":51,"height":36,"color":"#58cf68"},{"x":876,"y":1865,"width":56,"height":40,"color":"#58cf68"},{"x":628,"y":1869,"width":213,"height":30,"color":"#58cf68"},{"x":878,"y":1689,"width":54,"height":42,"color":"#58cf68"},{"x":703,"y":1695,"width":132,"height":31,"color":"#58cf68"},{"x":796,"y":1453,"width":119,"height":30,"color":"#58cf68"},{"x":945,"y":1453,"width":40,"height":34,"color":"#58cf68"},{"x":601,"y":1218,"width":139,"height":33,"color":"#58cf68"},{"x":769,"y":1222,"width":48,"height":34,"color":"#58cf68"},{"x":758,"y":1120,"width":49,"height":27,"color":"#58cf68"},{"x":588,"y":1121,"width":137,"height":29,"color":"#58cf68"},{"x":564,"y":1003,"width":134,"height":31,"color":"#58cf68"},{"x":786,"y":1582,"width":133,"height":27,"color":"#58cf68"},{"x":941,"y":1575,"width":55,"height":40,"color":"#58cf68"},{"x":573,"y":2006,"width":127,"height":39,"color":"#58cf68"}],"numberPairs":[]},{"key":"No085_p2","no":85,"part":2,"parts":3,"label":"No.85（2/3）","width":1600,"height":2240,"base":"../assets/No085/No085_p2_base.jpg","baseOff":"../assets/No085/No085_p2_baseOff.jpg","hide":[[753,122,199,40],[821,670,119,37],[882,725,225,44],[780,809,266,37],[294,982,238,37],[268,1097,294,43],[871,1195,344,46],[1216,1032,49,69],[311,1238,255,38],[306,1342,328,30],[345,1378,118,28],[566,1450,168,41],[1018,1339,69,30],[811,1495,330,44],[733,1553,161,46],[269,1628,240,45],[853,1750,233,32],[681,1851,137,28],[944,1883,181,17],[736,2006,174,52],[336,2012,124,44],[1158,2025,238,31],[1328,1881,183,33]],"keep":[],"greenHide":[{"x":614,"y":994,"width":186,"height":34,"color":"#58cf68"},{"x":829,"y":993,"width":50,"height":31,"color":"#58cf68"},{"x":780,"y":1107,"width":55,"height":34,"color":"#58cf68"},{"x":625,"y":1113,"width":132,"height":28,"color":"#58cf68"},{"x":658,"y":1256,"width":115,"height":30,"color":"#58cf68"},{"x":817,"y":1252,"width":42,"height":37,"color":"#58cf68"},{"x":328,"y":1300,"width":238,"height":34,"color":"#58cf68"},{"x":562,"y":1417,"width":128,"height":26,"color":"#58cf68"},{"x":728,"y":1415,"width":77,"height":28,"color":"#58cf68"},{"x":667,"y":1377,"width":221,"height":37,"color":"#58cf68"},{"x":492,"y":1382,"width":39,"height":23,"color":"#58cf68"},{"x":669,"y":1343,"width":38,"height":22,"color":"#58cf68"},{"x":1036,"y":1395,"width":30,"height":28,"color":"#58cf68"},{"x":813,"y":1454,"width":199,"height":34,"color":"#58cf68"},{"x":359,"y":1457,"width":125,"height":35,"color":"#58cf68"},{"x":270,"y":1407,"width":228,"height":37,"color":"#58cf68"},{"x":490,"y":1692,"width":367,"height":34,"color":"#58cf68"},{"x":629,"y":1639,"width":121,"height":31,"color":"#58cf68"},{"x":796,"y":1639,"width":43,"height":37,"color":"#58cf68"}],"numberPairs":[]},{"key":"No085_p3","no":85,"part":3,"parts":3,"label":"No.85（3/3）","width":2200,"height":1524,"base":"../assets/No085/No085_p3_base.jpg","baseOff":"../assets/No085/No085_p3_baseOff.jpg","hide":[[173,144,103,25],[176,243,108,28],[176,335,142,23],[163,637,150,37],[164,735,124,32],[170,854,135,26],[170,1144,163,27],[896,633,94,28],[892,737,121,30],[899,820,149,26],[1624,633,218,27],[1623,737,159,27],[1632,813,140,42]],"keep":[],"greenHide":[{"x":160,"y":187,"width":142,"height":19,"color":"#58cf68"},{"x":355,"y":182,"width":88,"height":27,"color":"#58cf68"},{"x":169,"y":284,"width":191,"height":24,"color":"#58cf68"},{"x":169,"y":370,"width":113,"height":26,"color":"#58cf68"},{"x":168,"y":783,"width":523,"height":25,"color":"#58cf68"},{"x":170,"y":903,"width":84,"height":24,"color":"#58cf68"},{"x":158,"y":1195,"width":92,"height":26,"color":"#58cf68"},{"x":950,"y":892,"width":161,"height":27,"color":"#58cf68"},{"x":1167,"y":893,"width":148,"height":26,"color":"#58cf68"},{"x":1291,"y":782,"width":82,"height":31,"color":"#58cf68"},{"x":1166,"y":711,"width":227,"height":23,"color":"#58cf68"},{"x":1019,"y":641,"width":74,"height":19,"color":"#58cf68"},{"x":1098,"y":639,"width":24,"height":22,"color":"#58cf68"},{"x":1148,"y":641,"width":26,"height":21,"color":"#58cf68"},{"x":1090,"y":745,"width":21,"height":20,"color":"#58cf68"},{"x":1145,"y":744,"width":19,"height":23,"color":"#58cf68"},{"x":1031,"y":747,"width":60,"height":18,"color":"#58cf68"},{"x":1073,"y":831,"width":56,"height":19,"color":"#58cf68"},{"x":1133,"y":829,"width":19,"height":23,"color":"#58cf68"},{"x":1183,"y":834,"width":21,"height":17,"color":"#58cf68"},{"x":994,"y":864,"width":109,"height":21,"color":"#58cf68"},{"x":344,"y":649,"width":59,"height":22,"color":"#58cf68"},{"x":429,"y":648,"width":17,"height":22,"color":"#58cf68"},{"x":479,"y":648,"width":21,"height":22,"color":"#58cf68"},{"x":400,"y":742,"width":25,"height":19,"color":"#58cf68"},{"x":305,"y":744,"width":74,"height":22,"color":"#58cf68"},{"x":366,"y":865,"width":78,"height":16,"color":"#58cf68"},{"x":457,"y":861,"width":32,"height":21,"color":"#58cf68"},{"x":324,"y":157,"width":86,"height":22,"color":"#58cf68"},{"x":425,"y":160,"width":22,"height":18,"color":"#58cf68"},{"x":336,"y":249,"width":85,"height":21,"color":"#58cf68"},{"x":437,"y":250,"width":26,"height":19,"color":"#58cf68"},{"x":346,"y":335,"width":85,"height":21,"color":"#58cf68"},{"x":445,"y":335,"width":23,"height":20,"color":"#58cf68"},{"x":398,"y":1163,"width":93,"height":24,"color":"#58cf68"},{"x":515,"y":1156,"width":27,"height":25,"color":"#58cf68"},{"x":577,"y":1163,"width":29,"height":21,"color":"#58cf68"},{"x":1684,"y":864,"width":172,"height":19,"color":"#58cf68"},{"x":1751,"y":893,"width":116,"height":25,"color":"#58cf68"},{"x":1998,"y":777,"width":142,"height":37,"color":"#58cf68"},{"x":1887,"y":635,"width":99,"height":30,"color":"#58cf68"},{"x":2033,"y":637,"width":20,"height":28,"color":"#58cf68"},{"x":2114,"y":635,"width":19,"height":34,"color":"#58cf68"},{"x":1796,"y":747,"width":103,"height":19,"color":"#58cf68"},{"x":1919,"y":742,"width":21,"height":25,"color":"#58cf68"},{"x":1805,"y":833,"width":82,"height":21,"color":"#58cf68"},{"x":1889,"y":835,"width":21,"height":18,"color":"#58cf68"}],"numberPairs":[]}];
+const $=s=>document.querySelector(s);
+const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
+let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
+const storageKey='kopuri-ranges-'+"No082-084_大航海-v5";
+const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+
+function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
+function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
+
+function applyZoom(options={}){
+  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  const scroller=$('#scroller');
+  const available=Math.max(280,scroller.clientWidth-36);
+  const baseWidth=Math.min(980,available);
+  stage.style.width=Math.round(baseWidth*zoom/100)+'px';
+  stage.style.height='auto';
+  $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
+  // canvasは元画像と同じ解像度のままCSSだけで拡大する。
+  // 画質を維持しつつ、ズームごとの高解像度再描画を避ける。
+  if(options.redraw===true){
+    requestAnimationFrame(()=>{drawOverlays();drawGuides()});
+  }
+}
+function drawCoverRect(ctx,r,p,fill='#fff'){
+  ctx.fillStyle=fill;
+  ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawGreenRect(ctx,r,p){
+  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
+  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+}
+function fittedFontSize(ctx,text,r,maxSize){
+  const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
+  let size=Math.min(Number(maxSize)||34,maxH);
+  for(;size>=8;size--){
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    const m=ctx.measureText(text);
+    const h=(m.actualBoundingBoxAscent||size*.8)+(m.actualBoundingBoxDescent||size*.2);
+    if(m.width<=maxW && h<=maxH) return size;
+  }
+  return 8;
+}
+function applyNumberPairsOn(ctx,p){
+  (p.numberPairs||[]).forEach(pair=>{
+    if(pair.answer && pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+    if(pair.body && pair.bodyPageKey===p.key){
+      const r=pair.body,text=String(pair.answerText||'');
+      drawCoverRect(ctx,r,p,'#fff');
+      ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+      const size=fittedFontSize(ctx,text,r,pair.fontSize);
+      ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+      ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+      ctx.restore();
+    }
+  });
+}
+function drawState(ctx,p){
+  if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+}
+function drawOverlays(){
+  const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode==='all') drawState(ctx,p);
+  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
+function drawGuides(){
+  const p=PAGES[idx],ctx=dc.getContext('2d');
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode!=='range'&&!drawing)return;
+  ctx.lineWidth=Math.max(2,p.width/500);
+  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
+  rangesFor().forEach(r=>{
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
+    ctx.setLineDash(r.enabled===false?[8,7]:[]);
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,255,255,.82)';
+    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
+    ctx.fillStyle='#512b1a';
+    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
+  });
+  ctx.setLineDash([]);
+  if(tempRect){
+    ctx.strokeStyle='#16866f';
+    ctx.strokeRect(tempRect.x*p.width,tempRect.y*p.height,tempRect.w*p.width,tempRect.h*p.height);
+  }
+}
+function renderRanges(){
+  const box=$('#ranges'),r=rangesFor();box.innerHTML='';
+  if(!r.length){box.innerHTML='<div class="empty">まだ範囲はありません。</div>';return}
+  r.forEach((x,i)=>{
+    const row=document.createElement('div');row.className='rangeRow';
+    const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
+    c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
+    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
+    const d=document.createElement('button');d.className='del';d.textContent='×';
+    d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
+    row.append(c,n,d);box.appendChild(row);
+  });
+}
+function renderPageSelect(){
+  const sel=$('#pageSelect');sel.innerHTML='';
+  PAGES.forEach((p,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=`${p.label}　${i+1}/${PAGES.length}`;
+    if(i===idx)o.selected=true;sel.appendChild(o);
+  });
+}
+function loadPage(){
+  const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
+  base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  // canvasの実画素数は常に原寸。倍率変更では変更しない。
+  if(oc.width!==p.width) oc.width=p.width;
+  if(oc.height!==p.height) oc.height=p.height;
+  if(dc.width!==p.width) dc.width=p.width;
+  if(dc.height!==p.height) dc.height=p.height;
+  $('#pageInfo').textContent=`ルネサンス　${p.label}`;
+  renderPageSelect();renderRanges();applyZoom();drawOverlays();drawGuides();
+}
+function point(e){
+  const b=dc.getBoundingClientRect();
+  return{x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))}
+}
+dc.addEventListener('pointerdown',e=>{
+  if(!drawing)return;e.preventDefault();dc.setPointerCapture(e.pointerId);
+  dragStart=point(e);tempRect={x:dragStart.x,y:dragStart.y,w:0,h:0};drawGuides()
+});
+dc.addEventListener('pointermove',e=>{
+  if(!drawing||!dragStart)return;e.preventDefault();const p=point(e);
+  tempRect={x:Math.min(p.x,dragStart.x),y:Math.min(p.y,dragStart.y),w:Math.abs(p.x-dragStart.x),h:Math.abs(p.y-dragStart.y)};drawGuides()
+});
+dc.addEventListener('pointerup',e=>{
+  if(!drawing||!tempRect)return;e.preventDefault();
+  if(tempRect.w>.015&&tempRect.h>.015){
+    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
+    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+  }
+  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+});
+$('#orangeToggle').onchange=drawOverlays;
+$('#greenToggle').onchange=drawOverlays;
+$('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#rangeMode').onclick=()=>{mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
+$('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
+$('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
+$('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+
+// Mobile pinch zoom (50%–200%)
+let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
+let pinchCenterX=0, pinchCenterY=0;
+function touchDistance(touches){
+  const dx=touches[0].clientX-touches[1].clientX;
+  const dy=touches[0].clientY-touches[1].clientY;
+  return Math.hypot(dx,dy);
+}
+let pinchFrame=0,pendingPinchZoom=100;
+function beginPinch(e){
+  if(e.touches.length!==2 || drawing)return;
+  const scroller=$('#scroller');
+  const rect=scroller.getBoundingClientRect();
+  pinchStartDistance=touchDistance(e.touches);
+  pinchStartZoom=zoom;
+  pendingPinchZoom=zoom;
+  pinchStartScrollLeft=scroller.scrollLeft;
+  pinchStartScrollTop=scroller.scrollTop;
+  pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2-rect.left;
+  pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2-rect.top;
+  stage.classList.add('pinching');
+  e.preventDefault();
+}
+function flushPinch(){
+  pinchFrame=0;
+  const scroller=$('#scroller');
+  zoom=pendingPinchZoom;
+  applyZoom();
+  const ratio=zoom/pinchStartZoom;
+  scroller.scrollLeft=(pinchStartScrollLeft+pinchCenterX)*ratio-pinchCenterX;
+  scroller.scrollTop=(pinchStartScrollTop+pinchCenterY)*ratio-pinchCenterY;
+}
+function movePinch(e){
+  if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
+  e.preventDefault();
+  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
+  if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
+}
+function endPinch(e){
+  if(e.touches.length<2){
+    if(pinchFrame){cancelAnimationFrame(pinchFrame);flushPinch();}
+    pinchStartDistance=0;
+    stage.classList.remove('pinching');
+  }
+}
+
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>applyZoom(),80)},{passive:true});
+const scrollerEl=$('#scroller');
+scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
+scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
+scrollerEl.addEventListener('touchend',endPinch,{passive:true});
+scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+loadPage();
+</script>
+</body>
+</html>
