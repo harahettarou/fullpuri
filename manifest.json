@@ -1,6 +1,6 @@
 {
   "name": "古プリ比較システム",
-  "version": 7,
+  "version": 6,
   "updated": "2026-07-28",
   "ranges": [
     {
@@ -146,14 +146,6 @@
       "title": "ロシア革命とその影響",
       "file": "pages/No136-138_ロシア革命とその影響.html",
       "pages": 6
-    },
-    {
-      "id": "No139-147",
-      "start": 139,
-      "end": 147,
-      "title": "戦間期国際政治史",
-      "file": "pages/No139-147_戦間期国際政治史.html",
-      "pages": 20
     }
   ],
   "notes": [
