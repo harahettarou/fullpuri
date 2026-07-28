@@ -1,121 +1,68 @@
 {
+  "source_pdf": "No085.pdf",
   "source_json": "古プリ_修正データ_2026-07-28T06-28-21.json",
-  "source_exportedAt": "2026-07-28T06:28:21.950Z",
-  "updated_pages": {
-    "No085_ルネサンス.html": {
-      "No085_p1": {
-        "json_image_size": [
-          1623,
-          2293
-        ],
-        "site_image_size": [
-          1600,
-          2259
-        ],
-        "scale": [
-          0.9858287122612446,
-          0.9851722634103794
-        ],
-        "hide_count": 16,
-        "keep_count": 0,
-        "greenHide_count": 36,
-        "numberPairs_count_preserved": 0
-      },
-      "No085_p2": {
-        "json_image_size": [
-          1620,
-          2271
-        ],
-        "site_image_size": [
-          1600,
-          2240
-        ],
-        "scale": [
-          0.9876543209876543,
-          0.9863496257155439
-        ],
-        "hide_count": 23,
-        "keep_count": 0,
-        "greenHide_count": 19,
-        "numberPairs_count_preserved": 0
-      },
-      "No085_p3": {
-        "json_image_size": [
-          2293,
-          1588
-        ],
-        "site_image_size": [
-          2200,
-          1524
-        ],
-        "scale": [
-          0.9594417793283908,
-          0.9596977329974811
-        ],
-        "hide_count": 13,
-        "keep_count": 0,
-        "greenHide_count": 47,
-        "numberPairs_count_preserved": 0
-      }
+  "exportedAt": "2026-07-28T06:28:21.950Z",
+  "pages": {
+    "No085_p1": {
+      "json_image": [
+        1623,
+        2293
+      ],
+      "site_image": [
+        1600,
+        2259
+      ],
+      "scale": [
+        0.9858287122612446,
+        0.9851722634103794
+      ],
+      "hide_count": 16,
+      "green_count": 36,
+      "orange_patch_count": 16,
+      "green_patch_count": 36,
+      "green_pixels_removed": 121240,
+      "numberPairs_count": 0
     },
-    "No130-135_第一次世界大戦への道.html": {
-      "No135_p1": {
-        "json_image_size": [
-          1600,
-          2278
-        ],
-        "site_image_size": [
-          1600,
-          2280
-        ],
-        "scale": [
-          1.0,
-          1.0008779631255487
-        ],
-        "hide_count": 7,
-        "keep_count": 0,
-        "greenHide_count": 20,
-        "numberPairs_count_preserved": 0
-      },
-      "No135_p2": {
-        "json_image_size": [
-          1600,
-          2278
-        ],
-        "site_image_size": [
-          1600,
-          2280
-        ],
-        "scale": [
-          1.0,
-          1.0008779631255487
-        ],
-        "hide_count": 5,
-        "keep_count": 0,
-        "greenHide_count": 19,
-        "numberPairs_count_preserved": 13
-      },
-      "No135_p3": {
-        "json_image_size": [
-          1600,
-          2278
-        ],
-        "site_image_size": [
-          1600,
-          2280
-        ],
-        "scale": [
-          1.0,
-          1.0008779631255487
-        ],
-        "hide_count": 5,
-        "keep_count": 0,
-        "greenHide_count": 0,
-        "numberPairs_count_preserved": 0
-      }
+    "No085_p2": {
+      "json_image": [
+        1620,
+        2271
+      ],
+      "site_image": [
+        1600,
+        2240
+      ],
+      "scale": [
+        0.9876543209876543,
+        0.9863496257155439
+      ],
+      "hide_count": 23,
+      "green_count": 19,
+      "orange_patch_count": 23,
+      "green_patch_count": 19,
+      "green_pixels_removed": 19088,
+      "numberPairs_count": 0
+    },
+    "No085_p3": {
+      "json_image": [
+        2293,
+        1588
+      ],
+      "site_image": [
+        2200,
+        1524
+      ],
+      "scale": [
+        0.9594417793283908,
+        0.9596977329974811
+      ],
+      "hide_count": 13,
+      "green_count": 47,
+      "orange_patch_count": 13,
+      "green_patch_count": 47,
+      "green_pixels_removed": 40936,
+      "numberPairs_count": 0
     }
   },
-  "numberPairs_preserved": true,
-  "pixel_scan_present": false,
-  "javascript_syntax_failures": []
+  "numberPairs_preserved": true
 }
