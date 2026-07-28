@@ -1,139 +1,425 @@
 {
-  "packet": "No136-138",
-  "source_pdf": "ロシア革命とその影響.pdf",
-  "source_pdf_sha256": "b17735b85f1fbcff6f8241c3d3129cd34239eca7b0df5533cbba9643e1729aec",
-  "source_pdf_pages": 6,
+  "packet": "No139-147",
+  "source_pdf": "戦間期国際政治史.pdf",
+  "source_pdf_sha256": "9485fc06b620932ba65bd7538913a37eb0cf68f362f2fc6dc6207fb4771db139",
+  "source_pdf_pages": 20,
   "source_json": "古プリ_修正データ_2026-07-28T08-23-16.json",
   "source_json_sha256": "8467e45e34946c65e453937d82a3dd9a5c746fe9d962f6fc174985e8f7ed8044",
   "source_json_exportedAt": "2026-07-28T08:23:16.845Z",
   "page_mapping": [
     {
       "pdf_page": 1,
-      "source_key": "No136_p1",
-      "page_key": "No136_p1",
-      "no": 136,
+      "source_key": "Added_c2ac846c6ff3_p001",
+      "page_key": "No139_p1",
+      "no": 139,
       "part": 1,
       "parts": 2,
       "source_jpeg_size": [
-        1632,
-        2325
+        2016,
+        3040
       ],
-      "source_jpeg_sha256": "e4004b12cb108d2b2f4e46f8bf344fd12d3bd57c3a519893edef638833e7a001",
-      "orange_patches": 20,
-      "green_patches": 13,
+      "source_jpeg_sha256": "e97414c243b661a91c033f283aba845b54425105dd675bd41b13c125f4c4d9d1",
+      "orange_patches": 15,
+      "green_patches": 21,
       "pairs": 0,
       "scale": [
-        1.02,
-        1.020632
+        1.324573,
+        1.325774
       ]
     },
     {
       "pdf_page": 2,
-      "source_key": "No136_p2",
-      "page_key": "No136_p2",
-      "no": 136,
+      "source_key": "Added_c2ac846c6ff3_p002",
+      "page_key": "No139_p2",
+      "no": 139,
       "part": 2,
       "parts": 2,
       "source_jpeg_size": [
-        1632,
-        2325
+        2200,
+        3224
       ],
-      "source_jpeg_sha256": "d7c14a3b6f25633970048c7a6df2d57f8a827b3eb76d6e1b72ac259edf87189d",
-      "orange_patches": 11,
-      "green_patches": 16,
+      "source_jpeg_sha256": "bd8b27276d81ecd3398308db78d19638bee2e50a577b22998467d0a1c22568bd",
+      "orange_patches": 17,
+      "green_patches": 32,
       "pairs": 0,
       "scale": [
-        1.02,
-        1.020632
+        1.404853,
+        1.406018
       ]
     },
     {
       "pdf_page": 3,
-      "source_key": "No137_p1",
-      "page_key": "No137_p1",
-      "no": 137,
+      "source_key": "Added_eb07b9eab802_p001",
+      "page_key": "No140_p1",
+      "no": 140,
       "part": 1,
       "parts": 2,
       "source_jpeg_size": [
-        1632,
-        2325
+        1944,
+        2880
       ],
-      "source_jpeg_sha256": "527c24e71ba7e2832ed5123e7ca729c7c63161d18533fcfb7593fde3a34941f8",
+      "source_jpeg_sha256": "f5de91c322ac51e068436b62af3ad6401f8b91cef0015448f3154e144bbd525d",
       "orange_patches": 20,
-      "green_patches": 6,
-      "pairs": 0,
+      "green_patches": 20,
+      "pairs": 2,
       "scale": [
-        1.02,
-        1.020632
+        1.255003,
+        1.255997
       ]
     },
     {
       "pdf_page": 4,
-      "source_key": "No137_p2",
-      "page_key": "No137_p2",
-      "no": 137,
+      "source_key": "Added_eb07b9eab802_p002",
+      "page_key": "No140_p2",
+      "no": 140,
       "part": 2,
       "parts": 2,
       "source_jpeg_size": [
-        1632,
-        2325
+        1840,
+        2752
       ],
-      "source_jpeg_sha256": "3bf1906bf9a039e987eae442dce00379f6a4d46d2ae90130c8a5aeb0763a99c7",
-      "orange_patches": 18,
-      "green_patches": 23,
-      "pairs": 0,
+      "source_jpeg_sha256": "ebb11e8c3625bb5aedf7c4f1b2e26c186038005eaba999d08ce5d84ac0fbaa3e",
+      "orange_patches": 9,
+      "green_patches": 11,
+      "pairs": 10,
       "scale": [
-        1.02,
-        1.020632
+        1.200261,
+        1.200174
       ]
     },
     {
       "pdf_page": 5,
-      "source_key": "No138_p1",
-      "page_key": "No138_p1",
-      "no": 138,
+      "source_key": "Added_314446aa65b2_p001",
+      "page_key": "No141_p1",
+      "no": 141,
       "part": 1,
-      "parts": 2,
+      "parts": 4,
       "source_jpeg_size": [
-        1632,
-        2325
+        2040,
+        2880
       ],
-      "source_jpeg_sha256": "0f878e5589eb185291d5f355e958b4310f3dd5d3e3ea14c778646b0504a1fdd7",
-      "orange_patches": 7,
-      "green_patches": 13,
-      "pairs": 7,
+      "source_jpeg_sha256": "e02478cb2cd6515c25b75f785c8f303638a8d576d984ea27e681658e92765b0a",
+      "orange_patches": 0,
+      "green_patches": 0,
+      "pairs": 0,
       "scale": [
-        1.02,
-        1.020632
+        1.259259,
+        1.259292
       ]
     },
     {
       "pdf_page": 6,
-      "source_key": "No138_p2",
-      "page_key": "No138_p2",
-      "no": 138,
+      "source_key": "Added_314446aa65b2_p002",
+      "page_key": "No141_p2",
+      "no": 141,
+      "part": 2,
+      "parts": 4,
+      "source_jpeg_size": [
+        1912,
+        2864
+      ],
+      "source_jpeg_sha256": "8c7c7c2459348e2e0079776396b4e50dd72311629e5b1843d5598d0fd359dc69",
+      "orange_patches": 0,
+      "green_patches": 0,
+      "pairs": 0,
+      "scale": [
+        1.247228,
+        1.249019
+      ]
+    },
+    {
+      "pdf_page": 7,
+      "source_key": "Added_314446aa65b2_p003",
+      "page_key": "No141_p3",
+      "no": 141,
+      "part": 3,
+      "parts": 4,
+      "source_jpeg_size": [
+        2912,
+        1960
+      ],
+      "source_jpeg_sha256": "16a113cb40aeb739bd6671fc84b84a4870aeb9325d4c6c85e4c8430219f38082",
+      "orange_patches": 28,
+      "green_patches": 0,
+      "pairs": 0,
+      "scale": [
+        1.268845,
+        1.26943
+      ]
+    },
+    {
+      "pdf_page": 8,
+      "source_key": "Added_314446aa65b2_p004",
+      "page_key": "No141_p4",
+      "no": 141,
+      "part": 4,
+      "parts": 4,
+      "source_jpeg_size": [
+        2840,
+        1896
+      ],
+      "source_jpeg_sha256": "6dd8a153469f998bf0a360029d741c67e6820d19c5572da2ec960a51b65529c4",
+      "orange_patches": 13,
+      "green_patches": 1,
+      "pairs": 0,
+      "scale": [
+        1.238552,
+        1.236791
+      ]
+    },
+    {
+      "pdf_page": 9,
+      "source_key": "Added_d376849eacfe_p001",
+      "page_key": "No142_p1",
+      "no": 142,
+      "part": 1,
+      "parts": 2,
+      "source_jpeg_size": [
+        2024,
+        2960
+      ],
+      "source_jpeg_sha256": "55b79eed99a1e563ac806af3624d8d366f8dae33049563a721ac980d6ea802eb",
+      "orange_patches": 27,
+      "green_patches": 12,
+      "pairs": 0,
+      "scale": [
+        1.288351,
+        1.290885
+      ]
+    },
+    {
+      "pdf_page": 10,
+      "source_key": "Added_d376849eacfe_p002",
+      "page_key": "No142_p2",
+      "no": 142,
       "part": 2,
       "parts": 2,
       "source_jpeg_size": [
-        1632,
-        2325
+        1952,
+        2928
       ],
-      "source_jpeg_sha256": "a693a874f90393175391fa1728c77ee151bf494974e4a611468f58dac83af1a3",
-      "orange_patches": 12,
-      "green_patches": 28,
-      "pairs": 12,
+      "source_jpeg_sha256": "20c26b16eb6d16e38cc153e0da958f40cbd34ec328f675ddfee788daf6652b96",
+      "orange_patches": 17,
+      "green_patches": 7,
+      "pairs": 0,
       "scale": [
-        1.02,
-        1.020632
+        1.27332,
+        1.27693
+      ]
+    },
+    {
+      "pdf_page": 11,
+      "source_key": "Added_7f0b28add4f0_p001",
+      "page_key": "No143_p1",
+      "no": 143,
+      "part": 1,
+      "parts": 2,
+      "source_jpeg_size": [
+        1968,
+        2920
+      ],
+      "source_jpeg_sha256": "a6e1bd9e0fa0976b8110e3058f7abe6f28204a355b13dd6b15d4a9af725c7628",
+      "orange_patches": 27,
+      "green_patches": 12,
+      "pairs": 0,
+      "scale": [
+        1.270497,
+        1.273441
+      ]
+    },
+    {
+      "pdf_page": 12,
+      "source_key": "Added_7f0b28add4f0_p002",
+      "page_key": "No143_p2",
+      "no": 143,
+      "part": 2,
+      "parts": 2,
+      "source_jpeg_size": [
+        1968,
+        2856
+      ],
+      "source_jpeg_sha256": "174e95a5d2fdf97e784031a91c1ba48bc34a1cb7455617ed71a09f8a0ced0324",
+      "orange_patches": 20,
+      "green_patches": 23,
+      "pairs": 0,
+      "scale": [
+        1.243995,
+        1.24553
+      ]
+    },
+    {
+      "pdf_page": 13,
+      "source_key": "Added_95992e7406e8_p001",
+      "page_key": "No144_p1",
+      "no": 144,
+      "part": 1,
+      "parts": 2,
+      "source_jpeg_size": [
+        2136,
+        2976
+      ],
+      "source_jpeg_sha256": "aac77bc3b8b41497864fb16895d47d8f39a9a42e5d87ddf0adb7bff412fac10f",
+      "orange_patches": 10,
+      "green_patches": 23,
+      "pairs": 10,
+      "scale": [
+        1.318519,
+        1.316814
+      ]
+    },
+    {
+      "pdf_page": 14,
+      "source_key": "Added_95992e7406e8_p002",
+      "page_key": "No144_p2",
+      "no": 144,
+      "part": 2,
+      "parts": 2,
+      "source_jpeg_size": [
+        1984,
+        2920
+      ],
+      "source_jpeg_sha256": "03b46db5f73a437d74e341561e619080063d4a9dd9c536a11cd790f8ffaa9b60",
+      "orange_patches": 8,
+      "green_patches": 15,
+      "pairs": 18,
+      "scale": [
+        1.271795,
+        1.273441
+      ]
+    },
+    {
+      "pdf_page": 15,
+      "source_key": "Added_a7580e163ac9_p001",
+      "page_key": "No145_p1",
+      "no": 145,
+      "part": 1,
+      "parts": 2,
+      "source_jpeg_size": [
+        2040,
+        3016
+      ],
+      "source_jpeg_sha256": "dff9f986b62c1a4834bd9fa0d2f032aa6f304db2e475e871956f4587f8c24afe",
+      "orange_patches": 12,
+      "green_patches": 5,
+      "pairs": 0,
+      "scale": [
+        1.311897,
+        1.315307
+      ]
+    },
+    {
+      "pdf_page": 16,
+      "source_key": "Added_a7580e163ac9_p002",
+      "page_key": "No145_p2",
+      "no": 145,
+      "part": 2,
+      "parts": 2,
+      "source_jpeg_size": [
+        2120,
+        3096
+      ],
+      "source_jpeg_sha256": "fa6c074a16bb5ec41ba81d9e9e19927a8ac73b56b804735e62c1bb12f4fe2451",
+      "orange_patches": 19,
+      "green_patches": 12,
+      "pairs": 0,
+      "scale": [
+        1.349459,
+        1.350196
+      ]
+    },
+    {
+      "pdf_page": 17,
+      "source_key": "Added_59e8c7580695_p001",
+      "page_key": "No146_p1",
+      "no": 146,
+      "part": 1,
+      "parts": 2,
+      "source_jpeg_size": [
+        2008,
+        3000
+      ],
+      "source_jpeg_sha256": "ab1ed5b39542827547c46dfb6b59cb701fed6bc58bc9679a5c979a5cae93b564",
+      "orange_patches": 16,
+      "green_patches": 11,
+      "pairs": 0,
+      "scale": [
+        1.304743,
+        1.30833
+      ]
+    },
+    {
+      "pdf_page": 18,
+      "source_key": "Added_59e8c7580695_p002",
+      "page_key": "No146_p2",
+      "no": 146,
+      "part": 2,
+      "parts": 2,
+      "source_jpeg_size": [
+        2136,
+        2912
+      ],
+      "source_jpeg_sha256": "b2ac715fdbb067531891089b4717e017acdae160e6fcb5519137d31974649dd6",
+      "orange_patches": 21,
+      "green_patches": 11,
+      "pairs": 0,
+      "scale": [
+        1.318519,
+        1.317051
+      ]
+    },
+    {
+      "pdf_page": 19,
+      "source_key": "Added_3e3891563100_p001",
+      "page_key": "No147_p1",
+      "no": 147,
+      "part": 1,
+      "parts": 2,
+      "source_jpeg_size": [
+        2096,
+        3096
+      ],
+      "source_jpeg_sha256": "0b05d90ec64cdef88d3bc7718f775b1e8741ac323988f5f999aead0ddf772e1c",
+      "orange_patches": 17,
+      "green_patches": 24,
+      "pairs": 17,
+      "scale": [
+        1.34791,
+        1.350196
+      ]
+    },
+    {
+      "pdf_page": 20,
+      "source_key": "Added_3e3891563100_p002",
+      "page_key": "No147_p2",
+      "no": 147,
+      "part": 2,
+      "parts": 2,
+      "source_jpeg_size": [
+        2056,
+        3016
+      ],
+      "source_jpeg_sha256": "4b8e7f74483f73c05fdfe2ec2a99af6d6a05a18251d32df53e9878e2d147c7b2",
+      "orange_patches": 6,
+      "green_patches": 17,
+      "pairs": 23,
+      "scale": [
+        1.312899,
+        1.315307
       ]
     }
   ],
   "checks": {
-    "pages": 6,
+    "pages": 20,
     "numbers": [
-      136,
-      137,
-      138
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147
     ],
     "original_embedded_jpeg_extracted_without_recompression": true,
     "runtime_pixel_scans": false,
@@ -148,8 +434,8 @@
         "stderr": ""
       }
     ],
-    "number_pairs_unique": 19,
-    "cross_page_number_pairs": 0
+    "number_pairs_unique": 51,
+    "cross_page_number_pairs": 29
   },
   "architecture": [
     "背景は常にPDFから無劣化抽出した原本JPEG",
