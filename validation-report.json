@@ -1,45 +1,121 @@
 {
-  "pages": 258,
-  "overlay_files": 237,
-  "overlay_bytes": 14031257,
-  "orange_pixels_cleaned": 1102556,
-  "no85_transformed": [
-    {
-      "key": "No085_p1",
-      "sx": 0.991,
-      "sy": 0.99,
-      "dx": -4,
-      "dy": 8
+  "source_json": "古プリ_修正データ_2026-07-28T06-28-21.json",
+  "source_exportedAt": "2026-07-28T06:28:21.950Z",
+  "updated_pages": {
+    "No085_ルネサンス.html": {
+      "No085_p1": {
+        "json_image_size": [
+          1623,
+          2293
+        ],
+        "site_image_size": [
+          1600,
+          2259
+        ],
+        "scale": [
+          0.9858287122612446,
+          0.9851722634103794
+        ],
+        "hide_count": 16,
+        "keep_count": 0,
+        "greenHide_count": 36,
+        "numberPairs_count_preserved": 0
+      },
+      "No085_p2": {
+        "json_image_size": [
+          1620,
+          2271
+        ],
+        "site_image_size": [
+          1600,
+          2240
+        ],
+        "scale": [
+          0.9876543209876543,
+          0.9863496257155439
+        ],
+        "hide_count": 23,
+        "keep_count": 0,
+        "greenHide_count": 19,
+        "numberPairs_count_preserved": 0
+      },
+      "No085_p3": {
+        "json_image_size": [
+          2293,
+          1588
+        ],
+        "site_image_size": [
+          2200,
+          1524
+        ],
+        "scale": [
+          0.9594417793283908,
+          0.9596977329974811
+        ],
+        "hide_count": 13,
+        "keep_count": 0,
+        "greenHide_count": 47,
+        "numberPairs_count_preserved": 0
+      }
     },
-    {
-      "key": "No085_p2",
-      "sx": 0.996,
-      "sy": 0.982,
-      "dx": -8,
-      "dy": 12
-    },
-    {
-      "key": "No085_p3",
-      "sx": 0.985,
-      "sy": 0.961,
-      "dx": -8,
-      "dy": 0
+    "No130-135_第一次世界大戦への道.html": {
+      "No135_p1": {
+        "json_image_size": [
+          1600,
+          2278
+        ],
+        "site_image_size": [
+          1600,
+          2280
+        ],
+        "scale": [
+          1.0,
+          1.0008779631255487
+        ],
+        "hide_count": 7,
+        "keep_count": 0,
+        "greenHide_count": 20,
+        "numberPairs_count_preserved": 0
+      },
+      "No135_p2": {
+        "json_image_size": [
+          1600,
+          2278
+        ],
+        "site_image_size": [
+          1600,
+          2280
+        ],
+        "scale": [
+          1.0,
+          1.0008779631255487
+        ],
+        "hide_count": 5,
+        "keep_count": 0,
+        "greenHide_count": 19,
+        "numberPairs_count_preserved": 13
+      },
+      "No135_p3": {
+        "json_image_size": [
+          1600,
+          2278
+        ],
+        "site_image_size": [
+          1600,
+          2280
+        ],
+        "scale": [
+          1.0,
+          1.0008779631255487
+        ],
+        "hide_count": 5,
+        "keep_count": 0,
+        "greenHide_count": 0,
+        "numberPairs_count_preserved": 0
+      }
     }
-  ],
-  "checks": {
-    "range_pages": 17,
-    "return_buttons": 17,
-    "baseOff_runtime_switches": 0,
-    "runtime_pixel_scans": 0,
-    "orange_overlay_fields": 17,
-    "visible_version_labels": 0,
-    "javascript_syntax_failures": []
   },
-  "architecture": [
-    "背景は常に原本 base.jpg を使用",
-    "JSON hide・numberPairs から作った透明差分レイヤーを原本の上に重ねる",
-    "緑マーカーは JSON greenHide を原本座標上に描画",
-    "端末上の全画素走査なし",
-    "baseOff.jpg への画像切替なし"
-  ]
+  "numberPairs_preserved": true,
+  "pixel_scan_present": false,
+  "javascript_syntax_failures": []
 }
