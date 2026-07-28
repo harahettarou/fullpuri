@@ -107,11 +107,11 @@ button{cursor:pointer}
     <section class="viewer">
       <div class="controls">
         <label class="switchWrap">
-          <span class="switch"><input id="orangeToggle" type="checkbox" checked><span class="slider"></span></span>
+          <span class="switch"><input id="orangeToggle" type="checkbox"><span class="slider"></span></span>
           オレンジ文字
         </label>
         <label class="switchWrap">
-          <span class="switch green"><input id="greenToggle" type="checkbox" checked><span class="slider"></span></span>
+          <span class="switch green"><input id="greenToggle" type="checkbox"><span class="slider"></span></span>
           緑マーカー
         </label>
         <div class="seg">
@@ -209,8 +209,9 @@ function drawGreenOn(ctx,p){
   (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
 }
 function drawState(ctx,p){
-  drawHideOn(ctx,p);
-  if($('#greenToggle').checked) drawGreenOn(ctx,p);
+  // 原本は常に表示し、OFFにした項目だけ原本の上へ隠しレイヤーを重ねる。
+  if(!$('#orangeToggle').checked) drawHideOn(ctx,p);
+  if(!$('#greenToggle').checked) drawGreenOn(ctx,p);
   if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
 }
 function drawOverlays(){

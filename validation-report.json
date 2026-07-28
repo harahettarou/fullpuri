@@ -1,75 +1,29 @@
 {
-  "packet": "No136-138",
-  "title": "ロシア革命とその影響",
-  "source_pdf": "ロシア革命とその影響.pdf",
-  "source_json": "古プリ_修正データ_2026-07-28T08-23-16.json",
-  "rule_applied": {
-    "base": "original_raw_image_unchanged",
-    "orange_on": "original_visible_plus_numberPairs",
-    "orange_off": "hide_as_white_overlay_on_original",
-    "green_on": "original_visible",
-    "green_off": "greenHide_as_solid_green_overlay_on_original"
-  },
-  "pages": [
-    {
-      "page_key": "No136_p1",
-      "raw_sha256": "e4004b12cb108d2b2f4e46f8bf344fd12d3bd57c3a519893edef638833e7a001",
-      "hide_count": 20,
-      "hide_resolved_count": 20,
-      "keep_count": 1,
-      "green_count": 13,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No136_p2",
-      "raw_sha256": "d7c14a3b6f25633970048c7a6df2d57f8a827b3eb76d6e1b72ac259edf87189d",
-      "hide_count": 11,
-      "hide_resolved_count": 11,
-      "keep_count": 0,
-      "green_count": 16,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No137_p1",
-      "raw_sha256": "527c24e71ba7e2832ed5123e7ca729c7c63161d18533fcfb7593fde3a34941f8",
-      "hide_count": 20,
-      "hide_resolved_count": 20,
-      "keep_count": 3,
-      "green_count": 6,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No137_p2",
-      "raw_sha256": "3bf1906bf9a039e987eae442dce00379f6a4d46d2ae90130c8a5aeb0763a99c7",
-      "hide_count": 18,
-      "hide_resolved_count": 18,
-      "keep_count": 0,
-      "green_count": 23,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No138_p1",
-      "raw_sha256": "0f878e5589eb185291d5f355e958b4310f3dd5d3e3ea14c778646b0504a1fdd7",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 13,
-      "number_pair_count": 7
-    },
-    {
-      "page_key": "No138_p2",
-      "raw_sha256": "a693a874f90393175391fa1728c77ee151bf494974e4a611468f58dac83af1a3",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 28,
-      "number_pair_count": 12
-    }
+  "scope": "No001-147",
+  "change": "default both toggles OFF on initial load",
+  "pages_modified_count": 17,
+  "pages_modified": [
+    "No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
+    "No010-015_古代ローマ.html",
+    "No016-018_古代インド.html",
+    "No019-021_東南アジアの諸文明.html",
+    "No022-040_中国史〜元.html",
+    "No041-046_明・清.html",
+    "No047-069_ローマ分裂〜大航海時代.html",
+    "No070-081_イスラーム史.html",
+    "No082-084_大航海.html",
+    "No085_ルネサンス.html",
+    "No086-104_宗教改革〜産業革命.html",
+    "No105-108_アメリカの成立.html",
+    "No109-114_フランス革命.html",
+    "No115-123_ウィーン体制と各国の統一.html",
+    "No124-126_東アジアの激動.html",
+    "No127-129_帝国主義の植民地支配.html",
+    "No130-135_第一次世界大戦への道.html"
   ],
-  "checks": {
-    "baseOff_references": 0,
-    "runtime_pixel_scan": 0,
-    "banned_user_labels": 0,
-    "js_syntax": "ok"
-  }
+  "included_new_assets": [
+    "No136-138",
+    "No139-147"
+  ],
+  "manifest_ranges_count": 19
 }

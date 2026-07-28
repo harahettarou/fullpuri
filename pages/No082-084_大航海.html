@@ -22,7 +22,6 @@ button{cursor:pointer}
   display:flex;gap:10px;align-items:center;z-index:20
 }
 .brand{font-weight:800;white-space:nowrap}
-.homeBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:700;white-space:nowrap}
 .privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
 .topspacer{flex:1}
 .main{min-height:0;display:grid;grid-template-columns:290px 1fr}
@@ -90,8 +89,8 @@ button{cursor:pointer}
 <body>
 <div class="app">
   <header class="top">
-    <a class="homeBtn" href="../index.html">← 一覧</a>
     <div class="brand">古プリ 解答レイヤー</div>
+    <div class="privacy">高速静的サイト版</div>
     <div class="topspacer"></div>
     <div>大航海</div>
   </header>
@@ -107,11 +106,11 @@ button{cursor:pointer}
     <section class="viewer">
       <div class="controls">
         <label class="switchWrap">
-          <span class="switch"><input id="orangeToggle" type="checkbox" checked><span class="slider"></span></span>
+          <span class="switch"><input id="orangeToggle" type="checkbox"><span class="slider"></span></span>
           オレンジ文字
         </label>
         <label class="switchWrap">
-          <span class="switch green"><input id="greenToggle" type="checkbox" checked><span class="slider"></span></span>
+          <span class="switch green"><input id="greenToggle" type="checkbox"><span class="slider"></span></span>
           緑マーカー
         </label>
         <div class="seg">
@@ -144,11 +143,10 @@ button{cursor:pointer}
 <div class="toast" id="toast"></div>
 <script>
 // KOPURI_HIGH_SPEED_V1: full-quality rendering, redraw-free zoom
-const PAGES=[{"key":"No082_p1","no":82,"part":1,"parts":2,"label":"No.82（1/2）","width":1600,"height":2278,"base":"../assets/No082-084/No082_p1_base.jpg","baseOff":"../assets/No082-084/No082_p1_baseOff.jpg","hide":[[976,570,71,38],[954,624,133,45],[694,690,171,41],[929,700,76,33],[639,777,115,34],[380,850,361,37],[648,906,126,23],[382,956,309,35],[999,902,161,39],[1104,744,157,44],[630,1042,150,38],[952,1119,307,42],[442,1190,135,37],[593,1245,78,25],[444,1276,130,36],[445,1324,125,29],[510,1423,73,34],[672,1476,107,24],[378,1577,130,34]],"keep":[],"greenHide":[{"x":952,"y":857,"width":243,"height":31,"color":"#58cf68"},{"x":1070,"y":848,"width":124,"height":14,"color":"#58cf68"},{"x":376,"y":1054,"width":165,"height":24,"color":"#58cf68"},{"x":708,"y":1207,"width":133,"height":24,"color":"#58cf68"},{"x":681,"y":1287,"width":283,"height":26,"color":"#58cf68"}],"numberPairs":[],"orangeOverlay":"../assets/overlays/No082-084/No082_p1_orangeOff.png","orangePatches":[{"sx":0,"sy":0,"x":970,"y":564,"w":83,"h":50,"kind":"hide"},{"sx":83,"sy":0,"x":948,"y":618,"w":145,"h":57,"kind":"hide"},{"sx":228,"sy":0,"x":688,"y":684,"w":183,"h":53,"kind":"hide"},{"sx":411,"sy":0,"x":923,"y":694,"w":88,"h":45,"kind":"hide"},{"sx":499,"sy":0,"x":633,"y":771,"w":127,"h":46,"kind":"hide"},{"sx":626,"sy":0,"x":374,"y":844,"w":373,"h":49,"kind":"hide"},{"sx":999,"sy":0,"x":642,"y":900,"w":138,"h":35,"kind":"hide"},{"sx":1137,"sy":0,"x":376,"y":950,"w":321,"h":47,"kind":"hide"},{"sx":0,"sy":57,"x":993,"y":896,"w":173,"h":51,"kind":"hide"},{"sx":173,"sy":57,"x":1098,"y":738,"w":169,"h":56,"kind":"hide"},{"sx":342,"sy":57,"x":624,"y":1036,"w":162,"h":50,"kind":"hide"},{"sx":504,"sy":57,"x":946,"y":1113,"w":319,"h":54,"kind":"hide"},{"sx":823,"sy":57,"x":436,"y":1184,"w":147,"h":49,"kind":"hide"},{"sx":970,"sy":57,"x":587,"y":1239,"w":90,"h":37,"kind":"hide"},{"sx":1060,"sy":57,"x":438,"y":1270,"w":142,"h":48,"kind":"hide"},{"sx":1202,"sy":57,"x":439,"y":1318,"w":137,"h":41,"kind":"hide"},{"sx":1339,"sy":57,"x":504,"y":1417,"w":85,"h":46,"kind":"hide"},{"sx":1424,"sy":57,"x":666,"y":1470,"w":119,"h":36,"kind":"hide"},{"sx":0,"sy":113,"x":372,"y":1571,"w":142,"h":46,"kind":"hide"}]},{"key":"No082_p2","no":82,"part":2,"parts":2,"label":"No.82（2/2）","width":1600,"height":2278,"base":"../assets/No082-084/No082_p2_base.jpg","baseOff":"../assets/No082-084/No082_p2_baseOff.jpg","hide":[[508,148,194,35],[454,266,162,34],[327,414,381,40],[915,484,81,30],[476,524,181,31],[963,579,68,25],[586,581,101,39],[328,658,174,33],[402,725,125,34],[405,790,103,29],[921,720,125,31],[920,788,104,31],[843,916,96,31],[737,973,185,33],[814,1030,164,27],[426,1104,325,44],[922,1168,252,37],[891,1262,226,41],[1017,1458,220,29],[997,1508,227,29],[508,1558,173,27],[469,1603,350,25],[917,1696,49,21],[668,1696,147,23],[263,1718,243,33],[1112,1815,200,33],[690,1921,225,47],[941,1929,92,33],[1068,1930,32,42]],"keep":[],"greenHide":[{"x":857,"y":1866,"width":185,"height":23,"color":"#58cf68"},{"x":505,"y":1870,"width":51,"height":24,"color":"#58cf68"},{"x":328,"y":1865,"width":63,"height":25,"color":"#58cf68"},{"x":30,"y":155,"width":94,"height":35,"color":"#58cf68"},{"x":192,"y":153,"width":131,"height":33,"color":"#58cf68"},{"x":193,"y":203,"width":228,"height":22,"color":"#58cf68"},{"x":28,"y":709,"width":76,"height":37,"color":"#58cf68"},{"x":26,"y":773,"width":75,"height":31,"color":"#58cf68"}],"numberPairs":[],"orangeOverlay":"../assets/overlays/No082-084/No082_p2_orangeOff.png","orangePatches":[{"sx":0,"sy":0,"x":502,"y":142,"w":206,"h":47,"kind":"hide"},{"sx":206,"sy":0,"x":448,"y":260,"w":174,"h":46,"kind":"hide"},{"sx":380,"sy":0,"x":321,"y":408,"w":393,"h":52,"kind":"hide"},{"sx":773,"sy":0,"x":909,"y":478,"w":93,"h":42,"kind":"hide"},{"sx":866,"sy":0,"x":470,"y":518,"w":193,"h":43,"kind":"hide"},{"sx":1059,"sy":0,"x":957,"y":573,"w":80,"h":37,"kind":"hide"},{"sx":1139,"sy":0,"x":580,"y":575,"w":113,"h":51,"kind":"hide"},{"sx":1252,"sy":0,"x":322,"y":652,"w":186,"h":45,"kind":"hide"},{"sx":1438,"sy":0,"x":396,"y":719,"w":137,"h":46,"kind":"hide"},{"sx":0,"sy":52,"x":399,"y":784,"w":115,"h":41,"kind":"hide"},{"sx":115,"sy":52,"x":915,"y":714,"w":137,"h":43,"kind":"hide"},{"sx":252,"sy":52,"x":914,"y":782,"w":116,"h":43,"kind":"hide"},{"sx":368,"sy":52,"x":837,"y":910,"w":108,"h":43,"kind":"hide"},{"sx":476,"sy":52,"x":731,"y":967,"w":197,"h":45,"kind":"hide"},{"sx":673,"sy":52,"x":808,"y":1024,"w":176,"h":39,"kind":"hide"},{"sx":849,"sy":52,"x":420,"y":1098,"w":337,"h":56,"kind":"hide"},{"sx":1186,"sy":52,"x":916,"y":1162,"w":264,"h":49,"kind":"hide"},{"sx":0,"sy":108,"x":885,"y":1256,"w":238,"h":53,"kind":"hide"},{"sx":238,"sy":108,"x":1011,"y":1452,"w":232,"h":41,"kind":"hide"},{"sx":470,"sy":108,"x":991,"y":1502,"w":239,"h":41,"kind":"hide"},{"sx":709,"sy":108,"x":502,"y":1552,"w":185,"h":39,"kind":"hide"},{"sx":894,"sy":108,"x":463,"y":1597,"w":362,"h":37,"kind":"hide"},{"sx":1256,"sy":108,"x":911,"y":1690,"w":61,"h":33,"kind":"hide"},{"sx":1317,"sy":108,"x":662,"y":1690,"w":159,"h":35,"kind":"hide"},{"sx":0,"sy":161,"x":257,"y":1712,"w":255,"h":45,"kind":"hide"},{"sx":255,"sy":161,"x":1106,"y":1809,"w":212,"h":45,"kind":"hide"},{"sx":467,"sy":161,"x":684,"y":1915,"w":237,"h":59,"kind":"hide"},{"sx":704,"sy":161,"x":935,"y":1923,"w":104,"h":45,"kind":"hide"},{"sx":808,"sy":161,"x":1062,"y":1924,"w":44,"h":54,"kind":"hide"}]},{"key":"No083_p1","no":83,"part":1,"parts":2,"label":"No.83（1/2）","width":1600,"height":2278,"base":"../assets/No082-084/No083_p1_base.jpg","baseOff":"../assets/No082-084/No083_p1_baseOff.jpg","hide":[[191,126,178,42],[220,235,126,32],[971,123,79,42],[669,235,134,34],[681,291,155,28],[172,373,160,37],[303,512,42,32],[984,462,172,46],[887,599,82,33],[1033,1230,218,32],[1071,1266,176,33],[1076,1311,176,35],[1281,1310,70,38],[670,1542,120,83],[254,1493,71,41],[227,1546,132,35],[223,1595,163,31],[223,1646,151,26],[452,1851,284,29]],"keep":[],"greenHide":[{"x":778,"y":190,"width":171,"height":31,"color":"#58cf68"},{"x":970,"y":193,"width":189,"height":29,"color":"#58cf68"},{"x":195,"y":1795,"width":200,"height":22,"color":"#58cf68"}],"numberPairs":[],"orangeOverlay":"../assets/overlays/No082-084/No083_p1_orangeOff.png","orangePatches":[{"sx":0,"sy":0,"x":185,"y":120,"w":190,"h":54,"kind":"hide"},{"sx":190,"sy":0,"x":214,"y":229,"w":138,"h":44,"kind":"hide"},{"sx":328,"sy":0,"x":965,"y":117,"w":91,"h":54,"kind":"hide"},{"sx":419,"sy":0,"x":663,"y":229,"w":146,"h":46,"kind":"hide"},{"sx":565,"sy":0,"x":675,"y":285,"w":167,"h":40,"kind":"hide"},{"sx":732,"sy":0,"x":166,"y":367,"w":172,"h":49,"kind":"hide"},{"sx":904,"sy":0,"x":297,"y":506,"w":54,"h":44,"kind":"hide"},{"sx":958,"sy":0,"x":978,"y":456,"w":184,"h":58,"kind":"hide"},{"sx":1142,"sy":0,"x":881,"y":593,"w":94,"h":45,"kind":"hide"},{"sx":1236,"sy":0,"x":1027,"y":1224,"w":230,"h":44,"kind":"hide"},{"sx":0,"sy":58,"x":1065,"y":1260,"w":188,"h":45,"kind":"hide"},{"sx":188,"sy":58,"x":1070,"y":1305,"w":188,"h":47,"kind":"hide"},{"sx":376,"sy":58,"x":1275,"y":1304,"w":82,"h":50,"kind":"hide"},{"sx":458,"sy":58,"x":664,"y":1536,"w":132,"h":95,"kind":"hide"},{"sx":590,"sy":58,"x":248,"y":1487,"w":83,"h":53,"kind":"hide"},{"sx":673,"sy":58,"x":221,"y":1540,"w":144,"h":47,"kind":"hide"},{"sx":817,"sy":58,"x":217,"y":1589,"w":175,"h":43,"kind":"hide"},{"sx":992,"sy":58,"x":217,"y":1640,"w":163,"h":38,"kind":"hide"},{"sx":1155,"sy":58,"x":446,"y":1845,"w":296,"h":41,"kind":"hide"}]},{"key":"No083_p2","no":83,"part":2,"parts":2,"label":"No.83（2/2）","width":1600,"height":2278,"base":"../assets/No082-084/No083_p2_base.jpg","baseOff":"../assets/No082-084/No083_p2_baseOff.jpg","hide":[[565,98,188,44],[175,378,164,46],[455,360,117,33]],"keep":[],"greenHide":[{"x":637,"y":325,"width":108,"height":26,"color":"#58cf68"},{"x":475,"y":321,"width":132,"height":27,"color":"#58cf68"}],"numberPairs":[],"orangeOverlay":"../assets/overlays/No082-084/No083_p2_orangeOff.png","orangePatches":[{"sx":0,"sy":0,"x":559,"y":92,"w":200,"h":56,"kind":"hide"},{"sx":200,"sy":0,"x":169,"y":372,"w":176,"h":58,"kind":"hide"},{"sx":376,"sy":0,"x":449,"y":354,"w":129,"h":45,"kind":"hide"}]},{"key":"No084_p1","no":84,"part":1,"parts":1,"label":"No.84（1/1）","width":1600,"height":2278,"base":"../assets/No082-084/No084_p1_base.jpg","baseOff":"../assets/No082-084/No084_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[{"x":562,"y":236,"width":135,"height":34,"color":"#58cf68"},{"x":200,"y":226,"width":200,"height":33,"color":"#58cf68"},{"x":199,"y":277,"width":55,"height":25,"color":"#58cf68"},{"x":281,"y":280,"width":53,"height":24,"color":"#58cf68"},{"x":197,"y":365,"width":24,"height":24,"color":"#58cf68"},{"x":251,"y":365,"width":28,"height":27,"color":"#58cf68"},{"x":453,"y":455,"width":65,"height":33,"color":"#58cf68"},{"x":562,"y":589,"width":160,"height":29,"color":"#58cf68"},{"x":549,"y":673,"width":239,"height":35,"color":"#58cf68"},{"x":351,"y":724,"width":160,"height":26,"color":"#58cf68"},{"x":598,"y":768,"width":133,"height":28,"color":"#58cf68"},{"x":343,"y":811,"width":169,"height":28,"color":"#58cf68"},{"x":798,"y":861,"width":86,"height":31,"color":"#58cf68"},{"x":918,"y":863,"width":130,"height":31,"color":"#58cf68"},{"x":531,"y":944,"width":159,"height":29,"color":"#58cf68"},{"x":921,"y":1081,"width":83,"height":32,"color":"#58cf68"},{"x":1032,"y":1086,"width":81,"height":29,"color":"#58cf68"},{"x":744,"y":1169,"width":169,"height":24,"color":"#58cf68"},{"x":491,"y":1162,"width":78,"height":29,"color":"#58cf68"}],"numberPairs":[],"orangeOverlay":null,"orangePatches":[]}];
+const PAGES=[{"key":"No082_p1","no":82,"part":1,"parts":2,"label":"No.82（1/2）","width":1600,"height":2278,"base":"../assets/No082-084/No082_p1_base.jpg","baseOff":"../assets/No082-084/No082_p1_baseOff.jpg","hide":[[976,570,71,38],[954,624,133,45],[694,690,171,41],[929,700,76,33],[639,777,115,34],[380,850,361,37],[648,906,126,23],[382,956,309,35],[999,902,161,39],[1104,744,157,44],[630,1042,150,38],[952,1119,307,42],[442,1190,135,37],[593,1245,78,25],[444,1276,130,36],[445,1324,125,29],[510,1423,73,34],[672,1476,107,24],[378,1577,130,34]],"keep":[],"greenHide":[{"x":952,"y":857,"width":243,"height":31,"color":"#58cf68"},{"x":1070,"y":848,"width":124,"height":14,"color":"#58cf68"},{"x":376,"y":1054,"width":165,"height":24,"color":"#58cf68"},{"x":708,"y":1207,"width":133,"height":24,"color":"#58cf68"},{"x":681,"y":1287,"width":283,"height":26,"color":"#58cf68"}],"numberPairs":[]},{"key":"No082_p2","no":82,"part":2,"parts":2,"label":"No.82（2/2）","width":1600,"height":2278,"base":"../assets/No082-084/No082_p2_base.jpg","baseOff":"../assets/No082-084/No082_p2_baseOff.jpg","hide":[[508,148,194,35],[454,266,162,34],[327,414,381,40],[915,484,81,30],[476,524,181,31],[963,579,68,25],[586,581,101,39],[328,658,174,33],[402,725,125,34],[405,790,103,29],[921,720,125,31],[920,788,104,31],[843,916,96,31],[737,973,185,33],[814,1030,164,27],[426,1104,325,44],[922,1168,252,37],[891,1262,226,41],[1017,1458,220,29],[997,1508,227,29],[508,1558,173,27],[469,1603,350,25],[917,1696,49,21],[668,1696,147,23],[263,1718,243,33],[1112,1815,200,33],[690,1921,225,47],[941,1929,92,33],[1068,1930,32,42]],"keep":[],"greenHide":[{"x":857,"y":1866,"width":185,"height":23,"color":"#58cf68"},{"x":505,"y":1870,"width":51,"height":24,"color":"#58cf68"},{"x":328,"y":1865,"width":63,"height":25,"color":"#58cf68"},{"x":30,"y":155,"width":94,"height":35,"color":"#58cf68"},{"x":192,"y":153,"width":131,"height":33,"color":"#58cf68"},{"x":193,"y":203,"width":228,"height":22,"color":"#58cf68"},{"x":28,"y":709,"width":76,"height":37,"color":"#58cf68"},{"x":26,"y":773,"width":75,"height":31,"color":"#58cf68"}],"numberPairs":[]},{"key":"No083_p1","no":83,"part":1,"parts":2,"label":"No.83（1/2）","width":1600,"height":2278,"base":"../assets/No082-084/No083_p1_base.jpg","baseOff":"../assets/No082-084/No083_p1_baseOff.jpg","hide":[[191,126,178,42],[220,235,126,32],[971,123,79,42],[669,235,134,34],[681,291,155,28],[172,373,160,37],[303,512,42,32],[984,462,172,46],[887,599,82,33],[1033,1230,218,32],[1071,1266,176,33],[1076,1311,176,35],[1281,1310,70,38],[670,1542,120,83],[254,1493,71,41],[227,1546,132,35],[223,1595,163,31],[223,1646,151,26],[452,1851,284,29]],"keep":[],"greenHide":[{"x":778,"y":190,"width":171,"height":31,"color":"#58cf68"},{"x":970,"y":193,"width":189,"height":29,"color":"#58cf68"},{"x":195,"y":1795,"width":200,"height":22,"color":"#58cf68"}],"numberPairs":[]},{"key":"No083_p2","no":83,"part":2,"parts":2,"label":"No.83（2/2）","width":1600,"height":2278,"base":"../assets/No082-084/No083_p2_base.jpg","baseOff":"../assets/No082-084/No083_p2_baseOff.jpg","hide":[[565,98,188,44],[175,378,164,46],[455,360,117,33]],"keep":[],"greenHide":[{"x":637,"y":325,"width":108,"height":26,"color":"#58cf68"},{"x":475,"y":321,"width":132,"height":27,"color":"#58cf68"}],"numberPairs":[]},{"key":"No084_p1","no":84,"part":1,"parts":1,"label":"No.84（1/1）","width":1600,"height":2278,"base":"../assets/No082-084/No084_p1_base.jpg","baseOff":"../assets/No082-084/No084_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[{"x":562,"y":236,"width":135,"height":34,"color":"#58cf68"},{"x":200,"y":226,"width":200,"height":33,"color":"#58cf68"},{"x":199,"y":277,"width":55,"height":25,"color":"#58cf68"},{"x":281,"y":280,"width":53,"height":24,"color":"#58cf68"},{"x":197,"y":365,"width":24,"height":24,"color":"#58cf68"},{"x":251,"y":365,"width":28,"height":27,"color":"#58cf68"},{"x":453,"y":455,"width":65,"height":33,"color":"#58cf68"},{"x":562,"y":589,"width":160,"height":29,"color":"#58cf68"},{"x":549,"y":673,"width":239,"height":35,"color":"#58cf68"},{"x":351,"y":724,"width":160,"height":26,"color":"#58cf68"},{"x":598,"y":768,"width":133,"height":28,"color":"#58cf68"},{"x":343,"y":811,"width":169,"height":28,"color":"#58cf68"},{"x":798,"y":861,"width":86,"height":31,"color":"#58cf68"},{"x":918,"y":863,"width":130,"height":31,"color":"#58cf68"},{"x":531,"y":944,"width":159,"height":29,"color":"#58cf68"},{"x":921,"y":1081,"width":83,"height":32,"color":"#58cf68"},{"x":1032,"y":1086,"width":81,"height":29,"color":"#58cf68"},{"x":744,"y":1169,"width":169,"height":24,"color":"#58cf68"},{"x":491,"y":1162,"width":78,"height":29,"color":"#58cf68"}],"numberPairs":[]}];
 const $=s=>document.querySelector(s);
 const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
 let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
-const orangeOverlayCache=new Map();
 const storageKey='kopuri-ranges-'+"No082-084_大航海-v5";
 const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
 
@@ -204,26 +202,14 @@ function applyNumberPairsOn(ctx,p){
     }
   });
 }
-function getOrangeOverlay(p){
-  if(!p.orangeOverlay)return null;
-  let img=orangeOverlayCache.get(p.key);
-  if(!img){
-    img=new Image();img.decoding='async';
-    img.onload=()=>{if(PAGES[idx].key===p.key)drawOverlays()};
-    img.src=p.orangeOverlay;orangeOverlayCache.set(p.key,img);
-  }
-  return img;
-}
 function drawState(ctx,p){
-  if(!$('#orangeToggle').checked){
-    const off=getOrangeOverlay(p);
-    if(off&&off.complete&&off.naturalWidth)(p.orangePatches||[]).forEach(q=>ctx.drawImage(off,q.sx,q.sy,q.w,q.h,q.x,q.y,q.w,q.h));
-  }
   if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
   if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
 }
 function drawOverlays(){
   const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
   ctx.clearRect(0,0,p.width,p.height);
   if(mode==='all') drawState(ctx,p);
   else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
@@ -276,8 +262,8 @@ function loadPage(){
   const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
   base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
   base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
-  if(base.getAttribute('src')!==p.base) base.src=p.base;
-  if(!$('#orangeToggle').checked) getOrangeOverlay(p);
+  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  if(base.src!==wantedSrc) base.src=wantedSrc;
   // canvasの実画素数は常に原寸。倍率変更では変更しない。
   if(oc.width!==p.width) oc.width=p.width;
   if(oc.height!==p.height) oc.height=p.height;
@@ -306,7 +292,7 @@ dc.addEventListener('pointerup',e=>{
   }
   tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
 });
-$('#orangeToggle').onchange=()=>{if(!$('#orangeToggle').checked)getOrangeOverlay(PAGES[idx]);drawOverlays()};
+$('#orangeToggle').onchange=drawOverlays;
 $('#greenToggle').onchange=drawOverlays;
 $('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
 $('#rangeMode').onclick=()=>{mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
