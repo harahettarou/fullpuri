@@ -22,6 +22,8 @@ button{cursor:pointer}
   display:flex;gap:10px;align-items:center;z-index:20
 }
 .brand{font-weight:800;white-space:nowrap}
+.homeBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:13px;font-weight:700;white-space:nowrap}
+.homeBtn:active{transform:scale(.97)}
 .privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
 .topspacer{flex:1}
 .main{min-height:0;display:grid;grid-template-columns:290px 1fr}
@@ -75,8 +77,9 @@ button{cursor:pointer}
 @media(max-width:760px){
   .main{grid-template-columns:1fr}
   .side{display:none}
-  .top{font-size:14px}
-  .privacy{display:none}
+  .top{font-size:14px;gap:7px;flex-wrap:wrap}
+  .topspacer{flex:1}
+  .homeBtn{padding:6px 8px;font-size:12px}
   .controls{padding:7px;gap:7px}
   .controls .action{padding:7px 9px}
   .pageInfo{width:100%;margin:0;text-align:right}
@@ -90,8 +93,8 @@ button{cursor:pointer}
 <div class="app">
   <header class="top">
     <div class="brand">古プリ 解答レイヤー</div>
-    <div class="privacy">高速静的サイト版</div>
-    <div class="topspacer"></div>
+    <a class="homeBtn" href="../index.html" aria-label="プリント一覧へ戻る">← 一覧へ戻る</a>
+      <div class="topspacer"></div>
     <div>中国史〜元</div>
   </header>
   <div class="main">
@@ -173,8 +176,35 @@ function drawCoverRect(ctx,r,p,fill='#fff'){
   ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
 }
 function drawGreenRect(ctx,r,p){
-  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
-  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+  // 旧データとの互換用。色のON/OFF処理は下の全画素マスクで行う。
+}
+const colorScratch=document.createElement('canvas');
+function isOrangePixel(r,g,b){
+  const max=Math.max(r,g,b),min=Math.min(r,g,b);
+  const sat=max-min;
+  return max>95 && sat>22 && r>g*1.04 && r>b*1.16 && (r-g)>8;
+}
+function isGreenPixel(r,g,b){
+  const max=Math.max(r,g,b),min=Math.min(r,g,b);
+  const sat=max-min;
+  return max>85 && sat>18 && g>r*1.06 && g>b*1.04 && (g-r)>7;
+}
+function drawColorRemovalMask(ctx,p,removeOrange,removeGreen){
+  if(!removeOrange&&!removeGreen||!base.complete||!base.naturalWidth)return;
+  if(colorScratch.width!==p.width)colorScratch.width=p.width;
+  if(colorScratch.height!==p.height)colorScratch.height=p.height;
+  const sx=colorScratch.getContext('2d',{willReadFrequently:true});
+  sx.clearRect(0,0,p.width,p.height);
+  sx.drawImage(base,0,0,p.width,p.height);
+  const img=sx.getImageData(0,0,p.width,p.height),d=img.data;
+  for(let i=0;i<d.length;i+=4){
+    const r=d[i],g=d[i+1],b=d[i+2];
+    const remove=(removeOrange&&isOrangePixel(r,g,b))||(removeGreen&&isGreenPixel(r,g,b));
+    if(remove){d[i]=255;d[i+1]=255;d[i+2]=255;d[i+3]=255}
+    else d[i+3]=0;
+  }
+  sx.putImageData(img,0,0);
+  ctx.drawImage(colorScratch,0,0);
 }
 function fittedFontSize(ctx,text,r,maxSize){
   const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
@@ -203,13 +233,13 @@ function applyNumberPairsOn(ctx,p){
   });
 }
 function drawState(ctx,p){
-  if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+  drawColorRemovalMask(ctx,p,!$('#orangeToggle').checked,!$('#greenToggle').checked);
   if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
 }
 function drawOverlays(){
   const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
-  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
-  if(base.src!==wantedSrc) base.src=wantedSrc;
+  const wantedSrc=p.base;
+  if(base.src!==wantedSrc){base.src=wantedSrc;return}
   ctx.clearRect(0,0,p.width,p.height);
   if(mode==='all') drawState(ctx,p);
   else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
@@ -260,9 +290,9 @@ function renderPageSelect(){
 }
 function loadPage(){
   const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
-  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{});drawOverlays();drawGuides()};
   base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
-  const wantedSrc=$('#orangeToggle').checked?p.base:p.baseOff;
+  const wantedSrc=p.base;
   if(base.src!==wantedSrc) base.src=wantedSrc;
   // canvasの実画素数は常に原寸。倍率変更では変更しない。
   if(oc.width!==p.width) oc.width=p.width;
