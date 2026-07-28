@@ -1,7 +1,7 @@
 {
   "name": "古プリ比較システム",
-  "version": 2,
-  "updated": "2026-07-27",
+  "version": 3,
+  "updated": "2026-07-28",
   "ranges": [
     {
       "id": "No001-009",
@@ -138,6 +138,14 @@
       "title": "第一次世界大戦への道",
       "file": "pages/No130-135_第一次世界大戦への道.html",
       "pages": 13
+    },
+    {
+      "id": "No136-138",
+      "start": 136,
+      "end": 138,
+      "title": "ロシア革命とその影響",
+      "file": "pages/No136-138_ロシア革命とその影響.html",
+      "pages": 6
     }
   ],
   "notes": [

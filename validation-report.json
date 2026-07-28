@@ -1,68 +1,137 @@
 {
-  "source_pdf": "No085.pdf",
-  "source_json": "古プリ_修正データ_2026-07-28T06-28-21.json",
-  "exportedAt": "2026-07-28T06:28:21.950Z",
-  "pages": {
-    "No085_p1": {
-      "json_image": [
-        1623,
-        2293
-      ],
-      "site_image": [
-        1600,
-        2259
-      ],
-      "scale": [
-        0.9858287122612446,
-        0.9851722634103794
-      ],
-      "hide_count": 16,
-      "green_count": 36,
-      "orange_patch_count": 16,
-      "green_patch_count": 36,
-      "green_pixels_removed": 121240,
-      "numberPairs_count": 0
-    },
-    "No085_p2": {
-      "json_image": [
-        1620,
-        2271
-      ],
-      "site_image": [
-        1600,
-        2240
-      ],
-      "scale": [
-        0.9876543209876543,
-        0.9863496257155439
-      ],
-      "hide_count": 23,
-      "green_count": 19,
-      "orange_patch_count": 23,
-      "green_patch_count": 19,
-      "green_pixels_removed": 19088,
-      "numberPairs_count": 0
-    },
-    "No085_p3": {
-      "json_image": [
-        2293,
-        1588
-      ],
-      "site_image": [
-        2200,
-        1524
-      ],
-      "scale": [
-        0.9594417793283908,
-        0.9596977329974811
-      ],
-      "hide_count": 13,
-      "green_count": 47,
-      "orange_patch_count": 13,
-      "green_patch_count": 47,
-      "green_pixels_removed": 40936,
-      "numberPairs_count": 0
-    }
+  "range": "No136-138",
+  "pages": 6,
+  "source_json": "古プリ_修正データ_2026-07-28T08-23-16.json",
+  "checks": {
+    "page_count_ok": true,
+    "return_button": true,
+    "no_runtime_pixel_scan": true,
+    "no_baseoff_runtime_switch": true,
+    "no_visible_technical_labels": true,
+    "all_base_assets_exist": true,
+    "all_overlay_assets_exist": true,
+    "dimensions_match": true,
+    "numberpair_refs_resolved": true,
+    "javascript_syntax_ok": true
   },
-  "numberPairs_preserved": true
+  "page_mapping": [
+    {
+      "final_key": "No136_p1",
+      "source_pdf": "ロシア革命とその影響.pdf",
+      "source_page": 1,
+      "json_key": "No136_p1",
+      "size": [
+        1600,
+        2278
+      ],
+      "hide": 20,
+      "greenHide": 13,
+      "numberPairs": 0,
+      "orange_patches": 20,
+      "red_pixels_cleaned": 33453,
+      "unresolved_pairs": [],
+      "base_bytes": 811441,
+      "overlay_bytes": 208709
+    },
+    {
+      "final_key": "No136_p2",
+      "source_pdf": "ロシア革命とその影響.pdf",
+      "source_page": 2,
+      "json_key": "No136_p2",
+      "size": [
+        1600,
+        2278
+      ],
+      "hide": 11,
+      "greenHide": 16,
+      "numberPairs": 0,
+      "orange_patches": 11,
+      "red_pixels_cleaned": 14716,
+      "unresolved_pairs": [],
+      "base_bytes": 899032,
+      "overlay_bytes": 105720
+    },
+    {
+      "final_key": "No137_p1",
+      "source_pdf": "ロシア革命とその影響.pdf",
+      "source_page": 3,
+      "json_key": "No137_p1",
+      "size": [
+        1600,
+        2278
+      ],
+      "hide": 20,
+      "greenHide": 6,
+      "numberPairs": 0,
+      "orange_patches": 20,
+      "red_pixels_cleaned": 28564,
+      "unresolved_pairs": [],
+      "base_bytes": 1053018,
+      "overlay_bytes": 169974
+    },
+    {
+      "final_key": "No137_p2",
+      "source_pdf": "ロシア革命とその影響.pdf",
+      "source_page": 4,
+      "json_key": "No137_p2",
+      "size": [
+        1600,
+        2278
+      ],
+      "hide": 18,
+      "greenHide": 23,
+      "numberPairs": 0,
+      "orange_patches": 18,
+      "red_pixels_cleaned": 34093,
+      "unresolved_pairs": [],
+      "base_bytes": 844782,
+      "overlay_bytes": 211500
+    },
+    {
+      "final_key": "No138_p1",
+      "source_pdf": "ロシア革命とその影響.pdf",
+      "source_page": 5,
+      "json_key": "No138_p1",
+      "size": [
+        1600,
+        2278
+      ],
+      "hide": 0,
+      "greenHide": 13,
+      "numberPairs": 7,
+      "orange_patches": 7,
+      "red_pixels_cleaned": 282,
+      "unresolved_pairs": [],
+      "base_bytes": 899761,
+      "overlay_bytes": 37620
+    },
+    {
+      "final_key": "No138_p2",
+      "source_pdf": "ロシア革命とその影響.pdf",
+      "source_page": 6,
+      "json_key": "No138_p2",
+      "size": [
+        1600,
+        2278
+      ],
+      "hide": 0,
+      "greenHide": 28,
+      "numberPairs": 12,
+      "orange_patches": 12,
+      "red_pixels_cleaned": 518,
+      "unresolved_pairs": [],
+      "base_bytes": 932572,
+      "overlay_bytes": 64120
+    }
+  ],
+  "prerequisite": null,
+  "ignored_stale_json_entries": [],
+  "architecture": [
+    "背景は常に原本PDFから作成した base.jpg",
+    "JSON hide・numberPairs の差分PNGを原本の上に重ねる",
+    "greenHide はJSON座標で処理",
+    "端末上の全画素走査なし",
+    "baseOff画像への切替なし"
+  ],
+  "all_checks_ok": true
 }
