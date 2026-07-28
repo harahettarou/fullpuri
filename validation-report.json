@@ -1,62 +1,75 @@
 {
-  "packet": "No136-138_fix",
+  "packet": "No136-138",
+  "title": "ロシア革命とその影響",
   "source_pdf": "ロシア革命とその影響.pdf",
   "source_json": "古プリ_修正データ_2026-07-28T08-23-16.json",
-  "rules": {
-    "base": "raw original image",
-    "orange_off": "hide white overlay",
-    "green_on": "green rectangle overlay after hide",
-    "green_off": "precomputed clean overlay",
-    "numberPairs_on": "orange text overlay"
+  "rule_applied": {
+    "base": "original_raw_image_unchanged",
+    "orange_on": "original_visible_plus_numberPairs",
+    "orange_off": "hide_as_white_overlay_on_original",
+    "green_on": "original_visible",
+    "green_off": "greenHide_as_solid_green_overlay_on_original"
   },
   "pages": [
     {
-      "page": "No136_p1",
+      "page_key": "No136_p1",
       "raw_sha256": "e4004b12cb108d2b2f4e46f8bf344fd12d3bd57c3a519893edef638833e7a001",
-      "hide": 20,
-      "keep": 1,
-      "green": 13,
-      "pairs": 0
+      "hide_count": 20,
+      "hide_resolved_count": 20,
+      "keep_count": 1,
+      "green_count": 13,
+      "number_pair_count": 0
     },
     {
-      "page": "No136_p2",
+      "page_key": "No136_p2",
       "raw_sha256": "d7c14a3b6f25633970048c7a6df2d57f8a827b3eb76d6e1b72ac259edf87189d",
-      "hide": 11,
-      "keep": 0,
-      "green": 16,
-      "pairs": 0
+      "hide_count": 11,
+      "hide_resolved_count": 11,
+      "keep_count": 0,
+      "green_count": 16,
+      "number_pair_count": 0
     },
     {
-      "page": "No137_p1",
+      "page_key": "No137_p1",
       "raw_sha256": "527c24e71ba7e2832ed5123e7ca729c7c63161d18533fcfb7593fde3a34941f8",
-      "hide": 20,
-      "keep": 3,
-      "green": 6,
-      "pairs": 0
+      "hide_count": 20,
+      "hide_resolved_count": 20,
+      "keep_count": 3,
+      "green_count": 6,
+      "number_pair_count": 0
     },
     {
-      "page": "No137_p2",
+      "page_key": "No137_p2",
       "raw_sha256": "3bf1906bf9a039e987eae442dce00379f6a4d46d2ae90130c8a5aeb0763a99c7",
-      "hide": 18,
-      "keep": 0,
-      "green": 23,
-      "pairs": 0
+      "hide_count": 18,
+      "hide_resolved_count": 18,
+      "keep_count": 0,
+      "green_count": 23,
+      "number_pair_count": 0
     },
     {
-      "page": "No138_p1",
+      "page_key": "No138_p1",
       "raw_sha256": "0f878e5589eb185291d5f355e958b4310f3dd5d3e3ea14c778646b0504a1fdd7",
-      "hide": 0,
-      "keep": 0,
-      "green": 13,
-      "pairs": 7
+      "hide_count": 0,
+      "hide_resolved_count": 0,
+      "keep_count": 0,
+      "green_count": 13,
+      "number_pair_count": 7
     },
     {
-      "page": "No138_p2",
+      "page_key": "No138_p2",
       "raw_sha256": "a693a874f90393175391fa1728c77ee151bf494974e4a611468f58dac83af1a3",
-      "hide": 0,
-      "keep": 0,
-      "green": 28,
-      "pairs": 12
+      "hide_count": 0,
+      "hide_resolved_count": 0,
+      "keep_count": 0,
+      "green_count": 28,
+      "number_pair_count": 12
     }
-  ]
+  ],
+  "checks": {
+    "baseOff_references": 0,
+    "runtime_pixel_scan": 0,
+    "banned_user_labels": 0,
+    "js_syntax": "ok"
+  }
 }
