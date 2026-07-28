@@ -22,6 +22,7 @@ button{cursor:pointer}
   display:flex;gap:10px;align-items:center;z-index:20
 }
 .brand{font-weight:800;white-space:nowrap}
+.homeBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:700;white-space:nowrap}
 .privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
 .topspacer{flex:1}
 .main{min-height:0;display:grid;grid-template-columns:290px 1fr}
@@ -89,8 +90,8 @@ button{cursor:pointer}
 <body>
 <div class="app">
   <header class="top">
+    <a class="homeBtn" href="../index.html">← 一覧</a>
     <div class="brand">古プリ 解答レイヤー</div>
-    <div class="privacy">高速静的サイト版</div>
     <div class="topspacer"></div>
     <div>古代ローマ</div>
   </header>

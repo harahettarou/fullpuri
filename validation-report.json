@@ -1,29 +1,5 @@
 {
-  "scope": "No001-147",
-  "change": "default both toggles OFF on initial load",
-  "pages_modified_count": 17,
-  "pages_modified": [
-    "No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
-    "No010-015_古代ローマ.html",
-    "No016-018_古代インド.html",
-    "No019-021_東南アジアの諸文明.html",
-    "No022-040_中国史〜元.html",
-    "No041-046_明・清.html",
-    "No047-069_ローマ分裂〜大航海時代.html",
-    "No070-081_イスラーム史.html",
-    "No082-084_大航海.html",
-    "No085_ルネサンス.html",
-    "No086-104_宗教改革〜産業革命.html",
-    "No105-108_アメリカの成立.html",
-    "No109-114_フランス革命.html",
-    "No115-123_ウィーン体制と各国の統一.html",
-    "No124-126_東アジアの激動.html",
-    "No127-129_帝国主義の植民地支配.html",
-    "No130-135_第一次世界大戦への道.html"
-  ],
-  "included_new_assets": [
-    "No136-138",
-    "No139-147"
-  ],
-  "manifest_ranges_count": 19
+  "ok": true,
+  "errors": [],
+  "range_count": 19
 }
