@@ -1,18 +1,45 @@
 {
-  "generatedAt": "2026-07-27T20:00:00+09:00",
-  "siteVersion": 2,
-  "rangePages": 17,
-  "jpegFiles": 516,
-  "assetReferences": 516,
-  "base64ImageReferences": 0,
-  "missingReferences": 0,
-  "javascriptScriptsChecked": 18,
-  "javascriptSyntaxFailures": 0,
-  "no081": {
-    "status": "complete",
-    "answerOverlays": 22,
-    "base": "numbered blank sheet",
-    "answerSource": "filled sheet"
+  "pages": 258,
+  "overlay_files": 237,
+  "overlay_bytes": 14031257,
+  "orange_pixels_cleaned": 1102556,
+  "no85_transformed": [
+    {
+      "key": "No085_p1",
+      "sx": 0.991,
+      "sy": 0.99,
+      "dx": -4,
+      "dy": 8
+    },
+    {
+      "key": "No085_p2",
+      "sx": 0.996,
+      "sy": 0.982,
+      "dx": -8,
+      "dy": 12
+    },
+    {
+      "key": "No085_p3",
+      "sx": 0.985,
+      "sy": 0.961,
+      "dx": -8,
+      "dy": 0
+    }
+  ],
+  "checks": {
+    "range_pages": 17,
+    "return_buttons": 17,
+    "baseOff_runtime_switches": 0,
+    "runtime_pixel_scans": 0,
+    "orange_overlay_fields": 17,
+    "visible_version_labels": 0,
+    "javascript_syntax_failures": []
   },
-  "errors": []
+  "architecture": [
+    "背景は常に原本 base.jpg を使用",
+    "JSON hide・numberPairs から作った透明差分レイヤーを原本の上に重ねる",
+    "緑マーカーは JSON greenHide を原本座標上に描画",
+    "端末上の全画素走査なし",
+    "baseOff.jpg への画像切替なし"
+  ]
 }
