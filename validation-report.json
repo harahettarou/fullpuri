@@ -1,194 +1,62 @@
 {
-  "packet": "No139-147",
-  "title": "戦間期国際政治史",
-  "source_pdf": "戦間期国際政治史.pdf",
+  "packet": "No136-138_fix",
+  "source_pdf": "ロシア革命とその影響.pdf",
   "source_json": "古プリ_修正データ_2026-07-28T08-23-16.json",
-  "rule_applied": {
-    "base": "original_raw_image",
-    "hide": "white_overlay_on_original",
-    "greenHide": "green_overlay_on_original",
-    "numberPairs": "orange_text_overlay_on_original"
+  "rules": {
+    "base": "raw original image",
+    "orange_off": "hide white overlay",
+    "green_on": "green rectangle overlay after hide",
+    "green_off": "precomputed clean overlay",
+    "numberPairs_on": "orange text overlay"
   },
   "pages": [
     {
-      "page_key": "No139_p1",
-      "raw_sha256": "e97414c243b661a91c033f283aba845b54425105dd675bd41b13c125f4c4d9d1",
-      "hide_count": 15,
-      "hide_resolved_count": 15,
-      "keep_count": 0,
-      "green_count": 21,
-      "number_pair_count": 0
+      "page": "No136_p1",
+      "raw_sha256": "e4004b12cb108d2b2f4e46f8bf344fd12d3bd57c3a519893edef638833e7a001",
+      "hide": 20,
+      "keep": 1,
+      "green": 13,
+      "pairs": 0
     },
     {
-      "page_key": "No139_p2",
-      "raw_sha256": "bd8b27276d81ecd3398308db78d19638bee2e50a577b22998467d0a1c22568bd",
-      "hide_count": 17,
-      "hide_resolved_count": 17,
-      "keep_count": 0,
-      "green_count": 32,
-      "number_pair_count": 0
+      "page": "No136_p2",
+      "raw_sha256": "d7c14a3b6f25633970048c7a6df2d57f8a827b3eb76d6e1b72ac259edf87189d",
+      "hide": 11,
+      "keep": 0,
+      "green": 16,
+      "pairs": 0
     },
     {
-      "page_key": "No140_p1",
-      "raw_sha256": "f5de91c322ac51e068436b62af3ad6401f8b91cef0015448f3154e144bbd525d",
-      "hide_count": 18,
-      "hide_resolved_count": 18,
-      "keep_count": 0,
-      "green_count": 20,
-      "number_pair_count": 2
+      "page": "No137_p1",
+      "raw_sha256": "527c24e71ba7e2832ed5123e7ca729c7c63161d18533fcfb7593fde3a34941f8",
+      "hide": 20,
+      "keep": 3,
+      "green": 6,
+      "pairs": 0
     },
     {
-      "page_key": "No140_p2",
-      "raw_sha256": "ebb11e8c3625bb5aedf7c4f1b2e26c186038005eaba999d08ce5d84ac0fbaa3e",
-      "hide_count": 1,
-      "hide_resolved_count": 1,
-      "keep_count": 0,
-      "green_count": 11,
-      "number_pair_count": 10
+      "page": "No137_p2",
+      "raw_sha256": "3bf1906bf9a039e987eae442dce00379f6a4d46d2ae90130c8a5aeb0763a99c7",
+      "hide": 18,
+      "keep": 0,
+      "green": 23,
+      "pairs": 0
     },
     {
-      "page_key": "No141_p1",
-      "raw_sha256": "e02478cb2cd6515c25b75f785c8f303638a8d576d984ea27e681658e92765b0a",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 0,
-      "number_pair_count": 0
+      "page": "No138_p1",
+      "raw_sha256": "0f878e5589eb185291d5f355e958b4310f3dd5d3e3ea14c778646b0504a1fdd7",
+      "hide": 0,
+      "keep": 0,
+      "green": 13,
+      "pairs": 7
     },
     {
-      "page_key": "No141_p2",
-      "raw_sha256": "8c7c7c2459348e2e0079776396b4e50dd72311629e5b1843d5598d0fd359dc69",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 0,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No141_p3",
-      "raw_sha256": "16a113cb40aeb739bd6671fc84b84a4870aeb9325d4c6c85e4c8430219f38082",
-      "hide_count": 28,
-      "hide_resolved_count": 28,
-      "keep_count": 0,
-      "green_count": 0,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No141_p4",
-      "raw_sha256": "6dd8a153469f998bf0a360029d741c67e6820d19c5572da2ec960a51b65529c4",
-      "hide_count": 13,
-      "hide_resolved_count": 13,
-      "keep_count": 0,
-      "green_count": 1,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No142_p1",
-      "raw_sha256": "55b79eed99a1e563ac806af3624d8d366f8dae33049563a721ac980d6ea802eb",
-      "hide_count": 27,
-      "hide_resolved_count": 27,
-      "keep_count": 1,
-      "green_count": 12,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No142_p2",
-      "raw_sha256": "20c26b16eb6d16e38cc153e0da958f40cbd34ec328f675ddfee788daf6652b96",
-      "hide_count": 17,
-      "hide_resolved_count": 17,
-      "keep_count": 0,
-      "green_count": 7,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No143_p1",
-      "raw_sha256": "a6e1bd9e0fa0976b8110e3058f7abe6f28204a355b13dd6b15d4a9af725c7628",
-      "hide_count": 27,
-      "hide_resolved_count": 27,
-      "keep_count": 1,
-      "green_count": 12,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No143_p2",
-      "raw_sha256": "174e95a5d2fdf97e784031a91c1ba48bc34a1cb7455617ed71a09f8a0ced0324",
-      "hide_count": 20,
-      "hide_resolved_count": 20,
-      "keep_count": 0,
-      "green_count": 23,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No144_p1",
-      "raw_sha256": "aac77bc3b8b41497864fb16895d47d8f39a9a42e5d87ddf0adb7bff412fac10f",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 23,
-      "number_pair_count": 10
-    },
-    {
-      "page_key": "No144_p2",
-      "raw_sha256": "03b46db5f73a437d74e341561e619080063d4a9dd9c536a11cd790f8ffaa9b60",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 15,
-      "number_pair_count": 18
-    },
-    {
-      "page_key": "No145_p1",
-      "raw_sha256": "dff9f986b62c1a4834bd9fa0d2f032aa6f304db2e475e871956f4587f8c24afe",
-      "hide_count": 12,
-      "hide_resolved_count": 12,
-      "keep_count": 0,
-      "green_count": 5,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No145_p2",
-      "raw_sha256": "fa6c074a16bb5ec41ba81d9e9e19927a8ac73b56b804735e62c1bb12f4fe2451",
-      "hide_count": 19,
-      "hide_resolved_count": 19,
-      "keep_count": 0,
-      "green_count": 12,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No146_p1",
-      "raw_sha256": "ab1ed5b39542827547c46dfb6b59cb701fed6bc58bc9679a5c979a5cae93b564",
-      "hide_count": 16,
-      "hide_resolved_count": 16,
-      "keep_count": 0,
-      "green_count": 11,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No146_p2",
-      "raw_sha256": "b2ac715fdbb067531891089b4717e017acdae160e6fcb5519137d31974649dd6",
-      "hide_count": 21,
-      "hide_resolved_count": 21,
-      "keep_count": 0,
-      "green_count": 11,
-      "number_pair_count": 0
-    },
-    {
-      "page_key": "No147_p1",
-      "raw_sha256": "0b05d90ec64cdef88d3bc7718f775b1e8741ac323988f5f999aead0ddf772e1c",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 24,
-      "number_pair_count": 17
-    },
-    {
-      "page_key": "No147_p2",
-      "raw_sha256": "4b8e7f74483f73c05fdfe2ec2a99af6d6a05a18251d32df53e9878e2d147c7b2",
-      "hide_count": 0,
-      "hide_resolved_count": 0,
-      "keep_count": 0,
-      "green_count": 17,
-      "number_pair_count": 23
+      "page": "No138_p2",
+      "raw_sha256": "a693a874f90393175391fa1728c77ee151bf494974e4a611468f58dac83af1a3",
+      "hide": 0,
+      "keep": 0,
+      "green": 28,
+      "pairs": 12
     }
   ]
 }
