@@ -162,5 +162,25 @@
     "サイト内の「高速静的サイト版」「Google Apps Script版」表記を削除",
     "No.22-40を含む全範囲で原本画像をstandalone元データから再抽出して再配置",
     "No.136-147は原本上レイヤー修正版を統合"
+  ],
+  "short_name": "古プリ",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f3ee",
+  "theme_color": "#f5f3ee",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }
