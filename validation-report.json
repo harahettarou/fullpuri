@@ -1,6 +1,47 @@
 {
-  "scope": "No148-156 + icon update",
-  "sourceJson": "古プリ_修正データ_2026-07-31T09-35-28.json",
+  "scope": "No148-156 latest JSON remap",
+  "sourceJson": "古プリ_修正データ_2026-07-31T15-46-53.json",
+  "mapping": {
+    "148": [
+      "Added_e21d2a7cc14f_p001",
+      "Added_e21d2a7cc14f_p002"
+    ],
+    "149": [
+      "Added_857dc585072b_p001",
+      "Added_857dc585072b_p002"
+    ],
+    "150": [
+      "Added_05d0e70157dd_p001",
+      "Added_05d0e70157dd_p002"
+    ],
+    "151": [
+      "Added_6617919d880a_p001",
+      "Added_6617919d880a_p002"
+    ],
+    "152": [
+      "Added_881089917199_p001",
+      "Added_881089917199_p002"
+    ],
+    "153": [
+      "Added_7d19a4f8f5f3_p001",
+      "Added_7d19a4f8f5f3_p002",
+      "Added_7d19a4f8f5f3_p003"
+    ],
+    "154": [
+      "Added_00d9af3acee0_p001",
+      "Added_00d9af3acee0_p002",
+      "Added_00d9af3acee0_p003"
+    ],
+    "155": [
+      "Added_d923b48dac65_p001",
+      "Added_d923b48dac65_p002"
+    ],
+    "156": [
+      "Added_f43e9b8349e7_p001",
+      "Added_f43e9b8349e7_p002",
+      "Added_f43e9b8349e7_p003"
+    ]
+  },
   "rules": {
     "base": "original embedded JPEG, unchanged",
     "orangeOff": "white hide overlays from JSON, keep subtracted",
@@ -222,10 +263,10 @@
         2912,
         2152
       ],
-      "hide": 0,
+      "hide": 59,
       "keep": 0,
-      "hideResolved": 0,
-      "greenHide": 2,
+      "hideResolved": 59,
+      "greenHide": 37,
       "numberPairs": 0,
       "badRects": 0,
       "badGreenRects": 0,
@@ -237,10 +278,10 @@
         2144,
         3016
       ],
-      "hide": 0,
+      "hide": 29,
       "keep": 0,
-      "hideResolved": 0,
-      "greenHide": 0,
+      "hideResolved": 29,
+      "greenHide": 26,
       "numberPairs": 0,
       "badRects": 0,
       "badGreenRects": 0,
@@ -252,10 +293,10 @@
         2000,
         2808
       ],
-      "hide": 0,
+      "hide": 34,
       "keep": 0,
-      "hideResolved": 0,
-      "greenHide": 0,
+      "hideResolved": 34,
+      "greenHide": 9,
       "numberPairs": 0,
       "badRects": 0,
       "badGreenRects": 0,
@@ -267,11 +308,11 @@
         2032,
         2872
       ],
-      "hide": 0,
+      "hide": 3,
       "keep": 0,
-      "hideResolved": 0,
-      "greenHide": 0,
-      "numberPairs": 0,
+      "hideResolved": 3,
+      "greenHide": 22,
+      "numberPairs": 13,
       "badRects": 0,
       "badGreenRects": 0,
       "rawSha256": "60c91d9c160b677812f73bb3bbee26f2c8c759f6ba5b92c3a4576406f3286606"
@@ -282,10 +323,10 @@
         2096,
         3008
       ],
-      "hide": 0,
+      "hide": 24,
       "keep": 0,
-      "hideResolved": 0,
-      "greenHide": 0,
+      "hideResolved": 24,
+      "greenHide": 34,
       "numberPairs": 0,
       "badRects": 0,
       "badGreenRects": 0,
@@ -297,10 +338,10 @@
         2072,
         3000
       ],
-      "hide": 0,
+      "hide": 18,
       "keep": 0,
-      "hideResolved": 0,
-      "greenHide": 0,
+      "hideResolved": 18,
+      "greenHide": 14,
       "numberPairs": 0,
       "badRects": 0,
       "badGreenRects": 0,
@@ -312,10 +353,10 @@
         2096,
         2960
       ],
-      "hide": 0,
+      "hide": 5,
       "keep": 0,
-      "hideResolved": 0,
-      "greenHide": 0,
+      "hideResolved": 5,
+      "greenHide": 16,
       "numberPairs": 0,
       "badRects": 0,
       "badGreenRects": 0,

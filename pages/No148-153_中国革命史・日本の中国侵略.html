@@ -147,7 +147,7 @@ const PAGES=[{"key":"No148_p1","no":148,"part":1,"parts":2,"label":"No.148（1/2
 const $=s=>document.querySelector(s);
 const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
 let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
-const storageKey='kopuri-ranges-'+"No148-153_中国革命史・日本の中国侵略";
+const storageKey='kopuri-ranges-'+"No148-153_\u6226\u9593\u671f\u56fd\u969b\u653f\u6cbb\u53f2_overlay_strict";
 const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
 
 function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
