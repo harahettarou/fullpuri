@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>古プリ比較システム｜第二次世界大戦・戦後国際秩序</title>
+<style>
+:root{
+  --bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;
+  --accent:#de6f3c;--green:#16866f;--shadow:0 12px 35px rgba(34,28,20,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr}
+.top{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:max(9px,env(safe-area-inset-top)) 12px 9px;
+  display:flex;gap:10px;align-items:center;z-index:20
+}
+.brand{font-weight:800;white-space:nowrap}
+.homeBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:700;white-space:nowrap}
+.privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
+.topspacer{flex:1}
+.main{min-height:0;display:grid;grid-template-columns:290px 1fr}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.sectionTitle{font-weight:800;margin:4px 0 10px}
+.help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
+.ranges{display:grid;gap:7px}
+.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
+.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{border:0;background:transparent;color:#a34734;font-size:18px}
+.empty{font-size:13px;color:var(--sub)}
+.viewer{min-width:0;min-height:0;display:grid;grid-template-rows:auto 1fr auto}
+.controls{
+  background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center
+}
+.switchWrap{display:flex;align-items:center;gap:7px;font-size:14px}
+.switch{position:relative;width:44px;height:25px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#c9c5bd;border-radius:99px;transition:.2s}
+.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 4px #777;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch.green input:checked+.slider{background:var(--green)}
+.switch input:checked+.slider:before{transform:translateX(19px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 11px}
+.seg button.active{background:#25231f;color:#fff}
+.action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
+.action.primary{background:#25231f;color:#fff;border-color:#25231f}
+.pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
+.scroller{min-height:0;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
+.stage img{display:block;width:100%;height:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+#overlayCanvas{pointer-events:none}
+#drawCanvas{cursor:crosshair;pointer-events:none;touch-action:none}
+.stage.drawing #drawCanvas{pointer-events:auto}
+.stage.drawing{touch-action:none}
+.stage.pinching{will-change:width}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
+.nav{
+  background:#fff;border-top:1px solid var(--line);
+  padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom));
+  display:flex;justify-content:center;gap:8px;align-items:center
+}
+.nav button,.nav select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px}
+.zoom{display:flex;align-items:center;gap:8px}
+#zoomLabel{min-width:44px;text-align:center}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1}
+@media(max-width:760px){
+  .main{grid-template-columns:1fr}
+  .side{display:none}
+  .top{font-size:14px}
+  .privacy{display:none}
+  .controls{padding:7px;gap:7px}
+  .controls .action{padding:7px 9px}
+  .pageInfo{width:100%;margin:0;text-align:right}
+  .scroller{padding:8px}
+  .nav{gap:5px}
+  .nav button,.nav select{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="homeBtn" href="../index.html">← 一覧</a>
+    <div class="brand">古プリ比較システム</div>
+    <div class="topspacer"></div>
+    <div>第二次世界大戦・戦後国際秩序</div>
+  </header>
+  <div class="main">
+    <aside class="side">
+      <div class="sectionTitle">指定範囲</div>
+      <div class="help">
+        「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
+        範囲は端末内に保存されます。
+      </div>
+      <div class="ranges" id="ranges"></div>
+    </aside>
+    <section class="viewer">
+      <div class="controls">
+        <label class="switchWrap">
+          <span class="switch"><input id="orangeToggle" type="checkbox"><span class="slider"></span></span>
+          オレンジ文字
+        </label>
+        <label class="switchWrap">
+          <span class="switch green"><input id="greenToggle" type="checkbox"><span class="slider"></span></span>
+          緑マーカー
+        </label>
+        <div class="seg">
+          <button id="allMode" class="active">全体</button>
+          <button id="rangeMode">指定範囲</button>
+        </div>
+        <button class="action primary" id="addRange">＋ 範囲を追加</button>
+        <button class="action" id="clearRanges">範囲を削除</button>
+        <div class="pageInfo" id="pageInfo"></div>
+      </div>
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage">
+          <img id="baseImg" alt="古プリ">
+          <canvas id="overlayCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+          <div class="loading" id="loading">PDF原本を読み込み中…</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="prev">← 前</button>
+        <select id="pageSelect"></select>
+        <button id="next">次 →</button>
+        <div class="zoom">
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const PAGES=[{"key":"No154_p1","no":154,"part":1,"parts":3,"label":"No.154（1/3）","width":2912,"height":2152,"base":"../assets/No154-156/No154_p1_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[{"x":712,"y":389,"width":204,"height":37,"color":"#58cf68"},{"x":866,"y":298,"width":212,"height":37,"color":"#58cf68"}],"numberPairs":[]},{"key":"No154_p2","no":154,"part":2,"parts":3,"label":"No.154（2/3）","width":2144,"height":3016,"base":"../assets/No154-156/No154_p2_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[],"numberPairs":[]},{"key":"No154_p3","no":154,"part":3,"parts":3,"label":"No.154（3/3）","width":2000,"height":2808,"base":"../assets/No154-156/No154_p3_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[],"numberPairs":[]},{"key":"No155_p1","no":155,"part":1,"parts":2,"label":"No.155（1/2）","width":2032,"height":2872,"base":"../assets/No154-156/No155_p1_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[],"numberPairs":[]},{"key":"No155_p2","no":155,"part":2,"parts":2,"label":"No.155（2/2）","width":2096,"height":3008,"base":"../assets/No154-156/No155_p2_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[],"numberPairs":[]},{"key":"No156_p1","no":156,"part":1,"parts":3,"label":"No.156（1/3）","width":2072,"height":3000,"base":"../assets/No154-156/No156_p1_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[],"numberPairs":[]},{"key":"No156_p2","no":156,"part":2,"parts":3,"label":"No.156（2/3）","width":2096,"height":2960,"base":"../assets/No154-156/No156_p2_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[],"numberPairs":[]},{"key":"No156_p3","no":156,"part":3,"parts":3,"label":"No.156（3/3）","width":2064,"height":2944,"base":"../assets/No154-156/No156_p3_raw.jpg","hide":[],"keep":[],"hideResolved":[],"greenHide":[],"numberPairs":[]}];
+const $=s=>document.querySelector(s);
+const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
+let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
+const storageKey='kopuri-ranges-'+"No154-156_第二次世界大戦・戦後国際秩序";
+const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+
+function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
+function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
+
+function applyZoom(options={}){
+  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  const scroller=$('#scroller');
+  const available=Math.max(280,scroller.clientWidth-36);
+  const baseWidth=Math.min(980,available);
+  stage.style.width=Math.round(baseWidth*zoom/100)+'px';
+  stage.style.height='auto';
+  $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
+  // canvasは元画像と同じ解像度のままCSSだけで拡大する。
+  // 画質を維持しつつ、ズームごとの高解像度再描画を避ける。
+  if(options.redraw===true){
+    requestAnimationFrame(()=>{drawOverlays();drawGuides()});
+  }
+}
+function drawCoverRect(ctx,r,p,fill='#fff'){
+  ctx.fillStyle=fill;
+  ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawGreenRect(ctx,r,p){
+  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
+  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+}
+function fittedFontSize(ctx,text,r,maxSize){
+  const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
+  let size=Math.min(Number(maxSize)||34,maxH);
+  for(;size>=8;size--){
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    const m=ctx.measureText(text);
+    const h=(m.actualBoundingBoxAscent||size*.8)+(m.actualBoundingBoxDescent||size*.2);
+    if(m.width<=maxW && h<=maxH) return size;
+  }
+  return 8;
+}
+function applyNumberPairsOn(ctx,p){
+  (p.numberPairs||[]).forEach(pair=>{
+    if(pair.answer && pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+    if(pair.body && pair.bodyPageKey===p.key){
+      const r=pair.body,text=String(pair.answerText||'');
+      drawCoverRect(ctx,r,p,'#fff');
+      ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+      const size=fittedFontSize(ctx,text,r,pair.fontSize);
+      ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+      ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+      ctx.restore();
+    }
+  });
+}
+function drawHideOn(ctx,p){
+  (p.hideResolved||p.hide||[]).forEach(r=>drawCoverRect(ctx,r,p,'#fff'));
+}
+function drawGreenOn(ctx,p){
+  (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+}
+function drawState(ctx,p){
+  // 原本は常に表示し、OFFにした項目だけ原本の上へ隠しレイヤーを重ねる。
+  if(!$('#orangeToggle').checked) drawHideOn(ctx,p);
+  if(!$('#greenToggle').checked) drawGreenOn(ctx,p);
+  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+}
+function drawOverlays(){
+  const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode==='all') drawState(ctx,p);
+  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
+function drawGuides(){
+  const p=PAGES[idx],ctx=dc.getContext('2d');
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode!=='range'&&!drawing)return;
+  ctx.lineWidth=Math.max(2,p.width/500);
+  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
+  rangesFor().forEach(r=>{
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
+    ctx.setLineDash(r.enabled===false?[8,7]:[]);
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,255,255,.82)';
+    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
+    ctx.fillStyle='#512b1a';
+    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
+  });
+  ctx.setLineDash([]);
+  if(tempRect){
+    ctx.strokeStyle='#16866f';
+    ctx.strokeRect(tempRect.x*p.width,tempRect.y*p.height,tempRect.w*p.width,tempRect.h*p.height);
+  }
+}
+function renderRanges(){
+  const box=$('#ranges'),r=rangesFor();box.innerHTML='';
+  if(!r.length){box.innerHTML='<div class="empty">まだ範囲はありません。</div>';return}
+  r.forEach((x,i)=>{
+    const row=document.createElement('div');row.className='rangeRow';
+    const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
+    c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
+    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
+    const d=document.createElement('button');d.className='del';d.textContent='×';
+    d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
+    row.append(c,n,d);box.appendChild(row);
+  });
+}
+function renderPageSelect(){
+  const sel=$('#pageSelect');sel.innerHTML='';
+  PAGES.forEach((p,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=`${p.label}　${i+1}/${PAGES.length}`;
+    if(i===idx)o.selected=true;sel.appendChild(o);
+  });
+}
+function preloadAround(center){
+  [-1,1,2].forEach(d=>{
+    const i=(center+d+PAGES.length)%PAGES.length,p=PAGES[i];
+    const b=new Image();b.decoding='async';b.src=p.base;
+  });
+}
+function loadPage(){
+  const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
+  base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
+  if(base.getAttribute('src')!==p.base) base.src=p.base;
+    // canvasの実画素数は常に原寸。倍率変更では変更しない。
+  if(oc.width!==p.width) oc.width=p.width;
+  if(oc.height!==p.height) oc.height=p.height;
+  if(dc.width!==p.width) dc.width=p.width;
+  if(dc.height!==p.height) dc.height=p.height;
+  $('#pageInfo').textContent=`第二次世界大戦・戦後国際秩序　${p.label}`;
+  renderPageSelect();renderRanges();applyZoom();drawOverlays();drawGuides();preloadAround(idx);
+}
+function point(e){
+  const b=dc.getBoundingClientRect();
+  return{x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))}
+}
+dc.addEventListener('pointerdown',e=>{
+  if(!drawing)return;e.preventDefault();dc.setPointerCapture(e.pointerId);
+  dragStart=point(e);tempRect={x:dragStart.x,y:dragStart.y,w:0,h:0};drawGuides()
+});
+dc.addEventListener('pointermove',e=>{
+  if(!drawing||!dragStart)return;e.preventDefault();const p=point(e);
+  tempRect={x:Math.min(p.x,dragStart.x),y:Math.min(p.y,dragStart.y),w:Math.abs(p.x-dragStart.x),h:Math.abs(p.y-dragStart.y)};drawGuides()
+});
+dc.addEventListener('pointerup',e=>{
+  if(!drawing||!tempRect)return;e.preventDefault();
+  if(tempRect.w>.015&&tempRect.h>.015){
+    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
+    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+  }
+  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+});
+$('#orangeToggle').onchange=drawOverlays;
+$('#greenToggle').onchange=drawOverlays;
+$('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#rangeMode').onclick=()=>{mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
+$('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
+$('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
+$('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+
+// Mobile pinch zoom (50%–200%)
+let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
+let pinchCenterX=0, pinchCenterY=0;
+function touchDistance(touches){
+  const dx=touches[0].clientX-touches[1].clientX;
+  const dy=touches[0].clientY-touches[1].clientY;
+  return Math.hypot(dx,dy);
+}
+let pinchFrame=0,pendingPinchZoom=100;
+function beginPinch(e){
+  if(e.touches.length!==2 || drawing)return;
+  const scroller=$('#scroller');
+  const rect=scroller.getBoundingClientRect();
+  pinchStartDistance=touchDistance(e.touches);
+  pinchStartZoom=zoom;
+  pendingPinchZoom=zoom;
+  pinchStartScrollLeft=scroller.scrollLeft;
+  pinchStartScrollTop=scroller.scrollTop;
+  pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2-rect.left;
+  pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2-rect.top;
+  stage.classList.add('pinching');
+  e.preventDefault();
+}
+function flushPinch(){
+  pinchFrame=0;
+  const scroller=$('#scroller');
+  zoom=pendingPinchZoom;
+  applyZoom();
+  const ratio=zoom/pinchStartZoom;
+  scroller.scrollLeft=(pinchStartScrollLeft+pinchCenterX)*ratio-pinchCenterX;
+  scroller.scrollTop=(pinchStartScrollTop+pinchCenterY)*ratio-pinchCenterY;
+}
+function movePinch(e){
+  if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
+  e.preventDefault();
+  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
+  if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
+}
+function endPinch(e){
+  if(e.touches.length<2){
+    if(pinchFrame){cancelAnimationFrame(pinchFrame);flushPinch();}
+    pinchStartDistance=0;
+    stage.classList.remove('pinching');
+  }
+}
+
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>applyZoom(),80)},{passive:true});
+const scrollerEl=$('#scroller');
+scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
+scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
+scrollerEl.addEventListener('touchend',endPinch,{passive:true});
+scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+loadPage();
+</script>
+</body>
+</html>
