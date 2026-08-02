@@ -26,7 +26,12 @@ button{cursor:pointer}
 .privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
 .topspacer{flex:1}
 .main{min-height:0;display:grid;grid-template-columns:290px 1fr}
+.main.sideClosed{grid-template-columns:0 1fr}
 .side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.main.sideClosed .side{display:none}
+.sideHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}
+.sideHead .sectionTitle{margin:0}
+.sideToggleBtn{white-space:nowrap}
 .sectionTitle{font-weight:800;margin:4px 0 10px}
 .help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
 .ranges{display:grid;gap:7px}
@@ -74,6 +79,8 @@ button{cursor:pointer}
 .toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
 .toast.show{opacity:1}
 @media(max-width:760px){
+  .main.sideClosed{grid-template-columns:1fr}
+  .sideToggleBtn{display:none!important}
   .main{grid-template-columns:1fr}
   .side{display:none}
   .top{font-size:14px}
@@ -96,8 +103,8 @@ button{cursor:pointer}
     <div>ロシア革命とその影響</div>
   </header>
   <div class="main">
-    <aside class="side">
-      <div class="sectionTitle">指定範囲</div>
+    <aside class="side" id="sidePanel">
+      <div class="sideHead"><div class="sectionTitle">指定範囲</div><button class="action sideToggleBtn" id="closeSide" type="button">閉じる</button></div>
       <div class="help">
         「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
         範囲は端末内に保存されます。
@@ -120,6 +127,7 @@ button{cursor:pointer}
         </div>
         <button class="action primary" id="addRange">＋ 範囲を追加</button>
         <button class="action" id="clearRanges">範囲を削除</button>
+        <button class="action sideToggleBtn" id="openSide" type="button" hidden>指定範囲を開く</button>
         <div class="pageInfo" id="pageInfo"></div>
       </div>
       <div class="scroller" id="scroller">
@@ -149,6 +157,35 @@ const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('
 let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
 const storageKey='kopuri-ranges-'+"No136-138_\u30ed\u30b7\u30a2\u9769\u547d\u3068\u305d\u306e\u5f71\u97ff_overlay_strict";
 const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+const sidePrefKey='kopuri-side-collapsed';
+const mainEl=document.querySelector('.main');
+const closeSideBtn=$('#closeSide');
+const openSideBtn=$('#openSide');
+let sideClosed=localStorage.getItem(sidePrefKey)==='1';
+function syncSide(){
+  const compact=window.matchMedia('(max-width:760px)').matches;
+  if(compact){
+    mainEl.classList.remove('sideClosed');
+    if(openSideBtn) openSideBtn.hidden=true;
+    if(closeSideBtn) closeSideBtn.hidden=true;
+    return;
+  }
+  mainEl.classList.toggle('sideClosed',sideClosed);
+  if(openSideBtn) openSideBtn.hidden=!sideClosed;
+  if(closeSideBtn) closeSideBtn.hidden=sideClosed;
+}
+function setSideClosed(v){
+  sideClosed=!!v;
+  localStorage.setItem(sidePrefKey,sideClosed?'1':'0');
+  syncSide();
+  requestAnimationFrame(()=>applyZoom());
+}
+function ensureSideOpen(){
+  if(!window.matchMedia('(max-width:760px)').matches && sideClosed) setSideClosed(false);
+}
+if(closeSideBtn) closeSideBtn.onclick=()=>setSideClosed(true);
+if(openSideBtn) openSideBtn.onclick=()=>setSideClosed(false);
+syncSide();
 
 function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
 function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
@@ -306,8 +343,8 @@ dc.addEventListener('pointerup',e=>{
 $('#orangeToggle').onchange=drawOverlays;
 $('#greenToggle').onchange=drawOverlays;
 $('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
-$('#rangeMode').onclick=()=>{mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
-$('#addRange').onclick=()=>{mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#rangeMode').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
 $('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
 $('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
 $('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
@@ -362,12 +399,13 @@ function endPinch(e){
   }
 }
 
-let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>applyZoom(),80)},{passive:true});
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{syncSide();applyZoom()},80)},{passive:true});
 const scrollerEl=$('#scroller');
 scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
 scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
 scrollerEl.addEventListener('touchend',endPinch,{passive:true});
 scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+syncSide();
 loadPage();
 </script>
 </body>
