@@ -29,6 +29,7 @@ button{cursor:pointer}
 .main.sideClosed{grid-template-columns:0 1fr}
 .side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
 .main.sideClosed .side{display:none}
+.main.sideClosed .scroller{justify-content:center}
 .sideHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}
 .sideHead .sectionTitle{margin:0}
 .sideToggleBtn{white-space:nowrap}
@@ -195,8 +196,9 @@ function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');se
 function applyZoom(options={}){
   zoom=Math.max(50,Math.min(200,Number(zoom)||100));
   const scroller=$('#scroller');
-  const available=Math.max(280,scroller.clientWidth-36);
-  const baseWidth=Math.min(980,available);
+  const isSideClosed=mainEl.classList.contains('sideClosed')&&!window.matchMedia('(max-width:760px)').matches;
+  const available=Math.max(280,scroller.clientWidth-(isSideClosed?20:36));
+  const baseWidth=isSideClosed?available:Math.min(980,available);
   stage.style.width=Math.round(baseWidth*zoom/100)+'px';
   stage.style.height='auto';
   $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
