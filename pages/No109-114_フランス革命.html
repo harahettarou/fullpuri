@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ja">
 <head>
+<!-- KOPURI_UI_FIX_20260803_FULL21_PAN_V1 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>古プリ 解答レイヤー｜フランス革命</title>
@@ -30,7 +31,8 @@ button{cursor:pointer}
 .side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
 .main.sideClosed .side{display:none}
 .main.sideClosed .viewer{width:100%;min-width:0}
-.main.sideClosed .scroller{width:100%;justify-content:center}
+.main.sideClosed .scroller{width:100%;justify-content:flex-start;cursor:grab}
+.main.sideClosed .stage{margin-inline:auto}
 .sideHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}
 .sideHead .sectionTitle{margin:0}
 .sideToggleBtn{white-space:nowrap}
@@ -69,6 +71,8 @@ button{cursor:pointer}
 .stage.drawing #drawCanvas{pointer-events:auto}
 .stage.drawing{touch-action:none}
 .stage.pinching{will-change:width}
+.scroller.dragPanning{cursor:grabbing;user-select:none}
+.scroller.dragPanning .stage{cursor:grabbing}
 .loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
 .nav{
   background:#fff;border-top:1px solid var(--line);
@@ -339,7 +343,7 @@ $('#orangeToggle').onchange=drawOverlays;
 $('#greenToggle').onchange=drawOverlays;
 $('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
 $('#rangeMode').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
-$('#addRange').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#addRange').onclick=()=>{ensureSideOpen();if(dragPanActive){dragPanActive=false;dragPanPointerId=null;scrollerEl.classList.remove('dragPanning')}mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
 $('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
 $('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
 $('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
@@ -396,6 +400,35 @@ function endPinch(e){
 
 let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{syncSide();applyZoom()},80)},{passive:true});
 const scrollerEl=$('#scroller');
+let dragPanActive=false,dragPanPointerId=null,dragPanStartX=0,dragPanStartY=0,dragPanScrollLeft=0,dragPanScrollTop=0;
+function beginDragPan(e){
+  if(drawing)return;
+  if(e.pointerType==='touch')return; // touchはブラウザ標準の1本指スクロールを使う
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  if(scrollerEl.scrollWidth<=scrollerEl.clientWidth&&scrollerEl.scrollHeight<=scrollerEl.clientHeight)return;
+  dragPanActive=true;dragPanPointerId=e.pointerId;
+  dragPanStartX=e.clientX;dragPanStartY=e.clientY;
+  dragPanScrollLeft=scrollerEl.scrollLeft;dragPanScrollTop=scrollerEl.scrollTop;
+  scrollerEl.classList.add('dragPanning');
+  scrollerEl.setPointerCapture?.(e.pointerId);
+  e.preventDefault();
+}
+function moveDragPan(e){
+  if(!dragPanActive||e.pointerId!==dragPanPointerId)return;
+  scrollerEl.scrollLeft=dragPanScrollLeft-(e.clientX-dragPanStartX);
+  scrollerEl.scrollTop=dragPanScrollTop-(e.clientY-dragPanStartY);
+  e.preventDefault();
+}
+function endDragPan(e){
+  if(!dragPanActive||e.pointerId!==dragPanPointerId)return;
+  dragPanActive=false;dragPanPointerId=null;
+  scrollerEl.classList.remove('dragPanning');
+  try{scrollerEl.releasePointerCapture?.(e.pointerId)}catch(_e){}
+}
+scrollerEl.addEventListener('pointerdown',beginDragPan,{passive:false});
+scrollerEl.addEventListener('pointermove',moveDragPan,{passive:false});
+scrollerEl.addEventListener('pointerup',endDragPan,{passive:true});
+scrollerEl.addEventListener('pointercancel',endDragPan,{passive:true});
 scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
 scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
 scrollerEl.addEventListener('touchend',endPinch,{passive:true});
