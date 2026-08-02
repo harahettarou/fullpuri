@@ -25,11 +25,12 @@ button{cursor:pointer}
 .homeBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:700;white-space:nowrap}
 .privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
 .topspacer{flex:1}
-.main{min-height:0;display:grid;grid-template-columns:290px 1fr}
-.main.sideClosed{grid-template-columns:0 1fr}
+.main{min-height:0;display:grid;grid-template-columns:290px minmax(0,1fr);width:100%}
+.main.sideClosed{display:block;width:100%}
 .side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
 .main.sideClosed .side{display:none}
-.main.sideClosed .scroller{justify-content:center}
+.main.sideClosed .viewer{width:100%;min-width:0}
+.main.sideClosed .scroller{width:100%;justify-content:center}
 .sideHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}
 .sideHead .sectionTitle{margin:0}
 .sideToggleBtn{white-space:nowrap}
@@ -40,7 +41,7 @@ button{cursor:pointer}
 .rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .del{border:0;background:transparent;color:#a34734;font-size:18px}
 .empty{font-size:13px;color:var(--sub)}
-.viewer{min-width:0;min-height:0;display:grid;grid-template-rows:auto 1fr auto}
+.viewer{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;width:100%}
 .controls{
   background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
   display:flex;flex-wrap:wrap;gap:9px;align-items:center
@@ -59,7 +60,7 @@ button{cursor:pointer}
 .action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
 .action.primary{background:#25231f;color:#fff;border-color:#25231f}
 .pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
-.scroller{min-height:0;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.scroller{min-width:0;min-height:0;width:100%;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
 .stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
 .stage img{display:block;width:100%;height:100%}
 .stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
@@ -82,7 +83,7 @@ button{cursor:pointer}
 @media(max-width:760px){
   .main.sideClosed{grid-template-columns:1fr}
   .sideToggleBtn{display:none!important}
-  .main{grid-template-columns:1fr}
+  .main{display:block;width:100%}
   .side{display:none}
   .top{font-size:14px}
   .privacy{display:none}
@@ -179,7 +180,7 @@ function setSideClosed(v){
   sideClosed=!!v;
   localStorage.setItem(sidePrefKey,sideClosed?'1':'0');
   syncSide();
-  requestAnimationFrame(()=>applyZoom());
+  requestAnimationFrame(()=>requestAnimationFrame(()=>applyZoom()));
 }
 function ensureSideOpen(){
   if(!window.matchMedia('(max-width:760px)').matches && sideClosed) setSideClosed(false);
@@ -195,14 +196,16 @@ function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');se
 function applyZoom(options={}){
   zoom=Math.max(50,Math.min(200,Number(zoom)||100));
   const scroller=$('#scroller');
-  const isSideClosed=mainEl.classList.contains('sideClosed')&&!window.matchMedia('(max-width:760px)').matches;
-  const available=Math.max(280,scroller.clientWidth-(isSideClosed?20:36));
+  const viewerEl=document.querySelector('.viewer');
+  const compact=window.matchMedia('(max-width:760px)').matches;
+  const isSideClosed=mainEl.classList.contains('sideClosed')&&!compact;
+  const hostWidth=(isSideClosed?(viewerEl?.clientWidth||scroller.clientWidth):scroller.clientWidth);
+  const chromePadding=compact?16:(isSideClosed?32:36);
+  const available=Math.max(280,hostWidth-chromePadding);
   const baseWidth=isSideClosed?available:Math.min(980,available);
   stage.style.width=Math.round(baseWidth*zoom/100)+'px';
   stage.style.height='auto';
   $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
-  // canvasは元画像と同じ解像度のままCSSだけで拡大する。
-  // 画質を維持しつつ、ズームごとの高解像度再描画を避ける。
   if(options.redraw===true){
     requestAnimationFrame(()=>{drawOverlays();drawGuides()});
   }
