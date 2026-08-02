@@ -1,414 +1,161 @@
 {
-  "name": "古プリ 全21範囲 UI修正検証",
-  "version": "2026-08-03-full21-pan-v1",
-  "expectedHtmlCount": 21,
-  "actualHtmlCount": 21,
-  "allFilesPatched": true,
-  "behavior": {
-    "sidebarClosed": "viewer expands to full available width",
-    "mouseAndPen": "drag the print to pan vertically and horizontally",
-    "touch": "native one-finger pan; two-finger pinch zoom remains enabled",
-    "rangeDrawing": "range drawing has priority over panning"
-  },
+  "scope": "all 21 range HTML files (No.1-156)",
+  "html_count": 21,
+  "fixes": [
+    "keep .main as a constrained grid after closing the sidebar",
+    "constrain .viewer to the remaining viewport height",
+    "make .scroller the vertical/horizontal overflow container",
+    "preserve mouse drag, touch scrolling and pinch zoom",
+    "add mouse-wheel fallback scrolling"
+  ],
   "files": [
     {
-      "file": "pages/No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
-      "sha256": "89f159d5d0afdde3307d2a934d9d74115a63aaa2a2aab4a0a02f9e4bd461c882",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No010-015_古代ローマ.html",
-      "sha256": "78b9fdc461a226a97e3ed69fdd0a47ae501911c81a32c877ee1614bc0c77a279",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No010-015_古代ローマ.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No016-018_古代インド.html",
-      "sha256": "846f4d2a06909b60e17a489cc49595f4967b4864daf3ee25c1281d1d0c99dcb6",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No016-018_古代インド.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No019-021_東南アジアの諸文明.html",
-      "sha256": "4118978041d57309784f7abd9da277227a1ffa674f65fd8564bd99c7701878f5",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No019-021_東南アジアの諸文明.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No022-040_中国史〜元.html",
-      "sha256": "1e2b2f7c6ec70231441c724453e4ff105983b4321a351662d7be9ff263df0fbd",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No022-040_中国史〜元.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No041-046_明・清.html",
-      "sha256": "d7a9b9e9dbdbdcfbf4b6d722373444fc570e287a9db1281dfc946ad7fa71b4c9",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No041-046_明・清.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No047-069_ローマ分裂〜大航海時代.html",
-      "sha256": "5d038b45e69813e0f364d8393b73652ae3c49cc60cb38eed05c3735f28708a54",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No047-069_ローマ分裂〜大航海時代.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No070-081_イスラーム史.html",
-      "sha256": "a78c434c7f656762073ced92fafa4e7f947bc4d175cba41da974f64d53ed4f88",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No070-081_イスラーム史.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No082-084_大航海.html",
-      "sha256": "3bab7014d238195a6f6713dd3ce139efabba27f15b976d9dd30fc965ad7f2705",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No082-084_大航海.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No085_ルネサンス.html",
-      "sha256": "64579f9ef39fd4243e58fcdd2c2eb71a0baeb15d9ee5217e5fc80cec05a2f23e",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No085_ルネサンス.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No086-104_宗教改革〜産業革命.html",
-      "sha256": "9674b6838765c74390368fe32f0e418e47fdf227bf9cd04672c41aed84e52e4e",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No086-104_宗教改革〜産業革命.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No105-108_アメリカの成立.html",
-      "sha256": "2fc97da3f7b1fff5f3753bed96c1c3602eba12d805519377b98ecdcc52aec868",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No105-108_アメリカの成立.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No109-114_フランス革命.html",
-      "sha256": "6d148c64fb48717b9285610b519ae6b6e0c32e68fb6dabcf39f7576c00e9c8fa",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No109-114_フランス革命.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No115-123_ウィーン体制と各国の統一.html",
-      "sha256": "d93ed635824e15e4f4ff43079ca0de703ebdc8dde0c07ace6a55fb0f96fd1abf",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No115-123_ウィーン体制と各国の統一.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No124-126_東アジアの激動.html",
-      "sha256": "3e88529d0480a68fb543fde3196dd591b64301c78b623b687ff847ce57742eb9",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No124-126_東アジアの激動.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No127-129_帝国主義の植民地支配.html",
-      "sha256": "af19a1ca5568e9e10786984e76cf09dfc577ed242d6300d38b4d89f3257f3f85",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No127-129_帝国主義の植民地支配.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No130-135_第一次世界大戦への道.html",
-      "sha256": "e75d222204f2dc5964b77aa8362c2715eb87f387263ff64c21df2450d32c01ca",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No130-135_第一次世界大戦への道.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No136-138_ロシア革命とその影響.html",
-      "sha256": "1afc7ed68299d4740ba61bf8f9f8700a83066b06c9e186f4e4861fcc285c1648",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No136-138_ロシア革命とその影響.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No139-147_戦間期国際政治史.html",
-      "sha256": "faab9d81ba407afe7365e6c8f8e1e574fab0980bec7c035548c64dc373bba01f",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No139-147_戦間期国際政治史.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No148-153_中国革命史・日本の中国侵略.html",
-      "sha256": "75b1bd4adaf49dc402f07f737d744a17cde3808c1b0768d01ddcdd17f20718b1",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No148-153_中国革命史・日本の中国侵略.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     },
     {
-      "file": "pages/No154-156_第二次世界大戦・戦後国際秩序.html",
-      "sha256": "8d0d07f788aab088684fb83a37375988b4910ebcd19c80bec9e5e25fb8883959",
-      "checks": {
-        "fullWidthClosed": true,
-        "viewerFullWidth": true,
-        "scrollerFullWidth": true,
-        "noCenterTrap": true,
-        "dragPan": true,
-        "nativeTouchPan": true,
-        "rangePriority": true,
-        "pinchZoomPreserved": true,
-        "plusMinusPreserved": true,
-        "syntaxOk": true,
-        "versionMarker": true
-      },
-      "errors": [],
-      "ok": true
+      "file": "No154-156_第二次世界大戦・戦後国際秩序.html",
+      "grid_closed": true,
+      "viewer_constrained": true,
+      "scroller_height": true,
+      "wheel_fallback": true
     }
-  ]
+  ],
+  "all_passed": true
 }
