@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<!-- KOPURI_UI_FIX_20260803_FULL21_PAN_V1 -->
+<!-- KOPURI_ORANGE_ALIGN_NO022_035_20260806 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>古プリ 解答レイヤー｜中国史〜元</title>
+<style>
+:root{
+  --bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;
+  --accent:#de6f3c;--green:#16866f;--shadow:0 12px 35px rgba(34,28,20,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.top{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:max(9px,env(safe-area-inset-top)) 12px 9px;
+  display:flex;gap:10px;align-items:center;z-index:20
+}
+.brand{font-weight:800;white-space:nowrap}
+.homeBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:700;white-space:nowrap}
+.privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
+.topspacer{flex:1}
+.main{min-height:0;display:grid;grid-template-columns:290px minmax(0,1fr);width:100%}
+.main.sideClosed{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-height:0}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.main.sideClosed .side{display:none}
+.main.sideClosed .viewer{width:100%;min-width:0;min-height:0;height:100%;overflow:hidden}
+.main.sideClosed .scroller{width:100%;justify-content:flex-start;cursor:grab}
+.main.sideClosed .stage{margin-inline:auto}
+.sideHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}
+.sideHead .sectionTitle{margin:0}
+.sideToggleBtn{white-space:nowrap}
+.sectionTitle{font-weight:800;margin:4px 0 10px}
+.help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
+.ranges{display:grid;gap:7px}
+.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
+.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{border:0;background:transparent;color:#a34734;font-size:18px}
+.empty{font-size:13px;color:var(--sub)}
+.viewer{min-width:0;min-height:0;height:100%;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr) auto;width:100%}
+.controls{
+  background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center
+}
+.switchWrap{display:flex;align-items:center;gap:7px;font-size:14px}
+.switch{position:relative;width:44px;height:25px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#c9c5bd;border-radius:99px;transition:.2s}
+.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 4px #777;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch.green input:checked+.slider{background:var(--green)}
+.switch input:checked+.slider:before{transform:translateX(19px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 11px}
+.seg button.active{background:#25231f;color:#fff}
+.action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
+.action.primary{background:#25231f;color:#fff;border-color:#25231f}
+.pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
+.scroller{min-width:0;min-height:0;width:100%;height:100%;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
+.stage img{display:block;width:100%;height:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+#overlayCanvas{pointer-events:none}
+#drawCanvas{cursor:crosshair;pointer-events:none;touch-action:none}
+.stage.drawing #drawCanvas{pointer-events:auto}
+.stage.drawing{touch-action:none}
+.stage.pinching{will-change:width}
+.scroller.dragPanning{cursor:grabbing;user-select:none}
+.scroller.dragPanning .stage{cursor:grabbing}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
+.nav{
+  background:#fff;border-top:1px solid var(--line);
+  padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom));
+  display:flex;justify-content:center;gap:8px;align-items:center
+}
+.nav button,.nav select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px}
+.zoom{display:flex;align-items:center;gap:8px}
+#zoomLabel{min-width:44px;text-align:center}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1}
+@media(max-width:760px){
+  .main.sideClosed{display:grid;grid-template-columns:minmax(0,1fr);min-height:0}
+  .sideToggleBtn{display:none!important}
+  .main{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-height:0}
+  .side{display:none}
+  .top{font-size:14px}
+  .privacy{display:none}
+  .controls{padding:7px;gap:7px}
+  .controls .action{padding:7px 9px}
+  .pageInfo{width:100%;margin:0;text-align:right}
+  .scroller{padding:8px}
+  .nav{gap:5px}
+  .nav button,.nav select{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="homeBtn" href="../index.html">← 一覧</a>
+    <div class="brand">古プリ 解答レイヤー</div>
+    <div class="topspacer"></div>
+    <div>中国史〜元</div>
+  </header>
+  <div class="main">
+    <aside class="side" id="sidePanel">
+      <div class="sideHead"><div class="sectionTitle">指定範囲</div><button class="action sideToggleBtn" id="closeSide" type="button">閉じる</button></div>
+      <div class="help">
+        「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
+        範囲は端末内に保存されます。
+      </div>
+      <div class="ranges" id="ranges"></div>
+    </aside>
+    <section class="viewer">
+      <div class="controls">
+        <label class="switchWrap">
+          <span class="switch"><input id="orangeToggle" type="checkbox"><span class="slider"></span></span>
+          オレンジ文字
+        </label>
+        <label class="switchWrap">
+          <span class="switch green"><input id="greenToggle" type="checkbox"><span class="slider"></span></span>
+          緑マーカー
+        </label>
+        <div class="seg">
+          <button id="allMode" class="active">全体</button>
+          <button id="rangeMode">指定範囲</button>
+        </div>
+        <button class="action primary" id="addRange">＋ 範囲を追加</button>
+        <button class="action" id="clearRanges">範囲を削除</button>
+        <button class="action sideToggleBtn" id="openSide" type="button" hidden>指定範囲を開く</button>
+        <div class="pageInfo" id="pageInfo"></div>
+      </div>
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage">
+          <img id="baseImg" alt="古プリ">
+          <canvas id="overlayCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+          <div class="loading" id="loading">PDF原本を読み込み中…</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="prev">← 前</button>
+        <select id="pageSelect"></select>
+        <button id="next">次 →</button>
+        <div class="zoom">
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// KOPURI_HIGH_SPEED_V1: full-quality rendering, redraw-free zoom
+const PAGES=[{"key":"No022_p1","no":22,"part":1,"parts":2,"label":"No.22（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No022_p2_base.jpg","baseOff":"../assets/No022-040/No022_p2_baseOff.jpg","hide":[[617,471,415,40],[612,536,98,40],[547,669,105,37],[733,715,82,40],[738,775,86,29],[730,998,88,36],[630,1309,126,53],[1245,1323,141,38],[1364,1525,83,39],[679,1524,109,38],[1257,1678,200,39],[1210,1689,32,48],[840,1729,35,56],[985,1866,125,43],[767,1916,237,46],[531,1975,552,44],[708,2036,158,34],[360,1940,31,42]],"keep":[[715,950,108,42],[820,997,111,33],[746,1038,161,42]],"greenHide":[{"x":955,"y":1063,"width":107,"height":39,"color":"#58cf68"},{"x":522,"y":1533,"width":118,"height":33,"color":"#58cf68"},{"x":1212,"y":1536,"width":94,"height":31,"color":"#58cf68"},{"x":724,"y":1637,"width":86,"height":38,"color":"#58cf68"},{"x":480,"y":1599,"width":153,"height":36,"color":"#58cf68"},{"x":332,"y":1831,"width":51,"height":36,"color":"#58cf68"},{"x":1243,"y":1644,"width":140,"height":24,"color":"#58cf68"},{"x":1252,"y":1618,"width":98,"height":18,"color":"#58cf68"}],"numberPairs":[]},{"key":"No022_p2","no":22,"part":2,"parts":2,"label":"No.22（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No023_p1_base.jpg","baseOff":"../assets/No022-040/No023_p1_baseOff.jpg","hide":[[777,213,114,73],[904,308,103,40],[510,313,84,35],[601,395,83,40],[1227,352,191,35],[1190,406,177,31],[545,550,113,49],[933,508,131,55],[1375,537,224,40],[1124,634,177,31],[1336,701,94,40],[300,756,100,37],[512,760,105,33],[1253,857,219,48],[539,824,51,46],[545,889,101,34],[440,1017,115,45],[447,1079,97,29],[421,1120,139,33],[419,1165,132,34],[630,1294,506,30],[579,1350,99,28],[879,1398,88,33],[1106,1404,73,32],[657,1556,328,41],[647,1609,460,44],[1083,1810,60,48],[1418,1817,98,45],[675,2014,181,41],[575,1663,102,41]],"keep":[],"greenHide":[{"x":1102,"y":700,"width":98,"height":42,"color":"#58cf68"},{"x":976,"y":1025,"width":35,"height":33,"color":"#58cf68"},{"x":1033,"y":1031,"width":39,"height":31,"color":"#58cf68"},{"x":1047,"y":1081,"width":37,"height":29,"color":"#58cf68"},{"x":1107,"y":1078,"width":45,"height":31,"color":"#58cf68"},{"x":1176,"y":1076,"width":40,"height":34,"color":"#58cf68"},{"x":1198,"y":1120,"width":36,"height":34,"color":"#58cf68"},{"x":1140,"y":1120,"width":35,"height":38,"color":"#58cf68"},{"x":1080,"y":1119,"width":38,"height":34,"color":"#58cf68"},{"x":1021,"y":1169,"width":39,"height":28,"color":"#58cf68"},{"x":1112,"y":1563,"width":46,"height":34,"color":"#58cf68"},{"x":1182,"y":1565,"width":40,"height":34,"color":"#58cf68"},{"x":1244,"y":1566,"width":50,"height":35,"color":"#58cf68"},{"x":814,"y":1677,"width":385,"height":33,"color":"#58cf68"}],"numberPairs":[]},{"key":"No023_p1","no":23,"part":1,"parts":2,"label":"No.23（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No023_p2_base.jpg","baseOff":"../assets/No022-040/No023_p2_baseOff.jpg","hide":[[627,537,82,27],[1082,430,39,47],[1040,610,414,38],[864,733,132,48],[611,890,63,33],[828,871,150,61],[882,984,125,29],[833,1230,81,44],[1161,1233,106,39],[612,1315,84,56],[623,1438,93,37],[382,1537,39,35],[1290,1570,46,27]],"keep":[],"greenHide":[{"x":380,"y":265,"width":144,"height":38,"color":"#58cf68"},{"x":392,"y":769,"width":99,"height":52,"color":"#58cf68"},{"x":1051,"y":487,"width":132,"height":33,"color":"#58cf68"},{"x":1001,"y":531,"width":32,"height":30,"color":"#58cf68"},{"x":1267,"y":531,"width":37,"height":38,"color":"#58cf68"},{"x":599,"y":897,"width":80,"height":56,"color":"#58cf68"},{"x":819,"y":1122,"width":101,"height":33,"color":"#58cf68"},{"x":607,"y":1116,"width":66,"height":40,"color":"#58cf68"},{"x":612,"y":1238,"width":59,"height":33,"color":"#58cf68"},{"x":400,"y":1232,"width":75,"height":47,"color":"#58cf68"},{"x":1442,"y":1247,"width":54,"height":31,"color":"#58cf68"},{"x":1365,"y":1311,"width":49,"height":32,"color":"#58cf68"},{"x":760,"y":1355,"width":117,"height":30,"color":"#58cf68"},{"x":603,"y":1393,"width":74,"height":39,"color":"#58cf68"},{"x":401,"y":1377,"width":74,"height":57,"color":"#58cf68"},{"x":763,"y":1446,"width":142,"height":33,"color":"#58cf68"},{"x":553,"y":1547,"width":166,"height":37,"color":"#58cf68"},{"x":390,"y":1658,"width":94,"height":42,"color":"#58cf68"},{"x":764,"y":1660,"width":81,"height":40,"color":"#58cf68"},{"x":763,"y":1714,"width":88,"height":29,"color":"#58cf68"},{"x":604,"y":1712,"width":76,"height":33,"color":"#58cf68"},{"x":607,"y":1659,"width":64,"height":35,"color":"#58cf68"},{"x":549,"y":1758,"width":53,"height":32,"color":"#58cf68"},{"x":758,"y":1757,"width":145,"height":34,"color":"#58cf68"},{"x":792,"y":1524,"width":132,"height":35,"color":"#58cf68"},{"x":1106,"y":1528,"width":64,"height":31,"color":"#58cf68"},{"x":1304,"y":1621,"width":84,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No023_p2","no":23,"part":2,"parts":2,"label":"No.23（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No024_p1_base.jpg","baseOff":"../assets/No022-040/No024_p1_baseOff.jpg","hide":[[413,393,132,44],[426,536,151,57],[1006,525,72,52],[1108,331,51,39],[1204,316,75,51]],"keep":[],"greenHide":[{"x":640,"y":654,"width":82,"height":33,"color":"#58cf68"},{"x":643,"y":706,"width":79,"height":34,"color":"#58cf68"},{"x":796,"y":656,"width":71,"height":25,"color":"#58cf68"},{"x":783,"y":708,"width":91,"height":30,"color":"#58cf68"},{"x":941,"y":647,"width":89,"height":36,"color":"#58cf68"},{"x":941,"y":707,"width":77,"height":29,"color":"#58cf68"},{"x":1105,"y":646,"width":74,"height":37,"color":"#58cf68"},{"x":1095,"y":711,"width":89,"height":29,"color":"#58cf68"},{"x":1253,"y":704,"width":90,"height":36,"color":"#58cf68"},{"x":410,"y":476,"width":112,"height":41,"color":"#58cf68"}],"numberPairs":[]},{"key":"No024_p1","no":24,"part":1,"parts":2,"label":"No.24（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No024_p2_base.jpg","baseOff":"../assets/No022-040/No024_p2_baseOff.jpg","hide":[[482,700,77,37],[613,760,113,29],[665,856,118,34],[1100,1042,91,37],[842,994,38,34],[545,1164,109,33],[700,1337,125,47],[840,1417,92,68],[992,1416,101,81],[840,1502,130,35],[1256,1527,121,54],[670,1678,111,40],[587,1731,111,37],[717,1785,117,44]],"keep":[],"greenHide":[{"x":753,"y":413,"width":102,"height":28,"color":"#58cf68"},{"x":878,"y":412,"width":155,"height":26,"color":"#58cf68"},{"x":631,"y":806,"width":94,"height":28,"color":"#58cf68"},{"x":687,"y":1012,"width":58,"height":29,"color":"#58cf68"},{"x":511,"y":1057,"width":113,"height":32,"color":"#58cf68"},{"x":839,"y":1585,"width":37,"height":28,"color":"#58cf68"},{"x":1201,"y":1586,"width":48,"height":30,"color":"#58cf68"},{"x":1014,"y":1584,"width":49,"height":29,"color":"#58cf68"},{"x":1030,"y":1790,"width":119,"height":43,"color":"#58cf68"},{"x":1201,"y":1623,"width":45,"height":16,"color":"#58cf68"},{"x":846,"y":1620,"width":33,"height":18,"color":"#58cf68"},{"x":1016,"y":1620,"width":41,"height":22,"color":"#58cf68"},{"x":640,"y":1879,"width":97,"height":43,"color":"#58cf68"}],"numberPairs":[]},{"key":"No024_p2","no":24,"part":2,"parts":2,"label":"No.24（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No025_p1_base.jpg","baseOff":"../assets/No022-040/No025_p1_baseOff.jpg","hide":[[517,318,137,36],[500,491,238,39],[424,833,236,45],[601,954,268,46],[477,1004,203,41],[1127,973,196,69],[769,1096,107,53],[1248,1097,118,51],[824,1300,84,49],[524,1458,99,45],[428,1362,92,46],[1159,1659,206,38],[757,1641,87,38],[843,1856,201,36],[954,1913,240,39],[980,1964,202,15],[1122,1851,133,16]],"keep":[],"greenHide":[{"x":911,"y":1193,"width":194,"height":38,"color":"#58cf68"},{"x":1139,"y":1705,"width":65,"height":36,"color":"#58cf68"},{"x":676,"y":1817,"width":215,"height":31,"color":"#58cf68"},{"x":845,"y":2046,"width":75,"height":48,"color":"#58cf68"}],"numberPairs":[]},{"key":"No025_p1","no":25,"part":1,"parts":2,"label":"No.25（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No025_p2_base.jpg","baseOff":"../assets/No022-040/No025_p2_baseOff.jpg","hide":[[411,283,94,42],[587,872,53,55],[579,966,97,45],[1029,970,111,38],[1028,1024,321,45],[1387,1082,121,46],[829,1075,106,52],[964,1198,109,42],[661,1269,98,44],[865,1251,157,63],[1072,1392,94,41],[1185,1524,93,58],[1176,1607,93,47],[538,1737,238,34],[560,1792,96,25],[564,1839,86,31],[813,1943,140,47],[580,2004,124,43]],"keep":[],"greenHide":[{"x":1230,"y":1100,"width":90,"height":34,"color":"#58cf68"},{"x":536,"y":1408,"width":165,"height":34,"color":"#58cf68"},{"x":1386,"y":1395,"width":33,"height":42,"color":"#58cf68"},{"x":1389,"y":1540,"width":25,"height":35,"color":"#58cf68"},{"x":535,"y":1539,"width":86,"height":42,"color":"#58cf68"},{"x":1103,"y":1155,"width":164,"height":37,"color":"#58cf68"}],"numberPairs":[]},{"key":"No025_p2","no":25,"part":2,"parts":2,"label":"No.25（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No026_p1_base.jpg","baseOff":"../assets/No022-040/No026_p1_baseOff.jpg","hide":[[511,280,164,39],[480,360,194,29],[525,328,145,11],[475,398,167,15],[1230,285,213,43],[680,489,106,40],[686,560,420,43],[1062,695,91,33],[413,964,119,58],[745,961,140,68],[709,1282,74,53],[850,1346,107,40],[871,1301,69,32],[1006,1232,199,89],[622,1437,122,51],[675,1563,94,45],[864,1616,103,44],[467,1733,133,33],[740,1834,50,33],[610,1874,120,44]],"keep":[],"greenHide":[{"x":874,"y":1895,"width":95,"height":30,"color":"#58cf68"},{"x":518,"y":1354,"width":68,"height":35,"color":"#58cf68"},{"x":347,"y":1310,"width":45,"height":33,"color":"#58cf68"},{"x":912,"y":695,"width":66,"height":35,"color":"#58cf68"}],"numberPairs":[]},{"key":"No026_p1","no":26,"part":1,"parts":2,"label":"No.26（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No026_p2_base.jpg","baseOff":"../assets/No022-040/No026_p2_baseOff.jpg","hide":[[1249,403,80,34],[768,614,109,30],[849,706,101,29],[1044,696,133,44],[602,1019,268,40],[679,1277,111,29],[1271,1266,110,41],[912,1542,80,73]],"keep":[],"greenHide":[{"x":511,"y":565,"width":85,"height":29,"color":"#58cf68"},{"x":1180,"y":556,"width":35,"height":34,"color":"#58cf68"},{"x":870,"y":760,"width":131,"height":27,"color":"#58cf68"},{"x":1174,"y":757,"width":99,"height":31,"color":"#58cf68"},{"x":1286,"y":761,"width":67,"height":20,"color":"#58cf68"},{"x":821,"y":1077,"width":120,"height":33,"color":"#58cf68"},{"x":512,"y":972,"width":92,"height":35,"color":"#58cf68"},{"x":1241,"y":1350,"width":62,"height":33,"color":"#58cf68"},{"x":700,"y":1579,"width":87,"height":40,"color":"#58cf68"},{"x":921,"y":1629,"width":87,"height":33,"color":"#58cf68"}],"numberPairs":[]},{"key":"No026_p2","no":26,"part":2,"parts":2,"label":"No.26（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No027_p1_base.jpg","baseOff":"../assets/No022-040/No027_p1_baseOff.jpg","hide":[[1075,1238,97,29],[1115,1321,68,31]],"keep":[],"greenHide":[{"x":435,"y":661,"width":65,"height":33,"color":"#58cf68"}],"numberPairs":[{"id":"rmrztrv22_1055","body":[723,478,106,38],"answer":[414,1611,130,48],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"董仲舒","fontSize":34},{"id":"rmrztsd2z_1060","body":[1100,525,109,33],"answer":[622,1622,59,37],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"訓詁","fontSize":34},{"id":"rmrztsxtr_1065","body":[777,572,98,36],"answer":[747,1614,138,53],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"鄭玄","fontSize":34},{"id":"rmrzttegh_1070","body":[849,653,120,40],"answer":[987,1619,88,46],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"太平道","fontSize":34},{"id":"rmrztu3cs_1075","body":[437,710,99,27],"answer":[1147,1608,95,50],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"張陵","fontSize":34},{"id":"rmrzturqm_1080","body":[819,706,95,32],"answer":[1320,1622,119,28],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"五斗米道","fontSize":24},{"id":"rmrztv748_1085","body":[747,746,119,34],"answer":[1507,1613,28,39],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"道","fontSize":34},{"id":"rmrztvow3_1090","body":[531,1015,107,34],"answer":[404,1695,144,58],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"司馬遷","fontSize":34},{"id":"rmrztw1y4_1095","body":[802,1012,171,38],"answer":[617,1708,56,38],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"史記","fontSize":34},{"id":"rmrztwiqa_1100","body":[532,1062,128,32],"answer":[763,1712,57,35],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"班固","fontSize":34},{"id":"rmrztwx8u_1105","body":[811,1062,193,33],"answer":[900,1708,67,36],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"漢書","fontSize":34},{"id":"rmrztx9rg_1110","body":[1039,1149,127,27],"answer":[1052,1709,84,34],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"紀伝体","fontSize":31},{"id":"rmrztxzcw_1115","body":[893,1193,111,31],"answer":[1222,1712,111,29],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"説文解字","fontSize":29},{"id":"rmrztyi1v_1122","body":[533,1326,131,29],"answer":[1404,1674,100,61],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"蔡倫","fontSize":34},{"id":"rmrztz4hz_1127","body":[754,1417,115,30],"answer":[418,1793,202,39],"bodyPageKey":"No026_p2","answerPageKey":"No026_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"木簡・竹簡","fontSize":20}]},{"key":"No027_p1","no":27,"part":1,"parts":3,"label":"No.27（1/3）","width":1600,"height":2278,"base":"../assets/No022-040/No027_p2_base.jpg","baseOff":"../assets/No022-040/No027_p2_baseOff.jpg","hide":[[719,441,125,43],[1082,501,117,46],[1155,618,87,25],[770,846,180,43],[495,917,108,34]],"keep":[],"greenHide":[{"x":602,"y":669,"width":219,"height":90,"color":"#58cf68"},{"x":1117,"y":681,"width":182,"height":82,"color":"#58cf68"},{"x":1207,"y":894,"width":148,"height":32,"color":"#58cf68"},{"x":415,"y":1010,"width":82,"height":31,"color":"#58cf68"},{"x":537,"y":1009,"width":104,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No027_p2","no":27,"part":2,"parts":3,"label":"No.27（2/3）","width":1600,"height":2278,"base":"../assets/No022-040/No027_p3_base.jpg","baseOff":"../assets/No022-040/No027_p3_baseOff.jpg","hide":[[459,746,118,47],[293,594,51,50],[488,895,26,26],[411,991,49,34],[640,1168,194,31],[1053,1151,250,38],[1194,1311,80,34],[1341,825,114,35],[1471,893,109,35],[611,367,74,32],[286,330,88,28]],"keep":[],"greenHide":[{"x":200,"y":679,"width":202,"height":84,"color":"#58cf68"},{"x":187,"y":880,"width":106,"height":31,"color":"#58cf68"},{"x":196,"y":948,"width":94,"height":36,"color":"#58cf68"},{"x":1078,"y":816,"width":109,"height":47,"color":"#58cf68"},{"x":654,"y":818,"width":99,"height":44,"color":"#58cf68"},{"x":645,"y":676,"width":234,"height":96,"color":"#58cf68"},{"x":722,"y":620,"width":123,"height":27,"color":"#58cf68"},{"x":1071,"y":679,"width":269,"height":82,"color":"#58cf68"},{"x":1243,"y":936,"width":95,"height":33,"color":"#58cf68"},{"x":1036,"y":884,"width":119,"height":37,"color":"#58cf68"},{"x":623,"y":1124,"width":179,"height":35,"color":"#58cf68"}],"numberPairs":[]},{"key":"No027_p3","no":27,"part":3,"parts":3,"label":"No.27（3/3）","width":1600,"height":2278,"base":"../assets/No022-040/No028_p1_base.jpg","baseOff":"../assets/No022-040/No028_p1_baseOff.jpg","hide":[[200,1428,171,81]],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No028_p1","no":28,"part":1,"parts":2,"label":"No.28（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No028_p2_base.jpg","baseOff":"../assets/No022-040/No028_p2_baseOff.jpg","hide":[[608,585,54,32],[618,717,66,33],[842,949,44,32],[842,995,36,40],[1400,1199,184,37],[1427,1251,148,46],[563,1319,148,41],[436,1389,227,47],[432,1453,199,49],[501,1594,191,50],[852,1514,335,59],[961,1662,96,40],[447,1776,62,40],[994,1774,122,39],[841,1846,114,36],[1019,1914,99,26],[777,1103,196,45]],"keep":[],"greenHide":[{"x":544,"y":1780,"width":73,"height":36,"color":"#58cf68"},{"x":536,"y":1853,"width":82,"height":31,"color":"#58cf68"},{"x":446,"y":1853,"width":52,"height":36,"color":"#58cf68"},{"x":444,"y":1920,"width":50,"height":37,"color":"#58cf68"},{"x":550,"y":1962,"width":89,"height":33,"color":"#58cf68"}],"numberPairs":[]},{"key":"No028_p2","no":28,"part":2,"parts":2,"label":"No.28（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No029_p1_base.jpg","baseOff":"../assets/No022-040/No029_p1_baseOff.jpg","hide":[[429,299,98,40],[432,358,264,36],[522,555,94,49],[1157,569,88,49],[1026,655,309,44],[749,786,103,33],[655,838,121,36],[629,893,35,30],[829,995,92,36],[998,990,92,36],[532,1161,79,33],[517,1206,107,45],[641,1261,44,50],[345,1317,285,40],[733,1404,70,26],[502,1434,105,48],[512,1579,104,33],[495,1667,91,33],[350,1809,131,40],[829,2063,66,46],[1130,1918,181,38],[1056,1780,107,33],[1106,1721,273,42],[962,1329,101,36],[1309,1338,98,30],[1230,1393,107,34],[1277,1496,124,45],[1145,1543,39,39],[1220,1544,32,35],[1280,1555,36,26],[1357,1557,44,28]],"keep":[],"greenHide":[{"x":1315,"y":313,"width":143,"height":29,"color":"#58cf68"},{"x":266,"y":790,"width":65,"height":30,"color":"#58cf68"},{"x":982,"y":1212,"width":82,"height":36,"color":"#58cf68"},{"x":1457,"y":1345,"width":49,"height":27,"color":"#58cf68"}],"numberPairs":[]},{"key":"No029_p1","no":29,"part":1,"parts":2,"label":"No.29（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No029_p2_base.jpg","baseOff":"../assets/No022-040/No029_p2_baseOff.jpg","hide":[[725,315,95,47],[476,370,120,30],[921,463,139,46],[1002,435,66,29],[1295,327,90,38],[490,512,129,46],[593,596,88,28],[564,741,112,45],[818,673,661,54],[884,737,451,39],[1165,781,336,29],[851,794,109,33],[748,1678,531,38]],"keep":[],"greenHide":[{"x":891,"y":298,"width":113,"height":62,"color":"#58cf68"},{"x":994,"y":604,"width":108,"height":26,"color":"#58cf68"},{"x":743,"y":845,"width":296,"height":35,"color":"#58cf68"},{"x":823,"y":1203,"width":50,"height":25,"color":"#58cf68"},{"x":835,"y":1242,"width":54,"height":21,"color":"#58cf68"},{"x":1172,"y":1220,"width":62,"height":28,"color":"#58cf68"},{"x":1186,"y":1266,"width":62,"height":23,"color":"#58cf68"},{"x":969,"y":1600,"width":127,"height":31,"color":"#58cf68"},{"x":947,"y":1646,"width":155,"height":27,"color":"#58cf68"},{"x":643,"y":1869,"width":65,"height":26,"color":"#58cf68"},{"x":725,"y":1865,"width":61,"height":33,"color":"#58cf68"},{"x":585,"y":1913,"width":94,"height":30,"color":"#58cf68"},{"x":584,"y":1959,"width":96,"height":26,"color":"#58cf68"},{"x":775,"y":1957,"width":94,"height":27,"color":"#58cf68"},{"x":695,"y":1914,"width":62,"height":25,"color":"#58cf68"},{"x":890,"y":1866,"width":98,"height":30,"color":"#58cf68"},{"x":865,"y":1910,"width":191,"height":32,"color":"#58cf68"}],"numberPairs":[]},{"key":"No029_p2","no":29,"part":2,"parts":2,"label":"No.29（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No030_p1_base.jpg","baseOff":"../assets/No022-040/No030_p1_baseOff.jpg","hide":[[1325,700,87,17],[972,676,48,20],[602,586,72,18],[1321,2025,63,41]],"keep":[],"greenHide":[{"x":740,"y":601,"width":54,"height":29,"color":"#58cf68"},{"x":760,"y":647,"width":57,"height":30,"color":"#58cf68"},{"x":1018,"y":603,"width":255,"height":34,"color":"#58cf68"},{"x":1039,"y":652,"width":284,"height":26,"color":"#58cf68"},{"x":1225,"y":1224,"width":66,"height":31,"color":"#58cf68"},{"x":414,"y":1532,"width":85,"height":24,"color":"#58cf68"},{"x":411,"y":1576,"width":92,"height":28,"color":"#58cf68"},{"x":1138,"y":1977,"width":99,"height":33,"color":"#58cf68"},{"x":768,"y":1932,"width":139,"height":32,"color":"#58cf68"},{"x":550,"y":1971,"width":98,"height":33,"color":"#58cf68"},{"x":702,"y":1976,"width":58,"height":29,"color":"#58cf68"}],"numberPairs":[{"id":"rmrzuzlkk_1222","body":[379,327,138,42],"answer":[397,1001,65,33],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"清談","fontSize":34},{"id":"rmrzv0ysv_1227","body":[570,418,133,41],"answer":[399,1044,153,41],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"竹林の七賢","fontSize":26},{"id":"rmrzv1quh_1232","body":[567,588,132,45],"answer":[397,1089,93,32],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"仏図澄","fontSize":34},{"id":"rmrzv2ddy_1237","body":[569,637,142,41],"answer":[395,1136,117,35],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"鳩摩羅什","fontSize":34},{"id":"rmrzv3nhc_1242","body":[903,682,135,43],"answer":[391,1180,66,31],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"亀茲","fontSize":34},{"id":"rmrzv47wh_1247","body":[589,909,138,40],"answer":[393,1226,64,31],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"法顕","fontSize":34},{"id":"rmrzv4nof_1252","body":[1205,907,169,45],"answer":[392,1267,88,31],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"仏国記","fontSize":34},{"id":"rmrzv50gf_1257","body":[437,994,142,39],"answer":[393,1314,56,26],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"敦煌","fontSize":34},{"id":"rmrzv5ej3_1262","body":[438,1040,158,35],"answer":[389,1354,55,29],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"雲崗","fontSize":34},{"id":"rmrzv5o2f_1267","body":[454,1084,157,39],"answer":[400,1404,67,24],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"竜門","fontSize":34},{"id":"rmrzv6h1y_1272","body":[509,1212,162,48],"answer":[398,1441,98,36],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"寇謙之","fontSize":34},{"id":"rmrzv6xig_1277","body":[529,1264,147,34],"answer":[395,1488,102,32],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"太武帝","fontSize":34},{"id":"rmrzv77tv_1282","body":[863,1530,160,39],"answer":[397,1536,88,31],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"水経注","fontSize":34},{"id":"rmrzv7i9i_1287","body":[965,1579,158,38],"answer":[395,1578,131,35],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"斉民要術","fontSize":34},{"id":"rmrzv8fds_1292","body":[841,1663,145,39],"answer":[399,1622,145,33],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"四六駢儷体","fontSize":34},{"id":"rmrzv99e1_1297","body":[574,1703,145,42],"answer":[400,1666,174,38],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"陶淵明","fontSize":34},{"id":"rmrzv9wdy_1302","body":[1332,1715,168,39],"answer":[393,1714,121,31],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"帰去来辞","fontSize":34},{"id":"rmrzva6dj_1307","body":[582,1753,141,37],"answer":[396,1756,90,32],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"謝霊運","fontSize":34},{"id":"rmrzvaj98_1312","body":[674,1795,165,46],"answer":[392,1799,118,39],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"昭明太子","fontSize":34},{"id":"rmrzvau38_1317","body":[1215,1797,168,48],"answer":[389,1843,60,28],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"文選","fontSize":34},{"id":"rmrzvb76h_1322","body":[553,1920,161,46],"answer":[386,1887,89,30],"bodyPageKey":"No029_p2","answerPageKey":"No030_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"顧愷之","fontSize":34}]},{"key":"No030_p1","no":30,"part":1,"parts":1,"label":"No.30","width":1600,"height":2278,"base":"../assets/No022-040/No031_p1_base.jpg","baseOff":"../assets/No022-040/No031_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[],"numberPairs":[]},{"key":"No031_p1","no":31,"part":1,"parts":2,"label":"No.31（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No031_p2_base.jpg","baseOff":"../assets/No022-040/No031_p2_baseOff.jpg","hide":[[912,429,67,59],[1173,431,56,42],[1284,423,31,39],[1161,503,124,35],[787,504,103,35],[695,558,56,31],[556,513,66,32],[721,697,87,33],[707,743,134,31],[708,789,87,32],[780,845,111,39],[1066,787,91,34],[466,956,109,38],[535,1024,147,34],[740,1269,137,32],[546,1476,323,39],[473,1598,105,41],[490,1664,80,34],[648,1670,138,29],[1019,1498,94,45],[1384,1493,78,46],[1346,1647,190,46],[558,1818,58,40],[680,1821,31,39],[780,1820,31,38],[887,1826,38,34],[611,2074,312,38]],"keep":[],"greenHide":[{"x":435,"y":650,"width":80,"height":30,"color":"#58cf68"},{"x":534,"y":646,"width":86,"height":30,"color":"#58cf68"},{"x":543,"y":1071,"width":73,"height":28,"color":"#58cf68"},{"x":636,"y":1076,"width":69,"height":25,"color":"#58cf68"},{"x":756,"y":1068,"width":123,"height":36,"color":"#58cf68"},{"x":701,"y":1182,"width":129,"height":29,"color":"#58cf68"},{"x":702,"y":1230,"width":125,"height":29,"color":"#58cf68"},{"x":400,"y":1528,"width":71,"height":24,"color":"#58cf68"},{"x":644,"y":1610,"width":76,"height":33,"color":"#58cf68"}],"numberPairs":[]},{"key":"No031_p2","no":31,"part":2,"parts":2,"label":"No.31（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No032_p1_base.jpg","baseOff":"../assets/No022-040/No032_p1_baseOff.jpg","hide":[[821,273,158,30],[497,338,87,35],[494,386,82,30],[478,433,95,38],[840,543,121,36],[1127,385,31,35],[444,658,77,36],[489,716,78,27],[484,756,73,32],[438,890,88,38],[431,1041,117,35],[404,1229,100,38],[471,1511,75,41],[606,1567,93,35],[612,1616,121,37],[1159,1615,184,45],[1397,1610,122,43],[1169,1829,322,33],[277,1799,172,40],[347,1706,118,33],[885,2070,136,38]],"keep":[],"greenHide":[{"x":369,"y":2042,"width":102,"height":31,"color":"#58cf68"},{"x":1305,"y":1707,"width":88,"height":33,"color":"#58cf68"},{"x":1287,"y":1390,"width":165,"height":65,"color":"#58cf68"},{"x":315,"y":1331,"width":81,"height":33,"color":"#58cf68"},{"x":594,"y":495,"width":162,"height":36,"color":"#58cf68"},{"x":1177,"y":391,"width":47,"height":34,"color":"#58cf68"},{"x":1062,"y":392,"width":34,"height":32,"color":"#58cf68"},{"x":1014,"y":389,"width":33,"height":34,"color":"#58cf68"},{"x":959,"y":395,"width":36,"height":27,"color":"#58cf68"},{"x":907,"y":394,"width":34,"height":29,"color":"#58cf68"},{"x":863,"y":393,"width":34,"height":32,"color":"#58cf68"}],"numberPairs":[]},{"key":"No032_p1","no":32,"part":1,"parts":2,"label":"No.32（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No032_p2_base.jpg","baseOff":"../assets/No022-040/No032_p2_baseOff.jpg","hide":[[1155,511,211,39],[568,666,126,40],[1173,995,172,36],[538,980,101,38],[434,1220,133,34],[765,1300,86,33],[468,1622,113,26],[401,1715,150,38],[1321,1602,104,34],[1507,1848,93,41]],"keep":[],"greenHide":[{"x":566,"y":482,"width":191,"height":55,"color":"#58cf68"},{"x":664,"y":414,"width":111,"height":30,"color":"#58cf68"},{"x":1371,"y":1199,"width":74,"height":28,"color":"#58cf68"},{"x":895,"y":897,"width":95,"height":34,"color":"#58cf68"},{"x":1433,"y":967,"width":112,"height":37,"color":"#58cf68"},{"x":1468,"y":1068,"width":81,"height":41,"color":"#58cf68"},{"x":479,"y":1268,"width":231,"height":31,"color":"#58cf68"},{"x":849,"y":1265,"width":61,"height":32,"color":"#58cf68"},{"x":1381,"y":1657,"width":96,"height":26,"color":"#58cf68"},{"x":718,"y":2044,"width":59,"height":33,"color":"#58cf68"},{"x":807,"y":2082,"width":111,"height":31,"color":"#58cf68"}],"numberPairs":[]},{"key":"No032_p2","no":32,"part":2,"parts":2,"label":"No.32（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No033_p1_base.jpg","baseOff":"../assets/No022-040/No033_p1_baseOff.jpg","hide":[[425,299,97,38],[969,302,90,38],[759,358,132,39],[568,589,95,33],[969,790,99,43],[616,866,139,34],[909,928,116,41],[795,1150,125,33],[606,1140,92,43],[1136,1049,106,36],[1037,1279,432,46],[591,1440,82,38],[913,1490,128,33],[745,1535,135,33],[905,1631,127,32],[531,1764,45,32],[1213,1750,88,44],[593,1961,123,41]],"keep":[],"greenHide":[{"x":982,"y":1972,"width":76,"height":36,"color":"#58cf68"},{"x":445,"y":1967,"width":103,"height":38,"color":"#58cf68"},{"x":1217,"y":1840,"width":56,"height":32,"color":"#58cf68"},{"x":1234,"y":1541,"width":73,"height":33,"color":"#58cf68"},{"x":1101,"y":1497,"width":82,"height":30,"color":"#58cf68"},{"x":1088,"y":1158,"width":59,"height":28,"color":"#58cf68"}],"numberPairs":[]},{"key":"No033_p1","no":33,"part":1,"parts":2,"label":"No.33（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No033_p2_base.jpg","baseOff":"../assets/No022-040/No033_p2_baseOff.jpg","hide":[[864,513,35,43],[1003,1673,153,36],[1328,1940,132,46]],"keep":[],"greenHide":[{"x":486,"y":955,"width":70,"height":32,"color":"#58cf68"}],"numberPairs":[{"id":"rmrzvnhp7_1450","body":[801,561,129,36],"answer":[852,614,42,23],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"草市","fontSize":34},{"id":"rmrzvo6es_1455","body":[589,729,143,43],"answer":[746,693,15,11],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ソグド","fontSize":34},{"id":"rms02irmo_1460","body":[1125,830,167,35],"answer":[1196,698,15,35],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"市舶司","fontSize":34},{"id":"rms02j6bf_1465","body":[460,995,133,40],"answer":[699,906,22,24],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"広州","fontSize":34},{"id":"rms02m794_1470","body":[460,1087,128,37],"answer":[573,1048,15,6],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"揚州","fontSize":34},{"id":"rms02mpgy_1475","body":[878,1583,150,36],"answer":[1034,1536,8,27],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"孔頴達","fontSize":34},{"id":"rms02qiqo_1490","body":[1073,1585,174,39],"answer":[1291,1514,12,12],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"五経正義","fontSize":34},{"id":"rms02qx58_1495","body":[569,1751,147,46],"answer":[471,1766,32,33],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"玄奘","fontSize":34},{"id":"rms02rpc0_1512","body":[1081,1805,126,42],"answer":[1327,1778,9,11],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ヴァルダナ","fontSize":34},{"id":"rms02sc7z_1517","body":[675,1840,204,54],"answer":[106,1846,187,89],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"大唐西域記","fontSize":34},{"id":"rms02svo1_1522","body":[568,1927,161,45],"answer":[375,1994,31,24],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"義浄","fontSize":34},{"id":"rms02tb5h_1527","body":[1010,2027,161,37],"answer":[1087,2125,12,36],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"シュリーヴィジャヤ","fontSize":34},{"id":"rms02to1h_1532","body":[678,2064,190,40],"answer":[883,2153,44,7],"bodyPageKey":"No033_p1","answerPageKey":"No033_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"南海寄帰内法伝","fontSize":34}]},{"key":"No033_p2","no":33,"part":2,"parts":2,"label":"No.33（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No034_p1_base.jpg","baseOff":"../assets/No022-040/No034_p1_baseOff.jpg","hide":[],"keep":[],"greenHide":[{"x":1169,"y":1342,"width":105,"height":35,"color":"#58cf68"},{"x":1287,"y":1345,"width":96,"height":33,"color":"#58cf68"},{"x":804,"y":1208,"width":65,"height":40,"color":"#58cf68"},{"x":866,"y":1164,"width":88,"height":36,"color":"#58cf68"},{"x":382,"y":674,"width":97,"height":33,"color":"#58cf68"},{"x":433,"y":719,"width":77,"height":33,"color":"#58cf68"},{"x":718,"y":318,"width":194,"height":38,"color":"#58cf68"},{"x":719,"y":366,"width":369,"height":40,"color":"#58cf68"},{"x":432,"y":1030,"width":68,"height":33,"color":"#58cf68"},{"x":435,"y":1117,"width":62,"height":36,"color":"#58cf68"},{"x":432,"y":1301,"width":195,"height":28,"color":"#58cf68"}],"numberPairs":[{"id":"rms02up81_1547","body":[519,319,106,41],"answer":[722,211,60,63],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"祆","fontSize":34},{"id":"rms02v2xy_1552","body":[533,365,92,41],"answer":[335,495,43,18],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"景","fontSize":34},{"id":"rms02w55m_1557","body":[511,495,133,42],"answer":[399,555,47,24],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"摩尼","fontSize":34},{"id":"rms02whah_1562","body":[1121,589,158,38],"answer":[1315,657,15,33],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"回教","fontSize":34},{"id":"rms02wz8q_1567","body":[582,725,152,39],"answer":[1010,702,47,23],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"タラス河畔","fontSize":34},{"id":"rms02xbo8_1572","body":[734,767,128,37],"answer":[1161,714,28,10],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"アッバース","fontSize":34},{"id":"rms02xqdu_1577","body":[703,1031,157,41],"answer":[1166,978,32,20],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"李白","fontSize":34},{"id":"rms02y22f_1582","body":[709,1116,151,44],"answer":[988,1138,52,20],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"杜甫","fontSize":34},{"id":"rms02yrw8_1587","body":[869,1297,139,40],"answer":[1036,1273,7,18],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"韓愈","fontSize":34},{"id":"rms02z5ig_1592","body":[1091,1299,142,38],"answer":[1238,1267,30,11],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"柳宗元","fontSize":34},{"id":"rms02zkb6_1597","body":[790,1342,186,45],"answer":[870,1411,68,30],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"長恨歌","fontSize":34},{"id":"rms02zy5p_1604","body":[754,1519,138,39],"answer":[856,1493,250,52],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"閻立本","fontSize":34},{"id":"rms031alg_1609","body":[1270,1655,146,36],"answer":[1469,1670,62,25],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"呉道玄","fontSize":34},{"id":"rms031ps5_1614","body":[1241,1696,154,41],"answer":[1430,1604,19,16],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"顔真卿","fontSize":34},{"id":"rms032j8c_1619","body":[695,1786,144,44],"answer":[324,1807,33,26],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"王維","fontSize":34},{"id":"rms033621_1624","body":[894,1830,143,39],"answer":[1133,1924,64,20],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"李思訓","fontSize":34},{"id":"rms033lyi_1629","body":[377,1916,160,37],"answer":[639,1895,30,24],"bodyPageKey":"No033_p2","answerPageKey":"No033_p2","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"唐三彩","fontSize":34}]},{"key":"No034_p1","no":34,"part":1,"parts":2,"label":"No.34（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No034_p2_base.jpg","baseOff":"../assets/No022-040/No034_p2_baseOff.jpg","hide":[[789,512,38,38],[954,517,29,31],[1127,524,34,37],[1282,521,58,40],[899,591,98,36],[945,674,248,49],[1467,527,51,36],[697,873,106,36],[853,960,393,48],[797,1006,135,42],[1201,1070,172,36],[1141,1186,67,58],[923,1221,159,70],[1417,1257,108,42],[495,1403,111,46],[564,1506,100,24],[918,1632,146,42],[1320,1632,242,49],[1318,1802,54,49]],"keep":[],"greenHide":[{"x":579,"y":1812,"width":102,"height":58,"color":"#58cf68"},{"x":967,"y":1824,"width":88,"height":31,"color":"#58cf68"},{"x":737,"y":589,"width":69,"height":33,"color":"#58cf68"},{"x":1235,"y":603,"width":93,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No034_p2","no":34,"part":2,"parts":2,"label":"No.34（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No035_p1_base.jpg","baseOff":"../assets/No022-040/No035_p1_baseOff.jpg","hide":[[625,460,285,39],[771,535,83,14],[486,874,115,38],[810,919,98,34],[532,1014,91,44],[533,1103,92,32],[525,1138,104,40],[524,1318,97,34],[527,1376,111,27],[576,1472,116,28],[1369,1504,116,38],[1089,1658,114,36],[431,1673,129,38],[754,1732,64,33],[1147,1769,135,43],[639,1946,96,38],[977,1945,92,44]],"keep":[],"greenHide":[{"x":576,"y":552,"width":29,"height":28,"color":"#58cf68"},{"x":573,"y":594,"width":60,"height":31,"color":"#58cf68"},{"x":761,"y":552,"width":157,"height":24,"color":"#58cf68"},{"x":763,"y":595,"width":187,"height":27,"color":"#58cf68"},{"x":1154,"y":1721,"width":68,"height":31,"color":"#58cf68"},{"x":1297,"y":1960,"width":161,"height":34,"color":"#58cf68"},{"x":817,"y":1943,"width":96,"height":36,"color":"#58cf68"},{"x":481,"y":1945,"width":104,"height":30,"color":"#58cf68"},{"x":632,"y":2058,"width":171,"height":27,"color":"#58cf68"},{"x":464,"y":1732,"width":79,"height":29,"color":"#58cf68"},{"x":631,"y":1736,"width":74,"height":27,"color":"#58cf68"},{"x":408,"y":1469,"width":117,"height":30,"color":"#58cf68"}],"numberPairs":[]},{"key":"No035_p1","no":35,"part":1,"parts":2,"label":"No.35（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No035_p2_base.jpg","baseOff":"../assets/No022-040/No035_p2_baseOff.jpg","hide":[[870,366,226,38],[878,418,205,21],[505,446,109,36],[512,583,130,37],[832,489,240,41],[1059,624,153,66],[791,770,139,38],[1116,712,104,40],[1108,772,107,34],[1214,923,197,37],[1183,1308,119,33],[804,1263,182,33],[1079,1414,130,44],[1124,1608,94,37],[933,1650,179,37]],"keep":[],"greenHide":[{"x":535,"y":369,"width":110,"height":28,"color":"#58cf68"},{"x":685,"y":359,"width":70,"height":37,"color":"#58cf68"},{"x":445,"y":323,"width":55,"height":43,"color":"#58cf68"},{"x":478,"y":1316,"width":92,"height":28,"color":"#58cf68"},{"x":609,"y":1316,"width":122,"height":29,"color":"#58cf68"},{"x":832,"y":1314,"width":167,"height":26,"color":"#58cf68"},{"x":535,"y":1430,"width":98,"height":28,"color":"#58cf68"},{"x":464,"y":1384,"width":62,"height":31,"color":"#58cf68"},{"x":681,"y":1427,"width":125,"height":28,"color":"#58cf68"},{"x":522,"y":1555,"width":176,"height":38,"color":"#58cf68"}],"numberPairs":[]},{"key":"No035_p2","no":35,"part":2,"parts":2,"label":"No.35（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No036_p1_base.jpg","baseOff":"../assets/No022-040/No036_p1_baseOff.jpg","hide":[[925,288,114,50],[822,349,184,36],[822,395,149,24],[748,415,42,33],[471,463,176,35],[465,545,113,35],[921,650,83,28],[1072,644,73,37],[602,1164,90,35],[488,1205,94,36],[490,1264,102,30],[964,1304,134,32],[711,1397,192,27],[900,1478,199,34],[459,1556,1069,36],[1005,1560,531,47],[953,1628,42,40],[823,1633,61,35],[713,1627,52,37],[597,1620,53,42],[272,1925,110,37],[721,1825,118,37],[475,1930,92,39],[719,1984,112,36],[962,1938,96,43]],"keep":[],"greenHide":[{"x":489,"y":339,"width":211,"height":30,"color":"#58cf68"},{"x":753,"y":291,"width":108,"height":48,"color":"#58cf68"},{"x":415,"y":294,"width":50,"height":33,"color":"#58cf68"},{"x":661,"y":1344,"width":35,"height":29,"color":"#58cf68"},{"x":605,"y":1346,"width":37,"height":22,"color":"#58cf68"},{"x":548,"y":1343,"width":34,"height":28,"color":"#58cf68"},{"x":464,"y":1467,"width":149,"height":30,"color":"#58cf68"},{"x":1165,"y":1635,"width":64,"height":30,"color":"#58cf68"},{"x":461,"y":1981,"width":112,"height":28,"color":"#58cf68"}],"numberPairs":[]},{"key":"No036_p1","no":36,"part":1,"parts":2,"label":"No.36（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No036_p2_base.jpg","baseOff":"../assets/No022-040/No036_p2_baseOff.jpg","hide":[[1194,446,162,38],[1192,560,113,44],[1123,635,154,42],[1551,493,49,38],[538,948,149,38],[572,1110,404,39],[735,1293,144,36],[593,1429,98,40],[515,1480,34,41],[776,1494,55,36],[698,1636,114,36],[525,1684,122,36],[685,1808,88,31],[690,1852,80,36]],"keep":[],"greenHide":[{"x":1134,"y":1864,"width":140,"height":28,"color":"#58cf68"},{"x":686,"y":1738,"width":67,"height":30,"color":"#58cf68"},{"x":958,"y":1742,"width":82,"height":30,"color":"#58cf68"},{"x":1057,"y":1740,"width":75,"height":36,"color":"#58cf68"},{"x":1113,"y":1297,"width":86,"height":39,"color":"#58cf68"},{"x":1219,"y":1300,"width":80,"height":37,"color":"#58cf68"},{"x":584,"y":1299,"width":70,"height":27,"color":"#58cf68"},{"x":895,"y":1040,"width":79,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No036_p2","no":36,"part":2,"parts":2,"label":"No.36（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No037_p1_base.jpg","baseOff":"../assets/No022-040/No037_p1_baseOff.jpg","hide":[[424,312,69,26],[419,354,80,31],[1033,506,243,42]],"keep":[],"greenHide":[{"x":584,"y":359,"width":68,"height":35,"color":"#58cf68"},{"x":1163,"y":1111,"width":191,"height":39,"color":"#58cf68"},{"x":417,"y":1149,"width":91,"height":40,"color":"#58cf68"},{"x":406,"y":1589,"width":104,"height":41,"color":"#58cf68"}],"numberPairs":[{"id":"rms03e0tx_1734","body":[519,800,136,37],"answer":[412,1509,93,30],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"朱子","fontSize":34},{"id":"rms03eeqh_1739","body":[428,933,136,32],"answer":[421,1551,177,35],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"大義名分論","fontSize":34},{"id":"rms03f4mn_1744","body":[912,929,135,43],"answer":[408,1590,289,39],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"華夷の別","fontSize":34},{"id":"rms03fmmq_1749","body":[528,1021,139,41],"answer":[413,1638,112,34],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"周敦頤","fontSize":34},{"id":"rms03h1wh_1754","body":[979,1024,148,31],"answer":[410,1679,188,44],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"朱熹(朱子)","fontSize":34},{"id":"rms03hmlu_1759","body":[519,1242,146,33],"answer":[415,1727,105,34],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"陸九淵","fontSize":34},{"id":"rms03i8tb_1780","body":[723,1548,129,41],"answer":[418,1769,66,34],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"禅宗","fontSize":34},{"id":"rms03imka_1785","body":[1196,1547,144,50],"answer":[413,1812,117,41],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"浄土宗","fontSize":34},{"id":"rms03jdv2_1790","body":[344,1760,127,47],"answer":[416,1861,156,31],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"木版印刷","fontSize":34},{"id":"rms03k3my_1795","body":[339,1900,127,39],"answer":[422,1903,146,36],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"活版印刷","fontSize":34},{"id":"rms03kksy_1810","body":[885,2035,162,35],"answer":[431,1943,112,38],"bodyPageKey":"No036_p2","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"製紙法","fontSize":34}]},{"key":"No037_p1","no":37,"part":1,"parts":1,"label":"No.37","width":1600,"height":2278,"base":"../assets/No022-040/No038_p1_base.jpg","baseOff":"../assets/No022-040/No038_p1_baseOff.jpg","hide":[[1322,573,48,31],[1330,613,128,22]],"keep":[],"greenHide":[{"x":867,"y":315,"width":90,"height":38,"color":"#58cf68"},{"x":685,"y":357,"width":107,"height":39,"color":"#58cf68"},{"x":633,"y":311,"width":86,"height":37,"color":"#58cf68"},{"x":983,"y":758,"width":131,"height":34,"color":"#58cf68"}],"numberPairs":[{"id":"rms03lcs1_1815","body":[450,316,139,32],"answer":[429,1991,106,34],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"欧陽脩","fontSize":34},{"id":"rms03lpvv_1820","body":[457,359,150,36],"answer":[1076,1638,111,37],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"司馬光","fontSize":34},{"id":"rms03ml0d_1825","body":[928,359,197,39],"answer":[1076,1686,146,39],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"資治通鑑","fontSize":34},{"id":"rms03n0n4_1830","body":[451,492,123,31],"answer":[1075,1727,70,33],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"雑劇","fontSize":34},{"id":"rms03nfas_1835","body":[453,533,151,38],"answer":[1076,1776,40,32],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"詞","fontSize":34},{"id":"rms03o1nk_1840","body":[530,669,155,37],"answer":[428,1990,106,36],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"欧陽脩","fontSize":34},{"id":"rms03ojgx_1845","body":[532,757,151,36],"answer":[1070,1820,67,31],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"蘇軾","fontSize":34},{"id":"rms03ozjf_1850","body":[528,889,152,36],"answer":[1075,1863,107,36],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"王安石","fontSize":34},{"id":"rms03pd74_1855","body":[449,1020,155,37],"answer":[1072,1909,105,31],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"院体画","fontSize":34},{"id":"rms03pztx_1860","body":[657,1155,155,33],"answer":[1066,1947,92,36],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"徽宗","fontSize":34},{"id":"rms03qe4h_1865","body":[452,1196,148,35],"answer":[1075,1994,103,34],"bodyPageKey":"No037_p1","answerPageKey":"No037_p1","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"文人画","fontSize":34}]},{"key":"No038_p1","no":38,"part":1,"parts":2,"label":"No.38（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No038_p2_base.jpg","baseOff":"../assets/No022-040/No038_p2_baseOff.jpg","hide":[[785,588,120,48],[1330,764,146,38],[945,904,109,36],[527,909,153,33],[1189,1058,197,39],[744,1147,155,33],[796,1195,194,30],[827,1241,75,36],[900,1635,295,43],[603,1804,90,34],[615,1857,180,36]],"keep":[],"greenHide":[{"x":465,"y":1068,"width":223,"height":36,"color":"#58cf68"},{"x":921,"y":768,"width":74,"height":26,"color":"#58cf68"},{"x":847,"y":1809,"width":118,"height":31,"color":"#58cf68"},{"x":760,"y":1807,"width":74,"height":34,"color":"#58cf68"}],"numberPairs":[]},{"key":"No038_p2","no":38,"part":2,"parts":2,"label":"No.38（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No039_p1_base.jpg","baseOff":"../assets/No022-040/No039_p1_baseOff.jpg","hide":[[1305,520,148,38],[680,787,66,39],[463,848,134,25],[661,933,216,37],[1123,1023,240,34],[781,1087,176,46],[468,1320,152,33],[889,1408,101,36],[494,1441,100,35],[680,1498,166,36],[641,1588,107,46],[858,1556,192,29]],"keep":[],"greenHide":[{"x":336,"y":1230,"width":200,"height":32,"color":"#58cf68"},{"x":336,"y":1159,"width":206,"height":37,"color":"#58cf68"},{"x":1315,"y":948,"width":141,"height":24,"color":"#58cf68"},{"x":1155,"y":944,"width":130,"height":31,"color":"#58cf68"},{"x":335,"y":709,"width":223,"height":37,"color":"#58cf68"},{"x":338,"y":445,"width":158,"height":33,"color":"#58cf68"},{"x":604,"y":428,"width":133,"height":34,"color":"#58cf68"},{"x":835,"y":525,"width":100,"height":34,"color":"#58cf68"},{"x":829,"y":572,"width":121,"height":31,"color":"#58cf68"},{"x":1174,"y":436,"width":102,"height":33,"color":"#58cf68"},{"x":949,"y":320,"width":203,"height":29,"color":"#58cf68"},{"x":831,"y":317,"width":100,"height":30,"color":"#58cf68"},{"x":798,"y":374,"width":218,"height":25,"color":"#58cf68"},{"x":790,"y":436,"width":184,"height":27,"color":"#58cf68"},{"x":613,"y":370,"width":131,"height":33,"color":"#58cf68"},{"x":612,"y":309,"width":73,"height":34,"color":"#58cf68"},{"x":988,"y":611,"width":134,"height":27,"color":"#58cf68"},{"x":829,"y":609,"width":102,"height":31,"color":"#58cf68"},{"x":1306,"y":485,"width":115,"height":42,"color":"#58cf68"}],"numberPairs":[]},{"key":"No039_p1","no":39,"part":1,"parts":2,"label":"No.39（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No039_p2_base.jpg","baseOff":"../assets/No022-040/No039_p2_baseOff.jpg","hide":[[462,393,126,36],[515,661,154,34],[508,777,174,39],[933,829,133,33],[525,928,120,36],[520,986,247,28],[612,1034,229,36],[1362,883,140,35],[1232,1149,170,30],[515,1204,148,33],[521,1257,198,34],[823,1354,285,31],[577,1449,161,27]],"keep":[],"greenHide":[{"x":433,"y":605,"width":212,"height":39,"color":"#58cf68"},{"x":435,"y":731,"width":235,"height":30,"color":"#58cf68"},{"x":434,"y":883,"width":242,"height":31,"color":"#58cf68"},{"x":1180,"y":892,"width":71,"height":24,"color":"#58cf68"},{"x":446,"y":1155,"width":169,"height":29,"color":"#58cf68"},{"x":1121,"y":1213,"width":80,"height":22,"color":"#58cf68"},{"x":603,"y":1312,"width":322,"height":28,"color":"#58cf68"},{"x":930,"y":1408,"width":62,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No039_p2","no":39,"part":2,"parts":2,"label":"No.39（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No040_p1_base.jpg","baseOff":"../assets/No022-040/No040_p1_baseOff.jpg","hide":[[587,406,75,35],[760,487,93,33],[668,572,98,31],[719,623,95,22],[997,660,61,35],[1385,569,120,41],[904,739,249,39],[1431,885,148,50],[1418,939,102,40],[560,1000,132,29],[433,1104,344,34],[456,1230,93,35],[466,1274,83,41],[477,1329,74,33],[381,1380,78,31],[1170,1541,179,29],[759,1612,79,35],[1351,1915,74,37],[951,1749,93,38],[403,1757,85,36],[391,1881,125,31],[891,1962,137,36]],"keep":[],"greenHide":[{"x":505,"y":483,"width":186,"height":39,"color":"#58cf68"},{"x":380,"y":365,"width":221,"height":32,"color":"#58cf68"},{"x":1170,"y":750,"width":114,"height":28,"color":"#58cf68"},{"x":426,"y":1196,"width":162,"height":30,"color":"#58cf68"}],"numberPairs":[]},{"key":"No040_p1","no":40,"part":1,"parts":2,"label":"No.40（1/2）","width":1600,"height":2278,"base":"../assets/No022-040/No040_p2_base.jpg","baseOff":"../assets/No022-040/No040_p2_baseOff.jpg","hide":[[1123,328,190,35],[686,391,312,49],[610,452,140,37],[953,450,135,41],[594,538,102,40],[443,599,160,40],[726,680,102,97],[453,878,95,42],[634,1004,241,35],[694,1082,59,36],[551,1256,272,29],[543,1336,173,29],[554,1502,261,45],[762,1589,179,40],[554,1669,273,37],[545,1767,294,43],[744,1875,261,30],[1210,1976,141,31],[856,1974,147,30],[484,1972,170,28],[525,2015,127,29],[493,2074,174,44],[857,2079,146,39]],"keep":[],"greenHide":[{"x":818,"y":1561,"width":158,"height":21,"color":"#58cf68"},{"x":1126,"y":1717,"width":66,"height":30,"color":"#58cf68"},{"x":559,"y":1829,"width":125,"height":31,"color":"#58cf68"},{"x":688,"y":1384,"width":117,"height":31,"color":"#58cf68"},{"x":936,"y":1385,"width":167,"height":30,"color":"#58cf68"},{"x":622,"y":1297,"width":254,"height":30,"color":"#58cf68"},{"x":1034,"y":1296,"width":151,"height":27,"color":"#58cf68"},{"x":519,"y":1201,"width":174,"height":40,"color":"#58cf68"},{"x":637,"y":607,"width":126,"height":30,"color":"#58cf68"},{"x":746,"y":553,"width":69,"height":27,"color":"#58cf68"},{"x":844,"y":548,"width":124,"height":30,"color":"#58cf68"},{"x":998,"y":555,"width":75,"height":23,"color":"#58cf68"},{"x":1104,"y":550,"width":73,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No040_p2","no":40,"part":2,"parts":2,"label":"No.40（2/2）","width":1600,"height":2278,"base":"../assets/No022-040/No040_p2_base.jpg","baseOff":"../assets/No022-040/No040_p2_baseOff.jpg","hide":[],"keep":[],"greenHide":[{"x":1183,"y":1126,"width":115,"height":30,"color":"#58cf68"}],"numberPairs":[{"id":"rms03yyqf_1972","body":[791,676,142,48],"answer":[369,440,60,41],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ラマ","fontSize":34},{"id":"rms03z98u_1977","body":[634,897,134,44],"answer":[364,484,112,39],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"パスパ","fontSize":34},{"id":"rms03znym_1990","body":[427,986,186,50],"answer":[368,531,124,31],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"元朝秘史","fontSize":34},{"id":"rms040mao_1995","body":[584,1083,130,33],"answer":[365,566,89,40],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"郭守敬","fontSize":34},{"id":"rms0415cy_2000","body":[1281,1076,126,41],"answer":[368,620,58,27],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"授時","fontSize":34},{"id":"rms041ptg_2005","body":[1335,1124,120,35],"answer":[369,665,51,31],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"貞享","fontSize":34},{"id":"rms04222f_2010","body":[495,1254,133,40],"answer":[367,710,59,30],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"元曲","fontSize":34},{"id":"rms042tos_2015","body":[511,1388,135,35],"answer":[361,750,87,36],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"漢宮秋","fontSize":34},{"id":"rms043x8b_2020","body":[514,1434,131,39],"answer":[368,794,83,36],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"西廂記","fontSize":34},{"id":"rms044dun_2025","body":[515,1480,144,33],"answer":[377,841,87,28],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"琵琶記","fontSize":34},{"id":"rms044sn6_2030","body":[506,1615,127,27],"answer":[373,885,88,31],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"水滸伝","fontSize":34},{"id":"rms0454m6_2035","body":[512,1699,120,34],"answer":[378,929,91,27],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"西遊記","fontSize":34},{"id":"rms045hwq_2040","body":[508,1786,125,37],"answer":[380,973,149,32],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"三国志演義","fontSize":34},{"id":"rms045xvq_2045","body":[613,2049,141,40],"answer":[380,1007,208,44],"bodyPageKey":"No040_p2","answerPageKey":"No040_answer","bodyImageWidth":1600,"bodyImageHeight":2278,"answerImageWidth":1600,"answerImageHeight":2278,"answerText":"ミニアチュール","fontSize":34}]}];
+const $=s=>document.querySelector(s);
+const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
+let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
+const storageKey='kopuri-ranges-'+"no022-040-v4";
+const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+const sidePrefKey='kopuri-side-collapsed';
+const mainEl=document.querySelector('.main');
+const closeSideBtn=$('#closeSide');
+const openSideBtn=$('#openSide');
+let sideClosed=localStorage.getItem(sidePrefKey)==='1';
+function syncSide(){
+  const compact=window.matchMedia('(max-width:760px)').matches;
+  if(compact){
+    mainEl.classList.remove('sideClosed');
+    if(openSideBtn) openSideBtn.hidden=true;
+    if(closeSideBtn) closeSideBtn.hidden=true;
+    return;
+  }
+  mainEl.classList.toggle('sideClosed',sideClosed);
+  if(openSideBtn) openSideBtn.hidden=!sideClosed;
+  if(closeSideBtn) closeSideBtn.hidden=sideClosed;
+}
+function setSideClosed(v){
+  sideClosed=!!v;
+  localStorage.setItem(sidePrefKey,sideClosed?'1':'0');
+  syncSide();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{applyZoom();scrollerEl.scrollTop=0;scrollerEl.scrollLeft=0;}));
+}
+function ensureSideOpen(){
+  if(!window.matchMedia('(max-width:760px)').matches && sideClosed) setSideClosed(false);
+}
+if(closeSideBtn) closeSideBtn.onclick=()=>setSideClosed(true);
+if(openSideBtn) openSideBtn.onclick=()=>setSideClosed(false);
+syncSide();
+
+function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
+function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
+
+function applyZoom(options={}){
+  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  const scroller=$('#scroller');
+  const viewerEl=document.querySelector('.viewer');
+  const compact=window.matchMedia('(max-width:760px)').matches;
+  const isSideClosed=mainEl.classList.contains('sideClosed')&&!compact;
+  const hostWidth=(isSideClosed?(viewerEl?.clientWidth||scroller.clientWidth):scroller.clientWidth);
+  const chromePadding=compact?16:(isSideClosed?32:36);
+  const available=Math.max(280,hostWidth-chromePadding);
+  const baseWidth=isSideClosed?available:Math.min(980,available);
+  stage.style.width=Math.round(baseWidth*zoom/100)+'px';
+  stage.style.height='auto';
+  $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
+  if(options.redraw===true){
+    requestAnimationFrame(()=>{drawOverlays();drawGuides()});
+  }
+}
+function drawCoverRect(ctx,r,p,fill='#fff'){
+  ctx.fillStyle=fill;
+  ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawGreenRect(ctx,r,p){
+  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
+  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+}
+function fittedFontSize(ctx,text,r,maxSize){
+  const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
+  let size=Math.min(Number(maxSize)||34,maxH);
+  for(;size>=8;size--){
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    const m=ctx.measureText(text);
+    const h=(m.actualBoundingBoxAscent||size*.8)+(m.actualBoundingBoxDescent||size*.2);
+    if(m.width<=maxW && h<=maxH) return size;
+  }
+  return 8;
+}
+function applyNumberPairsOn(ctx,p){
+  (p.numberPairs||[]).forEach(pair=>{
+    if(pair.answer && pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+    if(pair.body && pair.bodyPageKey===p.key){
+      const r=pair.body,text=String(pair.answerText||'');
+      drawCoverRect(ctx,r,p,'#fff');
+      ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+      const size=fittedFontSize(ctx,text,r,pair.fontSize);
+      ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+      ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+      ctx.restore();
+    }
+  });
+}
+// No.22〜35は、正しく合っている原本・緑・追加文字と同じ座標系で
+// オレンジOFFの白消しを直接重ねる。No.36以降の既存動作は変更しない。
+function useAlignedOrangeOverlay(p){
+  return Number(p.no)>=22 && Number(p.no)<=35;
+}
+function orangeHideRects(p){
+  // No.27（3/3）は利用者確認により、オレンジOFFの印を付けない。
+  if(Number(p.no)===27 && Number(p.part)===3) return [];
+  return p.hide||[];
+}
+function drawOrangeOffAligned(ctx,p){
+  orangeHideRects(p).forEach(r=>drawCoverRect(ctx,r,p,'#fff'));
+  // keep は利用者が指定した「消さずに残す範囲」。自動判定せず、そのまま尊重する。
+  (p.keep||[]).forEach(r=>ctx.clearRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3])));
+}
+function imageSourceForState(p){
+  if(useAlignedOrangeOverlay(p)) return p.base;
+  return $('#orangeToggle').checked?p.base:p.baseOff;
+}
+function drawState(ctx,p){
+  if(!$('#orangeToggle').checked && useAlignedOrangeOverlay(p)) drawOrangeOffAligned(ctx,p);
+  if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+}
+function drawOverlays(){
+  const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  const wantedSrc=imageSourceForState(p);
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode==='all') drawState(ctx,p);
+  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
+function drawGuides(){
+  const p=PAGES[idx],ctx=dc.getContext('2d');
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode!=='range'&&!drawing)return;
+  ctx.lineWidth=Math.max(2,p.width/500);
+  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
+  rangesFor().forEach(r=>{
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
+    ctx.setLineDash(r.enabled===false?[8,7]:[]);
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,255,255,.82)';
+    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
+    ctx.fillStyle='#512b1a';
+    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
+  });
+  ctx.setLineDash([]);
+  if(tempRect){
+    ctx.strokeStyle='#16866f';
+    ctx.strokeRect(tempRect.x*p.width,tempRect.y*p.height,tempRect.w*p.width,tempRect.h*p.height);
+  }
+}
+function renderRanges(){
+  const box=$('#ranges'),r=rangesFor();box.innerHTML='';
+  if(!r.length){box.innerHTML='<div class="empty">まだ範囲はありません。</div>';return}
+  r.forEach((x,i)=>{
+    const row=document.createElement('div');row.className='rangeRow';
+    const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
+    c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
+    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
+    const d=document.createElement('button');d.className='del';d.textContent='×';
+    d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
+    row.append(c,n,d);box.appendChild(row);
+  });
+}
+function renderPageSelect(){
+  const sel=$('#pageSelect');sel.innerHTML='';
+  PAGES.forEach((p,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=`${p.label}　${i+1}/${PAGES.length}`;
+    if(i===idx)o.selected=true;sel.appendChild(o);
+  });
+}
+function loadPage(){
+  const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
+  base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
+  const wantedSrc=imageSourceForState(p);
+  if(base.src!==wantedSrc) base.src=wantedSrc;
+  // canvasの実画素数は常に原寸。倍率変更では変更しない。
+  if(oc.width!==p.width) oc.width=p.width;
+  if(oc.height!==p.height) oc.height=p.height;
+  if(dc.width!==p.width) dc.width=p.width;
+  if(dc.height!==p.height) dc.height=p.height;
+  $('#pageInfo').textContent=`中国史〜元　${p.label}`;
+  renderPageSelect();renderRanges();applyZoom();drawOverlays();drawGuides();
+}
+function point(e){
+  const b=dc.getBoundingClientRect();
+  return{x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))}
+}
+dc.addEventListener('pointerdown',e=>{
+  if(!drawing)return;e.preventDefault();dc.setPointerCapture(e.pointerId);
+  dragStart=point(e);tempRect={x:dragStart.x,y:dragStart.y,w:0,h:0};drawGuides()
+});
+dc.addEventListener('pointermove',e=>{
+  if(!drawing||!dragStart)return;e.preventDefault();const p=point(e);
+  tempRect={x:Math.min(p.x,dragStart.x),y:Math.min(p.y,dragStart.y),w:Math.abs(p.x-dragStart.x),h:Math.abs(p.y-dragStart.y)};drawGuides()
+});
+dc.addEventListener('pointerup',e=>{
+  if(!drawing||!tempRect)return;e.preventDefault();
+  if(tempRect.w>.015&&tempRect.h>.015){
+    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
+    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+  }
+  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+});
+$('#orangeToggle').onchange=drawOverlays;
+$('#greenToggle').onchange=drawOverlays;
+$('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#rangeMode').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{ensureSideOpen();if(dragPanActive){dragPanActive=false;dragPanPointerId=null;scrollerEl.classList.remove('dragPanning')}mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
+$('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
+$('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
+$('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+
+// Mobile pinch zoom (50%–200%)
+let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
+let pinchCenterX=0, pinchCenterY=0;
+function touchDistance(touches){
+  const dx=touches[0].clientX-touches[1].clientX;
+  const dy=touches[0].clientY-touches[1].clientY;
+  return Math.hypot(dx,dy);
+}
+let pinchFrame=0,pendingPinchZoom=100;
+function beginPinch(e){
+  if(e.touches.length!==2 || drawing)return;
+  const scroller=$('#scroller');
+  const rect=scroller.getBoundingClientRect();
+  pinchStartDistance=touchDistance(e.touches);
+  pinchStartZoom=zoom;
+  pendingPinchZoom=zoom;
+  pinchStartScrollLeft=scroller.scrollLeft;
+  pinchStartScrollTop=scroller.scrollTop;
+  pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2-rect.left;
+  pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2-rect.top;
+  stage.classList.add('pinching');
+  e.preventDefault();
+}
+function flushPinch(){
+  pinchFrame=0;
+  const scroller=$('#scroller');
+  zoom=pendingPinchZoom;
+  applyZoom();
+  const ratio=zoom/pinchStartZoom;
+  scroller.scrollLeft=(pinchStartScrollLeft+pinchCenterX)*ratio-pinchCenterX;
+  scroller.scrollTop=(pinchStartScrollTop+pinchCenterY)*ratio-pinchCenterY;
+}
+function movePinch(e){
+  if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
+  e.preventDefault();
+  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
+  if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
+}
+function endPinch(e){
+  if(e.touches.length<2){
+    if(pinchFrame){cancelAnimationFrame(pinchFrame);flushPinch();}
+    pinchStartDistance=0;
+    stage.classList.remove('pinching');
+  }
+}
+
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{syncSide();applyZoom()},80)},{passive:true});
+const scrollerEl=$('#scroller');
+scrollerEl.addEventListener('wheel',e=>{
+  if(drawing)return;
+  const canY=scrollerEl.scrollHeight>scrollerEl.clientHeight+1;
+  const canX=scrollerEl.scrollWidth>scrollerEl.clientWidth+1;
+  if(!canY&&!canX)return;
+  if(canY&&Math.abs(e.deltaY)>=Math.abs(e.deltaX)) scrollerEl.scrollTop+=e.deltaY;
+  else if(canX) scrollerEl.scrollLeft+=(e.deltaX||e.deltaY);
+  e.preventDefault();
+},{passive:false});
+let dragPanActive=false,dragPanPointerId=null,dragPanStartX=0,dragPanStartY=0,dragPanScrollLeft=0,dragPanScrollTop=0;
+function beginDragPan(e){
+  if(drawing)return;
+  if(e.pointerType==='touch')return; // touchはブラウザ標準の1本指スクロールを使う
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  if(scrollerEl.scrollWidth<=scrollerEl.clientWidth&&scrollerEl.scrollHeight<=scrollerEl.clientHeight)return;
+  dragPanActive=true;dragPanPointerId=e.pointerId;
+  dragPanStartX=e.clientX;dragPanStartY=e.clientY;
+  dragPanScrollLeft=scrollerEl.scrollLeft;dragPanScrollTop=scrollerEl.scrollTop;
+  scrollerEl.classList.add('dragPanning');
+  scrollerEl.setPointerCapture?.(e.pointerId);
+  e.preventDefault();
+}
+function moveDragPan(e){
+  if(!dragPanActive||e.pointerId!==dragPanPointerId)return;
+  scrollerEl.scrollLeft=dragPanScrollLeft-(e.clientX-dragPanStartX);
+  scrollerEl.scrollTop=dragPanScrollTop-(e.clientY-dragPanStartY);
+  e.preventDefault();
+}
+function endDragPan(e){
+  if(!dragPanActive||e.pointerId!==dragPanPointerId)return;
+  dragPanActive=false;dragPanPointerId=null;
+  scrollerEl.classList.remove('dragPanning');
+  try{scrollerEl.releasePointerCapture?.(e.pointerId)}catch(_e){}
+}
+scrollerEl.addEventListener('pointerdown',beginDragPan,{passive:false});
+scrollerEl.addEventListener('pointermove',moveDragPan,{passive:false});
+scrollerEl.addEventListener('pointerup',endDragPan,{passive:true});
+scrollerEl.addEventListener('pointercancel',endDragPan,{passive:true});
+scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
+scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
+scrollerEl.addEventListener('touchend',endPinch,{passive:true});
+scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+syncSide();
+loadPage();
+</script>
+</body>
+</html>
