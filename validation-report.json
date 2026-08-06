@@ -1,161 +1,38 @@
 {
-  "scope": "all 21 range HTML files (No.1-156)",
-  "html_count": 21,
-  "fixes": [
-    "keep .main as a constrained grid after closing the sidebar",
-    "constrain .viewer to the remaining viewport height",
-    "make .scroller the vertical/horizontal overflow container",
-    "preserve mouse drag, touch scrolling and pinch zoom",
-    "add mouse-wheel fallback scrolling"
+  "status": "ok",
+  "sourceImage": "4028948F-5C06-4A28-B6E0-C84FACC7444D.jpeg",
+  "sourceSize": [
+    883,
+    858
   ],
+  "squareMethod": "pad-shorter-side-with-corner-background-average",
+  "updatedIconFiles": 5,
   "files": [
     {
-      "file": "No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
+      "path": "assets/icons/apple-touch-icon.png",
+      "bytes": 32193,
+      "sha256": "0fefff176f8beb3f6c4d509ff0f15cd4e39f18153180639cda722ac6fa1c7395"
     },
     {
-      "file": "No010-015_古代ローマ.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
+      "path": "assets/icons/favicon-32.png",
+      "bytes": 1912,
+      "sha256": "1ee0655fbecb1229f6eab5e78b495c32d39928a15b4c11aa7e2b2baf18776b83"
     },
     {
-      "file": "No016-018_古代インド.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
+      "path": "assets/icons/favicon.ico",
+      "bytes": 85464,
+      "sha256": "bc2c65982e90a4c94dbb00a098f58685defef972530f0817bd879a318af7c22e"
     },
     {
-      "file": "No019-021_東南アジアの諸文明.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
+      "path": "assets/icons/icon-192.png",
+      "bytes": 34996,
+      "sha256": "f6e9b70ffc7a75ec59f0ef265c2258ed2f91d752d1bf1c0a3cfca3d8abf62b2f"
     },
     {
-      "file": "No022-040_中国史〜元.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No041-046_明・清.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No047-069_ローマ分裂〜大航海時代.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No070-081_イスラーム史.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No082-084_大航海.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No085_ルネサンス.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No086-104_宗教改革〜産業革命.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No105-108_アメリカの成立.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No109-114_フランス革命.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No115-123_ウィーン体制と各国の統一.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No124-126_東アジアの激動.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No127-129_帝国主義の植民地支配.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No130-135_第一次世界大戦への道.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No136-138_ロシア革命とその影響.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No139-147_戦間期国際政治史.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No148-153_中国革命史・日本の中国侵略.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
-    },
-    {
-      "file": "No154-156_第二次世界大戦・戦後国際秩序.html",
-      "grid_closed": true,
-      "viewer_constrained": true,
-      "scroller_height": true,
-      "wheel_fallback": true
+      "path": "assets/icons/icon-512.png",
+      "bytes": 146106,
+      "sha256": "d37f0b2ed2dfce46616119f97a1611a25359853b9ee0ec08f8863a52ef5a3b2c"
     }
   ],
-  "all_passed": true
+  "note": "サイト本体・HTML・JSONは変更せず、既存参照先 assets/icons/ の5ファイルだけを置換する更新パック。"
 }
