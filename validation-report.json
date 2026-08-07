@@ -1,23 +1,164 @@
 {
-  "scope": "No022-040_中国史〜元.html のうち No.34(1/2) と No.40(2/2) のみ",
-  "pageCount": 37,
-  "base64InHtml": false,
-  "changes": [
-    {
-      "page": "No034_p1",
-      "change": "base/baseOffを元の正しいNo.34(1/2)画像へ復元",
-      "baseSha256": "707cbe864a7e0002054b1a1c8bc88cb954518dfe76cef339481d943a52f7f011",
-      "baseOffSha256": "4d5e671203adb8155abd5989c4c009715edb45a3b08fcd35034e65d2d566044d"
-    },
-    {
-      "page": "No040_p2",
-      "change": "別ページ由来で位置不一致だったgreenHideとnumberPairsを除去。画像と他ページは変更なし"
-    }
+  "source": "古プリ修正モード_v5.zip",
+  "sourceCorrectionsExportedAt": "2026-08-07T13:56:27.935Z",
+  "range": "No157-163",
+  "title": "米ソ冷戦の展開",
+  "html": "pages/No157-163_米ソ冷戦の展開.html",
+  "pageCount": 16,
+  "pageKeys": [
+    "No157_p1",
+    "No157_p2",
+    "No158_p1",
+    "No158_p2",
+    "No159_p1",
+    "No159_p2",
+    "No160_p1",
+    "No160_p2",
+    "No161_p1",
+    "No161_p2",
+    "No161_p3",
+    "No161_p4",
+    "No162_p1",
+    "No162_p2",
+    "No163_p1",
+    "No163_p2"
   ],
-  "unchanged": "No.34(1/2)とNo.40(2/2)以外の35ページ、UI、拡大、スクロール、指定範囲",
-  "checks": [
-    "37 page keys preserved",
-    "no base64 in HTML",
-    "inline JavaScript node --check passed"
-  ]
+  "imageFiles": [
+    "No157_p1_base.jpg",
+    "No157_p2_base.jpg",
+    "No158_p1_base.jpg",
+    "No158_p2_base.jpg",
+    "No159_p1_base.jpg",
+    "No159_p2_base.jpg",
+    "No160_p1_base.jpg",
+    "No160_p2_base.jpg",
+    "No161_p1_base.jpg",
+    "No161_p2_base.jpg",
+    "No161_p3_base.jpg",
+    "No161_p4_base.jpg",
+    "No162_p1_base.jpg",
+    "No162_p2_base.jpg",
+    "No163_p1_base.jpg",
+    "No163_p2_base.jpg"
+  ],
+  "imageSha256": {
+    "No157_p1_base.jpg": "b07856496f22a0a9b96677f7b4625ade3d3a8df255577e24314dd309329869ad",
+    "No157_p2_base.jpg": "a7ab7a1a065903a5e884fce05f8e4f3f6cbf2383cdd9a96100a69869f6cc5a2a",
+    "No158_p1_base.jpg": "f1dd0a09c279d8135d1310477fe2f9bace94ba20fda4587700b88df8e081a082",
+    "No158_p2_base.jpg": "922faf7449b3a729478a13954ad00687fe619d68ac5addf04dfd4b7866ee787c",
+    "No159_p1_base.jpg": "0a380978cef594ddaea5092523b0a789ad2f7f8a5aaa446b8de5f0f4765ba9f5",
+    "No159_p2_base.jpg": "0d006e3c6c067c87715df81ddf6aa1146039d0313fd48ed58f2c8c310f946ff0",
+    "No160_p1_base.jpg": "45d8e357f87eef960387c977402e1e869184d5c33587a003deefef8d0c292556",
+    "No160_p2_base.jpg": "b0a6b47858bc856a726c3ec68a6a3bfd3aad230ff0488a8505a1c458f36ab6c3",
+    "No161_p1_base.jpg": "ee489c748b5192c4616b572c58511d8cea5bb33874b99e2ea82d86b87be4f7ad",
+    "No161_p2_base.jpg": "ec069c62e7d0f9febd418bbb487cf108a2db7b909a33890dacb9eb07b138decb",
+    "No161_p3_base.jpg": "e89ce97d0039eaaca13a91f997a4fc42cbc5488d8da13525491ad8280395c673",
+    "No161_p4_base.jpg": "86d8c4f6d25ae7f9c8789abc526bb8712ef367e1d93eec606dba17603585394a",
+    "No162_p1_base.jpg": "156d30df8bc202744a7b7d930b53617ef0a8e0e57cea96f42461548bc9005b2c",
+    "No162_p2_base.jpg": "8d77944f79bb97eac32c68cc9ae20e2aecfc15efd2d5f7bf500b2b297bdcca91",
+    "No163_p1_base.jpg": "1e60fb72fb851b9dc0b7c0508cddbe095512c97d80e3a1c5214dde4f008a5478",
+    "No163_p2_base.jpg": "5e6e34fef784d8fe67a688d73c0df1982062a55201344dfe6e7bd62f50e52cfc"
+  },
+  "base64Found": false,
+  "baseOffUsed": false,
+  "initialOrange": false,
+  "initialGreen": false,
+  "annotationCounts": {
+    "No157_p1": {
+      "hide": 18,
+      "keep": 0,
+      "greenHide": 43,
+      "numberPairs": 0
+    },
+    "No157_p2": {
+      "hide": 12,
+      "keep": 0,
+      "greenHide": 33,
+      "numberPairs": 0
+    },
+    "No158_p1": {
+      "hide": 27,
+      "keep": 1,
+      "greenHide": 27,
+      "numberPairs": 0
+    },
+    "No158_p2": {
+      "hide": 14,
+      "keep": 1,
+      "greenHide": 52,
+      "numberPairs": 1
+    },
+    "No159_p1": {
+      "hide": 25,
+      "keep": 0,
+      "greenHide": 34,
+      "numberPairs": 0
+    },
+    "No159_p2": {
+      "hide": 13,
+      "keep": 0,
+      "greenHide": 23,
+      "numberPairs": 0
+    },
+    "No160_p1": {
+      "hide": 26,
+      "keep": 0,
+      "greenHide": 38,
+      "numberPairs": 0
+    },
+    "No160_p2": {
+      "hide": 13,
+      "keep": 0,
+      "greenHide": 51,
+      "numberPairs": 0
+    },
+    "No161_p1": {
+      "hide": 24,
+      "keep": 0,
+      "greenHide": 27,
+      "numberPairs": 0
+    },
+    "No161_p2": {
+      "hide": 3,
+      "keep": 0,
+      "greenHide": 17,
+      "numberPairs": 0
+    },
+    "No161_p3": {
+      "hide": 0,
+      "keep": 0,
+      "greenHide": 14,
+      "numberPairs": 0
+    },
+    "No161_p4": {
+      "hide": 0,
+      "keep": 0,
+      "greenHide": 14,
+      "numberPairs": 0
+    },
+    "No162_p1": {
+      "hide": 27,
+      "keep": 0,
+      "greenHide": 21,
+      "numberPairs": 0
+    },
+    "No162_p2": {
+      "hide": 16,
+      "keep": 0,
+      "greenHide": 52,
+      "numberPairs": 0
+    },
+    "No163_p1": {
+      "hide": 30,
+      "keep": 0,
+      "greenHide": 29,
+      "numberPairs": 0
+    },
+    "No163_p2": {
+      "hide": 26,
+      "keep": 0,
+      "greenHide": 29,
+      "numberPairs": 0
+    }
+  }
 }
