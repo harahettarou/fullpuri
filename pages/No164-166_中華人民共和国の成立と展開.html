@@ -1,0 +1,455 @@
+<!doctype html>
+<!-- Added from repair-mode v5: No164-166, 2026-08-22 -->
+<html lang="ja">
+<head>
+<!-- KOPURI_UI_FIX_20260803_FULL21_PAN_V1 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>古プリ 解答レイヤー｜中華人民共和国の成立と展開</title>
+<style>
+:root{
+  --bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;
+  --accent:#de6f3c;--green:#16866f;--shadow:0 12px 35px rgba(34,28,20,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.top{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:max(9px,env(safe-area-inset-top)) 12px 9px;
+  display:flex;gap:10px;align-items:center;z-index:20
+}
+.brand{font-weight:800;white-space:nowrap}
+.homeBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:700;white-space:nowrap}
+.privacy{font-size:12px;color:var(--green);background:#e8f6f1;border-radius:999px;padding:5px 9px}
+.topspacer{flex:1}
+.main{min-height:0;display:grid;grid-template-columns:290px minmax(0,1fr);width:100%}
+.main.sideClosed{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-height:0}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.main.sideClosed .side{display:none}
+.main.sideClosed .viewer{width:100%;min-width:0;min-height:0;height:100%;overflow:hidden}
+.main.sideClosed .scroller{width:100%;justify-content:flex-start;cursor:grab}
+.main.sideClosed .stage{margin-inline:auto}
+.sideHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}
+.sideHead .sectionTitle{margin:0}
+.sideToggleBtn{white-space:nowrap}
+.sectionTitle{font-weight:800;margin:4px 0 10px}
+.help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
+.ranges{display:grid;gap:7px}
+.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
+.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{border:0;background:transparent;color:#a34734;font-size:18px}
+.empty{font-size:13px;color:var(--sub)}
+.viewer{min-width:0;min-height:0;height:100%;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr) auto;width:100%}
+.controls{
+  background:#fff;border-bottom:1px solid var(--line);padding:9px 12px;
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center
+}
+.switchWrap{display:flex;align-items:center;gap:7px;font-size:14px}
+.switch{position:relative;width:44px;height:25px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#c9c5bd;border-radius:99px;transition:.2s}
+.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 4px #777;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch.green input:checked+.slider{background:var(--green)}
+.switch input:checked+.slider:before{transform:translateX(19px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 11px}
+.seg button.active{background:#25231f;color:#fff}
+.action{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px}
+.action.primary{background:#25231f;color:#fff;border-color:#25231f}
+.pageInfo{margin-left:auto;color:var(--sub);font-size:13px}
+.scroller{min-width:0;min-height:0;width:100%;height:100%;overflow:auto;padding:18px;display:flex;align-items:flex-start;justify-content:flex-start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.stage{contain:layout paint style;transform-origin:0 0;position:relative;flex:0 0 auto;background:#fff;box-shadow:var(--shadow);touch-action:pan-x pan-y}
+.stage img{display:block;width:100%;height:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+#overlayCanvas{pointer-events:none}
+#drawCanvas{cursor:crosshair;pointer-events:none;touch-action:none}
+.stage.drawing #drawCanvas{pointer-events:auto}
+.stage.drawing{touch-action:none}
+.stage.pinching{will-change:width}
+.scroller.dragPanning{cursor:grabbing;user-select:none}
+.scroller.dragPanning .stage{cursor:grabbing}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;color:var(--sub)}
+.nav{
+  background:#fff;border-top:1px solid var(--line);
+  padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom));
+  display:flex;justify-content:center;gap:8px;align-items:center
+}
+.nav button,.nav select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px}
+.zoom{display:flex;align-items:center;gap:8px}
+#zoomLabel{min-width:44px;text-align:center}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#25231f;color:#fff;padding:9px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1}
+@media(max-width:760px){
+  .main.sideClosed{display:grid;grid-template-columns:minmax(0,1fr);min-height:0}
+  .sideToggleBtn{display:none!important}
+  .main{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-height:0}
+  .side{display:none}
+  .top{font-size:14px}
+  .privacy{display:none}
+  .controls{padding:7px;gap:7px}
+  .controls .action{padding:7px 9px}
+  .pageInfo{width:100%;margin:0;text-align:right}
+  .scroller{padding:8px}
+  .nav{gap:5px}
+  .nav button,.nav select{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="homeBtn" href="../index.html">← 一覧</a>
+    <div class="brand">古プリ 解答レイヤー</div>
+    <div class="topspacer"></div>
+    <div>中華人民共和国の成立と展開</div>
+  </header>
+  <div class="main">
+    <aside class="side" id="sidePanel">
+      <div class="sideHead"><div class="sectionTitle">指定範囲</div><button class="action sideToggleBtn" id="closeSide" type="button">閉じる</button></div>
+      <div class="help">
+        「指定範囲」に切り替え、範囲を追加すると、その範囲だけ表示切替できます。
+        範囲は端末内に保存されます。
+      </div>
+      <div class="ranges" id="ranges"></div>
+    </aside>
+    <section class="viewer">
+      <div class="controls">
+        <label class="switchWrap">
+          <span class="switch"><input id="orangeToggle" type="checkbox"><span class="slider"></span></span>
+          オレンジ文字
+        </label>
+        <label class="switchWrap">
+          <span class="switch green"><input id="greenToggle" type="checkbox"><span class="slider"></span></span>
+          緑マーカー
+        </label>
+        <div class="seg">
+          <button id="allMode" class="active">全体</button>
+          <button id="rangeMode">指定範囲</button>
+        </div>
+        <button class="action primary" id="addRange">＋ 範囲を追加</button>
+        <button class="action" id="clearRanges">範囲を削除</button>
+        <button class="action sideToggleBtn" id="openSide" type="button" hidden>指定範囲を開く</button>
+        <div class="pageInfo" id="pageInfo"></div>
+      </div>
+      <div class="scroller" id="scroller">
+        <div class="stage" id="stage">
+          <img id="baseImg" alt="古プリ">
+          <canvas id="overlayCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+          <div class="loading" id="loading">PDF原本を読み込み中…</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="prev">← 前</button>
+        <select id="pageSelect"></select>
+        <button id="next">次 →</button>
+        <div class="zoom">
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// KOPURI_HIGH_SPEED_V1: full-quality rendering, redraw-free zoom
+const PAGES=[{"key":"No164_p1","no":164,"part":1,"parts":2,"label":"No.164（1/2）","width":1560,"height":2295,"base":"../assets/No164-166/No164_p1_base.jpg","hide":[[335,457,162,41],[407,533,92,42],[884,305,101,29],[951,297,41,17],[743,701,131,49],[1129,693,126,44],[371,871,127,50],[523,1216,203,39],[1046,869,464,49],[1130,974,132,40],[1072,1089,98,47],[988,1154,109,33],[1267,1353,102,38],[1107,1530,217,46],[1091,1626,287,45],[418,2114,244,35],[517,2062,116,34],[511,2004,110,41],[573,1900,140,37],[491,1947,129,43]],"keep":[],"greenHide":[{"x":677,"y":375,"width":224,"height":29,"color":"#58cf68"},{"x":589,"y":344,"width":174,"height":28,"color":"#58cf68"},{"x":895,"y":260,"width":29,"height":33,"color":"#58cf68"},{"x":952,"y":259,"width":32,"height":29,"color":"#58cf68"},{"x":803,"y":258,"width":58,"height":35,"color":"#58cf68"},{"x":1101,"y":298,"width":52,"height":29,"color":"#58cf68"},{"x":593,"y":471,"width":101,"height":31,"color":"#58cf68"},{"x":762,"y":470,"width":179,"height":33,"color":"#58cf68"},{"x":604,"y":534,"width":346,"height":41,"color":"#58cf68"},{"x":516,"y":648,"width":276,"height":37,"color":"#58cf68"},{"x":1146,"y":631,"width":37,"height":42,"color":"#58cf68"},{"x":1026,"y":634,"width":60,"height":37,"color":"#58cf68"},{"x":1323,"y":936,"width":44,"height":38,"color":"#58cf68"},{"x":1412,"y":933,"width":148,"height":39,"color":"#58cf68"},{"x":549,"y":977,"width":227,"height":33,"color":"#58cf68"},{"x":363,"y":979,"width":164,"height":32,"color":"#58cf68"},{"x":361,"y":1108,"width":264,"height":33,"color":"#58cf68"},{"x":1321,"y":1104,"width":115,"height":34,"color":"#58cf68"},{"x":690,"y":1277,"width":65,"height":24,"color":"#58cf68"},{"x":378,"y":1362,"width":322,"height":33,"color":"#58cf68"},{"x":1072,"y":1359,"width":101,"height":35,"color":"#58cf68"},{"x":967,"y":1202,"width":85,"height":28,"color":"#58cf68"},{"x":1142,"y":1232,"width":47,"height":28,"color":"#58cf68"},{"x":1037,"y":1272,"width":80,"height":28,"color":"#58cf68"},{"x":968,"y":1271,"width":54,"height":36,"color":"#58cf68"},{"x":952,"y":1242,"width":32,"height":27,"color":"#58cf68"},{"x":1005,"y":1234,"width":112,"height":28,"color":"#58cf68"},{"x":1012,"y":1687,"width":151,"height":33,"color":"#58cf68"},{"x":1201,"y":1690,"width":117,"height":32,"color":"#58cf68"},{"x":1300,"y":1735,"width":167,"height":37,"color":"#58cf68"},{"x":326,"y":1857,"width":156,"height":31,"color":"#58cf68"},{"x":398,"y":2193,"width":360,"height":35,"color":"#58cf68"},{"x":292,"y":645,"width":42,"height":28,"color":"#58cf68"},{"x":371,"y":649,"width":27,"height":25,"color":"#58cf68"},{"x":145,"y":541,"width":54,"height":32,"color":"#58cf68"}],"numberPairs":[]},{"key":"No164_p2","no":164,"part":2,"parts":2,"label":"No.164（2/2）","width":1577,"height":2295,"base":"../assets/No164-166/No164_p2_base.jpg","hide":[],"keep":[],"greenHide":[{"x":360,"y":116,"width":47,"height":136,"color":"#58cf68"},{"x":467,"y":473,"width":101,"height":47,"color":"#58cf68"},{"x":589,"y":484,"width":97,"height":37,"color":"#58cf68"},{"x":784,"y":70,"width":119,"height":107,"color":"#58cf68"},{"x":858,"y":215,"width":34,"height":123,"color":"#58cf68"},{"x":853,"y":365,"width":32,"height":114,"color":"#58cf68"},{"x":946,"y":447,"width":33,"height":142,"color":"#58cf68"},{"x":998,"y":462,"width":45,"height":112,"color":"#58cf68"},{"x":960,"y":301,"width":97,"height":89,"color":"#58cf68"},{"x":113,"y":534,"width":30,"height":29,"color":"#58cf68"},{"x":275,"y":530,"width":41,"height":35,"color":"#58cf68"},{"x":666,"y":547,"width":32,"height":42,"color":"#58cf68"},{"x":802,"y":541,"width":37,"height":42,"color":"#58cf68"},{"x":992,"y":577,"width":27,"height":25,"color":"#58cf68"},{"x":1177,"y":541,"width":28,"height":29,"color":"#58cf68"}],"numberPairs":[]},{"key":"No165_p1","no":165,"part":1,"parts":2,"label":"No.165（1/2）","width":1598,"height":2293,"base":"../assets/No164-166/No165_p1_base.jpg","hide":[[1169,328,142,38],[1358,19,147,47],[1355,92,118,42],[450,748,201,42],[368,884,183,46],[950,873,558,45],[551,1174,135,54],[680,1333,129,43],[679,1386,158,39],[838,1323,156,46],[887,1373,56,41],[1036,1349,191,44],[518,1250,133,46],[390,1532,462,40],[344,1582,415,40],[1395,1836,63,34],[1396,1876,60,33],[1390,1917,74,38],[1111,2000,141,42],[957,2049,98,45],[1196,2054,101,43],[1444,2042,80,44]],"keep":[],"greenHide":[{"x":387,"y":815,"width":309,"height":55,"color":"#58cf68"},{"x":330,"y":253,"width":152,"height":33,"color":"#58cf68"},{"x":500,"y":255,"width":156,"height":31,"color":"#58cf68"},{"x":959,"y":384,"width":168,"height":30,"color":"#58cf68"},{"x":1165,"y":384,"width":148,"height":28,"color":"#58cf68"},{"x":332,"y":495,"width":120,"height":33,"color":"#58cf68"},{"x":557,"y":495,"width":74,"height":33,"color":"#58cf68"},{"x":910,"y":493,"width":164,"height":34,"color":"#58cf68"},{"x":718,"y":890,"width":78,"height":32,"color":"#58cf68"},{"x":834,"y":1003,"width":70,"height":30,"color":"#58cf68"},{"x":509,"y":1129,"width":134,"height":33,"color":"#58cf68"},{"x":1017,"y":1194,"width":106,"height":35,"color":"#58cf68"},{"x":297,"y":1395,"width":194,"height":35,"color":"#58cf68"},{"x":342,"y":1448,"width":128,"height":33,"color":"#58cf68"},{"x":224,"y":1907,"width":180,"height":30,"color":"#58cf68"},{"x":326,"y":1965,"width":106,"height":31,"color":"#58cf68"},{"x":535,"y":1955,"width":108,"height":38,"color":"#58cf68"},{"x":665,"y":1951,"width":117,"height":39,"color":"#58cf68"},{"x":875,"y":1954,"width":235,"height":33,"color":"#58cf68"},{"x":1137,"y":1954,"width":75,"height":33,"color":"#58cf68"},{"x":406,"y":2012,"width":211,"height":26,"color":"#58cf68"},{"x":275,"y":2054,"width":72,"height":37,"color":"#58cf68"}],"numberPairs":[]},{"key":"No165_p2","no":165,"part":2,"parts":2,"label":"No.165（2/2）","width":1566,"height":2293,"base":"../assets/No164-166/No165_p2_base.jpg","hide":[[447,292,459,44],[839,339,304,55],[1123,480,248,60],[232,554,236,48],[322,651,384,51],[263,862,127,40],[538,1211,165,31],[435,1388,110,47]],"keep":[],"greenHide":[{"x":532,"y":1289,"width":74,"height":34,"color":"#58cf68"},{"x":143,"y":142,"width":228,"height":38,"color":"#58cf68"},{"x":146,"y":193,"width":267,"height":40,"color":"#58cf68"},{"x":586,"y":196,"width":149,"height":41,"color":"#58cf68"},{"x":180,"y":354,"width":373,"height":36,"color":"#58cf68"},{"x":188,"y":456,"width":150,"height":38,"color":"#58cf68"},{"x":390,"y":459,"width":144,"height":35,"color":"#58cf68"},{"x":867,"y":664,"width":97,"height":34,"color":"#58cf68"},{"x":285,"y":971,"width":30,"height":32,"color":"#58cf68"},{"x":155,"y":1019,"width":205,"height":43,"color":"#58cf68"},{"x":160,"y":1073,"width":155,"height":32,"color":"#58cf68"},{"x":318,"y":1124,"width":182,"height":33,"color":"#58cf68"},{"x":345,"y":1074,"width":62,"height":34,"color":"#58cf68"},{"x":181,"y":1174,"width":154,"height":36,"color":"#58cf68"},{"x":166,"y":1273,"width":217,"height":33,"color":"#58cf68"},{"x":320,"y":1325,"width":178,"height":30,"color":"#58cf68"},{"x":522,"y":1251,"width":231,"height":36,"color":"#58cf68"},{"x":745,"y":1209,"width":31,"height":27,"color":"#58cf68"},{"x":483,"y":1211,"width":32,"height":25,"color":"#58cf68"},{"x":802,"y":1195,"width":141,"height":42,"color":"#58cf68"}],"numberPairs":[]},{"key":"No166_p1","no":166,"part":1,"parts":3,"label":"No.166（1/3）","width":1604,"height":2293,"base":"../assets/No164-166/No166_p1_base.jpg","hide":[[998,170,86,45],[1154,224,115,37],[1164,277,123,38],[1008,483,508,49],[257,382,127,42],[491,378,108,51],[263,661,127,37],[534,708,85,48],[752,790,65,51],[259,861,247,44],[425,916,411,44],[336,974,90,46],[296,1034,137,45],[815,1193,137,48],[1292,1380,117,48],[299,1357,149,54],[664,1686,35,41],[935,1789,98,38],[1067,1727,138,38],[488,1994,95,32]],"keep":[],"greenHide":[{"x":762,"y":1001,"width":28,"height":35,"color":"#58cf68"},{"x":825,"y":997,"width":98,"height":37,"color":"#58cf68"},{"x":189,"y":169,"width":220,"height":43,"color":"#58cf68"},{"x":590,"y":235,"width":153,"height":30,"color":"#58cf68"},{"x":1225,"y":397,"width":108,"height":34,"color":"#58cf68"},{"x":702,"y":343,"width":144,"height":43,"color":"#58cf68"},{"x":196,"y":496,"width":89,"height":30,"color":"#58cf68"},{"x":829,"y":794,"width":82,"height":40,"color":"#58cf68"},{"x":830,"y":846,"width":105,"height":40,"color":"#58cf68"},{"x":730,"y":846,"width":91,"height":36,"color":"#58cf68"},{"x":473,"y":985,"width":57,"height":34,"color":"#58cf68"},{"x":264,"y":1243,"width":111,"height":34,"color":"#58cf68"},{"x":467,"y":1101,"width":191,"height":39,"color":"#58cf68"},{"x":229,"y":1160,"width":83,"height":37,"color":"#58cf68"},{"x":403,"y":1163,"width":117,"height":31,"color":"#58cf68"},{"x":975,"y":638,"width":309,"height":32,"color":"#58cf68"},{"x":247,"y":1432,"width":124,"height":33,"color":"#58cf68"},{"x":168,"y":1695,"width":49,"height":28,"color":"#58cf68"},{"x":246,"y":1743,"width":125,"height":33,"color":"#58cf68"},{"x":726,"y":1794,"width":155,"height":32,"color":"#58cf68"},{"x":247,"y":1845,"width":277,"height":34,"color":"#58cf68"},{"x":246,"y":2050,"width":217,"height":31,"color":"#58cf68"}],"numberPairs":[]},{"key":"No166_p2","no":166,"part":2,"parts":3,"label":"No.166（2/3）","width":1577,"height":2293,"base":"../assets/No164-166/No166_p2_base.jpg","hide":[[278,494,238,43],[1006,536,103,46],[278,640,217,46],[272,833,200,39],[591,930,313,50],[505,1086,246,48],[987,1245,335,52],[983,1350,229,54],[479,1428,126,42],[286,1905,122,39],[566,1898,100,49],[38,1992,56,82],[561,2089,133,44],[260,2096,150,48],[1032,2094,85,36],[1020,1945,83,40],[1369,1959,102,30]],"keep":[],"greenHide":[{"x":250,"y":208,"width":133,"height":43,"color":"#58cf68"},{"x":404,"y":328,"width":132,"height":35,"color":"#58cf68"},{"x":411,"y":377,"width":148,"height":34,"color":"#58cf68"},{"x":280,"y":551,"width":61,"height":32,"color":"#58cf68"},{"x":363,"y":553,"width":70,"height":29,"color":"#58cf68"},{"x":542,"y":556,"width":157,"height":27,"color":"#58cf68"},{"x":453,"y":554,"width":64,"height":28,"color":"#58cf68"},{"x":433,"y":593,"width":103,"height":28,"color":"#58cf68"},{"x":483,"y":437,"width":80,"height":32,"color":"#58cf68"},{"x":587,"y":439,"width":86,"height":31,"color":"#58cf68"},{"x":980,"y":446,"width":256,"height":30,"color":"#58cf68"},{"x":1230,"y":492,"width":110,"height":30,"color":"#58cf68"},{"x":507,"y":707,"width":142,"height":31,"color":"#58cf68"},{"x":422,"y":783,"width":85,"height":28,"color":"#58cf68"},{"x":532,"y":784,"width":116,"height":29,"color":"#58cf68"},{"x":971,"y":597,"width":138,"height":29,"color":"#58cf68"},{"x":1148,"y":600,"width":146,"height":28,"color":"#58cf68"},{"x":1084,"y":635,"width":143,"height":32,"color":"#58cf68"},{"x":850,"y":751,"width":54,"height":52,"color":"#58cf68"},{"x":818,"y":823,"width":88,"height":43,"color":"#58cf68"},{"x":984,"y":690,"width":351,"height":34,"color":"#58cf68"},{"x":414,"y":1165,"width":104,"height":31,"color":"#58cf68"},{"x":338,"y":1248,"width":140,"height":31,"color":"#58cf68"},{"x":1322,"y":1412,"width":77,"height":27,"color":"#58cf68"},{"x":1006,"y":1410,"width":267,"height":34,"color":"#58cf68"},{"x":303,"y":1386,"width":141,"height":30,"color":"#58cf68"},{"x":1009,"y":1457,"width":170,"height":27,"color":"#58cf68"},{"x":464,"y":1831,"width":126,"height":30,"color":"#58cf68"},{"x":265,"y":2049,"width":119,"height":37,"color":"#58cf68"},{"x":993,"y":2010,"width":180,"height":28,"color":"#58cf68"},{"x":1320,"y":2055,"width":160,"height":26,"color":"#58cf68"},{"x":1015,"y":2161,"width":218,"height":34,"color":"#58cf68"},{"x":1335,"y":2112,"width":142,"height":27,"color":"#58cf68"},{"x":1256,"y":2166,"width":78,"height":28,"color":"#58cf68"}],"numberPairs":[]},{"key":"No166_p3","no":166,"part":3,"parts":3,"label":"No.166（3/3）","width":1620,"height":2282,"base":"../assets/No164-166/No166_p3_base.jpg","hide":[],"keep":[],"greenHide":[{"x":902,"y":191,"width":122,"height":38,"color":"#58cf68"},{"x":189,"y":609,"width":191,"height":56,"color":"#58cf68"},{"x":423,"y":602,"width":74,"height":51,"color":"#58cf68"},{"x":299,"y":268,"width":135,"height":55,"color":"#58cf68"},{"x":574,"y":263,"width":135,"height":59,"color":"#58cf68"},{"x":547,"y":445,"width":115,"height":63,"color":"#58cf68"},{"x":294,"y":454,"width":125,"height":55,"color":"#58cf68"},{"x":899,"y":379,"width":285,"height":53,"color":"#58cf68"},{"x":898,"y":487,"width":114,"height":44,"color":"#58cf68"},{"x":1055,"y":486,"width":369,"height":51,"color":"#58cf68"},{"x":874,"y":674,"width":286,"height":61,"color":"#58cf68"},{"x":1198,"y":674,"width":137,"height":54,"color":"#58cf68"}],"numberPairs":[]}];
+const $=s=>document.querySelector(s);
+const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('#stage');
+let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
+const storageKey='kopuri-ranges-'+"no022-040-v4";
+const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
+const sidePrefKey='kopuri-side-collapsed';
+const mainEl=document.querySelector('.main');
+const closeSideBtn=$('#closeSide');
+const openSideBtn=$('#openSide');
+let sideClosed=localStorage.getItem(sidePrefKey)==='1';
+function syncSide(){
+  const compact=window.matchMedia('(max-width:760px)').matches;
+  if(compact){
+    mainEl.classList.remove('sideClosed');
+    if(openSideBtn) openSideBtn.hidden=true;
+    if(closeSideBtn) closeSideBtn.hidden=true;
+    return;
+  }
+  mainEl.classList.toggle('sideClosed',sideClosed);
+  if(openSideBtn) openSideBtn.hidden=!sideClosed;
+  if(closeSideBtn) closeSideBtn.hidden=sideClosed;
+}
+function setSideClosed(v){
+  sideClosed=!!v;
+  localStorage.setItem(sidePrefKey,sideClosed?'1':'0');
+  syncSide();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{applyZoom();scrollerEl.scrollTop=0;scrollerEl.scrollLeft=0;}));
+}
+function ensureSideOpen(){
+  if(!window.matchMedia('(max-width:760px)').matches && sideClosed) setSideClosed(false);
+}
+if(closeSideBtn) closeSideBtn.onclick=()=>setSideClosed(true);
+if(openSideBtn) openSideBtn.onclick=()=>setSideClosed(false);
+syncSide();
+
+function rangesFor(){return rangeStore[PAGES[idx].key]||[]}
+function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore))}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
+
+function applyZoom(options={}){
+  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  const scroller=$('#scroller');
+  const viewerEl=document.querySelector('.viewer');
+  const compact=window.matchMedia('(max-width:760px)').matches;
+  const isSideClosed=mainEl.classList.contains('sideClosed')&&!compact;
+  const hostWidth=(isSideClosed?(viewerEl?.clientWidth||scroller.clientWidth):scroller.clientWidth);
+  const chromePadding=compact?16:(isSideClosed?32:36);
+  const available=Math.max(280,hostWidth-chromePadding);
+  const baseWidth=isSideClosed?available:Math.min(980,available);
+  stage.style.width=Math.round(baseWidth*zoom/100)+'px';
+  stage.style.height='auto';
+  $('#zoomLabel').textContent=(Math.round(zoom*10)/10)+'%';
+  if(options.redraw===true){
+    requestAnimationFrame(()=>{drawOverlays();drawGuides()});
+  }
+}
+function drawCoverRect(ctx,r,p,fill='#fff'){
+  ctx.fillStyle=fill;
+  ctx.fillRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawGreenRect(ctx,r,p){
+  ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
+  ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
+}
+function fittedFontSize(ctx,text,r,maxSize){
+  const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
+  let size=Math.min(Number(maxSize)||34,maxH);
+  for(;size>=8;size--){
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    const m=ctx.measureText(text);
+    const h=(m.actualBoundingBoxAscent||size*.8)+(m.actualBoundingBoxDescent||size*.2);
+    if(m.width<=maxW && h<=maxH) return size;
+  }
+  return 8;
+}
+function applyNumberPairsOn(ctx,p){
+  (p.numberPairs||[]).forEach(pair=>{
+    if(pair.answer && pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+    if(pair.body && pair.bodyPageKey===p.key){
+      const r=pair.body,text=String(pair.answerText||'');
+      drawCoverRect(ctx,r,p,'#fff');
+      ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+      const size=fittedFontSize(ctx,text,r,pair.fontSize);
+      ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+      ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+      ctx.restore();
+    }
+  });
+}
+function drawKeepFromBase(ctx,r){
+  ctx.drawImage(base,Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]),Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
+}
+function drawState(ctx,p){
+  if(!$('#orangeToggle').checked){
+    (p.hide||[]).forEach(r=>drawCoverRect(ctx,r,p,'#fff'));
+    (p.keep||[]).forEach(r=>drawKeepFromBase(ctx,r));
+  }
+  if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+}
+function drawOverlays(){
+  const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
+  if(base.src!==p.base) base.src=p.base;
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode==='all') drawState(ctx,p);
+  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
+function drawGuides(){
+  const p=PAGES[idx],ctx=dc.getContext('2d');
+  ctx.clearRect(0,0,p.width,p.height);
+  if(mode!=='range'&&!drawing)return;
+  ctx.lineWidth=Math.max(2,p.width/500);
+  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
+  rangesFor().forEach(r=>{
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
+    ctx.setLineDash(r.enabled===false?[8,7]:[]);
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,255,255,.82)';
+    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
+    ctx.fillStyle='#512b1a';
+    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
+  });
+  ctx.setLineDash([]);
+  if(tempRect){
+    ctx.strokeStyle='#16866f';
+    ctx.strokeRect(tempRect.x*p.width,tempRect.y*p.height,tempRect.w*p.width,tempRect.h*p.height);
+  }
+}
+function renderRanges(){
+  const box=$('#ranges'),r=rangesFor();box.innerHTML='';
+  if(!r.length){box.innerHTML='<div class="empty">まだ範囲はありません。</div>';return}
+  r.forEach((x,i)=>{
+    const row=document.createElement('div');row.className='rangeRow';
+    const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
+    c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
+    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
+    const d=document.createElement('button');d.className='del';d.textContent='×';
+    d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
+    row.append(c,n,d);box.appendChild(row);
+  });
+}
+function renderPageSelect(){
+  const sel=$('#pageSelect');sel.innerHTML='';
+  PAGES.forEach((p,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=`${p.label}　${i+1}/${PAGES.length}`;
+    if(i===idx)o.selected=true;sel.appendChild(o);
+  });
+}
+function loadPage(){
+  const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
+  base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{});drawOverlays();drawGuides()};
+  base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
+  if(base.src!==p.base) base.src=p.base;
+  // canvasの実画素数は常に原寸。倍率変更では変更しない。
+  if(oc.width!==p.width) oc.width=p.width;
+  if(oc.height!==p.height) oc.height=p.height;
+  if(dc.width!==p.width) dc.width=p.width;
+  if(dc.height!==p.height) dc.height=p.height;
+  $('#pageInfo').textContent=`中華人民共和国の成立と展開　${p.label}`;
+  renderPageSelect();renderRanges();applyZoom();drawOverlays();drawGuides();
+}
+function point(e){
+  const b=dc.getBoundingClientRect();
+  return{x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))}
+}
+dc.addEventListener('pointerdown',e=>{
+  if(!drawing)return;e.preventDefault();dc.setPointerCapture(e.pointerId);
+  dragStart=point(e);tempRect={x:dragStart.x,y:dragStart.y,w:0,h:0};drawGuides()
+});
+dc.addEventListener('pointermove',e=>{
+  if(!drawing||!dragStart)return;e.preventDefault();const p=point(e);
+  tempRect={x:Math.min(p.x,dragStart.x),y:Math.min(p.y,dragStart.y),w:Math.abs(p.x-dragStart.x),h:Math.abs(p.y-dragStart.y)};drawGuides()
+});
+dc.addEventListener('pointerup',e=>{
+  if(!drawing||!tempRect)return;e.preventDefault();
+  if(tempRect.w>.015&&tempRect.h>.015){
+    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
+    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+  }
+  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+});
+$('#orangeToggle').onchange=drawOverlays;
+$('#greenToggle').onchange=drawOverlays;
+$('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#rangeMode').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
+$('#addRange').onclick=()=>{ensureSideOpen();if(dragPanActive){dragPanActive=false;dragPanPointerId=null;scrollerEl.classList.remove('dragPanning')}mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
+$('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
+$('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
+$('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+
+// Mobile pinch zoom (50%–200%)
+let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
+let pinchCenterX=0, pinchCenterY=0;
+function touchDistance(touches){
+  const dx=touches[0].clientX-touches[1].clientX;
+  const dy=touches[0].clientY-touches[1].clientY;
+  return Math.hypot(dx,dy);
+}
+let pinchFrame=0,pendingPinchZoom=100;
+function beginPinch(e){
+  if(e.touches.length!==2 || drawing)return;
+  const scroller=$('#scroller');
+  const rect=scroller.getBoundingClientRect();
+  pinchStartDistance=touchDistance(e.touches);
+  pinchStartZoom=zoom;
+  pendingPinchZoom=zoom;
+  pinchStartScrollLeft=scroller.scrollLeft;
+  pinchStartScrollTop=scroller.scrollTop;
+  pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2-rect.left;
+  pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2-rect.top;
+  stage.classList.add('pinching');
+  e.preventDefault();
+}
+function flushPinch(){
+  pinchFrame=0;
+  const scroller=$('#scroller');
+  zoom=pendingPinchZoom;
+  applyZoom();
+  const ratio=zoom/pinchStartZoom;
+  scroller.scrollLeft=(pinchStartScrollLeft+pinchCenterX)*ratio-pinchCenterX;
+  scroller.scrollTop=(pinchStartScrollTop+pinchCenterY)*ratio-pinchCenterY;
+}
+function movePinch(e){
+  if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
+  e.preventDefault();
+  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
+  if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
+}
+function endPinch(e){
+  if(e.touches.length<2){
+    if(pinchFrame){cancelAnimationFrame(pinchFrame);flushPinch();}
+    pinchStartDistance=0;
+    stage.classList.remove('pinching');
+  }
+}
+
+let resizeTimer=0;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{syncSide();applyZoom()},80)},{passive:true});
+const scrollerEl=$('#scroller');
+scrollerEl.addEventListener('wheel',e=>{
+  if(drawing)return;
+  const canY=scrollerEl.scrollHeight>scrollerEl.clientHeight+1;
+  const canX=scrollerEl.scrollWidth>scrollerEl.clientWidth+1;
+  if(!canY&&!canX)return;
+  if(canY&&Math.abs(e.deltaY)>=Math.abs(e.deltaX)) scrollerEl.scrollTop+=e.deltaY;
+  else if(canX) scrollerEl.scrollLeft+=(e.deltaX||e.deltaY);
+  e.preventDefault();
+},{passive:false});
+let dragPanActive=false,dragPanPointerId=null,dragPanStartX=0,dragPanStartY=0,dragPanScrollLeft=0,dragPanScrollTop=0;
+function beginDragPan(e){
+  if(drawing)return;
+  if(e.pointerType==='touch')return; // touchはブラウザ標準の1本指スクロールを使う
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  if(scrollerEl.scrollWidth<=scrollerEl.clientWidth&&scrollerEl.scrollHeight<=scrollerEl.clientHeight)return;
+  dragPanActive=true;dragPanPointerId=e.pointerId;
+  dragPanStartX=e.clientX;dragPanStartY=e.clientY;
+  dragPanScrollLeft=scrollerEl.scrollLeft;dragPanScrollTop=scrollerEl.scrollTop;
+  scrollerEl.classList.add('dragPanning');
+  scrollerEl.setPointerCapture?.(e.pointerId);
+  e.preventDefault();
+}
+function moveDragPan(e){
+  if(!dragPanActive||e.pointerId!==dragPanPointerId)return;
+  scrollerEl.scrollLeft=dragPanScrollLeft-(e.clientX-dragPanStartX);
+  scrollerEl.scrollTop=dragPanScrollTop-(e.clientY-dragPanStartY);
+  e.preventDefault();
+}
+function endDragPan(e){
+  if(!dragPanActive||e.pointerId!==dragPanPointerId)return;
+  dragPanActive=false;dragPanPointerId=null;
+  scrollerEl.classList.remove('dragPanning');
+  try{scrollerEl.releasePointerCapture?.(e.pointerId)}catch(_e){}
+}
+scrollerEl.addEventListener('pointerdown',beginDragPan,{passive:false});
+scrollerEl.addEventListener('pointermove',moveDragPan,{passive:false});
+scrollerEl.addEventListener('pointerup',endDragPan,{passive:true});
+scrollerEl.addEventListener('pointercancel',endDragPan,{passive:true});
+scrollerEl.addEventListener('touchstart',beginPinch,{passive:false});
+scrollerEl.addEventListener('touchmove',movePinch,{passive:false});
+scrollerEl.addEventListener('touchend',endPinch,{passive:true});
+scrollerEl.addEventListener('touchcancel',endPinch,{passive:true});
+syncSide();
+loadPage();
+</script>
+</body>
+</html>
