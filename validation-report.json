@@ -35,6 +35,26 @@
     },
     "jsonCoordinatesChanged": false
   },
+  "no129": {
+    "source": "古プリ修正モード_v5.zip/pages/15_imperialism/page-5.jpg, page-6.jpg",
+    "sourceSha256": {
+      "No129_p1": "d15688b5cd17e1c95f09a63f1993830f8ba2ca03754ed6769839f91637aee5d7",
+      "No129_p2": "59548e50fe72b5dc1679a315fdb7dd98c434f380d0e9b2d75bdaa437be8b379d"
+    },
+    "dimensions": {
+      "No129_p1": [
+        1600,
+        2278
+      ],
+      "No129_p2": [
+        1600,
+        2278
+      ]
+    },
+    "crossPageNumberPairs": true,
+    "answerListCoveredInBothStates": true,
+    "jsonCoordinatesChanged": false
+  },
   "errors": [],
   "warnings": []
 }
