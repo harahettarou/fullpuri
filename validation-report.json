@@ -1,15 +1,20 @@
 {
   "status": "pass",
-  "updateType": "update_inbox-compatible",
-  "source": "fullpuri_region-time_update_20260826.zip",
-  "layout": {
-    "index": "index.html",
-    "regionalIndex": "pages/regional.html",
-    "regionalPages": "pages/regions/*.html",
-    "classification": "assets/region-time/region-classification.json"
-  },
+  "updateType": "cumulative-update_inbox-compatible",
+  "source": "fullpuri_century-view_update_20260826.zip",
+  "modes": [
+    "ナンバー順",
+    "地域・時代順",
+    "世紀別"
+  ],
+  "centurySubmodes": [
+    "地域別",
+    "完全時代順"
+  ],
   "regionHtmlFiles": 9,
-  "classifiedPageRecords": 724,
+  "centuries": 56,
+  "classifiedPageRecords": 327,
+  "catalogPageRecords": 327,
   "latestRepairsMerged": [
     "No081_p1",
     "No085_p1",
