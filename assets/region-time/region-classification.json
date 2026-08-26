@@ -1,0 +1,3758 @@
+{
+  "version": 1,
+  "reviewedOn": "2026-08-26",
+  "policy": "各物理ページを確認し、その地域の歴史を学ぶ意味がある場合のみ複数地域への掲載を許可する。",
+  "sourcePageCount": 327,
+  "regions": [
+    {
+      "id": "east-asia",
+      "name": "東アジア",
+      "span": "古代〜20世紀末",
+      "description": "中国・朝鮮・日本を軸に、北方民族や欧米との関係もたどります。",
+      "accent": "#b94f3d",
+      "pages": 112,
+      "file": "regions/east-asia.html"
+    },
+    {
+      "id": "southeast-asia",
+      "name": "東南アジア",
+      "span": "古代〜冷戦",
+      "description": "諸王国、海域交易、植民地支配、独立と冷戦を時代順に見ます。",
+      "accent": "#c36b2d",
+      "pages": 33,
+      "file": "regions/southeast-asia.html"
+    },
+    {
+      "id": "south-asia",
+      "name": "南アジア",
+      "span": "古代〜冷戦",
+      "description": "インド文明からイスラーム王朝、植民地化、独立後までを扱います。",
+      "accent": "#a06b22",
+      "pages": 51,
+      "file": "regions/south-asia.html"
+    },
+    {
+      "id": "central-asia",
+      "name": "中央アジア",
+      "span": "古代〜冷戦終結",
+      "description": "遊牧民、シルクロード、モンゴル帝国、ロシア・ソ連との関係を追います。",
+      "accent": "#7e6d2f",
+      "pages": 61,
+      "file": "regions/central-asia.html"
+    },
+    {
+      "id": "west-asia",
+      "name": "西アジア",
+      "span": "古代〜冷戦",
+      "description": "古代オリエント、イスラーム世界、オスマン帝国と近現代をつなぎます。",
+      "accent": "#6f7540",
+      "pages": 95,
+      "file": "regions/west-asia.html"
+    },
+    {
+      "id": "europe",
+      "name": "ヨーロッパ",
+      "span": "古代〜現代",
+      "description": "古代地中海世界から中世、近代国家、二つの世界大戦、EUまでを見ます。",
+      "accent": "#366f88",
+      "pages": 249,
+      "file": "regions/europe.html"
+    },
+    {
+      "id": "africa",
+      "name": "アフリカ",
+      "span": "古代〜20世紀",
+      "description": "古代文明、地中海・イスラーム世界、奴隷貿易、分割と独立を扱います。",
+      "accent": "#2f7b65",
+      "pages": 56,
+      "file": "regions/africa.html"
+    },
+    {
+      "id": "americas",
+      "name": "アメリカ",
+      "span": "先住文明〜冷戦",
+      "description": "先住文明、植民地化、独立、アメリカ合衆国と冷戦を時代順に見ます。",
+      "accent": "#5d5f9f",
+      "pages": 61,
+      "file": "regions/americas.html"
+    },
+    {
+      "id": "oceania",
+      "name": "オセアニア",
+      "span": "大航海時代〜冷戦",
+      "description": "大航海時代、帝国主義、太平洋戦争、冷戦期の同盟から地域を見ます。",
+      "accent": "#477aa0",
+      "pages": 6,
+      "file": "regions/oceania.html"
+    }
+  ],
+  "pages": [
+    {
+      "order": 1,
+      "key": "No001_p1",
+      "label": "No.1（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -3000,
+      "regions": [
+        "africa"
+      ]
+    },
+    {
+      "order": 2,
+      "key": "No001_p2",
+      "label": "No.1（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -2500,
+      "regions": [
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 3,
+      "key": "No002_p1",
+      "label": "No.2（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -2500,
+      "regions": [
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 4,
+      "key": "No002_p2",
+      "label": "No.2（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -2500,
+      "regions": [
+        "west-asia"
+      ]
+    },
+    {
+      "order": 5,
+      "key": "No003_p1",
+      "label": "No.3（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -550,
+      "regions": [
+        "west-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 6,
+      "key": "No003_p2",
+      "label": "No.3（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -500,
+      "regions": [
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 7,
+      "key": "No004_p1",
+      "label": "No.4（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -800,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 8,
+      "key": "No004_p2",
+      "label": "No.4（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -490,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 9,
+      "key": "No005_p1",
+      "label": "No.5（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -600,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 10,
+      "key": "No005_p2",
+      "label": "No.5（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -600,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 11,
+      "key": "No006_p1",
+      "label": "No.6（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -490,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 12,
+      "key": "No006_p2",
+      "label": "No.6（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -334,
+      "regions": [
+        "europe",
+        "west-asia",
+        "africa",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 13,
+      "key": "No007_p1",
+      "label": "No.7（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -450,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 14,
+      "key": "No007_p2",
+      "label": "No.7（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -450,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 15,
+      "key": "No008_p1",
+      "label": "No.8（1/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -323,
+      "regions": [
+        "europe",
+        "west-asia",
+        "africa",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 16,
+      "key": "No008_p2",
+      "label": "No.8（2/2）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -250,
+      "regions": [
+        "europe",
+        "west-asia",
+        "africa",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 17,
+      "key": "No009_p1",
+      "label": "No.9（1/1）",
+      "sourceUnit": "古代オリエント・ギリシャ・ヘレニズム",
+      "chronologyKey": -300,
+      "regions": [
+        "europe",
+        "africa",
+        "west-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 18,
+      "key": "No010_p1",
+      "label": "No.10（1/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": -753,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 19,
+      "key": "No010_p2",
+      "label": "No.10（2/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": -509,
+      "regions": [
+        "europe",
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 20,
+      "key": "No011_p1",
+      "label": "No.11（1/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": -509,
+      "regions": [
+        "europe",
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 21,
+      "key": "No011_p2",
+      "label": "No.11（2/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": -100,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 22,
+      "key": "No012_p1",
+      "label": "No.12（1/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": -27,
+      "regions": [
+        "europe",
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 23,
+      "key": "No012_p2",
+      "label": "No.12（2/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 180,
+      "regions": [
+        "europe",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 24,
+      "key": "No013_p1",
+      "label": "No.13（1/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 284,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 25,
+      "key": "No013_p2",
+      "label": "No.13（2/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 375,
+      "regions": [
+        "europe",
+        "central-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 26,
+      "key": "No014_p1",
+      "label": "No.14（1/3）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 30,
+      "regions": [
+        "europe",
+        "west-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 27,
+      "key": "No014_p2",
+      "label": "No.14（2/3）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 313,
+      "regions": [
+        "europe",
+        "west-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 28,
+      "key": "No014_p3",
+      "label": "No.14（3/3）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 451,
+      "regions": [
+        "europe",
+        "west-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 29,
+      "key": "No015_p1",
+      "label": "No.15（1/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 100,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 30,
+      "key": "No015_p2",
+      "label": "No.15（2/2）",
+      "sourceUnit": "古代ローマ",
+      "chronologyKey": 100,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 31,
+      "key": "No016_p1",
+      "label": "No.16（1/2）",
+      "sourceUnit": "古代インド",
+      "chronologyKey": -2500,
+      "regions": [
+        "south-asia"
+      ]
+    },
+    {
+      "order": 32,
+      "key": "No016_p2",
+      "label": "No.16（2/2）",
+      "sourceUnit": "古代インド",
+      "chronologyKey": -2500,
+      "regions": [
+        "south-asia"
+      ]
+    },
+    {
+      "order": 33,
+      "key": "No017_p1",
+      "label": "No.17（1/2）",
+      "sourceUnit": "古代インド",
+      "chronologyKey": -321,
+      "regions": [
+        "south-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 34,
+      "key": "No017_p2",
+      "label": "No.17（2/2）",
+      "sourceUnit": "古代インド",
+      "chronologyKey": 320,
+      "regions": [
+        "south-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 35,
+      "key": "No018_p1",
+      "label": "No.18（1/2）",
+      "sourceUnit": "古代インド",
+      "chronologyKey": 320,
+      "regions": [
+        "south-asia",
+        "southeast-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 36,
+      "key": "No018_p2",
+      "label": "No.18（2/2）",
+      "sourceUnit": "古代インド",
+      "chronologyKey": 600,
+      "regions": [
+        "south-asia",
+        "southeast-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 37,
+      "key": "No019_p1",
+      "label": "No.19（1/2）",
+      "sourceUnit": "東南アジアの諸文明",
+      "chronologyKey": 100,
+      "regions": [
+        "southeast-asia",
+        "south-asia",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 38,
+      "key": "No019_p2",
+      "label": "No.19（2/2）",
+      "sourceUnit": "東南アジアの諸文明",
+      "chronologyKey": 600,
+      "regions": [
+        "southeast-asia",
+        "south-asia",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 39,
+      "key": "No020_p1",
+      "label": "No.20（1/2）",
+      "sourceUnit": "東南アジアの諸文明",
+      "chronologyKey": 700,
+      "regions": [
+        "southeast-asia",
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 40,
+      "key": "No020_p2",
+      "label": "No.20（2/2）",
+      "sourceUnit": "東南アジアの諸文明",
+      "chronologyKey": 1500,
+      "regions": [
+        "southeast-asia",
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 41,
+      "key": "No021_p1",
+      "label": "No.21",
+      "sourceUnit": "東南アジアの諸文明",
+      "chronologyKey": 1800,
+      "regions": [
+        "southeast-asia",
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 42,
+      "key": "No022_p1",
+      "label": "No.22（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -2000,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 43,
+      "key": "No022_p2",
+      "label": "No.22（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -2000,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 44,
+      "key": "No023_p1",
+      "label": "No.23（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -1600,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 45,
+      "key": "No023_p2",
+      "label": "No.23（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -1600,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 46,
+      "key": "No024_p1",
+      "label": "No.24（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -770,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 47,
+      "key": "No024_p2",
+      "label": "No.24（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -770,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 48,
+      "key": "No025_p1",
+      "label": "No.25（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -202,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 49,
+      "key": "No025_p2",
+      "label": "No.25（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -140,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 50,
+      "key": "No026_p1",
+      "label": "No.26（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -202,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 51,
+      "key": "No026_p2",
+      "label": "No.26（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": -202,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 52,
+      "key": "No027_p1",
+      "label": "No.27（1/3）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 220,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 53,
+      "key": "No027_p2",
+      "label": "No.27（2/3）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 300,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 54,
+      "key": "No027_p3",
+      "label": "No.27（3/3）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 300,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 55,
+      "key": "No028_p1",
+      "label": "No.28（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 220,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 56,
+      "key": "No028_p2",
+      "label": "No.28（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 220,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 57,
+      "key": "No029_p1",
+      "label": "No.29（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 67,
+      "regions": [
+        "east-asia",
+        "south-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 58,
+      "key": "No029_p2",
+      "label": "No.29（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 300,
+      "regions": [
+        "east-asia",
+        "south-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 59,
+      "key": "No030_p1",
+      "label": "No.30",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 300,
+      "regions": [
+        "east-asia",
+        "south-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 60,
+      "key": "No031_p1",
+      "label": "No.31（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 581,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 61,
+      "key": "No031_p2",
+      "label": "No.31（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 618,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 62,
+      "key": "No032_p1",
+      "label": "No.32（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 618,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 63,
+      "key": "No032_p2",
+      "label": "No.32（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 700,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 64,
+      "key": "No033_p1",
+      "label": "No.33（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 618,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 65,
+      "key": "No033_p2",
+      "label": "No.33（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 750,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 66,
+      "key": "No034_p1",
+      "label": "No.34（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 907,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 67,
+      "key": "No034_p2",
+      "label": "No.34（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 907,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 68,
+      "key": "No034a_p1",
+      "label": "No.34+α（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 960,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 69,
+      "key": "No034a_p2",
+      "label": "No.34+α（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 960,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 70,
+      "key": "No035_p1",
+      "label": "No.35（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 960,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 71,
+      "key": "No035_p2",
+      "label": "No.35（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 960,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 72,
+      "key": "No036_p1",
+      "label": "No.36（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1000,
+      "regions": [
+        "east-asia",
+        "southeast-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 73,
+      "key": "No036_p2",
+      "label": "No.36（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1000,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 74,
+      "key": "No037_p1",
+      "label": "No.37",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1000,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 75,
+      "key": "No038_p1",
+      "label": "No.38（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1206,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 76,
+      "key": "No038_p2",
+      "label": "No.38（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1227,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 77,
+      "key": "No039_p1",
+      "label": "No.39（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1206,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 78,
+      "key": "No039_p2",
+      "label": "No.39（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1250,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 79,
+      "key": "No040_p1",
+      "label": "No.40（1/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1271,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 80,
+      "key": "No040_p2",
+      "label": "No.40（2/2）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1279,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 81,
+      "key": "No040_answer",
+      "label": "No.40（解答）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1279,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 82,
+      "key": "05_china_p041",
+      "label": "プリントNo.なし（空白1/3）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1300,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 83,
+      "key": "05_china_p042",
+      "label": "プリントNo.なし（空白2/3）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1301,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 84,
+      "key": "05_china_p043",
+      "label": "プリントNo.なし（空白3/3）",
+      "sourceUnit": "中国史〜元",
+      "chronologyKey": 1302,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 85,
+      "key": "No041_p1",
+      "label": "No.41（1/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1368,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 86,
+      "key": "No041_p2",
+      "label": "No.41（2/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1370,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 87,
+      "key": "No042_p1",
+      "label": "No.42（1/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1405,
+      "regions": [
+        "east-asia",
+        "southeast-asia",
+        "south-asia",
+        "west-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 88,
+      "key": "No042_p2",
+      "label": "No.42（2/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1500,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 89,
+      "key": "No043_p1",
+      "label": "No.43（1/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1616,
+      "regions": [
+        "east-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 90,
+      "key": "No043_p2",
+      "label": "No.43（2/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1644,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 91,
+      "key": "No044_p1",
+      "label": "No.44（1/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1683,
+      "regions": [
+        "east-asia",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 92,
+      "key": "No044_p2",
+      "label": "No.44（2/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1689,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 93,
+      "key": "No045_p1",
+      "label": "No.45（1/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1600,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 94,
+      "key": "No045_p2",
+      "label": "No.45（2/2）",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1700,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 95,
+      "key": "No046_p1",
+      "label": "No.46",
+      "sourceUnit": "明・清",
+      "chronologyKey": 1700,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 96,
+      "key": "No047_p1",
+      "label": "No.47（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 395,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 97,
+      "key": "No047_p2",
+      "label": "No.47（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 395,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 98,
+      "key": "No048_p1",
+      "label": "No.48（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 481,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 99,
+      "key": "No048_p2",
+      "label": "No.48（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 481,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 100,
+      "key": "No049_p1",
+      "label": "No.49（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 527,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 101,
+      "key": "No049_p2",
+      "label": "No.49（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 527,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 102,
+      "key": "No050_p1",
+      "label": "No.50（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 600,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 103,
+      "key": "No050_p2",
+      "label": "No.50（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 600,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 104,
+      "key": "No055_p1",
+      "label": "No.55（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 800,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 105,
+      "key": "No055_p2",
+      "label": "No.55（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 800,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 106,
+      "key": "No056_p1",
+      "label": "No.56（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 900,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 107,
+      "key": "No056_p2",
+      "label": "No.56（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 900,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 108,
+      "key": "No057_p1",
+      "label": "No.57（1/1）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1000,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 109,
+      "key": "No058_p1",
+      "label": "No.58（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1096,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 110,
+      "key": "No058_p2",
+      "label": "No.58（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1200,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 111,
+      "key": "No059_p1",
+      "label": "No.59（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1200,
+      "regions": [
+        "europe",
+        "west-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 112,
+      "key": "No059_p2",
+      "label": "No.59（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1250,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 113,
+      "key": "No060_p1",
+      "label": "No.60（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1077,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 114,
+      "key": "No060_p2",
+      "label": "No.60（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1200,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 115,
+      "key": "No061_p1",
+      "label": "No.61（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1066,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 116,
+      "key": "No061_p2",
+      "label": "No.61（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1215,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 117,
+      "key": "No062_p1",
+      "label": "No.62（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 711,
+      "regions": [
+        "europe",
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 118,
+      "key": "No062_p2",
+      "label": "No.62（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1050,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 119,
+      "key": "No063_p1",
+      "label": "No.63（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 962,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 120,
+      "key": "No063_p2",
+      "label": "No.63（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 962,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 121,
+      "key": "No064_p1",
+      "label": "No.64（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1100,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 122,
+      "key": "No064_p2",
+      "label": "No.64（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1200,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 123,
+      "key": "No065_p1",
+      "label": "No.65（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1300,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 124,
+      "key": "No065_p2",
+      "label": "No.65（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1350,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 125,
+      "key": "No066_p1",
+      "label": "No.66（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 330,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 126,
+      "key": "No066_p2",
+      "label": "No.66（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 800,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 127,
+      "key": "No067_p1",
+      "label": "No.67（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 800,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 128,
+      "key": "No067_p2",
+      "label": "No.67（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1000,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 129,
+      "key": "No068_p1",
+      "label": "No.68（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1240,
+      "regions": [
+        "europe",
+        "central-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 130,
+      "key": "No068_p2",
+      "label": "No.68（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1450,
+      "regions": [
+        "europe",
+        "central-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 131,
+      "key": "No069_p1",
+      "label": "No.69（1/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1100,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 132,
+      "key": "No069_p2",
+      "label": "No.69（2/2）",
+      "sourceUnit": "ローマ分裂〜大航海時代",
+      "chronologyKey": 1300,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 133,
+      "key": "No070_p1",
+      "label": "No.70（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 570,
+      "regions": [
+        "west-asia"
+      ]
+    },
+    {
+      "order": 134,
+      "key": "No070_p2",
+      "label": "No.70（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 570,
+      "regions": [
+        "west-asia"
+      ]
+    },
+    {
+      "order": 135,
+      "key": "No071_p1",
+      "label": "No.71（1/3）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 622,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe"
+      ]
+    },
+    {
+      "order": 136,
+      "key": "No071_p2",
+      "label": "No.71（2/3）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 661,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 137,
+      "key": "No071_p3",
+      "label": "No.71（3/3）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 750,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 138,
+      "key": "No072_p1",
+      "label": "No.72（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 750,
+      "regions": [
+        "west-asia",
+        "africa",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 139,
+      "key": "No072_p2",
+      "label": "No.72（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 900,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 140,
+      "key": "No073_p1",
+      "label": "No.73（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1037,
+      "regions": [
+        "west-asia",
+        "europe",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 141,
+      "key": "No073_p2",
+      "label": "No.73（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1200,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 142,
+      "key": "No074_p1",
+      "label": "No.74（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1100,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 143,
+      "key": "No074_p2",
+      "label": "No.74（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1200,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 144,
+      "key": "No075_p1",
+      "label": "No.75（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1200,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 145,
+      "key": "No075_p2",
+      "label": "No.75（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1250,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 146,
+      "key": "No076_p1",
+      "label": "No.76（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1370,
+      "regions": [
+        "west-asia",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 147,
+      "key": "No076_p2",
+      "label": "No.76（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1450,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 148,
+      "key": "No077_p1",
+      "label": "No.77（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1453,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe"
+      ]
+    },
+    {
+      "order": 149,
+      "key": "No077_p2",
+      "label": "No.77（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1500,
+      "regions": [
+        "west-asia",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 150,
+      "key": "No078_p1",
+      "label": "No.78（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1500,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 151,
+      "key": "No078_p2",
+      "label": "No.78（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1550,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 152,
+      "key": "No079_p1",
+      "label": "No.79（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 800,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 153,
+      "key": "No079_p2",
+      "label": "No.79（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1000,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 154,
+      "key": "No080_p1",
+      "label": "No.80（1/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 700,
+      "regions": [
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 155,
+      "key": "No080_p2",
+      "label": "No.80（2/2）",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1000,
+      "regions": [
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 156,
+      "key": "No081_p1",
+      "label": "No.81",
+      "sourceUnit": "イスラーム史",
+      "chronologyKey": 1200,
+      "regions": [
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 157,
+      "key": "No082_p1",
+      "label": "No.82（1/2）",
+      "sourceUnit": "大航海",
+      "chronologyKey": 1488,
+      "regions": [
+        "europe",
+        "africa",
+        "americas",
+        "south-asia",
+        "southeast-asia",
+        "east-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 158,
+      "key": "No082_p2",
+      "label": "No.82（2/2）",
+      "sourceUnit": "大航海",
+      "chronologyKey": 1492,
+      "regions": [
+        "europe",
+        "africa",
+        "americas",
+        "south-asia",
+        "southeast-asia",
+        "east-asia",
+        "west-asia",
+        "oceania"
+      ]
+    },
+    {
+      "order": 159,
+      "key": "No083_p1",
+      "label": "No.83（1/2）",
+      "sourceUnit": "大航海",
+      "chronologyKey": 1500,
+      "regions": [
+        "europe",
+        "africa",
+        "americas",
+        "east-asia",
+        "southeast-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 160,
+      "key": "No083_p2",
+      "label": "No.83（2/2）",
+      "sourceUnit": "大航海",
+      "chronologyKey": 1550,
+      "regions": [
+        "europe",
+        "africa",
+        "americas",
+        "east-asia",
+        "southeast-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 161,
+      "key": "No084_p1",
+      "label": "No.84（1/1）",
+      "sourceUnit": "大航海",
+      "chronologyKey": -1200,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 162,
+      "key": "No085_p1",
+      "label": "No.85（1/3）",
+      "sourceUnit": "ルネサンス",
+      "chronologyKey": 1400,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 163,
+      "key": "No085_p2",
+      "label": "No.85（2/3）",
+      "sourceUnit": "ルネサンス",
+      "chronologyKey": 1450,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 164,
+      "key": "No085_p3",
+      "label": "No.85（3/3）",
+      "sourceUnit": "ルネサンス",
+      "chronologyKey": 1500,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 165,
+      "key": "No086_p1",
+      "label": "No.86（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1517,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 166,
+      "key": "No086_p2",
+      "label": "No.86（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1517,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 167,
+      "key": "No087_p1",
+      "label": "No.87（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1530,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 168,
+      "key": "No087_p2",
+      "label": "No.87（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1530,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 169,
+      "key": "No088_p1",
+      "label": "No.88（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1545,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 170,
+      "key": "No088_p2",
+      "label": "No.88（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1545,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 171,
+      "key": "No089_p1",
+      "label": "No.89（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1556,
+      "regions": [
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 172,
+      "key": "No089_p2",
+      "label": "No.89（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1568,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 173,
+      "key": "No090_p1",
+      "label": "No.90（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1580,
+      "regions": [
+        "europe",
+        "americas",
+        "africa",
+        "south-asia",
+        "southeast-asia",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 174,
+      "key": "No090_p2",
+      "label": "No.90（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1588,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 175,
+      "key": "No091_p1",
+      "label": "No.91（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1562,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 176,
+      "key": "No091_p2",
+      "label": "No.91（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1562,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 177,
+      "key": "No092_p1",
+      "label": "No.92（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1618,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 178,
+      "key": "No092_p2",
+      "label": "No.92（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1600,
+      "regions": [
+        "europe",
+        "americas",
+        "africa",
+        "south-asia",
+        "southeast-asia",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 179,
+      "key": "No093_p1",
+      "label": "No.93（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1643,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 180,
+      "key": "No093_p2",
+      "label": "No.93（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1643,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 181,
+      "key": "No094_p1",
+      "label": "No.94",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1756,
+      "regions": [
+        "europe",
+        "south-asia",
+        "americas"
+      ]
+    },
+    {
+      "order": 182,
+      "key": "No095_p1",
+      "label": "No.95（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1660,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 183,
+      "key": "No095_p2",
+      "label": "No.95（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1660,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 184,
+      "key": "No096_p1",
+      "label": "No.96（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1680,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 185,
+      "key": "No096_p2",
+      "label": "No.96（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1680,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 186,
+      "key": "No097_p1",
+      "label": "No.97（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1700,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 187,
+      "key": "No097_p2",
+      "label": "No.97（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1700,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 188,
+      "key": "No098_p1",
+      "label": "No.98（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1603,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 189,
+      "key": "No098_p2",
+      "label": "No.98（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1688,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 190,
+      "key": "No099_p1",
+      "label": "No.99（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1707,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 191,
+      "key": "No099_p2",
+      "label": "No.99（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1707,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 192,
+      "key": "No100_p1",
+      "label": "No.100（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1650,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 193,
+      "key": "No100_p2",
+      "label": "No.100（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1700,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 194,
+      "key": "No101_p1",
+      "label": "No.101（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1760,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 195,
+      "key": "No101_p2",
+      "label": "No.101（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1760,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 196,
+      "key": "No102_p1",
+      "label": "No.102（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1780,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 197,
+      "key": "No102_p2",
+      "label": "No.102（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1780,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 198,
+      "key": "No103_p1",
+      "label": "No.103（1/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1810,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 199,
+      "key": "No103_p2",
+      "label": "No.103（2/2）",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1810,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 200,
+      "key": "No104_p1",
+      "label": "No.104",
+      "sourceUnit": "宗教改革〜産業革命",
+      "chronologyKey": 1760,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 201,
+      "key": "No105_p1",
+      "label": "No.105（1/2）",
+      "sourceUnit": "アメリカの成立",
+      "chronologyKey": 1607,
+      "regions": [
+        "americas",
+        "europe"
+      ]
+    },
+    {
+      "order": 202,
+      "key": "No105_p2",
+      "label": "No.105（2/2）",
+      "sourceUnit": "アメリカの成立",
+      "chronologyKey": 1776,
+      "regions": [
+        "americas",
+        "europe"
+      ]
+    },
+    {
+      "order": 203,
+      "key": "No106_p1",
+      "label": "No.106（1/2）",
+      "sourceUnit": "アメリカの成立",
+      "chronologyKey": 1787,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 204,
+      "key": "No106_p2",
+      "label": "No.106（2/2）",
+      "sourceUnit": "アメリカの成立",
+      "chronologyKey": 1790,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 205,
+      "key": "No107_p1",
+      "label": "No.107（1/2）",
+      "sourceUnit": "アメリカの成立",
+      "chronologyKey": 1861,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 206,
+      "key": "No107_p2",
+      "label": "No.107（2/2）",
+      "sourceUnit": "アメリカの成立",
+      "chronologyKey": 1861,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 207,
+      "key": "No108_p1",
+      "label": "No.108",
+      "sourceUnit": "アメリカの成立",
+      "chronologyKey": 1803,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 208,
+      "key": "No109_p1",
+      "label": "No.109（1/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1789,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 209,
+      "key": "No109_p2",
+      "label": "No.109（2/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1789,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 210,
+      "key": "No110_p1",
+      "label": "No.110（1/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1789,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 211,
+      "key": "No110_p2",
+      "label": "No.110（2/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1790,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 212,
+      "key": "No111_p1",
+      "label": "No.111（1/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1791,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 213,
+      "key": "No111_p2",
+      "label": "No.111（2/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1792,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 214,
+      "key": "No112_p1",
+      "label": "No.112（1/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1792,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 215,
+      "key": "No112_p2",
+      "label": "No.112（2/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1794,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 216,
+      "key": "No113_p1",
+      "label": "No.113（1/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1799,
+      "regions": [
+        "europe",
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 217,
+      "key": "No113_p2",
+      "label": "No.113（2/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1804,
+      "regions": [
+        "europe",
+        "africa",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 218,
+      "key": "No114_p1",
+      "label": "No.114（1/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1804,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 219,
+      "key": "No114_p2",
+      "label": "No.114（2/2）",
+      "sourceUnit": "フランス革命",
+      "chronologyKey": 1810,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 220,
+      "key": "No115_p1",
+      "label": "No.115（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1815,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 221,
+      "key": "No115_p2",
+      "label": "No.115（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1815,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 222,
+      "key": "No116_p1",
+      "label": "No.116（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1810,
+      "regions": [
+        "americas",
+        "europe"
+      ]
+    },
+    {
+      "order": 223,
+      "key": "No116_p2",
+      "label": "No.116（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1820,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 224,
+      "key": "No117_p1",
+      "label": "No.117（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1830,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 225,
+      "key": "No117_p2",
+      "label": "No.117（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1848,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 226,
+      "key": "No118_p1",
+      "label": "No.118（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1848,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 227,
+      "key": "No118_p2",
+      "label": "No.118（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1862,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 228,
+      "key": "No119_p1",
+      "label": "No.119（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1850,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 229,
+      "key": "No119_p2",
+      "label": "No.119（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1861,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 230,
+      "key": "No120_p1",
+      "label": "No.120（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1850,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 231,
+      "key": "No120_p2",
+      "label": "No.120（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1870,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 232,
+      "key": "No121_p1",
+      "label": "No.121（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1821,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 233,
+      "key": "No121_p2",
+      "label": "No.121（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1853,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 234,
+      "key": "No122_p1",
+      "label": "No.122（1/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1850,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 235,
+      "key": "No122_p2",
+      "label": "No.122（2/2）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1860,
+      "regions": [
+        "europe",
+        "central-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 236,
+      "key": "No123_p1",
+      "label": "No.123（1/4）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1798,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe"
+      ]
+    },
+    {
+      "order": 237,
+      "key": "No123_p2",
+      "label": "No.123（2/4）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1839,
+      "regions": [
+        "west-asia",
+        "africa",
+        "europe"
+      ]
+    },
+    {
+      "order": 238,
+      "key": "No123_p3",
+      "label": "No.123（3/4）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1853,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 239,
+      "key": "No123_p4",
+      "label": "No.123（4/4）",
+      "sourceUnit": "ウィーン体制と各国の統一",
+      "chronologyKey": 1878,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 240,
+      "key": "No124_p1",
+      "label": "No.124（1/2）",
+      "sourceUnit": "東アジアの激動",
+      "chronologyKey": 1839,
+      "regions": [
+        "east-asia",
+        "europe",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 241,
+      "key": "No124_p2",
+      "label": "No.124（2/2）",
+      "sourceUnit": "東アジアの激動",
+      "chronologyKey": 1856,
+      "regions": [
+        "east-asia",
+        "europe",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 242,
+      "key": "No125_p1",
+      "label": "No.125（1/2）",
+      "sourceUnit": "東アジアの激動",
+      "chronologyKey": 1851,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 243,
+      "key": "No125_p2",
+      "label": "No.125（2/2）",
+      "sourceUnit": "東アジアの激動",
+      "chronologyKey": 1860,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 244,
+      "key": "No126_p1",
+      "label": "No.126（1/2）",
+      "sourceUnit": "東アジアの激動",
+      "chronologyKey": 1853,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 245,
+      "key": "No126_p2",
+      "label": "No.126（2/2）",
+      "sourceUnit": "東アジアの激動",
+      "chronologyKey": 1868,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 246,
+      "key": "No127_p1",
+      "label": "No.127（1/2）",
+      "sourceUnit": "帝国主義の植民地支配",
+      "chronologyKey": 1870,
+      "regions": [
+        "europe",
+        "africa",
+        "east-asia",
+        "southeast-asia",
+        "south-asia",
+        "west-asia",
+        "americas",
+        "oceania"
+      ]
+    },
+    {
+      "order": 247,
+      "key": "No127_p2",
+      "label": "No.127（2/2）",
+      "sourceUnit": "帝国主義の植民地支配",
+      "chronologyKey": 1880,
+      "regions": [
+        "europe",
+        "africa",
+        "east-asia",
+        "southeast-asia",
+        "south-asia",
+        "west-asia",
+        "americas",
+        "oceania"
+      ]
+    },
+    {
+      "order": 248,
+      "key": "No128_p1",
+      "label": "No.128（1/2）",
+      "sourceUnit": "帝国主義の植民地支配",
+      "chronologyKey": 1858,
+      "regions": [
+        "europe",
+        "south-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 249,
+      "key": "No128_p2",
+      "label": "No.128（2/2）",
+      "sourceUnit": "帝国主義の植民地支配",
+      "chronologyKey": 1858,
+      "regions": [
+        "europe",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 250,
+      "key": "No129_p1",
+      "label": "No.129（1/2）",
+      "sourceUnit": "帝国主義の植民地支配",
+      "chronologyKey": 1880,
+      "regions": [
+        "europe",
+        "africa"
+      ]
+    },
+    {
+      "order": 251,
+      "key": "No129_p2",
+      "label": "No.129（2/2）",
+      "sourceUnit": "帝国主義の植民地支配",
+      "chronologyKey": 1890,
+      "regions": [
+        "europe",
+        "africa"
+      ]
+    },
+    {
+      "order": 252,
+      "key": "No130_p1",
+      "label": "No.130（1/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1870,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 253,
+      "key": "No130_p2",
+      "label": "No.130（2/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1882,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 254,
+      "key": "No131_p1",
+      "label": "No.131（1/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1880,
+      "regions": [
+        "europe",
+        "east-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 255,
+      "key": "No131_p2",
+      "label": "No.131（2/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1898,
+      "regions": [
+        "europe",
+        "east-asia",
+        "africa"
+      ]
+    },
+    {
+      "order": 256,
+      "key": "No132_p1",
+      "label": "No.132（1/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1904,
+      "regions": [
+        "europe",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 257,
+      "key": "No132_p2",
+      "label": "No.132（2/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1907,
+      "regions": [
+        "europe",
+        "east-asia",
+        "americas",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 258,
+      "key": "No133_p1",
+      "label": "No.133（1/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1912,
+      "regions": [
+        "europe",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 259,
+      "key": "No133_p2",
+      "label": "No.133（2/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1914,
+      "regions": [
+        "europe",
+        "west-asia",
+        "east-asia",
+        "americas"
+      ]
+    },
+    {
+      "order": 260,
+      "key": "No134_p1",
+      "label": "No.134（1/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1914,
+      "regions": [
+        "europe",
+        "west-asia",
+        "americas"
+      ]
+    },
+    {
+      "order": 261,
+      "key": "No134_p2",
+      "label": "No.134（2/2）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1918,
+      "regions": [
+        "europe",
+        "east-asia",
+        "west-asia",
+        "americas"
+      ]
+    },
+    {
+      "order": 262,
+      "key": "No135_p1",
+      "label": "No.135（1/3）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1919,
+      "regions": [
+        "europe",
+        "americas",
+        "east-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 263,
+      "key": "No135_p2",
+      "label": "No.135（2/3）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1919,
+      "regions": [
+        "east-asia",
+        "southeast-asia",
+        "south-asia",
+        "west-asia",
+        "africa",
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 264,
+      "key": "No135_p3",
+      "label": "No.135（3/3）",
+      "sourceUnit": "第一次世界大戦への道",
+      "chronologyKey": 1914,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 265,
+      "key": "No136_p1",
+      "label": "No.136（1/2）",
+      "sourceUnit": "ロシア革命とその影響",
+      "chronologyKey": 1905,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 266,
+      "key": "No136_p2",
+      "label": "No.136（2/2）",
+      "sourceUnit": "ロシア革命とその影響",
+      "chronologyKey": 1914,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 267,
+      "key": "No137_p1",
+      "label": "No.137（1/2）",
+      "sourceUnit": "ロシア革命とその影響",
+      "chronologyKey": 1917,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 268,
+      "key": "No137_p2",
+      "label": "No.137（2/2）",
+      "sourceUnit": "ロシア革命とその影響",
+      "chronologyKey": 1921,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 269,
+      "key": "No138_p1",
+      "label": "No.138（1/2）",
+      "sourceUnit": "ロシア革命とその影響",
+      "chronologyKey": 1918,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 270,
+      "key": "No138_p2",
+      "label": "No.138（2/2）",
+      "sourceUnit": "ロシア革命とその影響",
+      "chronologyKey": 1919,
+      "regions": [
+        "west-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 271,
+      "key": "No139_p1",
+      "label": "No.139（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1919,
+      "regions": [
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 272,
+      "key": "No139_p2",
+      "label": "No.139（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1923,
+      "regions": [
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 273,
+      "key": "No140_p1",
+      "label": "No.140（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1919,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 274,
+      "key": "No140_p2",
+      "label": "No.140（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1914,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 275,
+      "key": "No141_p1",
+      "label": "No.141（1/4）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1801,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 276,
+      "key": "No141_p2",
+      "label": "No.141（2/4）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1914,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 277,
+      "key": "No141_p3",
+      "label": "No.141（3/4）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1882,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 278,
+      "key": "No141_p4",
+      "label": "No.141（4/4）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1919,
+      "regions": [
+        "europe",
+        "east-asia",
+        "americas"
+      ]
+    },
+    {
+      "order": 279,
+      "key": "No142_p1",
+      "label": "No.142（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1920,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 280,
+      "key": "No142_p2",
+      "label": "No.142（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1929,
+      "regions": [
+        "americas",
+        "europe",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 281,
+      "key": "No143_p1",
+      "label": "No.143（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1930,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 282,
+      "key": "No143_p2",
+      "label": "No.143（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1922,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 283,
+      "key": "No144_p1",
+      "label": "No.144（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1898,
+      "regions": [
+        "americas",
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 284,
+      "key": "No144_p2",
+      "label": "No.144（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1921,
+      "regions": [
+        "americas"
+      ]
+    },
+    {
+      "order": 285,
+      "key": "No145_p1",
+      "label": "No.145（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1919,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 286,
+      "key": "No145_p2",
+      "label": "No.145（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1922,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 287,
+      "key": "No146_p1",
+      "label": "No.146（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1935,
+      "regions": [
+        "europe",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 288,
+      "key": "No146_p2",
+      "label": "No.146（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1938,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 289,
+      "key": "No147_p1",
+      "label": "No.147（1/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1936,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 290,
+      "key": "No147_p2",
+      "label": "No.147（2/2）",
+      "sourceUnit": "戦間期国際政治史",
+      "chronologyKey": 1935,
+      "regions": [
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 291,
+      "key": "No148_p1",
+      "label": "No.148（1/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1895,
+      "regions": [
+        "east-asia",
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 292,
+      "key": "No148_p2",
+      "label": "No.148（2/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1900,
+      "regions": [
+        "east-asia",
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 293,
+      "key": "No149_p1",
+      "label": "No.149（1/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1912,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 294,
+      "key": "No149_p2",
+      "label": "No.149（2/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1919,
+      "regions": [
+        "east-asia",
+        "europe"
+      ]
+    },
+    {
+      "order": 295,
+      "key": "No150_p1",
+      "label": "No.150（1/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1912,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 296,
+      "key": "No150_p2",
+      "label": "No.150（2/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1916,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 297,
+      "key": "No151_p1",
+      "label": "No.151（1/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1926,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 298,
+      "key": "No151_p2",
+      "label": "No.151（2/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1927,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 299,
+      "key": "No152_p1",
+      "label": "No.152（1/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1931,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 300,
+      "key": "No152_p2",
+      "label": "No.152（2/2）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1936,
+      "regions": [
+        "east-asia"
+      ]
+    },
+    {
+      "order": 301,
+      "key": "No153_p1",
+      "label": "No.153（1/3）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1894,
+      "regions": [
+        "east-asia",
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 302,
+      "key": "No153_p2",
+      "label": "No.153（2/3）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1914,
+      "regions": [
+        "east-asia",
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 303,
+      "key": "No153_p3",
+      "label": "No.153（3/3）",
+      "sourceUnit": "中国革命史・日本の中国侵略",
+      "chronologyKey": 1930,
+      "regions": [
+        "east-asia",
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 304,
+      "key": "No154_p1",
+      "label": "No.154（1/3）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1939,
+      "regions": [
+        "east-asia",
+        "southeast-asia",
+        "south-asia",
+        "central-asia",
+        "west-asia",
+        "europe",
+        "africa",
+        "americas",
+        "oceania"
+      ]
+    },
+    {
+      "order": 305,
+      "key": "No154_p2",
+      "label": "No.154（2/3）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1939,
+      "regions": [
+        "europe",
+        "africa",
+        "americas",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 306,
+      "key": "No154_p3",
+      "label": "No.154（3/3）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1937,
+      "regions": [
+        "east-asia",
+        "southeast-asia",
+        "south-asia",
+        "oceania",
+        "americas",
+        "europe"
+      ]
+    },
+    {
+      "order": 307,
+      "key": "No155_p1",
+      "label": "No.155（1/2）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1941,
+      "regions": [
+        "europe",
+        "americas",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 308,
+      "key": "No155_p2",
+      "label": "No.155（2/2）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1945,
+      "regions": [
+        "europe",
+        "americas",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 309,
+      "key": "No156_p1",
+      "label": "No.156（1/3）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1945,
+      "regions": [
+        "europe",
+        "americas",
+        "east-asia",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 310,
+      "key": "No156_p2",
+      "label": "No.156（2/3）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1947,
+      "regions": [
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 311,
+      "key": "No156_p3",
+      "label": "No.156（3/3）",
+      "sourceUnit": "第二次世界大戦・戦後国際秩序",
+      "chronologyKey": 1945,
+      "regions": [
+        "europe",
+        "east-asia",
+        "americas"
+      ]
+    },
+    {
+      "order": 312,
+      "key": "No157_p1",
+      "label": "No.157（1/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1945,
+      "regions": [
+        "europe",
+        "americas",
+        "east-asia",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 313,
+      "key": "No157_p2",
+      "label": "No.157（2/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1947,
+      "regions": [
+        "europe",
+        "americas",
+        "east-asia",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 314,
+      "key": "No158_p1",
+      "label": "No.158（1/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1948,
+      "regions": [
+        "europe",
+        "east-asia",
+        "americas"
+      ]
+    },
+    {
+      "order": 315,
+      "key": "No158_p2",
+      "label": "No.158（2/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1949,
+      "regions": [
+        "europe",
+        "east-asia",
+        "southeast-asia",
+        "south-asia",
+        "west-asia",
+        "americas",
+        "oceania"
+      ]
+    },
+    {
+      "order": 316,
+      "key": "No159_p1",
+      "label": "No.159（1/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1953,
+      "regions": [
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 317,
+      "key": "No159_p2",
+      "label": "No.159（2/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1955,
+      "regions": [
+        "africa",
+        "west-asia",
+        "south-asia",
+        "southeast-asia",
+        "east-asia",
+        "europe",
+        "americas"
+      ]
+    },
+    {
+      "order": 318,
+      "key": "No160_p1",
+      "label": "No.160（1/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1960,
+      "regions": [
+        "europe",
+        "americas",
+        "southeast-asia",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 319,
+      "key": "No160_p2",
+      "label": "No.160（2/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1960,
+      "regions": [
+        "americas",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 320,
+      "key": "No161_p1",
+      "label": "No.161（1/4）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1964,
+      "regions": [
+        "europe",
+        "americas",
+        "southeast-asia"
+      ]
+    },
+    {
+      "order": 321,
+      "key": "No161_p2",
+      "label": "No.161（2/4）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1970,
+      "regions": [
+        "europe",
+        "americas",
+        "central-asia",
+        "south-asia"
+      ]
+    },
+    {
+      "order": 322,
+      "key": "No161_p3",
+      "label": "No.161（3/4）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1967,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 323,
+      "key": "No161_p4",
+      "label": "No.161（4/4）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 2004,
+      "regions": [
+        "europe"
+      ]
+    },
+    {
+      "order": 324,
+      "key": "No162_p1",
+      "label": "No.162（1/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1970,
+      "regions": [
+        "europe",
+        "americas",
+        "east-asia",
+        "southeast-asia",
+        "west-asia"
+      ]
+    },
+    {
+      "order": 325,
+      "key": "No162_p2",
+      "label": "No.162（2/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1979,
+      "regions": [
+        "europe",
+        "americas",
+        "west-asia",
+        "central-asia",
+        "south-asia",
+        "east-asia"
+      ]
+    },
+    {
+      "order": 326,
+      "key": "No163_p1",
+      "label": "No.163（1/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1980,
+      "regions": [
+        "europe",
+        "americas",
+        "central-asia"
+      ]
+    },
+    {
+      "order": 327,
+      "key": "No163_p2",
+      "label": "No.163（2/2）",
+      "sourceUnit": "米ソ冷戦の展開",
+      "chronologyKey": 1989,
+      "regions": [
+        "europe",
+        "americas",
+        "central-asia"
+      ]
+    }
+  ]
+}

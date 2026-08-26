@@ -11,64 +11,23 @@
 <link rel="manifest" href="manifest.json">
 <style>
 :root{--bg:#f5f3ee;--panel:#fff;--ink:#25231f;--sub:#6f6a61;--line:#ddd7cd;--accent:#de6f3c;--green:#16866f}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif}
 header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:max(14px,env(safe-area-inset-top)) 16px 14px}
-.head{max-width:980px;margin:auto;display:flex;align-items:center;gap:12px}
-.siteBrand{display:inline-flex;align-items:center;gap:9px;color:inherit;text-decoration:none;font-size:20px;font-weight:900;white-space:nowrap}
-.siteBrand img{width:32px;height:32px;border-radius:8px;object-fit:cover;flex:0 0 auto}
-main{max-width:980px;margin:auto;padding:22px 16px 48px}
-.lead{color:var(--sub);line-height:1.7;margin:0 0 16px}
-.search{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px 15px;font-size:16px;outline:none;margin-bottom:12px}
-.search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(222,111,60,.15)}
-.viewSwitch{display:inline-flex;gap:4px;background:#e9e5dd;border:1px solid var(--line);border-radius:12px;padding:4px;margin:0 0 18px}
-.viewButton{border:0;background:transparent;color:var(--sub);border-radius:9px;padding:8px 14px;font:inherit;font-weight:800;cursor:pointer}
-.viewButton.active{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(34,28,20,.09)}
-.grid,.regionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px}
-.regionSection{margin:0 0 28px}
-.regionTitle{display:flex;align-items:center;gap:9px;margin:0 0 11px;font-size:18px;font-weight:900}
-.regionCount{color:var(--sub);font-size:12px;font-weight:700}
-.card{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 7px 22px rgba(34,28,20,.06)}
-.card:active{transform:scale(.985)}
-.range{font-weight:900;font-size:18px}.title{margin-top:5px;line-height:1.45}.meta{margin-top:10px;color:var(--sub);font-size:12px}
-.empty{display:none;text-align:center;color:var(--sub);padding:32px}
-footer{color:var(--sub);font-size:12px;margin-top:26px;text-align:center}
-footer a{color:var(--green);overflow-wrap:anywhere}
-@media(max-width:520px){.siteBrand{font-size:18px}.siteBrand img{width:29px;height:29px}.viewSwitch{display:flex}.viewButton{flex:1}}
+.head{max-width:980px;margin:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.siteBrand{display:inline-flex;align-items:center;gap:9px;color:inherit;text-decoration:none;font-size:20px;font-weight:900;white-space:nowrap}.siteBrand img{width:32px;height:32px;border-radius:8px;object-fit:cover;flex:0 0 auto}
+.modeNav{margin-left:auto;display:flex;background:#eeeae3;border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+.modeNav a,.modeNav span{text-decoration:none;color:var(--ink);font-weight:800;font-size:14px;padding:7px 11px;border-radius:9px;white-space:nowrap}.modeNav .active{background:#fff;box-shadow:0 2px 8px rgba(34,28,20,.08);color:var(--accent)}
+main{max-width:980px;margin:auto;padding:22px 16px 48px}.lead{color:var(--sub);line-height:1.7;margin:0 0 16px}.search{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px 15px;font-size:16px;outline:none;margin-bottom:16px}.search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(222,111,60,.15)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px}.card{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 7px 22px rgba(34,28,20,.06)}.card:focus-visible{outline:3px solid rgba(222,111,60,.35);outline-offset:2px}.card:active{transform:scale(.985)}.range{font-weight:900;font-size:18px}.title{margin-top:5px;line-height:1.45}.meta{margin-top:10px;color:var(--sub);font-size:12px}.empty{display:none;text-align:center;color:var(--sub);padding:32px}footer{color:var(--sub);font-size:12px;margin-top:22px;text-align:center}footer a{color:var(--green);overflow-wrap:anywhere}
+@media(max-width:620px){.modeNav{width:100%;margin-left:0}.modeNav a,.modeNav span{flex:1;text-align:center}}
 </style>
 </head>
 <body>
-<header><div class="head"><a class="siteBrand" href="./" aria-label="古プリ比較システムのトップページ"><img src="assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a></div></header>
-<main>
-<p class="lead">学習したい範囲を選択してください。No.または単元名で絞り込めます。</p>
-<input class="search" id="search" type="search" inputmode="search" placeholder="例：85、ルネサンス、中国史" aria-label="問題番号または単元名で検索">
-<div class="viewSwitch" role="group" aria-label="一覧の並べ方">
-<button class="viewButton active" id="numberView" type="button" aria-pressed="true">No.順</button>
-<button class="viewButton" id="regionView" type="button" aria-pressed="false">地域別</button>
-</div>
-<div class="grid" id="grid"></div>
-<div class="empty" id="empty">該当する範囲がありません。</div>
-<footer><a href="https://harahettarou.github.io/fullpuri/">https://harahettarou.github.io/fullpuri/</a></footer>
-</main>
+<header><div class="head"><a class="siteBrand" href="./" aria-label="古プリ比較システムのトップページ"><img src="assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><span class="active" aria-current="page">ナンバー順</span><a href="pages/regional.html">地域・時代順</a></nav></div></header>
+<main><p class="lead">学習したい範囲を選択してください。No.または単元名で絞り込めます。</p><input class="search" id="search" type="search" inputmode="search" placeholder="例：85、ルネサンス、中国史" aria-label="問題番号または単元名で検索"><div class="grid" id="grid"></div><div class="empty" id="empty">該当する範囲がありません。</div><footer><a href="https://harahettarou.github.io/fullpuri/">https://harahettarou.github.io/fullpuri/</a></footer></main>
 <script>
-const grid=document.getElementById("grid"),search=document.getElementById("search"),empty=document.getElementById("empty"),numberView=document.getElementById("numberView"),regionView=document.getElementById("regionView");
-const regionOrder=["西アジア・地中海","ヨーロッパ","南アジア","東南アジア","東アジア","西アジア・イスラーム","アジア・アフリカ","アフリカ","アメリカ","世界史・地域横断"];
-let ranges=[],viewMode="number";
-function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function card(x){return `<a class="card" href="${esc(x.file)}"><div class="range">${x.start===x.end?`No.${x.start}`:`No.${x.start}〜${x.end}`}</div><div class="title">${esc(x.title)}</div><div class="meta">${x.pages}ページ</div></a>`}
-function filtered(q){const needle=q.trim().toLowerCase().replace(/^no\.?/,"");return ranges.filter(x=>{const nums=[];for(let n=x.start;n<=x.end;n++)nums.push(String(n));return !needle||x.title.toLowerCase().includes(needle)||x.id.toLowerCase().includes(needle)||String(x.region||"").toLowerCase().includes(needle)||nums.includes(needle)})}
-function render(q=""){
-  const items=filtered(q);empty.style.display=items.length?"none":"block";
-  if(viewMode==="number"){
-    grid.className="grid";grid.innerHTML=items.map(card).join("");return;
-  }
-  grid.className="regions";
-  const names=[...regionOrder,...new Set(items.map(x=>x.region).filter(Boolean).filter(x=>!regionOrder.includes(x)))];
-  grid.innerHTML=names.map(name=>{const group=items.filter(x=>x.region===name);return group.length?`<section class="regionSection"><h2 class="regionTitle">${esc(name)}<span class="regionCount">${group.length}範囲</span></h2><div class="regionGrid">${group.map(card).join("")}</div></section>`:""}).join("");
-}
-function setView(mode){viewMode=mode;const isNumber=mode==="number";numberView.classList.toggle("active",isNumber);regionView.classList.toggle("active",!isNumber);numberView.setAttribute("aria-pressed",String(isNumber));regionView.setAttribute("aria-pressed",String(!isNumber));render(search.value)}
-fetch("manifest.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(m=>{ranges=m.ranges;render()}).catch(()=>{empty.textContent="一覧データを読み込めませんでした。";empty.style.display="block"});
-search.addEventListener("input",()=>render(search.value));numberView.addEventListener("click",()=>setView("number"));regionView.addEventListener("click",()=>setView("region"));
+const grid=document.getElementById("grid"),search=document.getElementById("search"),empty=document.getElementById("empty");let ranges=[];
+function render(q=""){const needle=q.trim().toLowerCase().replace(/^no\.?/,"");const items=ranges.filter(x=>{const nums=[];for(let n=x.start;n<=x.end;n++)nums.push(String(n));return !needle||x.title.toLowerCase().includes(needle)||x.id.toLowerCase().includes(needle)||nums.includes(needle)});grid.innerHTML=items.map(x=>`<a class="card" href="${x.file}"><div class="range">${x.start===x.end?`No.${x.start}`:`No.${x.start}〜${x.end}`}</div><div class="title">${x.title}</div><div class="meta">${x.pages}ページ</div></a>`).join("");empty.style.display=items.length?"none":"block"}
+fetch("manifest.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(m=>{ranges=m.ranges;render()}).catch(()=>{empty.textContent="一覧データを読み込めませんでした。";empty.style.display="block"});search.addEventListener("input",()=>render(search.value));
 </script>
 </body>
 </html>

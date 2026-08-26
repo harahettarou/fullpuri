@@ -1,60 +1,23 @@
 {
   "status": "pass",
-  "siteUrl": "https://harahettarou.github.io/fullpuri/",
-  "physicalHtmlFiles": 29,
-  "manifestRanges": 27,
-  "no81": {
-    "off": "No081_p1_tray2.png (PDF page 16 / トイレ用2)",
-    "on": "No081_p1_tray1.png (PDF page 15 / トイレ用1)",
-    "imageSize": [
-      2200,
-      1554
-    ],
-    "numberPairs": 0
+  "updateType": "update_inbox-compatible",
+  "source": "fullpuri_region-time_update_20260826.zip",
+  "layout": {
+    "index": "index.html",
+    "regionalIndex": "pages/regional.html",
+    "regionalPages": "pages/regions/*.html",
+    "classification": "assets/region-time/region-classification.json"
   },
-  "no85": {
-    "source": "古プリ修正モード_v5.zip/pages/10_renaissance",
-    "sourceSha256": {
-      "No085_p1": "7bce12768cc4940d9e1769ecdf3b0f2804d47032cbf8fcb03f250bfc39afbdbd",
-      "No085_p2": "b3b9a9ebc7895309547e70ff0f8fc9c5ba9c7ead645b2965c69d68dbfccb4119",
-      "No085_p3": "9e305a00d8619a393cfba7f520dcb37ea674955d018756c793fc7fbe9bb35f85"
-    },
-    "dimensions": {
-      "No085_p1": [
-        1623,
-        2293
-      ],
-      "No085_p2": [
-        1620,
-        2271
-      ],
-      "No085_p3": [
-        2293,
-        1588
-      ]
-    },
-    "jsonCoordinatesChanged": false
-  },
-  "no129": {
-    "source": "古プリ修正モード_v5.zip/pages/15_imperialism/page-5.jpg, page-6.jpg",
-    "sourceSha256": {
-      "No129_p1": "d15688b5cd17e1c95f09a63f1993830f8ba2ca03754ed6769839f91637aee5d7",
-      "No129_p2": "59548e50fe72b5dc1679a315fdb7dd98c434f380d0e9b2d75bdaa437be8b379d"
-    },
-    "dimensions": {
-      "No129_p1": [
-        1600,
-        2278
-      ],
-      "No129_p2": [
-        1600,
-        2278
-      ]
-    },
-    "crossPageNumberPairs": true,
-    "answerListCoveredInBothStates": true,
-    "jsonCoordinatesChanged": false
-  },
-  "errors": [],
-  "warnings": []
+  "regionHtmlFiles": 9,
+  "classifiedPageRecords": 724,
+  "latestRepairsMerged": [
+    "No081_p1",
+    "No085_p1",
+    "No085_p2",
+    "No085_p3",
+    "No129_p1",
+    "No129_p2"
+  ],
+  "No129CrossPageAnswerFix": true,
+  "errors": []
 }
