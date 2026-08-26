@@ -230,6 +230,13 @@ function losslessImageSource(p){
   if(p.key==='No081_p1'&&p.baseOff) return $('#orangeToggle').checked?p.base:p.baseOff;
   return p.base;
 }
+function handleLosslessOrangeToggle(){
+  const p=PAGES[idx],wantedSrc=losslessImageSource(p);
+  if(base.getAttribute('src')!==wantedSrc){loadPage();return}
+  const loading=$('#loading');
+  if(loading) loading.style.display='none';
+  drawOverlays();
+}
 // ページ切替のたびに全プリントを走査しないよう、対応表を最初に一度だけ作る。
 const LOSSLESS_PAIR_INDEX=new Map();
 PAGES.flatMap(page=>page.numberPairs||[]).forEach(pair=>{
@@ -390,7 +397,7 @@ dc.addEventListener('pointerup',e=>{
   }
   tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
 });
-$('#orangeToggle').onchange=drawOverlays;
+$('#orangeToggle').onchange=handleLosslessOrangeToggle;
 $('#greenToggle').onchange=drawOverlays;
 $('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
 $('#rangeMode').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
