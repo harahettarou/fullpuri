@@ -236,10 +236,40 @@ function losslessImageSource(p){
   if(p.key==='No081_p1'&&p.baseOff) return $('#orangeToggle').checked?p.base:p.baseOff;
   return p.base;
 }
-function allLosslessNumberPairs(){return PAGES.flatMap(page=>page.numberPairs||[])}
+// ページ切替のたびに全プリントを走査しないよう、対応表を最初に一度だけ作る。
+const LOSSLESS_PAIR_INDEX=new Map();
+PAGES.flatMap(page=>page.numberPairs||[]).forEach(pair=>{
+  const key=pair.id||JSON.stringify([pair.bodyPageKey,pair.body,pair.answerPageKey,pair.answer,pair.answerText]);
+  if(!LOSSLESS_PAIR_INDEX.has(key)) LOSSLESS_PAIR_INDEX.set(key,pair);
+});
+const LOSSLESS_ALL_NUMBER_PAIRS=[...LOSSLESS_PAIR_INDEX.values()];
+const LOSSLESS_ANSWER_PAIRS_BY_PAGE=new Map();
+const LOSSLESS_BODY_PAIRS_BY_PAGE=new Map();
+const LOSSLESS_FONT_SIZE_CACHE=new WeakMap();
+LOSSLESS_ALL_NUMBER_PAIRS.forEach(pair=>{
+  if(pair.answer&&pair.answerPageKey){
+    const list=LOSSLESS_ANSWER_PAIRS_BY_PAGE.get(pair.answerPageKey)||[];
+    list.push(pair);LOSSLESS_ANSWER_PAIRS_BY_PAGE.set(pair.answerPageKey,list);
+  }
+  if(pair.body&&pair.bodyPageKey){
+    const list=LOSSLESS_BODY_PAIRS_BY_PAGE.get(pair.bodyPageKey)||[];
+    list.push(pair);LOSSLESS_BODY_PAIRS_BY_PAGE.set(pair.bodyPageKey,list);
+  }
+});
 function coverLosslessNumberPairAnswers(ctx,p){
-  allLosslessNumberPairs().forEach(pair=>{
-    if(pair.answer&&pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+  (LOSSLESS_ANSWER_PAIRS_BY_PAGE.get(p.key)||[]).forEach(pair=>drawCoverRect(ctx,pair.answer,p,'#fff'));
+}
+function applyLosslessNumberPairsOn(ctx,p){
+  (LOSSLESS_BODY_PAIRS_BY_PAGE.get(p.key)||[]).forEach(pair=>{
+    const r=pair.body,text=String(pair.answerText||'');
+    drawCoverRect(ctx,r,p,'#fff');
+    ctx.save();ctx.beginPath();ctx.rect(r[0],r[1],r[2],r[3]);ctx.clip();
+    let size=LOSSLESS_FONT_SIZE_CACHE.get(pair);
+    if(!size){size=fittedFontSize(ctx,text,r,pair.fontSize);LOSSLESS_FONT_SIZE_CACHE.set(pair,size)}
+    ctx.font=`700 ${size}px "Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif`;
+    ctx.fillStyle='#e6812b';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(text,r[0]+r[2]/2+(Number(pair.offsetX)||0),r[1]+r[3]/2+(Number(pair.offsetY)||0));
+    ctx.restore();
   });
 }
 function applyLosslessOrangeOff(ctx,p){
@@ -288,7 +318,7 @@ function drawState(ctx,p){
   coverLosslessNumberPairAnswers(ctx,p);
   if(!$('#orangeToggle').checked&&p.key!=='No081_p1') applyLosslessOrangeOff(ctx,p);
   if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
-  if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
+  if($('#orangeToggle').checked) applyLosslessNumberPairsOn(ctx,p);
 }
 function drawOverlays(){
   const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
