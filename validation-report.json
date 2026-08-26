@@ -1,38 +1,13 @@
 {
   "status": "pass",
   "updateType": "cumulative-update_inbox-compatible",
-  "source": "fullpuri_century-view_update_20260826.zip",
-  "modes": [
-    "ナンバー順",
-    "地域・時代順",
-    "世紀別"
-  ],
-  "centurySubmodes": [
-    "地域別",
-    "完全時代順"
-  ],
-  "regionHtmlFiles": 9,
-  "centuries": 28,
-  "bceGroups": 7,
-  "bceGroupLabels": [
-    "紀元前30世紀以前〜20世紀",
-    "紀元前19〜10世紀",
-    "紀元前9〜5世紀",
-    "紀元前4世紀",
-    "紀元前3世紀",
-    "紀元前2世紀",
-    "紀元前1世紀"
-  ],
-  "classifiedPageRecords": 327,
-  "catalogPageRecords": 327,
-  "latestRepairsMerged": [
-    "No081_p1",
-    "No085_p1",
-    "No085_p2",
-    "No085_p3",
-    "No129_p1",
-    "No129_p2"
-  ],
-  "No129CrossPageAnswerFix": true,
+  "rendering": "original-image-plus-browser-overlays",
+  "numberedHtmlFiles": 29,
+  "regionalHtmlFiles": 9,
+  "centuryViewerFiles": 1,
+  "patchedViewerFiles": 39,
+  "baseOffRecordsRemovedFromHtml": 737,
+  "baseOffRecordsRemovedFromCatalog": 220,
+  "No081ImageSwitchPreserved": true,
   "errors": []
 }

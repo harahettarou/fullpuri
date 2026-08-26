@@ -233,6 +233,22 @@ function drawGreenRect(ctx,r,p){
   ctx.save();ctx.fillStyle=r.color||'#319b3f';ctx.globalAlpha=1;
   ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
 }
+function losslessImageSource(p){
+  // No.81は指定どおり、OFF=トレイ用2 / ON=トレイ用1を切り替える。
+  if(p.key==='No081_p1'&&p.baseOff) return $('#orangeToggle').checked?p.base:p.baseOff;
+  return p.base;
+}
+function allLosslessNumberPairs(){return PAGES.flatMap(page=>page.numberPairs||[])}
+function coverLosslessNumberPairAnswers(ctx,p){
+  allLosslessNumberPairs().forEach(pair=>{
+    if(pair.answer&&pair.answerPageKey===p.key) drawCoverRect(ctx,pair.answer,p,'#fff');
+  });
+}
+function applyLosslessOrangeOff(ctx,p){
+  const rects=typeof orangeHideRects==='function'?orangeHideRects(p):(p.hideResolved||p.hide||[]);
+  rects.forEach(r=>drawCoverRect(ctx,r,p,'#fff'));
+  (p.keep||[]).forEach(r=>ctx.clearRect(Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3])));
+}
 function fittedFontSize(ctx,text,r,maxSize){
   const padX=4,padY=3,maxW=Math.max(1,Number(r[2])-padX*2),maxH=Math.max(1,Number(r[3])-padY*2);
   let size=Math.min(Number(maxSize)||34,maxH);
@@ -268,20 +284,17 @@ function drawKeepFromBase(ctx,r){
   ctx.drawImage(base,Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]),Number(r[0]),Number(r[1]),Number(r[2]),Number(r[3]));
 }
 function pageSource(p){
-  return !$('#orangeToggle').checked&&p.baseOff?p.baseOff:p.base;
+  return losslessImageSource(p);
 }
 function drawState(ctx,p){
-  coverNumberPairAnswers(ctx,p);
-  if(!$('#orangeToggle').checked&&!p.baseOff){
-    (p.hide||[]).forEach(r=>drawCoverRect(ctx,r,p,'#fff'));
-    (p.keep||[]).forEach(r=>drawKeepFromBase(ctx,r));
-  }
+  coverLosslessNumberPairAnswers(ctx,p);
+  if(!$('#orangeToggle').checked&&p.key!=='No081_p1') applyLosslessOrangeOff(ctx,p);
   if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
   if($('#orangeToggle').checked) applyNumberPairsOn(ctx,p);
 }
 function drawOverlays(){
   const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
-  const wantedSrc=pageSource(p);
+  const wantedSrc=losslessImageSource(p);
   if(base.getAttribute('src')!==wantedSrc){base.src=wantedSrc;return;}
   ctx.clearRect(0,0,p.width,p.height);
   if(mode==='all') drawState(ctx,p);
@@ -335,7 +348,7 @@ function loadPage(){
   const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
   base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{});drawOverlays();drawGuides()};
   base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
-  const wantedSrc=pageSource(p);
+  const wantedSrc=losslessImageSource(p);
   if(base.getAttribute('src')!==wantedSrc) base.src=wantedSrc;
   else loading.style.display='none';
   // canvasの実画素数は常に原寸。倍率変更では変更しない。
