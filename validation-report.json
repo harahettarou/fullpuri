@@ -12,7 +12,17 @@
     "完全時代順"
   ],
   "regionHtmlFiles": 9,
-  "centuries": 56,
+  "centuries": 28,
+  "bceGroups": 7,
+  "bceGroupLabels": [
+    "紀元前30世紀以前〜20世紀",
+    "紀元前19〜10世紀",
+    "紀元前9〜5世紀",
+    "紀元前4世紀",
+    "紀元前3世紀",
+    "紀元前2世紀",
+    "紀元前1世紀"
+  ],
   "classifiedPageRecords": 327,
   "catalogPageRecords": 327,
   "latestRepairsMerged": [
