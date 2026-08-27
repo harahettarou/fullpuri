@@ -337,6 +337,103 @@ html{
 }
 /* ===== END MOBILE CHROME TOGGLE v10 ===== */
 
+
+/* ===== MOBILE CONTROL ORDER v11 ===== */
+@media(max-width:760px){
+  .controls{
+    justify-content:flex-start;
+    align-items:center;
+    gap:7px;
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  /* 1. オレンジ文字 */
+  .controls > .switchWrap:nth-of-type(1){
+    order:-300;
+    margin-left:0;
+    margin-right:0;
+  }
+
+  /* 2. 緑マーカー */
+  .controls > .switchWrap:nth-of-type(2){
+    order:-290;
+    margin-left:0;
+    margin-right:0;
+  }
+
+  /* 3. 上部を隠す */
+  .controls > .chromeToggleBtn{
+    order:-280;
+    margin-left:0 !important;
+    margin-right:0;
+  }
+
+  /* 携帯で3項目を横に収めやすくする */
+  .controls > .switchWrap{
+    gap:5px;
+    font-size:12px;
+    white-space:nowrap;
+  }
+  .controls > .switchWrap .switch{
+    width:38px;
+    height:22px;
+  }
+  .controls > .switchWrap .slider:before{
+    width:16px;
+    height:16px;
+    left:3px;
+    top:3px;
+  }
+  .controls > .switchWrap .switch input:checked + .slider:before{
+    transform:translateX(16px);
+  }
+  .controls > .chromeToggleBtn{
+    min-height:32px;
+    padding:6px 8px;
+    font-size:11px;
+    white-space:nowrap;
+  }
+
+  /* 2段目以降も左から自然に並べる */
+  .controls > .seg,
+  .controls > #addRange,
+  .controls > #clearRanges,
+  .controls > #openSide{
+    order:0;
+  }
+  .controls > .pageInfo{
+    order:10;
+  }
+}
+@media(max-width:370px){
+  .controls{
+    gap:5px;
+    padding-left:6px;
+    padding-right:6px;
+  }
+  .controls > .switchWrap{
+    gap:4px;
+    font-size:11px;
+  }
+  .controls > .switchWrap .switch{
+    width:34px;
+    height:20px;
+  }
+  .controls > .switchWrap .slider:before{
+    width:14px;
+    height:14px;
+  }
+  .controls > .switchWrap .switch input:checked + .slider:before{
+    transform:translateX(14px);
+  }
+  .controls > .chromeToggleBtn{
+    padding:5px 7px;
+    font-size:10.5px;
+  }
+}
+/* ===== END MOBILE CONTROL ORDER v11 ===== */
+
 </style>
 </head>
 <body>
