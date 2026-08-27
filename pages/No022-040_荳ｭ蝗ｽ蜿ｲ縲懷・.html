@@ -246,6 +246,36 @@ html{
 /* ===== END FULLPURI GLOBAL HEADER v6 ===== */
 
 .app{height:100dvh;min-height:0;display:grid;grid-template-rows:auto auto minmax(0,1fr)}
+
+/* ===== VIEWER NAV RIGHT ALIGN v7 ===== */
+/* 古プリ閲覧ページでは、サイト名の座標は維持し、右上ナビだけ右端へ寄せる */
+@media(min-width:1100px){
+  .globalHeader{
+    position:relative;
+  }
+  .globalHeader .modeNav{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    margin-left:0;
+    margin-right:0;
+  }
+}
+/* ===== END VIEWER NAV RIGHT ALIGN v7 ===== */
+
+
+/* ===== VIEWER BRAND LEFT ALIGN v8 ===== */
+@media(min-width:1100px){
+  /* 閲覧ページだけ、ロゴ＋サイト名を画面左端側へ */
+  .globalHeader .head{
+    max-width:none;
+    margin-left:0;
+    margin-right:0;
+  }
+}
+/* ===== END VIEWER BRAND LEFT ALIGN v8 ===== */
+
 </style>
 </head>
 <body>
