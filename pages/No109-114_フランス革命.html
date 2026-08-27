@@ -295,6 +295,43 @@ html{
 }
 /* ===== END VIEWER CHROME TOGGLE v9 ===== */
 
+
+/* ===== MOBILE CHROME TOGGLE v10 ===== */
+@media(max-width:760px){
+  /* 携帯では上部非表示ボタンを操作バーの先頭・右側に固定して見つけやすくする */
+  .controls .chromeToggleBtn{
+    order:-100;
+    margin-left:auto;
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:34px;
+    font-size:12px;
+    font-weight:800;
+    padding:7px 10px;
+    position:relative;
+    z-index:8;
+  }
+
+  /* 上部を隠した後は操作バーが最上段になり、再表示ボタンを確実に残す */
+  .app.chromeHidden .controls{
+    position:relative;
+    z-index:20;
+  }
+  .app.chromeHidden .chromeToggleBtn{
+    display:inline-flex !important;
+  }
+}
+@media(max-width:400px){
+  .controls .chromeToggleBtn{
+    font-size:11px;
+    padding:6px 8px;
+    min-height:32px;
+  }
+}
+/* ===== END MOBILE CHROME TOGGLE v10 ===== */
+
 </style>
 </head>
 <body>
