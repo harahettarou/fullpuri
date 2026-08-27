@@ -337,144 +337,159 @@ html{
 /* ===== END MOBILE CHROME TOGGLE v10 ===== */
 
 
-/* ===== MOBILE CONTROLS EXACT ORDER v16 ===== */
+
+
+
+/* ===== MOBILE CONTROLS EXACT ORDER v17 ===== */
 @media(max-width:760px){
   .controls{
+    display:flex !important;
+    flex-wrap:wrap !important;
     justify-content:flex-start !important;
-    align-items:center;
-    gap:6px;
-    padding-left:7px;
-    padding-right:7px;
+    align-items:center !important;
+    gap:6px !important;
+    padding-left:7px !important;
+    padding-right:7px !important;
   }
 
   /* 1段目：オレンジ → 緑 → 上部を隠す */
   .controls > .orangeControl{
-    order:-300;
-    margin-left:0 !important;
-    margin-right:0 !important;
-    flex:0 0 auto;
+    order:-300 !important;
+    margin:0 !important;
+    flex:0 0 auto !important;
   }
   .controls > .greenControl{
-    order:-290;
-    margin-left:0 !important;
-    margin-right:0 !important;
-    flex:0 0 auto;
+    order:-290 !important;
+    margin:0 !important;
+    flex:0 0 auto !important;
   }
   .controls > .chromeToggleBtn{
-    order:-280;
-    margin-left:0 !important;
-    margin-right:0 !important;
-    flex:0 0 auto;
+    order:-280 !important;
+    margin:0 !important;
+    flex:0 0 auto !important;
     display:inline-flex !important;
-    align-items:center;
-    justify-content:center;
+    align-items:center !important;
+    justify-content:center !important;
   }
 
-  /* ここで必ず改行して2段目へ */
+  /* 1段目の直後で必ず改行 */
   .controls::before{
     content:"";
-    order:-270;
-    flex:0 0 100%;
-    width:100%;
-    height:0;
-    margin:0;
-    padding:0;
+    order:-270 !important;
+    flex:0 0 100% !important;
+    width:100% !important;
+    height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
   }
 
   /* 2段目：全体/指定範囲 → ＋範囲を追加 → 範囲を削除 */
   .controls > .seg{
-    order:-260;
-    margin-left:0 !important;
-    margin-right:0 !important;
+    order:-260 !important;
+    margin:0 !important;
+    flex:0 0 auto !important;
   }
   .controls > #addRange{
-    order:-250;
-    margin-left:0 !important;
-    margin-right:0 !important;
+    order:-250 !important;
+    margin:0 !important;
+    flex:0 0 auto !important;
   }
   .controls > #clearRanges{
-    order:-240;
-    margin-left:0 !important;
-    margin-right:0 !important;
+    order:-240 !important;
+    margin:0 !important;
+    flex:0 0 auto !important;
   }
   .controls > #openSide{
-    order:-230;
-    margin-left:0 !important;
-    margin-right:0 !important;
+    order:-230 !important;
+    margin:0 !important;
   }
-
   .controls > .pageInfo{
-    order:10;
-    width:100%;
-    margin-left:0 !important;
-    margin-right:0 !important;
-    text-align:right;
+    order:10 !important;
+    width:100% !important;
+    margin:0 !important;
+    text-align:right !important;
   }
 
   /* 1段目を携帯幅に収める */
   .controls > .orangeControl,
   .controls > .greenControl{
-    gap:4px;
-    font-size:12px;
-    white-space:nowrap;
+    gap:4px !important;
+    font-size:12px !important;
+    white-space:nowrap !important;
   }
   .controls > .orangeControl .switch,
   .controls > .greenControl .switch{
-    width:38px;
-    height:22px;
+    width:38px !important;
+    height:22px !important;
   }
   .controls > .orangeControl .slider:before,
   .controls > .greenControl .slider:before{
-    width:16px;
-    height:16px;
-    left:3px;
-    top:3px;
+    width:16px !important;
+    height:16px !important;
+    left:3px !important;
+    top:3px !important;
   }
   .controls > .orangeControl .switch input:checked + .slider:before,
   .controls > .greenControl .switch input:checked + .slider:before{
-    transform:translateX(16px);
+    transform:translateX(16px) !important;
   }
   .controls > .chromeToggleBtn{
-    min-height:32px;
-    padding:6px 8px;
-    font-size:11px;
-    font-weight:800;
-    white-space:nowrap;
+    min-height:32px !important;
+    padding:6px 8px !important;
+    font-size:11px !important;
+    font-weight:800 !important;
+    white-space:nowrap !important;
+  }
+
+  /* 2段目も1行に収まりやすくする */
+  .controls > .seg button,
+  .controls > #addRange,
+  .controls > #clearRanges{
+    font-size:12px !important;
+    padding:7px 8px !important;
+    min-width:0 !important;
+    white-space:nowrap !important;
   }
 }
 
-@media(max-width:370px){
+@media(max-width:400px){
   .controls{
-    gap:4px;
-    padding-left:5px;
-    padding-right:5px;
+    gap:4px !important;
+    padding-left:5px !important;
+    padding-right:5px !important;
   }
   .controls > .orangeControl,
   .controls > .greenControl{
-    gap:3px;
-    font-size:11px;
+    gap:3px !important;
+    font-size:11px !important;
   }
   .controls > .orangeControl .switch,
   .controls > .greenControl .switch{
-    width:34px;
-    height:20px;
+    width:34px !important;
+    height:20px !important;
   }
   .controls > .orangeControl .slider:before,
   .controls > .greenControl .slider:before{
-    width:14px;
-    height:14px;
+    width:14px !important;
+    height:14px !important;
   }
   .controls > .orangeControl .switch input:checked + .slider:before,
   .controls > .greenControl .switch input:checked + .slider:before{
-    transform:translateX(14px);
+    transform:translateX(14px) !important;
   }
   .controls > .chromeToggleBtn{
-    min-height:30px;
-    padding:5px 6px;
-    font-size:10px;
+    min-height:30px !important;
+    padding:5px 6px !important;
+    font-size:10px !important;
+  }
+  .controls > .seg button,
+  .controls > #addRange,
+  .controls > #clearRanges{
+    font-size:11px !important;
+    padding:6px 7px !important;
   }
 }
-/* ===== END MOBILE CONTROLS EXACT ORDER v16 ===== */
+/* ===== END MOBILE CONTROLS EXACT ORDER v17 ===== */
 
 </style>
 </head>
@@ -492,11 +507,11 @@ html{
     </aside>
     <section class="viewer">
       <div class="controls">
-        <label class="switchWrap" orangeControl">
+        <label class="switchWrap orangeControl">
           <span class="switch"><input id="orangeToggle" type="checkbox"><span class="slider"></span></span>
           オレンジ文字
         </label>
-        <label class="switchWrap" greenControl">
+        <label class="switchWrap greenControl">
           <span class="switch green"><input id="greenToggle" type="checkbox"><span class="slider"></span></span>
           緑マーカー
         </label>
