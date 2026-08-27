@@ -280,6 +280,26 @@ html{
 }
 /* ===== END VIEWER BRAND LEFT ALIGN v8 ===== */
 
+
+/* ===== VIEWER CHROME TOGGLE v9 ===== */
+.app.chromeHidden{
+  grid-template-rows:minmax(0,1fr);
+}
+.app.chromeHidden .globalHeader,
+.app.chromeHidden .contextTop{
+  display:none;
+}
+.chromeToggleBtn{
+  white-space:nowrap;
+}
+@media(max-width:620px){
+  .chromeToggleBtn{
+    font-size:11px;
+    padding-inline:6px;
+  }
+}
+/* ===== END VIEWER CHROME TOGGLE v9 ===== */
+
 </style>
 </head>
 <body>
@@ -311,7 +331,7 @@ html{
         <button class="action primary" id="addRange">＋ 範囲を追加</button>
         <button class="action" id="clearRanges">範囲を削除</button>
         <button class="action sideToggleBtn" id="openSide" type="button" hidden>指定範囲を開く</button>
-        <div class="pageInfo" id="pageInfo"></div>
+        <button class="action chromeToggleBtn" id="chromeToggle" type="button" aria-expanded="true">上部を隠す</button><div class="pageInfo" id="pageInfo"></div>
       </div>
       <div class="scroller" id="scroller">
         <div class="stage" id="stage">
@@ -724,5 +744,31 @@ async function boot(){
 syncSide();
 boot().catch(error=>{console.error(error);$('#loading').textContent='世紀データを読み込めませんでした。';$('#pageInfo').textContent='世紀一覧に戻って選び直してください。'});
 </script>
+
+<script id="viewerChromeToggleScript">
+(()=>{
+  const app=document.querySelector(".app");
+  const btn=document.getElementById("chromeToggle");
+  if(!app||!btn)return;
+
+  function sync(){
+    const hidden=app.classList.contains("chromeHidden");
+    btn.textContent=hidden?"上部を表示":"上部を隠す";
+    btn.setAttribute("aria-expanded",hidden?"false":"true");
+    btn.setAttribute("aria-label",hidden?"ヘッダーと一覧を表示":"ヘッダーと一覧を非表示");
+  }
+
+  btn.addEventListener("click",()=>{
+    app.classList.toggle("chromeHidden");
+    sync();
+    requestAnimationFrame(()=>{
+      window.dispatchEvent(new Event("resize"));
+    });
+  });
+
+  sync();
+})();
+</script>
+
 </body>
 </html>
