@@ -17,7 +17,7 @@
 
 <main>
   <section class="intro">
-    <div><h1>歴史世界地図</h1><p>年を指定して、その時代の国・領域・地名をOpenHistoricalMapで確認できます。</p></div>
+    <div><h1>歴史世界地図</h1><p>年を指定して、その時代の国・領域・地名を日本語で確認できます。</p></div>
     <a id="timelineLinkTop" class="timelineLink" href="timeline.html">同じ年を総合年表で見る</a>
   </section>
 
@@ -27,7 +27,7 @@
       <label class="yearField"><span>年</span><input id="yearInput" type="number" min="1" max="10000" inputmode="numeric" value="1848"></label>
       <button id="previousYear" type="button" aria-label="1年前">−1年</button>
       <button id="nextYear" type="button" aria-label="1年後">＋1年</button>
-      <output id="currentYear" aria-live="polite">西暦1848年</output>
+      <div class="currentGroup"><output id="currentYear" aria-live="polite">西暦1848年</output><span id="dataSource" class="sourceBadge">OpenHistoricalMap</span></div>
     </div>
     <label class="sliderLabel"><span>年を連続して移動</span><input id="yearSlider" type="range" min="-4999" max="2026" step="1" value="1848"></label>
     <div class="presetYears" aria-label="確認用の代表年">
@@ -39,11 +39,12 @@
     <section class="mapCard" aria-label="歴史世界地図">
       <div id="map" role="application" aria-label="指定した年の歴史世界地図"></div>
       <div class="mapButtons" aria-label="地図操作"><button id="zoomIn" type="button" aria-label="拡大">＋</button><button id="zoomOut" type="button" aria-label="縮小">−</button><button id="resetMap" type="button">全体</button></div>
+      <div id="mapLegend" class="mapLegend" hidden><strong>凡例</strong><span><i class="territorySample"></i>国・領域の識別色</span><small>隣接領域が同色になりにくい配色です。色自体に政治的意味はありません。</small></div>
       <div id="mapStatus" class="mapStatus" role="status">OpenHistoricalMapを読み込み中…</div>
     </section>
 
     <aside class="infoPanel" aria-live="polite">
-      <section><h2>選択した領域</h2><div id="featureInfo" class="emptyInfo">地図上の国・領域をクリックすると、OHMに登録された名称と期間を表示します。</div></section>
+      <section><h2>選択した領域</h2><div id="featureInfo" class="emptyInfo">地図上の国・領域をクリックすると、日本語名・収録期間・使用データを表示します。</div></section>
       <section><h2>このころ世界では</h2><div id="nearbyEvents" class="eventList"><div class="emptyInfo">年表データを準備中…</div></div></section>
       <section><h2>関連する古プリ</h2><div id="relatedPrints" class="printList"><div class="emptyInfo">年表の出典をもとに表示します。</div></div></section>
     </aside>
@@ -51,8 +52,9 @@
 
   <section class="dataNotice">
     <h2>地図データについて</h2>
-    <p>境界・地名は<a href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener">OpenHistoricalMap</a>（OHM）の履歴付きデータを、公式の日付フィルターで指定年に絞って表示します。現代の国境データは重ねていません。地域や年代によっては未収録・精度差があり、表示されないことがあります。</p>
-    <p>地図データは原則CC0ですが、個別要素に別ライセンスが付く場合があります。詳しくは<a href="https://www.openhistoricalmap.org/copyright" target="_blank" rel="noopener">OHMの著作権・ライセンス表示</a>をご確認ください。地図表示はMapLibre GL JS、年指定はOpenHistoricalMapのmaplibre-gl-datesを使用しています。</p>
+    <p><strong>1886～2017年：</strong><a href="https://icr.ethz.ch/data/cshapes/" target="_blank" rel="noopener">CShapes 2.0</a>の各年1月1日時点の国・植民地・属領を表示します。派生表示データは軽量化・日本語化・隣接色分けを行っています。Schvitzほか（2022）を出典とし、<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>で提供します。非営利利用に限られ、改変物には同じライセンスが必要です。</p>
+    <p><strong>上記以外：</strong><a href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener">OpenHistoricalMap</a>（OHM）の履歴付きデータを公式の日付フィルターで表示します。日本語名が登録されていない地名は英語へ戻さず、地図上では省略します。OHMは原則CC0ですが、個別要素に別ライセンスが付く場合があります。詳しくは<a href="https://www.openhistoricalmap.org/copyright" target="_blank" rel="noopener">OHMの著作権・ライセンス表示</a>をご確認ください。</p>
+    <p>地図表示はMapLibre GL JS、OHMの年指定はOpenHistoricalMapのmaplibre-gl-datesを使用します。未収録の境界を推測で補うことはありません。</p>
   </section>
 </main>
 
