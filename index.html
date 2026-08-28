@@ -187,10 +187,12 @@ body>main{
 }
 /* ===== END HUB COORDINATE LOCK v6 ===== */
 
+.modeNav,.modes{flex-wrap:wrap}
+/* HISTORICAL MAP NAV */
 </style>
 </head>
 <body>
-<header><div class="head"><a class="siteBrand" href="./" aria-label="古プリ比較システムのトップページ"><img src="assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><span class="active" aria-current="page">ナンバー順</span><a href="pages/regional.html">地域・時代順</a><a href="pages/centuries.html">世紀別</a><a href="pages/search.html">文字検索</a><a href="pages/timeline.html">総合年表</a></nav></div></header>
+<header><div class="head"><a class="siteBrand" href="./" aria-label="古プリ比較システムのトップページ"><img src="assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><span class="active" aria-current="page">ナンバー順</span><a href="pages/regional.html">地域・時代順</a><a href="pages/centuries.html">世紀別</a><a href="pages/search.html">文字検索</a><a href="pages/timeline.html">総合年表</a><a href="pages/historical-map.html">歴史地図</a></nav></div></header>
 <main><p class="lead">学習したい範囲を選択してください。No.または単元名で絞り込めます。</p><input class="search" id="search" type="search" inputmode="search" placeholder="例：85、ルネサンス、中国史" aria-label="問題番号または単元名で検索"><div class="grid" id="grid"></div><div class="empty" id="empty">該当する範囲がありません。</div><footer><a href="https://harahettarou.github.io/fullpuri/">https://harahettarou.github.io/fullpuri/</a></footer></main>
 <script>
 const grid=document.getElementById("grid"),search=document.getElementById("search"),empty=document.getElementById("empty");let ranges=[];

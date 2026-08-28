@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f3ee">
+<title>古プリ比較システム｜歴史世界地図</title>
+<link rel="icon" href="../assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="../assets/vendor/maplibre-gl/maplibre-gl.css">
+<link rel="stylesheet" href="../assets/historical-map/historical-map.css">
+</head>
+<body>
+<header><div class="head"><a class="siteBrand" href="../index.html" aria-label="古プリ比較システムのトップページ"><img src="../assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><a href="../index.html">ナンバー順</a><a href="regional.html">地域・時代順</a><a href="centuries.html">世紀別</a><a href="search.html">文字検索</a><a href="timeline.html">総合年表</a><span class="active" aria-current="page">歴史地図</span></nav></div></header>
+
+<main>
+  <section class="intro">
+    <div><h1>歴史世界地図</h1><p>年を指定して、その時代の国・領域・地名をOpenHistoricalMapで確認できます。</p></div>
+    <a id="timelineLinkTop" class="timelineLink" href="timeline.html">同じ年を総合年表で見る</a>
+  </section>
+
+  <section class="timePanel" aria-label="表示する年">
+    <div class="yearControls">
+      <label><span>紀元</span><select id="era"><option value="ce">西暦</option><option value="bce">紀元前</option></select></label>
+      <label class="yearField"><span>年</span><input id="yearInput" type="number" min="1" max="10000" inputmode="numeric" value="1848"></label>
+      <button id="previousYear" type="button" aria-label="1年前">−1年</button>
+      <button id="nextYear" type="button" aria-label="1年後">＋1年</button>
+      <output id="currentYear" aria-live="polite">西暦1848年</output>
+    </div>
+    <label class="sliderLabel"><span>年を連続して移動</span><input id="yearSlider" type="range" min="-4999" max="2026" step="1" value="1848"></label>
+    <div class="presetYears" aria-label="確認用の代表年">
+      <button type="button" data-year="-221">紀元前221</button><button type="button" data-year="395">395</button><button type="button" data-year="622">622</button><button type="button" data-year="1206">1206</button><button type="button" data-year="1453">1453</button><button type="button" data-year="1789">1789</button><button type="button" data-year="1914">1914</button><button type="button" data-year="1945">1945</button><button type="button" data-year="1991">1991</button>
+    </div>
+  </section>
+
+  <div class="workspace">
+    <section class="mapCard" aria-label="歴史世界地図">
+      <div id="map" role="application" aria-label="指定した年の歴史世界地図"></div>
+      <div class="mapButtons" aria-label="地図操作"><button id="zoomIn" type="button" aria-label="拡大">＋</button><button id="zoomOut" type="button" aria-label="縮小">−</button><button id="resetMap" type="button">全体</button></div>
+      <div id="mapStatus" class="mapStatus" role="status">OpenHistoricalMapを読み込み中…</div>
+    </section>
+
+    <aside class="infoPanel" aria-live="polite">
+      <section><h2>選択した領域</h2><div id="featureInfo" class="emptyInfo">地図上の国・領域をクリックすると、OHMに登録された名称と期間を表示します。</div></section>
+      <section><h2>このころ世界では</h2><div id="nearbyEvents" class="eventList"><div class="emptyInfo">年表データを準備中…</div></div></section>
+      <section><h2>関連する古プリ</h2><div id="relatedPrints" class="printList"><div class="emptyInfo">年表の出典をもとに表示します。</div></div></section>
+    </aside>
+  </div>
+
+  <section class="dataNotice">
+    <h2>地図データについて</h2>
+    <p>境界・地名は<a href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener">OpenHistoricalMap</a>（OHM）の履歴付きデータを、公式の日付フィルターで指定年に絞って表示します。現代の国境データは重ねていません。地域や年代によっては未収録・精度差があり、表示されないことがあります。</p>
+    <p>地図データは原則CC0ですが、個別要素に別ライセンスが付く場合があります。詳しくは<a href="https://www.openhistoricalmap.org/copyright" target="_blank" rel="noopener">OHMの著作権・ライセンス表示</a>をご確認ください。地図表示はMapLibre GL JS、年指定はOpenHistoricalMapのmaplibre-gl-datesを使用しています。</p>
+  </section>
+</main>
+
+<script src="../assets/vendor/maplibre-gl/maplibre-gl.js"></script>
+<script src="../assets/vendor/maplibre-gl-dates/maplibre-gl-dates.js"></script>
+<script src="../assets/historical-map/historical-map.js"></script>
+</body>
+</html>

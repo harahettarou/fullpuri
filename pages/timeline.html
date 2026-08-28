@@ -201,11 +201,14 @@ body>main{
 }
 /* ===== END HUB COORDINATE LOCK v6 ===== */
 
+.mapLink{display:inline-flex;align-items:center;color:#8f482a;text-decoration:none;font-size:11px;font-weight:900;border:1px solid #e0c4b7;background:#fff8f4;border-radius:8px;padding:3px 7px}.mapLink:hover{background:#fff0e8}
+.modeNav,.modes{flex-wrap:wrap}
+/* HISTORICAL MAP NAV */
 </style>
 </head>
 <body>
 <!-- 古プリ比較システム統合用。pages/timeline.html として置くと「←一覧」は ../index.html に戻る。 -->
-<header><div class="head"><a class="siteBrand" href="../index.html" aria-label="古プリ比較システムのトップページ"><img src="../assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><a href="../index.html">ナンバー順</a><a href="regional.html">地域・時代順</a><a href="centuries.html">世紀別</a><a href="search.html">文字検索</a><span class="active" aria-current="page">総合年表</span></nav></div></header>
+<header><div class="head"><a class="siteBrand" href="../index.html" aria-label="古プリ比較システムのトップページ"><img src="../assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><a href="../index.html">ナンバー順</a><a href="regional.html">地域・時代順</a><a href="centuries.html">世紀別</a><a href="search.html">文字検索</a><span class="active" aria-current="page">総合年表</span><a href="historical-map.html">歴史地図</a></nav></div></header>
 <main><h1>総合年表</h1><p class="lead">古プリ No.1–183 に登場する出来事を年代順に確認できます。出来事・人物・条約、No.、地域、時代、区分で絞り込めます。</p><div class="filterBox"><div class="controls">
     <input id="q" class="control searchControl" type="search" placeholder="出来事・人物・条約を検索">
     <input id="no" class="control" type="number" min="1" max="183" inputmode="numeric" placeholder="No.">
@@ -236,7 +239,7 @@ function render(){
   let out='',cur='';
   for(let i=0;i<filtered.length;i++){ const x=filtered[i];
     if(x.century!==cur){cur=x.century;out+=`<div class="century"><h2>${esc(cur)}</h2></div><div class="timeline">`; if(out.indexOf('</div><div class="century">')<0){} }
-    out+=`<article class="row"><div class="date">${esc(x.date)}</div><span class="dot"></span><div class="card"><div class="event">${esc(x.event)}</div>${x.detail?`<div class="detail">${esc(x.detail)}</div>`:''}<div class="meta"><span class="badge ${cls(x.kind)}">${esc(x.kind)}</span>${(x.regions&&x.regions.length?x.regions:[x.region]).filter(Boolean).map(r=>`<span class="src">${esc(r)}</span>`).join('')}<span class="src">${esc(x.source)}</span></div></div></article>`;
+    out+=`<article class="row"><div class="date">${esc(x.date)}</div><span class="dot"></span><div class="card"><div class="event">${esc(x.event)}</div>${x.detail?`<div class="detail">${esc(x.detail)}</div>`:''}<div class="meta"><span class="badge ${cls(x.kind)}">${esc(x.kind)}</span>${(x.regions&&x.regions.length?x.regions:[x.region]).filter(Boolean).map(r=>`<span class="src">${esc(r)}</span>`).join('')}<span class="src">${esc(x.source)}</span>${Number.isFinite(x.sort)?`<a class="mapLink" href="historical-map.html?year=${Math.round(x.sort)||1}">地図で見る</a>`:''}</div></div></article>`;
     const next=filtered[i+1]; if(!next||next.century!==cur) out+='</div>';
   }
   root.innerHTML=out;
@@ -244,6 +247,8 @@ function render(){
 [q,no,region,era,kind].forEach(el=>el.addEventListener('input',render));
 document.getElementById('quick').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return; document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');era.value=b.dataset.era;render();});
 const topbtn=document.getElementById('topbtn');addEventListener('scroll',()=>topbtn.style.display=scrollY>700?'block':'none');topbtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+const linkedYear=Number(new URLSearchParams(location.search).get('year'));
+if(Number.isInteger(linkedYear)&&linkedYear!==0){q.value=linkedYear<0?'前'+Math.abs(linkedYear):String(linkedYear);}
 render();
 </script>
 </body></html>

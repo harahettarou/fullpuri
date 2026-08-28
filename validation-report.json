@@ -1,13 +1,41 @@
 {
-  "status": "pass",
-  "updateType": "cumulative-update_inbox-compatible",
-  "rendering": "original-image-plus-browser-overlays",
-  "numberedHtmlFiles": 29,
-  "regionalHtmlFiles": 9,
-  "centuryViewerFiles": 1,
-  "patchedViewerFiles": 39,
-  "baseOffRecordsRemovedFromHtml": 737,
-  "baseOffRecordsRemovedFromCatalog": 220,
-  "No081ImageSwitchPreserved": true,
-  "errors": []
+  "feature": "歴史世界地図",
+  "baseCommit": "2ec6d3210ff1d9781cc24638ed230dbdeb96bff0",
+  "built": "2026-08-28",
+  "added": [
+    "pages/historical-map.html",
+    "assets/historical-map/historical-map.css",
+    "assets/historical-map/historical-map.js",
+    "assets/historical-map/timeline-events.json",
+    "assets/vendor/maplibre-gl/*",
+    "assets/vendor/maplibre-gl-dates/*"
+  ],
+  "changed": {
+    "htmlFiles": 54,
+    "purpose": "既存ナビゲーションへの歴史地図リンク追加のみ（timeline.htmlは相互リンクも追加）",
+    "other": ["manifest.json"]
+  },
+  "mapLibrary": "MapLibre GL JS 5.24.0",
+  "dateFilter": "@openhistoricalmap/maplibre-gl-dates 1.3.0",
+  "historicalData": "OpenHistoricalMap official vector style and tiles",
+  "licenses": {
+    "OpenHistoricalMap": "原則CC0。個別要素のlicenseタグを優先",
+    "MapLibre GL JS": "BSD-3-Clause",
+    "maplibre-gl-dates": "CC0-1.0",
+    "CShapes 2.0": "CC BY-NC-SA 4.0のため本番データには同梱せず、1886–2017の検証候補としてのみ扱う"
+  },
+  "yearHandling": "紀元前5000年から西暦2026年。画面上は年0なし。OHM用には紀元前1年=内部年0へ変換",
+  "testedYears": [-221, -44, 395, 622, 800, 1206, 1453, 1492, 1648, 1789, 1815, 1848, 1871, 1914, 1919, 1939, 1945, 1991],
+  "validation": {
+    "htmlFiles": 55,
+    "localReferences": 533,
+    "browser": ["PC表示", "iPhone相当390x844", "紀元前1年から西暦1年", "領域クリック", "総合年表相互リンク"],
+    "regression": ["No.85 オレンジ/緑", "上部非表示", "ページ移動", "100%から125%拡大", "OCR検索", "地域・時代順", "世紀別", "総合年表"]
+  },
+  "knownLimitations": [
+    "OHMの収録量・精度は年代と地域によって異なる",
+    "未収録の境界は推測で補わない",
+    "OHM公式フォントに一部希少文字のグリフがない場合、MapLibreのローカル描画へフォールバックする"
+  ],
+  "future": ["年代アニメーション", "2年代比較", "事件レイヤー", "地域限定表示", "古プリ自動関連付けの強化"]
 }
