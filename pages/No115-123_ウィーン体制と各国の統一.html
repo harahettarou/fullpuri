@@ -604,7 +604,7 @@ function saveRanges(){localStorage.setItem(storageKey,JSON.stringify(rangeStore)
 function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1200)}
 
 function applyZoom(options={}){
-  zoom=Math.max(50,Math.min(200,Number(zoom)||100));
+  zoom=Math.max(25,Math.min(400,Number(zoom)||100));
   const scroller=$('#scroller');
   const viewerEl=document.querySelector('.viewer');
   const compact=window.matchMedia('(max-width:760px)').matches;
@@ -808,10 +808,10 @@ $('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をす�
 $('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
 $('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};
 $('#pageSelect').onchange=e=>{idx=Number(e.target.value);loadPage()};
-$('#zoomOut').onclick=()=>{zoom=Math.max(50,Number(zoom)-25);applyZoom()};
-$('#zoomIn').onclick=()=>{zoom=Math.min(200,Number(zoom)+25);applyZoom()};
+$('#zoomOut').onclick=()=>{zoom=Math.max(25,Number(zoom)-25);applyZoom()};
+$('#zoomIn').onclick=()=>{zoom=Math.min(400,Number(zoom)+25);applyZoom()};
 
-// Mobile pinch zoom (50%–200%)
+// Mobile pinch zoom (25%–400%)
 let pinchStartDistance=0, pinchStartZoom=100, pinchStartScrollLeft=0, pinchStartScrollTop=0;
 let pinchCenterX=0, pinchCenterY=0;
 function touchDistance(touches){
@@ -846,7 +846,7 @@ function flushPinch(){
 function movePinch(e){
   if(e.touches.length!==2 || !pinchStartDistance || drawing)return;
   e.preventDefault();
-  pendingPinchZoom=Math.max(50,Math.min(200,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
+  pendingPinchZoom=Math.max(25,Math.min(400,Math.round((pinchStartZoom*touchDistance(e.touches)/pinchStartDistance)*2)/2));
   // 1フレームにつき最大1回だけ更新し、指の細かな動きで処理を積み上げない。
   if(!pinchFrame) pinchFrame=requestAnimationFrame(flushPinch);
 }
