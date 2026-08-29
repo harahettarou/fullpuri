@@ -21,6 +21,7 @@ Changes made for this website:
 - Original features divided into four time buckets for on-demand loading.
 - Geometry simplified and coordinate precision reduced for web display.
 - Country and territory names translated into Japanese.
+- Label anchors moved from capital coordinates to readable interior points in the largest territory polygon.
 - A display color index generated from shared-border adjacency.
 - Unused original attributes removed from the web derivative.
 
