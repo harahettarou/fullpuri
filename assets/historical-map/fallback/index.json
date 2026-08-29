@@ -1,0 +1,145 @@
+{
+  "version": "2026-08-29-cliopatria",
+  "dataset": "古プリ補完政治領域データ（Cliopatria派生）",
+  "source_title": "Cliopatria: a geospatial database of world-wide political entities from 3400 BCE to 2024 CE",
+  "source_url": "https://doi.org/10.1038/s41597-025-04516-9",
+  "data_url": "https://github.com/Seshat-Global-History-Databank/cliopatria",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "Bennett et al. (2025), Cliopatria; Seshat Global History Databank. 古プリ向けに属性追加・日本語化・簡略化。",
+  "accessed_at": "2026-08-29",
+  "reconstruction_method": "Cliopatriaの公開ポリゴンをWGS84のまま使用し、世界表示向けにDouglas–Peucker法（許容差0.08度）で簡略化。形状の新規推測・GeaCron転写は行っていない。",
+  "existence_confidence": "source-reviewed",
+  "territory_accuracy": "approximate",
+  "boundary_style": "dashed",
+  "buckets": [
+    {
+      "id": "bce-3400--2001",
+      "start": -3400,
+      "end": -2001,
+      "file": "cliopatria-bce-3400--2001.json",
+      "features": 27,
+      "bytes": 64407
+    },
+    {
+      "id": "bce-2000--1001",
+      "start": -2000,
+      "end": -1001,
+      "file": "cliopatria-bce-2000--1001.json",
+      "features": 80,
+      "bytes": 207705
+    },
+    {
+      "id": "bce-1000--1",
+      "start": -1000,
+      "end": -1,
+      "file": "cliopatria-bce-1000--1.json",
+      "features": 932,
+      "bytes": 3265661
+    },
+    {
+      "id": "ce-1-249",
+      "start": 1,
+      "end": 249,
+      "file": "cliopatria-ce-1-249.json",
+      "features": 277,
+      "bytes": 1379100
+    },
+    {
+      "id": "ce-250-499",
+      "start": 250,
+      "end": 499,
+      "file": "cliopatria-ce-250-499.json",
+      "features": 544,
+      "bytes": 2395612
+    },
+    {
+      "id": "ce-500-749",
+      "start": 500,
+      "end": 749,
+      "file": "cliopatria-ce-500-749.json",
+      "features": 724,
+      "bytes": 2813022
+    },
+    {
+      "id": "ce-750-999",
+      "start": 750,
+      "end": 999,
+      "file": "cliopatria-ce-750-999.json",
+      "features": 1152,
+      "bytes": 3634969
+    },
+    {
+      "id": "ce-1000-1199",
+      "start": 1000,
+      "end": 1199,
+      "file": "cliopatria-ce-1000-1199.json",
+      "features": 1122,
+      "bytes": 2906313
+    },
+    {
+      "id": "ce-1200-1399",
+      "start": 1200,
+      "end": 1399,
+      "file": "cliopatria-ce-1200-1399.json",
+      "features": 1489,
+      "bytes": 4158127
+    },
+    {
+      "id": "ce-1400-1499",
+      "start": 1400,
+      "end": 1499,
+      "file": "cliopatria-ce-1400-1499.json",
+      "features": 881,
+      "bytes": 2863944
+    },
+    {
+      "id": "ce-1500-1599",
+      "start": 1500,
+      "end": 1599,
+      "file": "cliopatria-ce-1500-1599.json",
+      "features": 825,
+      "bytes": 3221921
+    },
+    {
+      "id": "ce-1600-1699",
+      "start": 1600,
+      "end": 1699,
+      "file": "cliopatria-ce-1600-1699.json",
+      "features": 783,
+      "bytes": 4036028
+    },
+    {
+      "id": "ce-1700-1749",
+      "start": 1700,
+      "end": 1749,
+      "file": "cliopatria-ce-1700-1749.json",
+      "features": 489,
+      "bytes": 2615919
+    },
+    {
+      "id": "ce-1750-1799",
+      "start": 1750,
+      "end": 1799,
+      "file": "cliopatria-ce-1750-1799.json",
+      "features": 679,
+      "bytes": 3933058
+    },
+    {
+      "id": "ce-1800-1849",
+      "start": 1800,
+      "end": 1849,
+      "file": "cliopatria-ce-1800-1849.json",
+      "features": 967,
+      "bytes": 5114863
+    },
+    {
+      "id": "ce-1850-1885",
+      "start": 1850,
+      "end": 1885,
+      "file": "cliopatria-ce-1850-1885.json",
+      "features": 647,
+      "bytes": 4130752
+    }
+  ]
+}

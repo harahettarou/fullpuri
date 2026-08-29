@@ -1,5 +1,7 @@
 CShapes 2.0 derived display data
 
+Coverage used by this website: 1886-2019 (annual January 1 snapshots)
+
 Source:
 International Conflict Research, ETH Zurich
 https://icr.ethz.ch/data/cshapes/

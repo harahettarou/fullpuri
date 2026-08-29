@@ -1,48 +1,52 @@
 {
-  "feature": "歴史世界地図",
-  "baseCommit": "2ec6d3210ff1d9781cc24638ed230dbdeb96bff0",
-  "built": "2026-08-28",
-  "added": [
+  "feature": "歴史世界地図・世界政治領域補完／点線概略境界／CShapes 2019対応",
+  "built": "2026-08-29",
+  "changedFiles": [
     "pages/historical-map.html",
     "assets/historical-map/historical-map.css",
     "assets/historical-map/historical-map.js",
-    "assets/historical-map/timeline-events.json",
-    "assets/historical-map/cshapes/cshapes-1886-1913.json",
-    "assets/historical-map/cshapes/cshapes-1914-1945.json",
-    "assets/historical-map/cshapes/cshapes-1946-1990.json",
-    "assets/historical-map/cshapes/cshapes-1991-2017.json",
+    "assets/historical-map/historical-base-style.json",
+    "assets/historical-map/natural-earth-land.geojson",
+    "assets/historical-map/fallback/*",
+    "assets/historical-map/cshapes/cshapes-1991-2019.json",
     "assets/historical-map/cshapes/metadata.json",
     "assets/historical-map/cshapes/ATTRIBUTION.txt",
-    "assets/vendor/maplibre-gl/*",
-    "assets/vendor/maplibre-gl-dates/*"
+    "manifest.json",
+    "validation-report.json"
   ],
-  "changed": {
-    "htmlFiles": 54,
-    "purpose": "既存ナビゲーションへの歴史地図リンク追加のみ（timeline.htmlは相互リンクも追加）",
-    "other": ["manifest.json"]
+  "dataSources": {
+    "through1885": "Cliopatria（Bennettほか、2025、CC BY 4.0）＋年代指定済みOpenHistoricalMap補助境界",
+    "from1886Through2019": "CShapes 2.0（各年1月1日、CC BY-NC-SA 4.0）",
+    "from2020": "開始・終了年代が明示されたOpenHistoricalMap管理境界",
+    "baseMap": "Natural Earth 1:110m land（Public Domain）",
+    "inventedGeometry": false,
+    "geacronGeometryIncluded": false,
+    "chgisGeometryIncluded": false
   },
-  "mapLibrary": "MapLibre GL JS 5.24.0",
-  "dateFilter": "@openhistoricalmap/maplibre-gl-dates 1.3.0",
-  "historicalData": "1886–2017: CShapes 2.0の各年1月1日時点。その他: OpenHistoricalMapの公式ベクタースタイルと日付フィルター",
-  "licenses": {
-    "OpenHistoricalMap": "原則CC0。個別要素のlicenseタグを優先",
-    "MapLibre GL JS": "BSD-3-Clause",
-    "maplibre-gl-dates": "CC0-1.0",
-    "CShapes 2.0": "Schvitz et al. (2022)。CC BY-NC-SA 4.0。日本語化・簡略化・年代別分割した派生データも同条件で同梱"
+  "fallbackPolicy": {
+    "display": "概略政治領域は薄い塗り＋点線",
+    "clickLabel": "概略・境界不確実",
+    "separateConfidence": ["存在確認", "領域精度"],
+    "requiredMetadata": ["id", "name_ja", "name_en", "start", "end", "source_title", "source_url", "license", "license_url", "attribution", "accessed_at", "accuracy_note", "reconstruction_method", "existence_confidence", "territory_accuracy"],
+    "unverifiedPointMessage": "この地点の政治領域を確認できませんでした"
   },
-  "yearHandling": "紀元前5000年から西暦2026年。画面上は年0なし。1886〜2017年はCShapes 2.0の1月1日スナップショット、それ以外はOHM（紀元前1年=内部年0へ変換）",
-  "testedYears": [-221, -44, 395, 622, 800, 1206, 1453, 1492, 1648, 1789, 1815, 1848, 1871, 1886, 1913, 1914, 1919, 1939, 1945, 1991, 2017, 2018],
-  "validation": {
-    "htmlFiles": 55,
-    "localReferences": 533,
-    "browser": ["PC表示", "iPhone相当390x844", "既存ページとヘッダー寸法一致", "紀元前1年から西暦1年", "CShapes/OHM境界年切替", "領域クリック", "総合年表相互リンク"],
-    "regression": ["No.85 オレンジ/緑", "上部非表示", "ページ移動", "100%から125%拡大", "OCR検索", "地域・時代順", "世紀別", "総合年表"]
+  "coverageChecks": {
+    "634": {"territories": 66, "checked": ["唐", "東ローマ帝国", "サーサーン朝", "正統カリフ国", "飛鳥時代の日本", "新羅", "百済", "真臘", "ヴァルダナ朝", "西突厥", "吐蕃", "アクスム王国"]},
+    "1220": {"territories": 143, "checked": ["モンゴル帝国", "南宋", "金", "西夏"]},
+    "1600": {"territories": 97, "checked": ["オスマン帝国", "サファヴィー朝", "ムガル帝国", "明"]},
+    "1885": {"territories": 99},
+    "uniqueEntities": 1181,
+    "missingJapaneseNames": 0
   },
-  "knownLimitations": [
-    "CShapes 2.0の表示期間は1886〜2017年で、各年1月1日時点を表示する",
-    "OHMの収録量・精度は年代と地域によって異なる",
-    "未収録の境界は推測で補わない",
-    "OHM側は日本語名タグがない地名を地図ラベルに表示しない"
+  "browserChecks": [
+    "634・1220・1885年=Cliopatria補完表示",
+    "1886・1914・2019年=CShapes 2.0表示",
+    "2020年=OHM表示",
+    "同一バケット内の年変更で領域を再抽出",
+    "PC 1440×900",
+    "スマートフォン 390×844・横見切れなし",
+    "JavaScriptエラーなし",
+    "世界地図を常時表示・未確認陸地は白・東西方向に連続表示"
   ],
-  "future": ["年代アニメーション", "2年代比較", "事件レイヤー", "地域限定表示", "古プリ自動関連付けの強化"]
+  "existingFeatureImpact": "歴史世界地図以外のナンバー順・地域別・世紀別・検索・画像・JSONには変更なし"
 }

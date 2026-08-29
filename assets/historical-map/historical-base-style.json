@@ -1,0 +1,30 @@
+{
+  "version": 8,
+  "name": "古プリ歴史地図・軽量背景",
+  "glyphs": "https://www.openhistoricalmap.org/map-styles/fonts/{fontstack}/{range}.pbf",
+  "sources": {
+    "natural-earth-land": {
+      "type": "geojson",
+      "data": "../assets/historical-map/natural-earth-land.geojson"
+    }
+  },
+  "layers": [
+    {
+      "id": "ocean-background",
+      "type": "background",
+      "paint": { "background-color": "#c7e8e8" }
+    },
+    {
+      "id": "natural-earth-land-fill",
+      "type": "fill",
+      "source": "natural-earth-land",
+      "paint": { "fill-color": "#fbfaf6", "fill-opacity": 1 }
+    },
+    {
+      "id": "natural-earth-coastline",
+      "type": "line",
+      "source": "natural-earth-land",
+      "paint": { "line-color": "#9bb8b5", "line-width": 0.65, "line-opacity": 0.8 }
+    }
+  ]
+}

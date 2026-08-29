@@ -1,0 +1,21 @@
+Cliopatria-derived historical political territories for 古プリ比較システム
+
+Source and citation:
+Bennett et al. (2025), “Cliopatria: a geospatial database of world-wide
+political entities from 3400 BCE to 2024 CE”, Scientific Data.
+https://doi.org/10.1038/s41597-025-04516-9
+https://github.com/Seshat-Global-History-Databank/cliopatria
+
+License:
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Changes made for this website:
+- Records limited to POLITY entities and to years through 1885.
+- Japanese labels and aliases added from Wikidata and a reviewed name table.
+- Geometry simplified for web display without inventing new boundaries.
+- Records divided into chronological buckets for on-demand loading.
+- Display color indexes generated from approximate adjacency.
+- All pre-1886 boundaries marked “概略・境界不確実” and rendered dashed.
+
+GeaCron and CHGIS geometry is not included in this derivative.

@@ -1,6 +1,6 @@
 {
   "dataset": "CShapes 2.0",
-  "coverage": "1886-2017",
+  "coverage": "1886-2019",
   "snapshot": "各年1月1日",
   "license": "CC BY-NC-SA 4.0",
   "source": "https://icr.ethz.ch/data/cshapes/",
@@ -34,10 +34,10 @@
       "bytes": 2114480
     },
     {
-      "id": "1991-2017",
+      "id": "1991-2019",
       "start": 1991,
-      "end": 2017,
-      "file": "cshapes-1991-2017.json",
+      "end": 2019,
+      "file": "cshapes-1991-2019.json",
       "features": 201,
       "bytes": 1961001
     }

@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-08-29T06:58:10.151Z",
+  "technical": {
+    "pass": true,
+    "error_count": 0,
+    "errors": [],
+    "warnings": []
+  },
+  "historical_coverage": {
+    "tests": [
+      {
+        "year": 634,
+        "count": 66,
+        "expected": [
+          "唐",
+          "東ローマ帝国",
+          "サーサーン朝",
+          "正統カリフ国",
+          "飛鳥時代の日本",
+          "新羅",
+          "百済",
+          "真臘",
+          "ヴァルダナ朝",
+          "西突厥",
+          "吐蕃",
+          "アクスム王国"
+        ],
+        "missing": [],
+        "pass": true
+      },
+      {
+        "year": 1220,
+        "count": 143,
+        "expected": [
+          "モンゴル帝国",
+          "南宋",
+          "金",
+          "西夏"
+        ],
+        "missing": [],
+        "pass": true
+      },
+      {
+        "year": 1600,
+        "count": 97,
+        "expected": [
+          "オスマン帝国",
+          "サファヴィー朝",
+          "ムガル帝国",
+          "明"
+        ],
+        "missing": [],
+        "pass": true
+      },
+      {
+        "year": 1885,
+        "count": 99,
+        "expected": [],
+        "missing": [],
+        "pass": true
+      }
+    ],
+    "unique_records": 10440,
+    "unique_entities": 1181
+  },
+  "data_modes": {
+    "pre_1886": "Cliopatria概略領域＋年代指定済みOHM",
+    "years_1886_2019": "CShapes 2.0",
+    "from_2020": "年代指定済みOHM"
+  }
+}

@@ -1,471 +1,121 @@
 (() => {
   'use strict';
 
-  const STYLE_URL = 'https://www.openhistoricalmap.org/map-styles/main/main.json';
+  const STYLE_URL = '../assets/historical-map/historical-base-style.json';
+  const OHM_ADMIN_TILES = 'https://vtiles.openhistoricalmap.org/maps/ohm_admin/{z}/{x}/{y}';
+  const FALLBACK_BASE = '../assets/historical-map/fallback/';
+  const CSHAPES_BASE = '../assets/historical-map/cshapes/';
   const START_VIEW = { center: [15, 23], zoom: 1.25 };
-  const MIN_HUMAN_YEAR = -5000;
+  const MIN_HUMAN_YEAR = -3400;
   const MAX_HUMAN_YEAR = 2026;
   const CSHAPES_START = 1886;
-  const CSHAPES_END = 2017;
-  const CSHAPES_BASE = '../assets/historical-map/cshapes/';
+  const CSHAPES_END = 2019;
   const CSHAPES_BUCKETS = [
-    { start: 1886, end: 1913, file: 'cshapes-1886-1913.json' },
-    { start: 1914, end: 1945, file: 'cshapes-1914-1945.json' },
-    { start: 1946, end: 1990, file: 'cshapes-1946-1990.json' },
-    { start: 1991, end: 2017, file: 'cshapes-1991-2017.json' }
+    { start:1886, end:1913, file:'cshapes-1886-1913.json' },
+    { start:1914, end:1945, file:'cshapes-1914-1945.json' },
+    { start:1946, end:1990, file:'cshapes-1946-1990.json' },
+    { start:1991, end:2019, file:'cshapes-1991-2019.json' }
   ];
-  const PALETTE = [
-    '#e9a3a3', '#9fc5e8', '#b6d7a8', '#ffe599', '#d5a6bd', '#a2c4c9',
-    '#f6b26b', '#b4a7d6', '#76a5af', '#c9daf8', '#93c47d', '#ffd966'
-  ];
-  const EMPTY_GEOJSON = { type: 'FeatureCollection', features: [] };
+  const PALETTE = ['#e9a3a3','#8fc4e7','#acd292','#f3d26d','#d3a5c6','#8dc8c8','#efa45f','#b3a4dc','#73aeb4','#b8d4ee','#85bd72','#f2bb73'];
+  const EMPTY_GEOJSON = { type:'FeatureCollection', features:[] };
+  const TRUSTED_FALLBACKS = new Map([['https://doi.org/10.1038/s41597-025-04516-9',new Set(['CC-BY-4.0'])]]);
+  const IMPORTANT_ONE_CHARACTER_NAMES = new Set(['唐','隋','元','明','清','漢','宋','秦','呉','魏','蜀','遼','金']);
+  const OHM_LAYER_IDS = ['historical-ohm-fill','historical-ohm-boundary','historical-ohm-boundary-uncertain'];
+  const OHM_LABEL_IDS = ['historical-ohm-label-major','historical-ohm-label-medium','historical-ohm-label-detail'];
+  const FALLBACK_LAYER_IDS = ['fallback-political-fill','fallback-political-boundary'];
+  const CSHAPES_LAYER_IDS = ['cshapes-fill','cshapes-boundary'];
   const $ = id => document.getElementById(id);
-  const era = $('era');
-  const yearInput = $('yearInput');
-  const slider = $('yearSlider');
-  const currentYear = $('currentYear');
-  const dataSource = $('dataSource');
-  const mapLegend = $('mapLegend');
-  const status = $('mapStatus');
-  const featureInfo = $('featureInfo');
-  const nearbyEvents = $('nearbyEvents');
-  const relatedPrints = $('relatedPrints');
+  const era=$('era'),yearInput=$('yearInput'),slider=$('yearSlider'),currentYear=$('currentYear'),dataSource=$('dataSource'),activeAttribution=$('activeAttribution'),mapLegend=$('mapLegend'),status=$('mapStatus'),featureInfo=$('featureInfo'),nearbyEvents=$('nearbyEvents'),relatedPrints=$('relatedPrints'),drawer=$('infoDrawer'),backdrop=$('drawerBackdrop');
 
-  let humanYear = 1848;
-  let map = null;
-  let mapReady = false;
-  let timelineEvents = [];
-  let manifestRanges = [];
-  let selectedFeature = null;
-  let activeCShapesFile = '';
-  let cshapesAbort = null;
-  let updateTimer = 0;
-  let loadSequence = 0;
-  const originalVisibility = new Map();
+  let humanYear=1848,map=null,mapReady=false,activeDataMode='loading',timelineEvents=[],manifestRanges=[],selectedFeature=null,nameDictionary={},fallbackIndex=null,loadedFallbackData=EMPTY_GEOJSON,activeFallbackFile='',activeCShapesFile='',activeFallbackCount=0,loadSequence=0,cshapesAbort=null,fallbackAbort=null,updateTimer=0,ohmColorTimer=0;
 
-  const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[char]));
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-  const humanToAstronomical = year => year < 0 ? year + 1 : year;
-  const astronomicalToHuman = year => year <= 0 ? year - 1 : year;
-  const labelYear = year => year < 0 ? `紀元前${Math.abs(year)}年` : `西暦${year}年`;
-  const ohmYear = year => String(humanToAstronomical(year));
-  const isCShapesYear = year => year >= CSHAPES_START && year <= CSHAPES_END;
-  const stepYear = (year, amount) => {
-    if (amount > 0 && year === -1) return 1;
-    if (amount < 0 && year === 1) return -1;
-    return year + amount;
-  };
+  const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
+  const humanToAstronomical=year=>year<0?year+1:year;
+  const astronomicalToHuman=year=>year<=0?year-1:year;
+  const labelYear=year=>year<0?`紀元前${Math.abs(year)}年`:`西暦${year}年`;
+  const isCShapesYear=year=>year>=CSHAPES_START&&year<=CSHAPES_END;
+  const stepYear=(year,amount)=>{let next=year,direction=Math.sign(amount);for(let i=0;i<Math.abs(amount);i+=1)next=direction>0&&next===-1?1:direction<0&&next===1?-1:next+direction;return next;};
 
-  function parseRequestedYear() {
-    const params = new URLSearchParams(location.search);
-    const raw = Number(params.get('year'));
-    if (!Number.isInteger(raw) || raw === 0) return 1848;
-    return clamp(raw, MIN_HUMAN_YEAR, MAX_HUMAN_YEAR);
+  function parseRequestedYear(){const raw=Number(new URLSearchParams(location.search).get('year'));return Number.isInteger(raw)&&raw!==0?clamp(raw,MIN_HUMAN_YEAR,MAX_HUMAN_YEAR):1848;}
+  function setStatus(message,isError=false){status.textContent=message;status.classList.toggle('error',isError);}
+  function setMode(mode){activeDataMode=mode;document.documentElement.dataset.mapMode=mode;}
+  function updateSourceUI(mode){const labels={loading:'読込中',cshapes:'CShapes 2.0',mixed:'Cliopatria＋OHM',fallback:'Cliopatria',ohm:'OpenHistoricalMap',error:'読込失敗'};dataSource.textContent=labels[mode]||labels.error;if(!activeAttribution)return;if(mode==='cshapes')activeAttribution.innerHTML='<strong>表示中：</strong>CShapes 2.0（Schvitzほか、CC BY-NC-SA 4.0）';else if(mode==='mixed'||mode==='fallback')activeAttribution.innerHTML='<strong>表示中：</strong>Cliopatria（Bennettほか、CC BY 4.0）の概略政治領域＋年代指定済みOHM境界';else if(mode==='ohm')activeAttribution.innerHTML='<strong>表示中：</strong>OpenHistoricalMapの年代指定済み管理境界';else activeAttribution.textContent='政治領域データを準備中です。';}
+  function openDrawer(){drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');backdrop.hidden=false;}
+  function closeDrawer(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');backdrop.hidden=true;}
+
+  function updateYear(next,pushUrl=true,immediateMap=false){next=Number(next);if(!Number.isInteger(next)||next===0)return;humanYear=clamp(next,MIN_HUMAN_YEAR,MAX_HUMAN_YEAR);era.value=humanYear<0?'bce':'ce';yearInput.value=Math.abs(humanYear);slider.value=humanToAstronomical(humanYear);currentYear.textContent=labelYear(humanYear);$('timelineLinkTop').href=`timeline.html?year=${humanYear}`;if(pushUrl){const url=new URL(location.href);url.searchParams.set('year',humanYear);history.replaceState(null,'',url);}selectedFeature=null;closeDrawer();clearTimeout(updateTimer);updateTimer=immediateMap?(applyYearToMap(),0):setTimeout(applyYearToMap,180);renderRelated();}
+  function dateIntForYear(year){return year*10000+101;}
+  function cshapesBucket(year){return CSHAPES_BUCKETS.find(bucket=>year>=bucket.start&&year<=bucket.end);}
+  function fallbackBucket(year){return fallbackIndex?.buckets?.find(bucket=>year>=bucket.start&&year<=bucket.end);}
+
+  function stableColorIndex(value){const text=String(value||'名称未登録');let hash=2166136261;for(let i=0;i<text.length;i+=1){hash^=text.charCodeAt(i);hash=Math.imul(hash,16777619);}return Math.abs(hash>>>0)%PALETTE.length;}
+  function colorMatch(property){return['match',['to-number',['get',property],-1],...PALETTE.flatMap((color,index)=>[index,color]),'#c9c4ba'];}
+  function featureStateColorExpression(){return['match',['coalesce',['feature-state','colorIndex'],-1],...PALETTE.flatMap((color,index)=>[index,color]),'#c9c4ba'];}
+  function strictOHMDateFilter(year,extra=[]){const target=humanToAstronomical(year);return['all',['has','start_decdate'],['has','end_decdate'],['<=',['to-number',['get','start_decdate'],999999],target],['>=',['to-number',['get','end_decdate'],-999999],target],...extra];}
+  function politicalEntityFilter(){return['any',['in',['to-number',['get','admin_level'],99],['literal',[1,2]]],['in',['downcase',['to-string',['get','boundary']]],['literal',['political','historic','historical']]],['in',['downcase',['to-string',['get','place']]],['literal',['country','state','kingdom','empire','territory']]],['==',['downcase',['to-string',['get','political_division']]],'yes']];}
+  function uncertainFilter(){return['any',['in',['downcase',['to-string',['get','indefinite']]],['literal',['yes','true']]],['in',['downcase',['to-string',['get','disputed']]],['literal',['yes','true']]],['in',['downcase',['to-string',['get','boundary_certainty']]],['literal',['uncertain','approximate']]],['in',['downcase',['to-string',['get','accuracy']]],['literal',['uncertain','approximate']]]];}
+  function japaneseNameExpression(){const dictionary=['match',['coalesce',['get','name_en'],['get','name'],'']];Object.entries(nameDictionary).forEach(([source,japanese])=>dictionary.push(source,japanese));dictionary.push('');return['coalesce',['get','name:ja'],['get','name_ja'],['get','name_jp'],dictionary,''];}
+
+  function geometryIsSafe(geometry){if(!geometry||!['Polygon','MultiPolygon'].includes(geometry.type))return false;const polygons=geometry.type==='Polygon'?[geometry.coordinates]:geometry.coordinates;if(!Array.isArray(polygons)||!polygons.length)return false;for(const polygon of polygons)for(const ring of polygon){if(!Array.isArray(ring)||ring.length<4)return false;const first=ring[0],last=ring[ring.length-1];if(!Array.isArray(first)||!Array.isArray(last)||first[0]!==last[0]||first[1]!==last[1])return false;for(const point of ring)if(!Array.isArray(point)||!Number.isFinite(point[0])||!Number.isFinite(point[1])||point[0]<-180||point[0]>180||point[1]<-90||point[1]>90)return false;}return true;}
+  function sanitizeFallbackGeoJSON(data){if(!data||data.type!=='FeatureCollection'||!Array.isArray(data.features))return EMPTY_GEOJSON;const accepted=[];for(const feature of data.features){const p=feature?.properties||{},license=String(p.license||'').toUpperCase(),trustedLicenses=TRUSTED_FALLBACKS.get(String(p.source_url||'')),required=['id','name_ja','name_en','source_title','source_url','license','license_url','attribution','accessed_at','accuracy_note','reconstruction_method','existence_confidence','territory_accuracy'],datesValid=Number.isInteger(Number(p.start))&&Number.isInteger(Number(p.end))&&Number(p.start)!==0&&Number(p.end)!==0&&Number(p.start)<=Number(p.end);if(!trustedLicenses?.has(license)||!required.every(key=>String(p[key]??'').trim())||!datesValid||!geometryIsSafe(feature.geometry)){console.warn('補完政治領域を安全要件不備のため除外しました',p.id||p.name_ja||'名称なし');continue;}const copy=JSON.parse(JSON.stringify(feature));copy.properties.license=license;if(!Number.isInteger(Number(copy.properties.color_index)))copy.properties.color_index=stableColorIndex(copy.properties.id);accepted.push(copy);}return{type:'FeatureCollection',features:accepted};}
+  function firstSymbolLayer(){return map.getStyle().layers.find(layer=>layer.type==='symbol')?.id;}
+
+  function addPoliticalLayers(){
+    map.addSource('ohm-admin',{type:'vector',tiles:[OHM_ADMIN_TILES],minzoom:0,maxzoom:20,promoteId:'osm_id'});
+    map.addSource('fullpuri-political-fallback',{type:'geojson',data:EMPTY_GEOJSON,promoteId:'id'});
+    map.addSource('fullpuri-political-fallback-labels',{type:'geojson',data:EMPTY_GEOJSON});
+    const beforeId=firstSymbolLayer();
+    map.addLayer({id:'historical-ohm-fill',type:'fill',source:'ohm-admin','source-layer':'boundaries',paint:{'fill-color':featureStateColorExpression(),'fill-opacity':.64}},beforeId);
+    map.addLayer({id:'historical-ohm-boundary',type:'line',source:'ohm-admin','source-layer':'boundaries',paint:{'line-color':'#403a32','line-width':['interpolate',['linear'],['zoom'],0,.65,4,1.25,8,2.1],'line-opacity':.86}},beforeId);
+    map.addLayer({id:'historical-ohm-boundary-uncertain',type:'line',source:'ohm-admin','source-layer':'boundaries',paint:{'line-color':'#5b5146','line-width':['interpolate',['linear'],['zoom'],0,.75,6,1.7],'line-dasharray':[3,2],'line-opacity':.7}},beforeId);
+    map.addLayer({id:'fallback-political-fill',type:'fill',source:'fullpuri-political-fallback',paint:{'fill-color':colorMatch('color_index'),'fill-opacity':['interpolate',['linear'],['zoom'],0,.67,6,.55]}},beforeId);
+    map.addLayer({id:'fallback-political-boundary',type:'line',source:'fullpuri-political-fallback',paint:{'line-color':'#4e463c','line-width':['interpolate',['linear'],['zoom'],0,.75,5,1.65,9,2.4],'line-dasharray':[3,2],'line-opacity':.86}},beforeId);
+    const labelLayout={'text-field':japaneseNameExpression(),'text-font':['Noto Sans Regular'],'text-max-width':8,'text-allow-overlap':false,'text-ignore-placement':false,'symbol-sort-key':['-',0,['to-number',['get','area_km2'],0]]},labelPaint={'text-color':'#211e19','text-halo-color':'rgba(255,255,255,.95)','text-halo-width':1.5,'text-halo-blur':.4};
+    map.addLayer({id:'historical-ohm-label-major',type:'symbol',source:'ohm-admin','source-layer':'boundaries',maxzoom:2.5,layout:{...labelLayout,'text-size':['interpolate',['linear'],['zoom'],0,10,2.5,13]},paint:labelPaint},beforeId);
+    map.addLayer({id:'historical-ohm-label-medium',type:'symbol',source:'ohm-admin','source-layer':'boundaries',minzoom:2.5,maxzoom:4.5,layout:{...labelLayout,'text-size':['interpolate',['linear'],['zoom'],2.5,11,4.5,14]},paint:labelPaint},beforeId);
+    map.addLayer({id:'historical-ohm-label-detail',type:'symbol',source:'ohm-admin','source-layer':'boundaries',minzoom:4.5,layout:{...labelLayout,'text-size':['interpolate',['linear'],['zoom'],4.5,12,9,16]},paint:labelPaint},beforeId);
+    map.addLayer({id:'fallback-political-label',type:'symbol',source:'fullpuri-political-fallback-labels',layout:{'text-field':['get','name_ja'],'text-font':['Noto Sans Regular'],'text-size':['interpolate',['linear'],['zoom'],0,10,5,14],'text-max-width':8,'text-allow-overlap':false,'symbol-sort-key':['-',0,['to-number',['get','area_km2'],0]]},paint:labelPaint},beforeId);
+    map.addLayer({id:'modern-boundaries',type:'line',source:'ohm-admin','source-layer':'boundaries',layout:{visibility:'none'},filter:strictOHMDateFilter(MAX_HUMAN_YEAR,[politicalEntityFilter()]),paint:{'line-color':'#4e7180','line-width':['interpolate',['linear'],['zoom'],0,.4,6,1],'line-dasharray':[2,2],'line-opacity':.5}},beforeId);
   }
+  function addCShapesLayers(){map.addSource('cshapes',{type:'geojson',data:EMPTY_GEOJSON});map.addSource('cshapes-labels',{type:'geojson',data:EMPTY_GEOJSON});const beforeId=firstSymbolLayer();map.addLayer({id:'cshapes-fill',type:'fill',source:'cshapes',layout:{visibility:'none'},paint:{'fill-color':colorMatch('c'),'fill-opacity':['interpolate',['linear'],['zoom'],0,.74,6,.56]}},beforeId);map.addLayer({id:'cshapes-boundary',type:'line',source:'cshapes',layout:{visibility:'none'},paint:{'line-color':'#403a32','line-width':['interpolate',['linear'],['zoom'],0,.65,4,1.25,8,2.1],'line-opacity':.9}},beforeId);map.addLayer({id:'cshapes-label',type:'symbol',source:'cshapes-labels',layout:{visibility:'none','text-field':['get','n'],'text-font':['Noto Sans Regular'],'text-size':['interpolate',['linear'],['zoom'],0,10,5,14],'text-max-width':8,'text-allow-overlap':false},paint:{'text-color':'#211e19','text-halo-color':'rgba(255,255,255,.95)','text-halo-width':1.5}},beforeId);}
+  function keepAsBase(layer){if(layer.type==='background'||layer.id.startsWith('natural-earth-'))return true;if(layer.id.startsWith('historical-')||layer.id.startsWith('fallback-')||layer.id.startsWith('cshapes-')||layer.id==='modern-boundaries')return true;const sourceLayer=String(layer['source-layer']||'').toLowerCase();return/^(land|water_areas|water_lines|natural_lines|coastline)$/.test(sourceLayer);}
+  function simplifyBaseStyle(){map.getStyle().layers.forEach(layer=>{if(layer.id.startsWith('historical-')||layer.id.startsWith('fallback-')||layer.id.startsWith('cshapes-')||layer.id==='modern-boundaries')return;try{map.setLayoutProperty(layer.id,'visibility',keepAsBase(layer)?'visible':'none');}catch(_){}});}
+  function setLayerVisibility(ids,visible){ids.forEach(id=>{if(map.getLayer(id))map.setLayoutProperty(id,'visibility',visible?'visible':'none');});}
+  function syncLayerToggles(){const politics=$('togglePolitics').checked,labels=$('toggleLabels').checked,isOHM=activeDataMode==='ohm',isMixed=activeDataMode==='mixed',showFallback=(activeDataMode==='fallback'||isMixed)&&politics,showCShapes=activeDataMode==='cshapes'&&politics;setLayerVisibility(['historical-ohm-fill'],isOHM&&politics);setLayerVisibility(['historical-ohm-boundary','historical-ohm-boundary-uncertain'],(isOHM||isMixed)&&politics);setLayerVisibility(OHM_LABEL_IDS,isOHM&&labels);setLayerVisibility(FALLBACK_LAYER_IDS,showFallback);setLayerVisibility(['fallback-political-label'],(activeDataMode==='fallback'||isMixed)&&labels);setLayerVisibility(CSHAPES_LAYER_IDS,showCShapes);setLayerVisibility(['cshapes-label'],activeDataMode==='cshapes'&&labels);if(map.getLayer('modern-boundaries'))map.setLayoutProperty('modern-boundaries','visibility',$('toggleModernBorders').checked?'visible':'none');if(map.getLayer('historical-ohm-boundary'))map.setPaintProperty('historical-ohm-boundary','line-opacity',isMixed?.24:.86);if(map.getLayer('historical-ohm-boundary-uncertain'))map.setPaintProperty('historical-ohm-boundary-uncertain','line-opacity',isMixed?.24:.7);mapLegend.hidden=!politics;}
+  function applyOHMFilters(year){const entity=politicalEntityFilter(),uncertain=uncertainFilter(),common=strictOHMDateFilter(year,[entity]),certain=strictOHMDateFilter(year,[entity,['!',uncertain]]);map.setFilter('historical-ohm-fill',common);map.setFilter('historical-ohm-boundary',certain);map.setFilter('historical-ohm-boundary-uncertain',strictOHMDateFilter(year,[entity,uncertain]));map.setFilter('historical-ohm-label-major',strictOHMDateFilter(year,[entity,['>=',['to-number',['get','area_km2'],0],60000]]));map.setFilter('historical-ohm-label-medium',strictOHMDateFilter(year,[entity,['>=',['to-number',['get','area_km2'],0],12000]]));map.setFilter('historical-ohm-label-detail',common);}
+  function refreshOHMLabels(){if(!mapReady)return;const expression=japaneseNameExpression();OHM_LABEL_IDS.forEach(id=>{if(map.getLayer(id))map.setLayoutProperty(id,'text-field',expression);});}
+  function filterCShapes(year){const target=dateIntForYear(year),filter=['all',['<=',['get','s'],target],['>',['get','e'],target]];[...CSHAPES_LAYER_IDS,'cshapes-label'].forEach(id=>map.setFilter(id,filter));}
+  function makeCShapesLabelPoints(geojson){return{type:'FeatureCollection',features:geojson.features.map(feature=>({type:'Feature',properties:feature.properties,geometry:{type:'Point',coordinates:[feature.properties.x,feature.properties.y]}}))};}
+  function makeFallbackLabelPoints(geojson){return{type:'FeatureCollection',features:geojson.features.filter(feature=>Number.isFinite(Number(feature.properties.label_lon))&&Number.isFinite(Number(feature.properties.label_lat))).map(feature=>({type:'Feature',properties:feature.properties,geometry:{type:'Point',coordinates:[Number(feature.properties.label_lon),Number(feature.properties.label_lat)]}}))};}
+  function activateFallbackYear(year){const active={type:'FeatureCollection',features:loadedFallbackData.features.filter(feature=>Number(feature.properties.start)<=year&&Number(feature.properties.end)>=year)};map.getSource('fullpuri-political-fallback').setData(active);map.getSource('fullpuri-political-fallback-labels').setData(makeFallbackLabelPoints(active));activeFallbackCount=active.features.length;return active;}
 
-  function setStatus(message, isError = false) {
-    status.textContent = message;
-    status.classList.toggle('error', isError);
-  }
+  async function showCShapes(year){const bucket=cshapesBucket(year),sequence=++loadSequence;if(fallbackAbort)fallbackAbort.abort();setMode('loading');updateSourceUI('loading');syncLayerToggles();filterCShapes(year);if(activeCShapesFile===bucket.file){setMode('cshapes');updateSourceUI('cshapes');syncLayerToggles();setStatus(`${labelYear(year)}1月1日時点の政治領域を表示中（CShapes 2.0）。`);return;}if(cshapesAbort)cshapesAbort.abort();cshapesAbort=new AbortController();setStatus(`CShapes 2.0の${labelYear(year)}データを読み込み中…`);try{const response=await fetch(CSHAPES_BASE+bucket.file,{signal:cshapesAbort.signal});if(!response.ok)throw new Error(`HTTP ${response.status}`);const geojson=await response.json();if(sequence!==loadSequence||!isCShapesYear(humanYear))return;map.getSource('cshapes').setData(geojson);map.getSource('cshapes-labels').setData(makeCShapesLabelPoints(geojson));activeCShapesFile=bucket.file;filterCShapes(humanYear);setMode('cshapes');updateSourceUI('cshapes');syncLayerToggles();setStatus(`${labelYear(humanYear)}1月1日時点の政治領域を表示中（CShapes 2.0）。`);}catch(error){if(error.name==='AbortError')return;console.error(error);showOHMOnly(year,true);}}
+  function showOHMOnly(year,isFallback=false){++loadSequence;if(cshapesAbort)cshapesAbort.abort();if(fallbackAbort)fallbackAbort.abort();map.getSource('fullpuri-political-fallback').setData(EMPTY_GEOJSON);map.getSource('fullpuri-political-fallback-labels').setData(EMPTY_GEOJSON);activeFallbackCount=0;try{applyOHMFilters(year);simplifyBaseStyle();setMode('ohm');updateSourceUI('ohm');syncLayerToggles();setStatus(`${labelYear(year)}の年代情報が明示された政治領域を表示中（OpenHistoricalMap）${isFallback?'。CShapesの読み込みに失敗したため代替表示です。':'。'}`);}catch(error){console.error(error);setMode('error');updateSourceUI('error');setStatus('政治領域の年切り替えに失敗しました。ページを再読み込みしてください。',true);}}
+  async function showHistoricalFallback(year){const sequence=++loadSequence,bucket=fallbackBucket(year);if(cshapesAbort)cshapesAbort.abort();applyOHMFilters(year);simplifyBaseStyle();setMode('loading');updateSourceUI('loading');syncLayerToggles();if(!bucket){showOHMOnly(year);return;}if(activeFallbackFile===bucket.file){activateFallbackYear(year);const mode=activeFallbackCount?'mixed':'ohm';setMode(mode);updateSourceUI(mode);syncLayerToggles();setStatus(activeFallbackCount?`${labelYear(year)}の概略政治領域を${activeFallbackCount}件表示中。点線は境界不確実で、厳密な確定国境ではありません。`:`${labelYear(year)}は安全に利用できる補完領域がありません。`);return;}if(fallbackAbort)fallbackAbort.abort();fallbackAbort=new AbortController();setStatus(`${labelYear(year)}の世界政治領域を読み込み中…`);try{const response=await fetch(FALLBACK_BASE+bucket.file,{signal:fallbackAbort.signal});if(!response.ok)throw new Error(`HTTP ${response.status}`);const clean=sanitizeFallbackGeoJSON(await response.json());if(sequence!==loadSequence||isCShapesYear(humanYear)||humanYear!==year)return;loadedFallbackData=clean;activeFallbackFile=bucket.file;activateFallbackYear(year);const mode=activeFallbackCount?'mixed':'ohm';setMode(mode);updateSourceUI(mode);syncLayerToggles();setStatus(activeFallbackCount?`${labelYear(year)}の概略政治領域を${activeFallbackCount}件表示中。点線は境界不確実で、厳密な確定国境ではありません。`:`${labelYear(year)}は安全に利用できる補完領域がありません。年代情報が明示されたOHM領域だけを表示します。`);}catch(error){if(error.name==='AbortError')return;console.error(error);showOHMOnly(year);setStatus('補完政治領域を読み込めなかったため、年代情報が明示されたOHM領域だけを表示しています。',true);}}
+  function applyYearToMap(){if(!mapReady||!map)return;if(isCShapesYear(humanYear))showCShapes(humanYear);else if(humanYear<CSHAPES_START)showHistoricalFallback(humanYear);else showOHMOnly(humanYear);}
 
-  function updateSourceUI(mode, fallback = false) {
-    if (mode === 'cshapes') {
-      dataSource.textContent = 'CShapes 2.0';
-      mapLegend.hidden = false;
-      return;
-    }
-    dataSource.textContent = fallback ? 'OHM（代替表示）' : 'OpenHistoricalMap';
-    mapLegend.hidden = true;
-  }
+  function getJapaneseName(properties={}){const source=properties.name_en||properties.name||'';return properties.n||properties['name:ja']||properties.name_ja||properties.name_jp||nameDictionary[source]||'';}
+  function getName(properties={}){return getJapaneseName(properties)||properties.name||properties.name_en||'名称未登録の領域';}
+  function scheduleOHMFeatureColors(){clearTimeout(ohmColorTimer);ohmColorTimer=setTimeout(()=>{if(!map||!map.getSource('ohm-admin'))return;const seen=new Set();map.querySourceFeatures('ohm-admin',{sourceLayer:'boundaries'}).forEach(feature=>{if(feature.id===undefined||feature.id===null||seen.has(feature.id))return;seen.add(feature.id);const p=feature.properties||{},source=p.name_en||p.name||'',canonical=p['name:ja']||p.name_ja||p.name_jp||nameDictionary[source]||source||String(feature.id);map.setFeatureState({source:'ohm-admin',sourceLayer:'boundaries',id:feature.id},{colorIndex:stableColorIndex(canonical)});});},100);}
+  function formatDateInt(value){const raw=String(value||'').padStart(8,'0');return/^\d{8}$/.test(raw)?`${Number(raw.slice(0,4))}年${Number(raw.slice(4,6))}月${Number(raw.slice(6,8))}日`:'登録なし';}
+  function formatOHMDate(value){if(value===undefined||value===null||value==='')return'登録なし';const raw=String(value),match=raw.match(/^(-?\d{1,6})(?:-(\d{1,2})(?:-(\d{1,2}))?)?/);if(!match)return raw;const human=astronomicalToHuman(Number(match[1])),suffix=match[2]?`${Number(match[2])}月${match[3]?`${Number(match[3])}日`:''}`:'';return`${labelYear(human)}${suffix}`;}
 
-  function updateYear(next, pushUrl = true, immediateMap = false) {
-    next = Number(next);
-    if (!Number.isInteger(next) || next === 0) return;
-    humanYear = clamp(next, MIN_HUMAN_YEAR, MAX_HUMAN_YEAR);
-    era.value = humanYear < 0 ? 'bce' : 'ce';
-    yearInput.value = Math.abs(humanYear);
-    slider.value = humanToAstronomical(humanYear);
-    currentYear.textContent = labelYear(humanYear);
-    $('timelineLinkTop').href = `timeline.html?year=${humanYear}`;
-    if (pushUrl) {
-      const url = new URL(location.href);
-      url.searchParams.set('year', humanYear);
-      history.replaceState(null, '', url);
-    }
-    selectedFeature = null;
-    scheduleMapUpdate(immediateMap);
-    renderRelated();
-  }
+  function showFeature(feature){if(!feature)return;selectedFeature=feature;const p=feature.properties||{},name=getName(p);if(feature.source==='cshapes'){featureInfo.innerHTML=`<div class="featureName">${esc(name)}</div><dl class="factGrid"><dt>表示時点</dt><dd>${esc(labelYear(humanYear))}1月1日</dd><dt>収録期間</dt><dd>${esc(formatDateInt(p.s))} ～ ${esc(formatDateInt(p.e))}</dd><dt>データ</dt><dd>CShapes 2.0</dd><dt>出典</dt><dd>Schvitzほか（2022）</dd><dt>ライセンス</dt><dd>CC BY-NC-SA 4.0</dd></dl>`;}else if(feature.source==='fullpuri-political-fallback'){let aliases=[];try{aliases=Array.isArray(p.aliases)?p.aliases:JSON.parse(p.aliases||'[]');}catch(_){}featureInfo.innerHTML=`<div class="featureName">${esc(p.name_ja)}</div><div class="accuracyBadge">概略・境界不確実</div><dl class="factGrid"><dt>英語・原語名</dt><dd>${esc(p.name_en)}</dd>${aliases.length?`<dt>別名</dt><dd>${esc(aliases.join('／'))}</dd>`:''}<dt>表示年</dt><dd>${esc(labelYear(humanYear))}</dd><dt>存在確認</dt><dd>${esc(p.existence_confidence)}</dd><dt>領域精度</dt><dd>${esc(p.territory_accuracy)}（点線境界）</dd><dt>収録期間</dt><dd>${esc(labelYear(Number(p.start)))} ～ ${esc(labelYear(Number(p.end)))}</dd><dt>出典</dt><dd>${esc(p.source_title)}</dd><dt>ライセンス</dt><dd>${esc(p.license)}</dd><dt>帰属表示</dt><dd>${esc(p.attribution)}</dd><dt>精度注記</dt><dd>${esc(p.accuracy_note)}</dd><dt>処理方法</dt><dd>${esc(p.reconstruction_method)}</dd><dt>確認日</dt><dd>${esc(p.accessed_at)}</dd><dt>出典URL</dt><dd><a href="${esc(p.source_url)}" target="_blank" rel="noopener">資料を開く</a></dd></dl>`;}else{featureInfo.innerHTML=`<div class="featureName">${esc(name)}</div><dl class="factGrid"><dt>表示年</dt><dd>${esc(labelYear(humanYear))}</dd><dt>収録期間</dt><dd>${esc(formatOHMDate(p.start_date||p.start_decdate))} ～ ${esc(formatOHMDate(p.end_date||p.end_decdate))}</dd><dt>行政区分</dt><dd>${esc(p.admin_level||'登録なし')}</dd><dt>データ</dt><dd>OpenHistoricalMap 管理境界</dd><dt>ライセンス</dt><dd>OHMの著作権表示を参照</dd></dl>`;}renderRelated();openDrawer();}
+  function showMissingArea(lngLat){selectedFeature=null;featureInfo.innerHTML=`<div class="featureName">この地点の政治領域を確認できませんでした</div><dl class="factGrid"><dt>表示年</dt><dd>${esc(labelYear(humanYear))}</dd><dt>地点</dt><dd>緯度 ${esc(lngLat.lat.toFixed(2))}／経度 ${esc(lngLat.lng.toFixed(2))}</dd><dt>説明</dt><dd>現在読み込まれている出典付きデータでは、この地点を覆う政治領域を確認できません。国家や政治勢力が存在しなかったことを意味しません。</dd></dl>`;renderRelated();openDrawer();}
+  function featureTokens(){if(!selectedFeature)return[];const p=selectedFeature.properties||{};let aliases=[];try{aliases=Array.isArray(p.aliases)?p.aliases:JSON.parse(p.aliases||'[]');}catch(_){}const raw=[getName(p),p.name_en,p.name,...aliases].filter(Boolean).join(' ');return raw.toLowerCase().split(/[\s・＝=()（）,、/]+/).filter(token=>token.length>=2||IMPORTANT_ONE_CHARACTER_NAMES.has(token));}
+  function eventScore(event,tokens){const distance=Math.abs(Number(event.sort)-humanYear),haystack=`${event.event} ${event.detail||''} ${(event.regions||[]).join(' ')}`.toLowerCase();return(tokens.some(token=>haystack.includes(token))?1200:0)-distance;}
+  function getNearbyEvents(){const tokens=featureTokens(),usable=timelineEvents.filter(event=>Number.isFinite(event.sort)),close=usable.filter(event=>Math.abs(event.sort-humanYear)<=(Math.abs(humanYear)<1000?15:5)),candidates=close.length?close:usable.slice().sort((a,b)=>Math.abs(a.sort-humanYear)-Math.abs(b.sort-humanYear)).slice(0,12);return candidates.sort((a,b)=>eventScore(b,tokens)-eventScore(a,tokens)||a.sort-b.sort).slice(0,10);}
+  function findRange(no){return manifestRanges.find(range=>range.start<=no&&range.end>=no)||null;}
+  function renderRelated(){if(!timelineEvents.length)return;const events=getNearbyEvents();nearbyEvents.innerHTML=events.length?events.map(event=>`<div class="eventItem"><div class="eventDate">${esc(event.date)}</div><div class="eventTitle">${esc(event.event)}</div>${event.detail?`<div class="eventDetail">${esc(event.detail)}</div>`:''}</div>`).join(''):'<div class="emptyInfo">この年の近くに、総合年表の項目はありません。</div>';const printMap=new Map();events.forEach(event=>{const range=findRange(event.noStart);if(range&&!printMap.has(range.file))printMap.set(range.file,{range,source:event.source});});const prints=[...printMap.values()].slice(0,8);relatedPrints.innerHTML=prints.length?prints.map(({range,source})=>`<a class="printLink" href="../${esc(range.file)}"><strong>No.${String(range.start).padStart(3,'0')}${range.end!==range.start?`–${String(range.end).padStart(3,'0')}`:''} ${esc(range.title)}</strong><span>${esc(source)}</span></a>`).join(''):'<div class="emptyInfo">この年の近くに、古プリ出典付きの年表項目はありません。</div>';}
 
-  function scheduleMapUpdate(immediate = false) {
-    clearTimeout(updateTimer);
-    if (immediate) {
-      applyYearToMap();
-    } else {
-      updateTimer = setTimeout(applyYearToMap, 180);
-    }
-  }
+  async function loadSupportingData(){const tasks=[fetch('../assets/historical-map/timeline-events.json').then(r=>r.ok?r.json():[]).then(data=>{timelineEvents=data;renderRelated();}),fetch('../manifest.json').then(r=>r.ok?r.json():{}).then(data=>{manifestRanges=data.ranges||[];}),fetch('../assets/historical-map/political-names-ja.json').then(r=>r.ok?r.json():{}).then(data=>{nameDictionary=data.names||{};refreshOHMLabels();}),fetch(FALLBACK_BASE+'index.json').then(r=>r.ok?r.json():null).then(data=>{fallbackIndex=data;if(mapReady&&humanYear<CSHAPES_START)applyYearToMap();})];await Promise.allSettled(tasks);}
+  function interactiveLayerIds(){if(activeDataMode==='cshapes')return['cshapes-fill'];if(activeDataMode==='mixed')return['fallback-political-fill','historical-ohm-fill'];if(activeDataMode==='fallback')return['fallback-political-fill'];if(activeDataMode==='ohm')return['historical-ohm-fill'];return[];}
+  function initMap(){if(!window.maplibregl)return setStatus('地図表示プログラムを読み込めませんでした。',true);try{map=new maplibregl.Map({container:'map',style:STYLE_URL,center:START_VIEW.center,zoom:START_VIEW.zoom,minZoom:.5,maxZoom:12,attributionControl:false,renderWorldCopies:true,fadeDuration:0,crossSourceCollisions:true,maxTileCacheSize:20,refreshExpiredTiles:false});map.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:'<a href="https://www.openhistoricalmap.org/copyright" target="_blank">OpenHistoricalMap</a> | <a href="https://github.com/Seshat-Global-History-Databank/cliopatria" target="_blank">Cliopatria</a>・<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> | <a href="https://icr.ethz.ch/data/cshapes/" target="_blank">CShapes 2.0</a>・CC BY-NC-SA 4.0'}),'bottom-right');map.once('load',()=>{addPoliticalLayers();addCShapesLayers();simplifyBaseStyle();mapReady=true;applyYearToMap();});map.on('sourcedata',event=>{if(event.sourceId==='ohm-admin')scheduleOHMFeatureColors();});map.on('click',event=>{const visible=interactiveLayerIds().filter(id=>map.getLayer(id)&&map.getLayoutProperty(id,'visibility')!=='none');if(!visible.length)return;const feature=map.queryRenderedFeatures(event.point,{layers:visible})[0];if(feature)showFeature(feature);else showMissingArea(event.lngLat);});map.on('mousemove',event=>{const visible=interactiveLayerIds().filter(id=>map.getLayer(id)&&map.getLayoutProperty(id,'visibility')!=='none');map.getCanvas().style.cursor=visible.length&&map.queryRenderedFeatures(event.point,{layers:visible}).length?'pointer':'';});let loaded=false;map.on('load',()=>{loaded=true;});setTimeout(()=>{if(!loaded)setStatus('地図データの読み込みに時間がかかっています。通信状態を確認してください。',true);},15000);map.on('error',event=>console.warn('Map error',event.error||event));}catch(error){console.error(error);setMode('error');updateSourceUI('error');setStatus('地図を初期化できませんでした。',true);}}
 
-  function cshapesBucket(year) {
-    return CSHAPES_BUCKETS.find(bucket => year >= bucket.start && year <= bucket.end);
-  }
-
-  function dateIntForYear(year) {
-    return year * 10000 + 101;
-  }
-
-  function colorExpression() {
-    const expression = ['match', ['get', 'c']];
-    PALETTE.forEach((color, index) => expression.push(index, color));
-    expression.push('#c9c4ba');
-    return expression;
-  }
-
-  function addCShapesLayers() {
-    if (map.getSource('cshapes')) return;
-    map.addSource('cshapes', { type: 'geojson', data: EMPTY_GEOJSON });
-    map.addSource('cshapes-labels', { type: 'geojson', data: EMPTY_GEOJSON });
-    const firstSymbol = map.getStyle().layers.find(layer => layer.type === 'symbol');
-    const beforeId = firstSymbol ? firstSymbol.id : undefined;
-    map.addLayer({
-      id: 'cshapes-fill',
-      type: 'fill',
-      source: 'cshapes',
-      layout: { visibility: 'none' },
-      paint: {
-        'fill-color': colorExpression(),
-        'fill-opacity': 0.76
-      }
-    }, beforeId);
-    map.addLayer({
-      id: 'cshapes-boundary',
-      type: 'line',
-      source: 'cshapes',
-      layout: { visibility: 'none' },
-      paint: {
-        'line-color': '#3f3a32',
-        'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0.55, 4, 1.25, 8, 2],
-        'line-opacity': 0.9
-      }
-    }, beforeId);
-    map.addLayer({
-      id: 'cshapes-label',
-      type: 'symbol',
-      source: 'cshapes-labels',
-      layout: {
-        visibility: 'none',
-        'text-field': ['get', 'n'],
-        'text-font': ['Noto Sans Regular'],
-        'text-size': ['interpolate', ['linear'], ['zoom'], 1, 10, 5, 13],
-        'text-max-width': 8,
-        'text-allow-overlap': false,
-        'text-ignore-placement': false
-      },
-      paint: {
-        'text-color': '#24201b',
-        'text-halo-color': 'rgba(255,255,255,0.92)',
-        'text-halo-width': 1.4
-      }
-    });
-  }
-
-  function localizeOHMLabels() {
-    const japaneseOnly = ['coalesce', ['get', 'name:ja'], ['get', 'name_ja'], ''];
-    for (const layer of map.getStyle().layers) {
-      if (layer.type !== 'symbol' || !layer.layout || !('text-field' in layer.layout)) continue;
-      try {
-        map.setLayoutProperty(layer.id, 'text-field', japaneseOnly);
-      } catch (error) {
-        console.debug('日本語ラベルへ変更できないレイヤー', layer.id, error);
-      }
-    }
-  }
-
-  function isPhysicalBaseLayer(layer) {
-    if (layer.type === 'background') return true;
-    if (layer.type === 'symbol') return false;
-    const sourceLayer = String(layer['source-layer'] || '').toLowerCase();
-    return /^(land|water|natural|coastline)/.test(sourceLayer);
-  }
-
-  function setReducedOHMMode(enabled) {
-    for (const layer of map.getStyle().layers) {
-      if (layer.id.startsWith('cshapes-')) continue;
-      if (!originalVisibility.has(layer.id)) {
-        originalVisibility.set(layer.id, map.getLayoutProperty(layer.id, 'visibility') || 'visible');
-      }
-      const visibility = enabled
-        ? (isPhysicalBaseLayer(layer) ? originalVisibility.get(layer.id) : 'none')
-        : originalVisibility.get(layer.id);
-      try {
-        map.setLayoutProperty(layer.id, 'visibility', visibility);
-      } catch (error) {
-        console.debug('レイヤー表示切替を省略', layer.id, error);
-      }
-    }
-  }
-
-  function setCShapesVisibility(visible) {
-    for (const id of ['cshapes-fill', 'cshapes-boundary', 'cshapes-label']) {
-      if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', visible ? 'visible' : 'none');
-    }
-  }
-
-  function filterCShapes(year) {
-    const target = dateIntForYear(year);
-    const filter = ['all', ['<=', ['get', 's'], target], ['>', ['get', 'e'], target]];
-    for (const id of ['cshapes-fill', 'cshapes-boundary', 'cshapes-label']) {
-      if (map.getLayer(id)) map.setFilter(id, filter);
-    }
-  }
-
-  function makeCShapesLabelPoints(geojson) {
-    return {
-      type: 'FeatureCollection',
-      features: geojson.features.map(feature => ({
-        type: 'Feature',
-        properties: feature.properties,
-        geometry: {
-          type: 'Point',
-          coordinates: [feature.properties.x, feature.properties.y]
-        }
-      }))
-    };
-  }
-
-  async function showCShapes(year) {
-    const bucket = cshapesBucket(year);
-    if (!bucket) return;
-    const sequence = ++loadSequence;
-    updateSourceUI('cshapes');
-    setReducedOHMMode(true);
-    setCShapesVisibility(true);
-    filterCShapes(year);
-
-    if (activeCShapesFile === bucket.file) {
-      setStatus(`${labelYear(year)}1月1日時点のCShapes 2.0国境を表示中。`);
-      return;
-    }
-
-    if (cshapesAbort) cshapesAbort.abort();
-    cshapesAbort = new AbortController();
-    setStatus(`CShapes 2.0の${labelYear(year)}データを読み込み中…`);
-    try {
-      const response = await fetch(CSHAPES_BASE + bucket.file, { signal: cshapesAbort.signal });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const geojson = await response.json();
-      if (sequence !== loadSequence || !isCShapesYear(humanYear)) return;
-      map.getSource('cshapes').setData(geojson);
-      map.getSource('cshapes-labels').setData(makeCShapesLabelPoints(geojson));
-      activeCShapesFile = bucket.file;
-      filterCShapes(humanYear);
-      setStatus(`${labelYear(humanYear)}1月1日時点のCShapes 2.0国境を表示中。`);
-    } catch (error) {
-      if (error.name === 'AbortError') return;
-      console.error(error);
-      setCShapesVisibility(false);
-      setReducedOHMMode(false);
-      updateSourceUI('ohm', true);
-      applyOHMDate(true);
-      setStatus('CShapes 2.0を読み込めなかったため、OpenHistoricalMapで代替表示しています。', true);
-    }
-  }
-
-  function applyOHMDate(isFallback = false) {
-    ++loadSequence;
-    if (cshapesAbort) cshapesAbort.abort();
-    setCShapesVisibility(false);
-    setReducedOHMMode(false);
-    updateSourceUI('ohm', isFallback);
-    try {
-      if (typeof map.filterByDate !== 'function') throw new Error('OHM日付フィルターがありません');
-      map.filterByDate(ohmYear(humanYear));
-      if (!isFallback) {
-        setStatus(`${labelYear(humanYear)}のOpenHistoricalMap収録データを表示中。未収録の地域・年代は空白になる場合があります。`);
-      }
-    } catch (error) {
-      console.error(error);
-      setStatus('年の切り替えに失敗しました。ページを再読み込みしてください。', true);
-    }
-  }
-
-  function applyYearToMap() {
-    if (!mapReady || !map) return;
-    if (isCShapesYear(humanYear)) {
-      showCShapes(humanYear);
-    } else {
-      applyOHMDate(false);
-    }
-  }
-
-  function getName(properties = {}) {
-    return properties.n || properties['name:ja'] || properties.name_ja || '日本語名未登録の領域';
-  }
-
-  function pickFeature(features) {
-    const cshapes = features.find(feature => feature.source === 'cshapes');
-    if (cshapes) return cshapes;
-    const named = features.filter(feature => getName(feature.properties || {}) !== '日本語名未登録の領域');
-    const areas = named.filter(feature => feature.geometry && /Polygon/.test(feature.geometry.type));
-    return areas[0] || named[0] || null;
-  }
-
-  function formatDateInt(value) {
-    const raw = String(value || '').padStart(8, '0');
-    if (!/^\d{8}$/.test(raw)) return '登録なし';
-    return `${Number(raw.slice(0, 4))}年${Number(raw.slice(4, 6))}月${Number(raw.slice(6, 8))}日`;
-  }
-
-  function formatOHMDate(value) {
-    if (value === undefined || value === null || value === '') return '登録なし';
-    const raw = String(value);
-    const match = raw.match(/^(-?\d{1,6})(?:-(\d{1,2})(?:-(\d{1,2}))?)?/);
-    if (!match) return raw;
-    const astronomical = Number(match[1]);
-    const human = astronomicalToHuman(astronomical);
-    const suffix = match[2] ? `${Number(match[2])}月${match[3] ? `${Number(match[3])}日` : ''}` : '';
-    return `${labelYear(human)}${suffix}`;
-  }
-
-  function showFeature(feature) {
-    selectedFeature = feature;
-    if (!feature) {
-      featureInfo.innerHTML = '<div class="emptyInfo">この位置では、日本語名付きの領域を確認できませんでした。</div>';
-      renderRelated();
-      return;
-    }
-    const p = feature.properties || {};
-    const name = getName(p);
-    if (feature.source === 'cshapes') {
-      featureInfo.innerHTML = `<div class="featureName">${esc(name)}</div><dl class="factGrid"><dt>表示時点</dt><dd>${esc(labelYear(humanYear))}1月1日</dd><dt>収録期間</dt><dd>${esc(formatDateInt(p.s))} ～ ${esc(formatDateInt(p.e))}</dd><dt>データ</dt><dd>CShapes 2.0</dd><dt>出典</dt><dd>Schvitzほか（2022）</dd><dt>ライセンス</dt><dd>CC BY-NC-SA 4.0</dd></dl>`;
-    } else {
-      const start = formatOHMDate(p.start_date || p.start_decdate);
-      const end = formatOHMDate(p.end_date || p.end_decdate);
-      const sourceLayer = feature.sourceLayer || feature.layer?.['source-layer'] || '不明';
-      featureInfo.innerHTML = `<div class="featureName">${esc(name)}</div><dl class="factGrid"><dt>表示年</dt><dd>${esc(labelYear(humanYear))}</dd><dt>収録期間</dt><dd>${esc(start)} ～ ${esc(end)}</dd><dt>OHMレイヤー</dt><dd>${esc(sourceLayer)}</dd><dt>データ</dt><dd>OpenHistoricalMap</dd><dt>ライセンス</dt><dd>OHMの著作権表示を参照</dd></dl>`;
-    }
-    renderRelated();
-  }
-
-  function eventScore(event, tokens) {
-    const distance = Math.abs(Number(event.sort) - humanYear);
-    const haystack = `${event.event} ${event.detail || ''} ${(event.regions || []).join(' ')}`.toLowerCase();
-    const nameMatch = tokens.some(token => token.length >= 2 && haystack.includes(token)) ? 1000 : 0;
-    return nameMatch - distance;
-  }
-
-  function getNearbyEvents() {
-    const name = selectedFeature ? getName(selectedFeature.properties || {}) : '';
-    const tokens = name.toLowerCase().split(/[\s・＝=()（）,、/]+/).filter(Boolean);
-    const usable = timelineEvents.filter(event => Number.isFinite(event.sort));
-    const close = usable.filter(event => Math.abs(event.sort - humanYear) <= (Math.abs(humanYear) < 1000 ? 15 : 5));
-    const candidates = close.length ? close : usable.slice().sort((a, b) => Math.abs(a.sort - humanYear) - Math.abs(b.sort - humanYear)).slice(0, 12);
-    return candidates.slice().sort((a, b) => eventScore(b, tokens) - eventScore(a, tokens) || a.sort - b.sort).slice(0, 10);
-  }
-
-  function findRange(no) {
-    return manifestRanges.find(range => range.start <= no && range.end >= no) || null;
-  }
-
-  function renderRelated() {
-    if (!timelineEvents.length) return;
-    const events = getNearbyEvents();
-    nearbyEvents.innerHTML = events.length ? events.map(event => `<div class="eventItem"><div class="eventDate">${esc(event.date)}</div><div class="eventTitle">${esc(event.event)}</div>${event.detail ? `<div class="eventDetail">${esc(event.detail)}</div>` : ''}</div>`).join('') : '<div class="emptyInfo">この年の近くに、総合年表の項目はありません。</div>';
-    const printMap = new Map();
-    for (const event of events) {
-      const range = findRange(event.noStart);
-      if (range && !printMap.has(range.file)) printMap.set(range.file, { range, source: event.source });
-    }
-    const prints = [...printMap.values()].slice(0, 8);
-    relatedPrints.innerHTML = prints.length ? prints.map(({ range, source }) => `<a class="printLink" href="../${esc(range.file)}"><strong>No.${String(range.start).padStart(3, '0')}${range.end !== range.start ? `–${String(range.end).padStart(3, '0')}` : ''} ${esc(range.title)}</strong><span>${esc(source)}</span></a>`).join('') : '<div class="emptyInfo">この年の近くに、古プリ出典付きの年表項目はありません。</div>';
-  }
-
-  async function loadRelatedData() {
-    try {
-      const [eventsResponse, manifestResponse] = await Promise.all([
-        fetch('../assets/historical-map/timeline-events.json'),
-        fetch('../manifest.json')
-      ]);
-      if (!eventsResponse.ok || !manifestResponse.ok) throw new Error('related data unavailable');
-      timelineEvents = await eventsResponse.json();
-      manifestRanges = (await manifestResponse.json()).ranges || [];
-      renderRelated();
-    } catch (error) {
-      nearbyEvents.innerHTML = '<div class="emptyInfo">年表データを読み込めませんでした。</div>';
-      relatedPrints.innerHTML = '<div class="emptyInfo">古プリとの関連を読み込めませんでした。</div>';
-    }
-  }
-
-  function initMap() {
-    if (!window.maplibregl) {
-      setStatus('地図表示プログラムを読み込めませんでした。', true);
-      return;
-    }
-    try {
-      map = new maplibregl.Map({
-        container: 'map',
-        style: STYLE_URL,
-        center: START_VIEW.center,
-        zoom: START_VIEW.zoom,
-        minZoom: 0.5,
-        maxZoom: 12,
-        attributionControl: false,
-        renderWorldCopies: false,
-        fadeDuration: 0,
-        crossSourceCollisions: false,
-        maxTileCacheSize: 32
-      });
-      map.addControl(new maplibregl.AttributionControl({
-        compact: true,
-        customAttribution: '<a href="https://www.openhistoricalmap.org/copyright" target="_blank">OpenHistoricalMap</a> | <a href="https://icr.ethz.ch/data/cshapes/" target="_blank">CShapes 2.0</a>・<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" target="_blank">CC BY-NC-SA 4.0</a>'
-      }), 'bottom-right');
-      map.once('load', () => {
-        mapReady = true;
-        localizeOHMLabels();
-        addCShapesLayers();
-        applyYearToMap();
-      });
-      map.on('click', event => {
-        const features = map.queryRenderedFeatures(event.point, {
-          layers: map.getStyle().layers.filter(layer => map.getLayer(layer.id) && map.getLayoutProperty(layer.id, 'visibility') !== 'none').map(layer => layer.id)
-        });
-        showFeature(pickFeature(features));
-      });
-      let loaded = false;
-      map.on('load', () => { loaded = true; });
-      setTimeout(() => {
-        if (!loaded) setStatus('地図データの読み込みに時間がかかっています。通信状態を確認してください。', true);
-      }, 15000);
-      map.on('error', event => {
-        if (!loaded) setStatus('地図の背景データを読み込めません。通信状態を確認してください。', true);
-        console.warn('Map error', event.error || event);
-      });
-    } catch (error) {
-      console.error(error);
-      setStatus('地図を初期化できませんでした。', true);
-    }
-  }
-
-  era.addEventListener('change', () => updateYear((era.value === 'bce' ? -1 : 1) * Math.max(1, Number(yearInput.value) || 1), true, true));
-  yearInput.addEventListener('input', () => {
-    const entered = Number(yearInput.value);
-    if (Number.isInteger(entered) && entered >= 1) updateYear((era.value === 'bce' ? -1 : 1) * entered);
-  });
-  slider.addEventListener('input', () => updateYear(astronomicalToHuman(Number(slider.value))));
-  $('previousYear').addEventListener('click', () => updateYear(stepYear(humanYear, -1), true, true));
-  $('nextYear').addEventListener('click', () => updateYear(stepYear(humanYear, 1), true, true));
-  document.querySelector('.presetYears').addEventListener('click', event => {
-    const button = event.target.closest('[data-year]');
-    if (button) updateYear(Number(button.dataset.year), true, true);
-  });
-  $('zoomIn').addEventListener('click', () => map && map.zoomIn());
-  $('zoomOut').addEventListener('click', () => map && map.zoomOut());
-  $('resetMap').addEventListener('click', () => map && map.easeTo({ ...START_VIEW, duration: 300 }));
-  addEventListener('popstate', () => updateYear(parseRequestedYear(), false, true));
-
-  updateYear(parseRequestedYear(), false);
-  loadRelatedData();
-  initMap();
+  function commitYearInput(){const entered=Number(yearInput.value);if(Number.isInteger(entered)&&entered>=1)updateYear((era.value==='bce'?-1:1)*entered,true,true);else yearInput.value=Math.abs(humanYear);}
+  era.addEventListener('change',commitYearInput);yearInput.addEventListener('change',commitYearInput);yearInput.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();commitYearInput();yearInput.blur();}});slider.addEventListener('input',()=>{currentYear.textContent=labelYear(astronomicalToHuman(Number(slider.value)));});slider.addEventListener('change',()=>updateYear(astronomicalToHuman(Number(slider.value)),true,true));
+  $('minusHundred')?.addEventListener('click',()=>updateYear(stepYear(humanYear,-100),true,true));$('minusTen').addEventListener('click',()=>updateYear(stepYear(humanYear,-10),true,true));$('previousYear').addEventListener('click',()=>updateYear(stepYear(humanYear,-1),true,true));$('nextYear').addEventListener('click',()=>updateYear(stepYear(humanYear,1),true,true));$('plusTen').addEventListener('click',()=>updateYear(stepYear(humanYear,10),true,true));$('plusHundred')?.addEventListener('click',()=>updateYear(stepYear(humanYear,100),true,true));
+  $('zoomIn').addEventListener('click',()=>map&&map.zoomIn());$('zoomOut').addEventListener('click',()=>map&&map.zoomOut());$('resetMap').addEventListener('click',()=>map&&map.easeTo({...START_VIEW,duration:300}));$('layerButton').addEventListener('click',()=>{const panel=$('layerPanel');panel.hidden=!panel.hidden;$('layerButton').setAttribute('aria-expanded',String(!panel.hidden));});['togglePolitics','toggleLabels','toggleModernBorders'].forEach(id=>$(id).addEventListener('change',()=>{if(mapReady)syncLayerToggles();}));$('closeDrawer').addEventListener('click',closeDrawer);backdrop.addEventListener('click',closeDrawer);addEventListener('keydown',event=>{if(event.key==='Escape'){closeDrawer();$('layerPanel').hidden=true;$('layerButton').setAttribute('aria-expanded','false');}});addEventListener('popstate',()=>updateYear(parseRequestedYear(),false,true));
+  updateYear(parseRequestedYear(),false);initMap();loadSupportingData();
 })();

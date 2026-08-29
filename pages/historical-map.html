@@ -10,56 +10,68 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png">
 <link rel="manifest" href="../manifest.json">
 <link rel="stylesheet" href="../assets/vendor/maplibre-gl/maplibre-gl.css">
-<link rel="stylesheet" href="../assets/historical-map/historical-map.css">
+<link rel="stylesheet" href="../assets/historical-map/historical-map.css?v=20260829e">
 </head>
 <body>
 <header><div class="head"><a class="siteBrand" href="../index.html" aria-label="古プリ比較システムのトップページ"><img src="../assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><a href="../index.html">ナンバー順</a><a href="regional.html">地域・時代順</a><a href="centuries.html">世紀別</a><a href="search.html">文字検索</a><a href="timeline.html">総合年表</a><span class="active" aria-current="page">歴史地図</span></nav></div></header>
 
 <main>
-  <section class="intro">
-    <div><h1>歴史世界地図</h1><p>年を指定して、その時代の国・領域・地名を日本語で確認できます。</p></div>
-    <a id="timelineLinkTop" class="timelineLink" href="timeline.html">同じ年を総合年表で見る</a>
-  </section>
-
-  <section class="timePanel" aria-label="表示する年">
+  <section class="mapToolbar" aria-label="年代と表示の設定">
+    <div class="toolbarTitle"><h1>歴史世界地図</h1><span id="dataSource" class="sourceBadge">OpenHistoricalMap</span></div>
     <div class="yearControls">
-      <label><span>紀元</span><select id="era"><option value="ce">西暦</option><option value="bce">紀元前</option></select></label>
-      <label class="yearField"><span>年</span><input id="yearInput" type="number" min="1" max="10000" inputmode="numeric" value="1848"></label>
-      <button id="previousYear" type="button" aria-label="1年前">−1年</button>
-      <button id="nextYear" type="button" aria-label="1年後">＋1年</button>
-      <div class="currentGroup"><output id="currentYear" aria-live="polite">西暦1848年</output><span id="dataSource" class="sourceBadge">OpenHistoricalMap</span></div>
+      <button id="minusHundred" type="button" aria-label="100年前">−100</button>
+      <button id="minusTen" type="button" aria-label="10年前">−10</button>
+      <button id="previousYear" type="button" aria-label="1年前">−1</button>
+      <label class="eraField"><span class="srOnly">紀元</span><select id="era" aria-label="紀元"><option value="ce">西暦</option><option value="bce">紀元前</option></select></label>
+      <label class="yearField"><span class="srOnly">年</span><input id="yearInput" type="number" min="1" max="10000" inputmode="numeric" value="1848" aria-label="年"></label>
+      <button id="nextYear" type="button" aria-label="1年後">＋1</button>
+      <button id="plusTen" type="button" aria-label="10年後">＋10</button>
+      <button id="plusHundred" type="button" aria-label="100年後">＋100</button>
+      <output id="currentYear" aria-live="polite">西暦1848年</output>
+      <button id="layerButton" class="settingsButton" type="button" aria-expanded="false" aria-controls="layerPanel">表示設定</button>
+      <a id="timelineLinkTop" class="timelineLink" href="timeline.html?year=1848">年表</a>
     </div>
-    <label class="sliderLabel"><span>年を連続して移動</span><input id="yearSlider" type="range" min="-4999" max="2026" step="1" value="1848"></label>
-    <div class="presetYears" aria-label="確認用の代表年">
-      <button type="button" data-year="-221">紀元前221</button><button type="button" data-year="395">395</button><button type="button" data-year="622">622</button><button type="button" data-year="1206">1206</button><button type="button" data-year="1453">1453</button><button type="button" data-year="1789">1789</button><button type="button" data-year="1914">1914</button><button type="button" data-year="1945">1945</button><button type="button" data-year="1991">1991</button>
+    <label class="sliderLabel"><span class="srOnly">年を連続して移動</span><input id="yearSlider" type="range" min="-3399" max="2026" step="1" value="1848"></label>
+    <div id="layerPanel" class="layerPanel" hidden>
+      <strong>地図の表示</strong>
+      <label><input id="togglePolitics" type="checkbox" checked> 政治領域</label>
+      <label><input id="toggleLabels" type="checkbox" checked> 国・領域名</label>
+      <label><input id="toggleModernBorders" type="checkbox"> 現代の国境</label>
+      <small>色は領域を見分けるためのもので、政治的意味はありません。</small>
     </div>
+    <div id="activeAttribution" class="activeAttribution">政治領域データを準備中です。</div>
   </section>
 
-  <div class="workspace">
-    <section class="mapCard" aria-label="歴史世界地図">
-      <div id="map" role="application" aria-label="指定した年の歴史世界地図"></div>
-      <div class="mapButtons" aria-label="地図操作"><button id="zoomIn" type="button" aria-label="拡大">＋</button><button id="zoomOut" type="button" aria-label="縮小">−</button><button id="resetMap" type="button">全体</button></div>
-      <div id="mapLegend" class="mapLegend" hidden><strong>凡例</strong><span><i class="territorySample"></i>国・領域の識別色</span><small>隣接領域が同色になりにくい配色です。色自体に政治的意味はありません。</small></div>
-      <div id="mapStatus" class="mapStatus" role="status">OpenHistoricalMapを読み込み中…</div>
-    </section>
+  <section class="mapCard" aria-label="歴史世界地図">
+    <div id="map" role="application" aria-label="指定した年の歴史世界地図"></div>
+    <div class="mapButtons" aria-label="地図操作"><button id="zoomIn" type="button" aria-label="拡大">＋</button><button id="zoomOut" type="button" aria-label="縮小">−</button><button id="resetMap" type="button">全体</button></div>
+    <div id="mapLegend" class="mapLegend"><strong>国・領域</strong><span><i class="territorySample"></i>確認済み</span><span><i class="unknownSample"></i>未確認</span></div>
+    <div id="mapStatus" class="mapStatus" role="status">政治領域データを読み込み中…</div>
+  </section>
 
-    <aside class="infoPanel" aria-live="polite">
-      <section><h2>選択した領域</h2><div id="featureInfo" class="emptyInfo">地図上の国・領域をクリックすると、日本語名・収録期間・使用データを表示します。</div></section>
+  <div id="drawerBackdrop" class="drawerBackdrop" hidden></div>
+  <aside id="infoDrawer" class="infoDrawer" aria-live="polite" aria-hidden="true">
+    <div class="drawerHandle" aria-hidden="true"></div>
+    <div class="drawerHead"><h2>選択した領域</h2><button id="closeDrawer" type="button" aria-label="詳細を閉じる">×</button></div>
+    <div class="drawerScroll">
+      <section><div id="featureInfo" class="emptyInfo">地図上の国・領域を選ぶと詳細を表示します。</div></section>
       <section><h2>このころ世界では</h2><div id="nearbyEvents" class="eventList"><div class="emptyInfo">年表データを準備中…</div></div></section>
       <section><h2>関連する古プリ</h2><div id="relatedPrints" class="printList"><div class="emptyInfo">年表の出典をもとに表示します。</div></div></section>
-    </aside>
-  </div>
+    </div>
+  </aside>
 
-  <section class="dataNotice">
-    <h2>地図データについて</h2>
-    <p><strong>1886～2017年：</strong><a href="https://icr.ethz.ch/data/cshapes/" target="_blank" rel="noopener">CShapes 2.0</a>の各年1月1日時点の国・植民地・属領を表示します。派生表示データは軽量化・日本語化・隣接色分けを行っています。Schvitzほか（2022）を出典とし、<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>で提供します。非営利利用に限られ、改変物には同じライセンスが必要です。</p>
-    <p><strong>上記以外：</strong><a href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener">OpenHistoricalMap</a>（OHM）の履歴付きデータを公式の日付フィルターで表示します。日本語名が登録されていない地名は英語へ戻さず、地図上では省略します。OHMは原則CC0ですが、個別要素に別ライセンスが付く場合があります。詳しくは<a href="https://www.openhistoricalmap.org/copyright" target="_blank" rel="noopener">OHMの著作権・ライセンス表示</a>をご確認ください。</p>
-    <p>地図表示はMapLibre GL JS、OHMの年指定はOpenHistoricalMapのmaplibre-gl-datesを使用します。未収録の境界を推測で補うことはありません。</p>
-  </section>
+  <details class="dataNotice">
+    <summary>地図データ・ライセンス</summary>
+    <p><strong>紀元前3400～1885年：</strong><a href="https://github.com/Seshat-Global-History-Databank/cliopatria" target="_blank" rel="noopener">Cliopatria</a>（Bennettほか、2025）の政治領域を年代別に読み込みます。<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">CC BY 4.0</a>です。前近代の支配領域は確定国境とは限らないため、薄い塗りと点線で「概略・境界不確実」として表示します。</p>
+    <p><strong>1886～2019年：</strong><a href="https://icr.ethz.ch/data/cshapes/" target="_blank" rel="noopener">CShapes 2.0</a>の各年1月1日時点を表示します。Schvitzほか（2022）を出典とし、派生データを含め<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>です。</p>
+    <p><strong>OpenHistoricalMap：</strong>年代の開始・終了が両方明示された政治領域だけを補助表示します。年代不明の境界を全時代に使い回しません。詳しくは<a href="https://www.openhistoricalmap.org/copyright" target="_blank" rel="noopener">OHMの著作権・ライセンス表示</a>をご確認ください。</p>
+    <p><strong>安全性：</strong>補完GeoJSONは出典・ライセンス・帰属表示・確認日・存在確認・領域精度を必須とし、許可済み出典以外を自動的に除外します。CHGISやGeaCronの形状は収録していません。クリックした地点を確認できない場合も、その時代に国家が存在しなかったとは扱いません。</p>
+    <p>表示はMapLibre GL JSを使用します。背景の世界地図は常に表示し、政治領域を確認できない陸地は白で示します。地図は東西方向に連続して移動できます。色は隣接領域を見分けやすくするための識別色で、政治的意味はありません。</p>
+  </details>
 </main>
 
 <script src="../assets/vendor/maplibre-gl/maplibre-gl.js"></script>
 <script src="../assets/vendor/maplibre-gl-dates/maplibre-gl-dates.js"></script>
-<script src="../assets/historical-map/historical-map.js"></script>
+<script src="../assets/historical-map/historical-map.js?v=20260829l"></script>
 </body>
 </html>
