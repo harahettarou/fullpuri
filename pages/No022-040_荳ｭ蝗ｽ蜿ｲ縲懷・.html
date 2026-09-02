@@ -37,6 +37,13 @@ button{cursor:pointer}
 .sideHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px}
 .sideHead .sectionTitle{margin:0}
 .sideToggleBtn{white-space:nowrap}
+/* Tablets use the single-column viewer; the desktop range sidebar must not be injected beside it. */
+@media (max-width:1024px), (pointer:coarse) and (max-width:1366px){
+  .main,.main.sideClosed{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-width:0;min-height:0}
+  .side,.main.sideClosed .side{display:none}
+  .sideToggleBtn{display:none!important}
+  .viewer,.main.sideClosed .viewer{width:100%;min-width:0}
+}
 .sectionTitle{font-weight:800;margin:4px 0 10px}
 .help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
 .ranges{display:grid;gap:7px}
@@ -573,12 +580,16 @@ function showKopuriSearchHit(p){
 const storageKey='kopuri-ranges-'+"no022-040-v4";
 const rangeStore=JSON.parse(localStorage.getItem(storageKey)||'{}');
 const sidePrefKey='kopuri-side-collapsed';
+function usesSingleColumnRangeUi(){
+  return window.matchMedia('(max-width:1024px)').matches||
+    (window.matchMedia('(pointer:coarse)').matches&&window.matchMedia('(max-width:1366px)').matches);
+}
 const mainEl=document.querySelector('.main');
 const closeSideBtn=$('#closeSide');
 const openSideBtn=$('#openSide');
 let sideClosed=localStorage.getItem(sidePrefKey)==='1';
 function syncSide(){
-  const compact=window.matchMedia('(max-width:760px)').matches;
+  const compact=usesSingleColumnRangeUi();
   if(compact){
     mainEl.classList.remove('sideClosed');
     if(openSideBtn) openSideBtn.hidden=true;
@@ -596,7 +607,7 @@ function setSideClosed(v){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{applyZoom();scrollerEl.scrollTop=0;scrollerEl.scrollLeft=0;}));
 }
 function ensureSideOpen(){
-  if(!window.matchMedia('(max-width:760px)').matches && sideClosed) setSideClosed(false);
+  if(!usesSingleColumnRangeUi() && sideClosed) setSideClosed(false);
 }
 if(closeSideBtn) closeSideBtn.onclick=()=>setSideClosed(true);
 if(openSideBtn) openSideBtn.onclick=()=>setSideClosed(false);
@@ -734,13 +745,27 @@ function drawState(ctx,p){
   if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
   if($('#orangeToggle').checked) applyLosslessNumberPairsOn(ctx,p);
 }
+function drawRangeFocusState(ctx,p,ranges){
+  // Make the full sheet opaque, then punch transparent windows for every enabled range.
+  // Using destination-out keeps overlapping ranges visible as one union.
+  ctx.save();
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,p.width,p.height);
+  ctx.globalCompositeOperation='destination-out';
+  ranges.forEach(r=>ctx.fillRect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height));
+  ctx.restore();
+  ranges.forEach(r=>{
+    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+  });
+}
 function drawOverlays(){
   const p=PAGES[idx],ctx=oc.getContext('2d',{alpha:true,desynchronized:true});
   const wantedSrc=losslessImageSource(p);
-  if(base.getAttribute('src')!==wantedSrc) base.src=wantedSrc;
+  if(base.getAttribute('src')!==wantedSrc){base.src=wantedSrc;return;}
   ctx.clearRect(0,0,p.width,p.height);
-  if(mode==='all') drawState(ctx,p);
-  else rangesFor().filter(r=>r.enabled!==false).forEach(r=>{
+  const activeRanges=rangesFor().filter(r=>r.enabled!==false);
+  if(mode==='all'||!activeRanges.length||drawing) drawState(ctx,p);
+  else if(!$('#greenToggle').checked) drawRangeFocusState(ctx,p,activeRanges);
+  else activeRanges.forEach(r=>{
     ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
   });
 }
@@ -818,13 +843,13 @@ dc.addEventListener('pointerup',e=>{
     const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
     r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
   }
-  tempRect=null;dragStart=null;drawing=false;$('#addRange').textContent='＋ 範囲を追加';drawGuides()
+  tempRect=null;dragStart=null;drawing=false;stage.classList.remove('drawing');$('#addRange').textContent='＋ 範囲を追加';drawOverlays();drawGuides()
 });
 $('#orangeToggle').onchange=handleLosslessOrangeToggle;
 $('#greenToggle').onchange=drawOverlays;
 $('#allMode').onclick=()=>{mode='all';$('#allMode').classList.add('active');$('#rangeMode').classList.remove('active');drawOverlays();drawGuides()};
 $('#rangeMode').onclick=()=>{ensureSideOpen();mode='range';$('#rangeMode').classList.add('active');$('#allMode').classList.remove('active');drawOverlays();drawGuides()};
-$('#addRange').onclick=()=>{ensureSideOpen();if(dragPanActive){dragPanActive=false;dragPanPointerId=null;scrollerEl.classList.remove('dragPanning')}mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加'};
+$('#addRange').onclick=()=>{ensureSideOpen();if(dragPanActive){dragPanActive=false;dragPanPointerId=null;scrollerEl.classList.remove('dragPanning')}mode='range';$('#rangeMode').click();drawing=!drawing;stage.classList.toggle('drawing',drawing);$('#addRange').textContent=drawing?'範囲をドラッグ':'＋ 範囲を追加';drawOverlays();drawGuides()};
 $('#clearRanges').onclick=()=>{if(confirm('このページの指定範囲をすべて削除しますか？')){rangeStore[PAGES[idx].key]=[];saveRanges();renderRanges();drawOverlays();drawGuides()}};
 $('#prev').onclick=()=>{idx=(idx-1+PAGES.length)%PAGES.length;loadPage()};
 $('#next').onclick=()=>{idx=(idx+1)%PAGES.length;loadPage()};

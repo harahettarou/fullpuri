@@ -1,53 +1,47 @@
 {
-  "feature": "歴史世界地図・世界政治領域補完／点線概略境界／CShapes 2019対応",
-  "built": "2026-08-29",
+  "feature": "指定範囲反転表示・タブレットUI・世紀別オレンジ文字修正",
+  "built": "2026-09-02",
   "changedFiles": [
-    "pages/historical-map.html",
-    "assets/historical-map/historical-map.css",
-    "assets/historical-map/historical-map.js",
-    "assets/historical-map/historical-base-style.json",
-    "assets/historical-map/natural-earth-land.geojson",
-    "assets/historical-map/fallback/*",
-    "assets/historical-map/cshapes/cshapes-1991-2019.json",
-    "assets/historical-map/cshapes/metadata.json",
-    "assets/historical-map/cshapes/ATTRIBUTION.txt",
+    "pages/No*.html",
+    "pages/regions/*.html",
+    "pages/centuries/view.html",
     "manifest.json",
     "validation-report.json"
   ],
-  "dataSources": {
-    "through1885": "Cliopatria（Bennettほか、2025、CC BY 4.0）＋年代指定済みOpenHistoricalMap補助境界",
-    "from1886Through2019": "CShapes 2.0（各年1月1日、CC BY-NC-SA 4.0）",
-    "from2020": "開始・終了年代が明示されたOpenHistoricalMap管理境界",
-    "baseMap": "Natural Earth 1:110m land（Public Domain）",
-    "inventedGeometry": false,
-    "geacronGeometryIncluded": false,
-    "chgisGeometryIncluded": false
+  "originalImagePolicy": {
+    "sourceOfTruth": "古プリ修正モードZIP内のPDF",
+    "imageRegenerated": false,
+    "imageModified": false,
+    "imageRecompressed": false,
+    "note": "今回の更新はHTML内の表示処理のみ。原本画像・PDF・画像座標データには変更なし"
   },
-  "fallbackPolicy": {
-    "display": "概略政治領域は薄い塗り＋点線",
-    "clickLabel": "概略・境界不確実",
-    "separateConfidence": ["存在確認", "領域精度"],
-    "requiredMetadata": ["id", "name_ja", "name_en", "start", "end", "source_title", "source_url", "license", "license_url", "attribution", "accessed_at", "accuracy_note", "reconstruction_method", "existence_confidence", "territory_accuracy"],
-    "unverifiedPointMessage": "この地点の政治領域を確認できませんでした"
+  "causes": {
+    "rangeFocus": "指定範囲モードが範囲内にだけ非表示レイヤーを描画し、範囲外の原本画像を残していた",
+    "tabletOverflow": "幅761px以上のタブレットをデスクトップ扱いし、指定範囲操作時に290pxのサイド欄を横へ展開していた",
+    "centuryOrange": "世紀ページのPAGESは非同期取得だが、numberPairs対応表をPAGESが空の初期化時に一度だけ作っていた"
   },
-  "coverageChecks": {
-    "634": {"territories": 66, "checked": ["唐", "東ローマ帝国", "サーサーン朝", "正統カリフ国", "飛鳥時代の日本", "新羅", "百済", "真臘", "ヴァルダナ朝", "西突厥", "吐蕃", "アクスム王国"]},
-    "1220": {"territories": 143, "checked": ["モンゴル帝国", "南宋", "金", "西夏"]},
-    "1600": {"territories": 97, "checked": ["オスマン帝国", "サファヴィー朝", "ムガル帝国", "明"]},
-    "1885": {"territories": 99},
-    "uniqueEntities": 1181,
-    "missingJapaneseNames": 0
+  "fixes": {
+    "rangeFocus": "緑OFF時は全面を白で覆い、enabledな全指定範囲を透明窓として抜いてから、その範囲内に既存のorange・green・hide・numberPairs処理を描画",
+    "tabletOverflow": "1024px以下、および1366px以下の粗いポインター端末を1列UIとしてCSSとJavaScriptの両方で判定し、サイド欄を展開しない",
+    "centuryOrange": "世紀データ取得後にnumberPairsのbody/answer対応表を再構築し、既存の共通オレンジ描画処理へ渡す"
   },
-  "browserChecks": [
-    "634・1220・1885年=Cliopatria補完表示",
-    "1886・1914・2019年=CShapes 2.0表示",
-    "2020年=OHM表示",
-    "同一バケット内の年変更で領域を再抽出",
-    "PC 1440×900",
-    "スマートフォン 390×844・横見切れなし",
-    "JavaScriptエラーなし",
-    "世界地図を常時表示・未確認陸地は白・東西方向に連続表示",
-    "1886〜2019年の全CShapes国名アンカーが対象ポリゴン内部にあることを確認"
-  ],
-  "existingFeatureImpact": "歴史世界地図以外のナンバー順・地域別・世紀別・検索・画像・JSONには変更なし"
+  "checks": {
+    "viewerImplementations": 48,
+    "htmlChecked": 54,
+    "inlineScriptsChecked": 103,
+    "brokenReferences": 0,
+    "base64Images": 0,
+    "oneRangeVisibleOnly": true,
+    "multipleRangesVisibleOnly": true,
+    "rangeDeleteUpdates": true,
+    "wholeModeRestoresFullPage": true,
+    "ipad1024SidePanelHidden": true,
+    "ipad1024HorizontalOverflowAdded": false,
+    "mobile390LayoutPreserved": true,
+    "centuryOrangeOnOffVisualDifference": true,
+    "numberModeOrangeToggle": true,
+    "regionModeOrangeToggle": true,
+    "greenOnLegacyRangeBehaviorPreserved": true,
+    "zoomRange": "25%-400%"
+  }
 }
