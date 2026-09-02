@@ -642,8 +642,11 @@ function drawGreenRect(ctx,r,p){
   ctx.fillRect(Number(r.x),Number(r.y),Number(r.width),Number(r.height));ctx.restore();
 }
 function losslessImageSource(p){
-  // No.81は指定どおり、OFF=トレイ用2 / ON=トレイ用1を切り替える。
-  if(p.key==='No081_p1'&&p.baseOff) return $('#orangeToggle').checked?p.base:p.baseOff;
+  // Keep image-switch pages on their OFF image outside enabled ranges.
+  if(p.baseOff){
+    const scoped=mode==='range'&&!drawing&&rangesFor().some(r=>r.enabled!==false);
+    return scoped?p.baseOff:($('#orangeToggle').checked?p.base:p.baseOff);
+  }
   return p.base;
 }
 function handleLosslessOrangeToggle(){
@@ -731,16 +734,35 @@ function drawState(ctx,p){
   if(!$('#greenToggle').checked) (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
   if($('#orangeToggle').checked) applyLosslessNumberPairsOn(ctx,p);
 }
-function drawRangeFocusState(ctx,p,ranges){
-  // Make the full sheet opaque, then punch transparent windows for every enabled range.
-  // Using destination-out keeps overlapping ranges visible as one union.
-  ctx.save();
-  ctx.fillStyle='#fff';ctx.fillRect(0,0,p.width,p.height);
-  ctx.globalCompositeOperation='destination-out';
-  ranges.forEach(r=>ctx.fillRect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height));
-  ctx.restore();
+const RANGE_ON_IMAGE_CACHE=new Map();
+function rangeOnImage(p){
+  if(!p.baseOff||!$('#orangeToggle').checked)return null;
+  let image=RANGE_ON_IMAGE_CACHE.get(p.base);
+  if(!image){
+    image=new Image();
+    image.onload=()=>drawOverlays();
+    image.src=p.base;
+    RANGE_ON_IMAGE_CACHE.set(p.base,image);
+  }
+  return image.complete&&image.naturalWidth?image:null;
+}
+function drawHiddenAnswerBaseline(ctx,p){
+  // Outside enabled ranges, keep the sheet visible and only hide answer layers.
+  coverLosslessNumberPairAnswers(ctx,p);
+  if(!p.baseOff) applyLosslessOrangeOff(ctx,p);
+  (p.greenHide||[]).forEach(r=>drawGreenRect(ctx,r,p));
+}
+function drawScopedToggleState(ctx,p,ranges){
+  drawHiddenAnswerBaseline(ctx,p);
+  const onImage=rangeOnImage(p);
   ranges.forEach(r=>{
-    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
+    const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
+    // Remove the fixed OFF layers only inside this range, then apply current toggles.
+    ctx.clearRect(x,y,w,h);
+    ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();
+    if(onImage)ctx.drawImage(onImage,x,y,w,h,x,y,w,h);
+    drawState(ctx,p);
+    ctx.restore();
   });
 }
 function drawOverlays(){
@@ -750,10 +772,7 @@ function drawOverlays(){
   ctx.clearRect(0,0,p.width,p.height);
   const activeRanges=rangesFor().filter(r=>r.enabled!==false);
   if(mode==='all'||!activeRanges.length||drawing) drawState(ctx,p);
-  else if(!$('#greenToggle').checked) drawRangeFocusState(ctx,p,activeRanges);
-  else activeRanges.forEach(r=>{
-    ctx.save();ctx.beginPath();ctx.rect(r.x*p.width,r.y*p.height,r.w*p.width,r.h*p.height);ctx.clip();drawState(ctx,p);ctx.restore();
-  });
+  else drawScopedToggleState(ctx,p,activeRanges);
 }
 function drawGuides(){
   const p=PAGES[idx],ctx=dc.getContext('2d');

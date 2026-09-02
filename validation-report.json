@@ -16,12 +16,12 @@
     "note": "今回の更新はHTML内の表示処理のみ。原本画像・PDF・画像座標データには変更なし"
   },
   "causes": {
-    "rangeFocus": "指定範囲モードが範囲内にだけ非表示レイヤーを描画し、範囲外の原本画像を残していた",
+    "rangeFocus": "指定範囲モードの作用範囲が逆で、選択範囲内だけに答えの非表示レイヤーを描画していた",
     "tabletOverflow": "幅761px以上のタブレットをデスクトップ扱いし、指定範囲操作時に290pxのサイド欄を横へ展開していた",
     "centuryOrange": "世紀ページのPAGESは非同期取得だが、numberPairs対応表をPAGESが空の初期化時に一度だけ作っていた"
   },
   "fixes": {
-    "rangeFocus": "緑OFF時は全面を白で覆い、enabledな全指定範囲を透明窓として抜いてから、その範囲内に既存のorange・green・hide・numberPairs処理を描画",
+    "rangeFocus": "範囲外はプリント画像を残したまま答えレイヤーをOFF状態に固定し、enabledな指定範囲内だけ既存のorange・green・hide・numberPairs切替処理を適用",
     "tabletOverflow": "1024px以下、および1366px以下の粗いポインター端末を1列UIとしてCSSとJavaScriptの両方で判定し、サイド欄を展開しない",
     "centuryOrange": "世紀データ取得後にnumberPairsのbody/answer対応表を再構築し、既存の共通オレンジ描画処理へ渡す"
   },
@@ -31,8 +31,10 @@
     "inlineScriptsChecked": 103,
     "brokenReferences": 0,
     "base64Images": 0,
-    "oneRangeVisibleOnly": true,
-    "multipleRangesVisibleOnly": true,
+    "oneRangeScopedToggleOnly": true,
+    "multipleRangesScopedToggleOnly": true,
+    "surroundingSheetRemainsVisible": true,
+    "surroundingAnswersRemainHidden": true,
     "rangeDeleteUpdates": true,
     "wholeModeRestoresFullPage": true,
     "ipad1024SidePanelHidden": true,
