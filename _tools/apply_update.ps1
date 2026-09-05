@@ -21,10 +21,49 @@ Expand-Archive -LiteralPath $zips[0].FullName -DestinationPath $temp -Force
 
 $root = $temp
 $children = @(Get-ChildItem -LiteralPath $temp -Force)
-if ($children.Count -eq 1 -and $children[0].PSIsContainer) { $root = $children[0].FullName }
+if ($children.Count -eq 1 -and $children[0].PSIsContainer -and $children[0].Name -notin @('assets','pages','_tools')) { $root = $children[0].FullName }
 
 $hasPayload = (Test-Path (Join-Path $root "pages")) -or (Test-Path (Join-Path $root "assets")) -or (Test-Path (Join-Path $root "manifest.json"))
 if (-not $hasPayload) { Fail "更新ZIPに pages / assets / manifest.json のいずれもありません。" }
+
+# Fail before overwriting any file if a changed base image lacks verified provenance.
+$imageFiles = @()
+$assetPayload = Join-Path $root "assets"
+if (Test-Path -LiteralPath $assetPayload) {
+  $imageFiles = @(Get-ChildItem -LiteralPath $assetPayload -Recurse -File | Where-Object {
+    $_.Name -match '_(base|tray).*\.(jpg|jpeg|png|webp)$'
+  })
+}
+
+function GetOriginalHash([string]$path) {
+  $stream = [IO.File]::OpenRead($path)
+  $algorithm = [Security.Cryptography.SHA256]::Create()
+  try { return [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-','').ToLowerInvariant() }
+  finally { $algorithm.Dispose(); $stream.Dispose() }
+}
+$provenance = @{}
+$provenancePath = Join-Path $root "assets/original-image-provenance.json"
+if (Test-Path -LiteralPath $provenancePath) {
+  $metadata = Get-Content -LiteralPath $provenancePath -Raw -Encoding UTF8 | ConvertFrom-Json
+  foreach ($item in $metadata.images) {
+    if ($provenance.ContainsKey([string]$item.asset)) { Fail "画像の出典記録が重複しています。" }
+    $provenance[[string]$item.asset] = $item
+  }
+}
+foreach ($image in $imageFiles) {
+  $rel = $image.FullName.Substring($root.TrimEnd('\','/').Length + 1).Replace('\','/')
+  $hash = GetOriginalHash $image.FullName
+  $existing = Join-Path $repo $rel
+  if ((Test-Path -LiteralPath $existing) -and ((GetOriginalHash $existing) -eq $hash)) { continue }
+  $record = $provenance[$rel]
+  if (-not $record -or $record.sha256 -ne $hash) { Fail "原本検証記録がない画像更新を拒否しました: $rel" }
+  if ($record.source_kind -notin @('zip_pdf','zip_jpeg')) { Fail "修正モードZIP以外の画像は原本にできません: $rel" }
+  if ($record.source_kind -eq 'zip_jpeg' -and -not $metadata.jpeg_exception_authorized) { Fail "ZIP内JPEGの使用許可が記録されていません: $rel" }
+  if ($record.source_archive_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or $record.source_pixel_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or $record.source_pixel_sha256 -ne $record.output_pixel_sha256) { Fail "原本画素の一致記録が不正です: $rel" }
+  if ($record.generation_method -eq 'unchanged-original-bytes') {
+    if ($record.source_sha256 -ne $hash) { Fail "原本と更新画像の内容が一致しません: $rel" }
+  } elseif ($record.generation_method -ne 'lossless-PNG-native-pixels') { Fail "加工済み画像の生成方法は許可されていません: $rel" }
+}
 
 foreach ($name in @("pages", "assets")) {
   $src = Join-Path $root $name
