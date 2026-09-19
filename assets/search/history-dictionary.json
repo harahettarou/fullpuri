@@ -1,0 +1,1145 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "term": "ビスマルク",
+      "category": "人名",
+      "context": [
+        "ドイツ",
+        "プロイセン",
+        "鉄血",
+        "統一"
+      ],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "メッテルニヒ",
+      "category": "人名",
+      "context": [
+        "ウィーン",
+        "オーストリア",
+        "復古"
+      ],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "フビライ",
+      "category": "人名",
+      "context": [],
+      "aliases": [
+        "クビライ"
+      ],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "チンギス＝ハン",
+      "category": "人名",
+      "context": [],
+      "aliases": [
+        "チンギス・ハン",
+        "チンギスハン"
+      ],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ナポレオン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ルター",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "カルヴァン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ロベスピエール",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ワシントン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "リンカン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ウィルソン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "レーニン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "スターリン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ガンディー",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ネルー",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "スカルノ",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "スハルト",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ホー＝チ＝ミン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "孔子",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "孟子",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "荀子",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "始皇帝",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "劉邦",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "武帝",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "王莽",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "光武帝",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "曹操",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "李世民",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "玄宗",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "朱元璋",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "永楽帝",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "康熙帝",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "乾隆帝",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "孫文",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "袁世凱",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "蒋介石",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "毛沢東",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "鄧小平",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ムハンマド",
+      "category": "人名",
+      "context": [],
+      "aliases": [
+        "マホメット"
+      ],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アブー＝バクル",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アショーカ王",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アクバル",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アウラングゼーブ",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アレクサンドロス",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "カエサル",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アウグストゥス",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ペリクレス",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ソクラテス",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "プラトン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アリストテレス",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ダレイオス",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "クレイステネス",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ハンムラビ",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "サラディン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ティムール",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "スレイマン",
+      "category": "人名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アッバース朝",
+      "category": "王朝",
+      "context": [
+        "イスラーム",
+        "バグダード",
+        "750"
+      ],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ウマイヤ朝",
+      "category": "王朝",
+      "context": [
+        "イスラーム",
+        "ダマスクス"
+      ],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ササン朝",
+      "category": "王朝",
+      "context": [
+        "イラン",
+        "ペルシア"
+      ],
+      "aliases": [
+        "サーサーン朝"
+      ],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アケメネス朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "セレウコス朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "プトレマイオス朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "マウリヤ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "クシャーナ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "グプタ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ヴァルダナ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ムガル帝国",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "カロリング朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "メロヴィング朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "カペー朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ヴァロワ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ブルボン朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "テューダー朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ステュアート朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ハノーヴァー朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ロマノフ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ファーティマ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アイユーブ朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "マムルーク朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "サファヴィー朝",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "唐",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "宋",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "元",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "明",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "清",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "秦",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "漢",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "隋",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "北魏",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "遼",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "金",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "西夏",
+      "category": "王朝",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "シュリーヴィジャヤ",
+      "category": "国家・地名",
+      "context": [
+        "東南アジア",
+        "スマトラ",
+        "海上"
+      ],
+      "aliases": [
+        "シュリービジャヤ"
+      ],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "マジャパヒト",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "シャイレーンドラ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アンコール",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アユタヤ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "スコータイ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "オスマン帝国",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ビザンツ帝国",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "神聖ローマ帝国",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "プロイセン",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "オーストリア",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ハンガリー",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "イタリア",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ドイツ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "フランス",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "イギリス",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ロシア",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "コンスタンティノープル",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アレクサンドリア",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "バグダード",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ダマスクス",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "コルドバ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "メッカ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "メディナ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "サマルカンド",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ウィーン",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ヴェルサイユ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ベルリン",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "パリ",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ロンドン",
+      "category": "国家・地名",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ヴェルサイユ条約",
+      "category": "事件・条約",
+      "context": [
+        "第一次世界大戦",
+        "1919",
+        "講和",
+        "ドイツ"
+      ],
+      "aliases": [
+        "ベルサイユ条約"
+      ],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ウェストファリア条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ネルチンスク条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "南京条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "北京条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "下関条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ポーツマス条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ユトレヒト条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "パリ条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ベルリン条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "サン＝ステファノ条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ブレスト＝リトフスク条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ロカルノ条約",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アヘン戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "アロー戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "普仏戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "普墺戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "三十年戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "百年戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "七年戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "日清戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "日露戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "クリミア戦争",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "フランス革命",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ロシア革命",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "辛亥革命",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "産業革命",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "名誉革命",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ピューリタン革命",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ウィーン会議",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ベルリン会議",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "十字軍",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ルネサンス",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "宗教改革",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    },
+    {
+      "term": "ウィーン体制",
+      "category": "事件・条約",
+      "context": [],
+      "aliases": [],
+      "source": "reviewed_seed"
+    }
+  ]
+}
