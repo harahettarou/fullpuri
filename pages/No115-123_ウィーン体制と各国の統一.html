@@ -560,6 +560,8 @@ const base=$('#baseImg'), oc=$('#overlayCanvas'), dc=$('#drawCanvas'), stage=$('
 let idx=0, zoom=100, mode='all', drawing=false, dragStart=null, tempRect=null;
 
 const KOPURI_SEARCH_PARAMS=new URLSearchParams(location.search);
+// Orange search results reveal only the existing answer layer.
+if(KOPURI_SEARCH_PARAMS.get('orange')==='1') $('#orangeToggle').checked=true;
 const KOPURI_SEARCH_PAGE=KOPURI_SEARCH_PARAMS.get('page')||'';
 const KOPURI_SEARCH_HIT=(KOPURI_SEARCH_PARAMS.get('hit')||'').split(',').map(Number);
 const kopuriInitialIndex=PAGES.findIndex(page=>page.key===KOPURI_SEARCH_PAGE);
