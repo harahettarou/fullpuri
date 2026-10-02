@@ -5,19 +5,19 @@
  const orangeByPage=new Map();
  const norm=value=>value.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-96)).replace(/[^0-9a-zぁ-ん一-龯々〆ヵヶ]+/g,'');
  function grams(value){const size=value.length<5?2:3,out=[];if(value.length<=size)return[value];for(let i=0;i<=value.length-size;i++)out.push(value.slice(i,i+size));return out;}
- let fuzzyQuery='',cachedGrams=[],cachedSet=new Set();
+ let fuzzyQuery='',cachedGrams=[],cachedCounts=new Map();
  function fuzzy(query,text){
   if(!query)return 0;
   if(text.includes(query))return 1;
   if(query.length<3)return 0;
-  if(query!==fuzzyQuery){fuzzyQuery=query;cachedGrams=grams(query);cachedSet=new Set(cachedGrams);}
-  const qg=cachedGrams,set=cachedSet,size=query.length,bestFloor=query.length<=4?.62:.48;
+  if(query!==fuzzyQuery){fuzzyQuery=query;cachedGrams=grams(query);cachedCounts=new Map();for(const g of cachedGrams)cachedCounts.set(g,(cachedCounts.get(g)||0)+1);}
+  const qg=cachedGrams,size=query.length,bestFloor=query.length<=4?.8:.48;
   // A zero-overlap line cannot meet the legacy Dice threshold. Exact prefilter.
   if(!qg.some(g=>text.includes(g)))return 0;
   let best=0;
   for(let start=0;start<text.length;start++)for(let delta=-2;delta<=2;delta++){
    const part=text.slice(start,start+size+delta);if(part.length<Math.max(2,size-2))continue;
-   const pg=grams(part);let common=0;for(const g of pg)if(set.has(g))common++;
+   const pg=grams(part),used=new Map();let common=0;for(const g of pg){const count=used.get(g)||0;if(count<(cachedCounts.get(g)||0)){common++;used.set(g,count+1);}}
    const score=2*common/(qg.length+pg.length);if(score>best)best=score;if(best>=.96)return best;
   }
   return best>=bestFloor?best:0;
@@ -53,8 +53,8 @@
    if(hit.source==='orange')url.searchParams.set('orange','1');
    const a=element('a','result');a.href=url.href;
    const top=element('div','topline');top.append(element('span','label',page.label),element('span','unit',page.unit),element('span','score',hit.label));
-   a.append(top,element('div','context',hit.display));
-   if(hit.display!==line.t)a.append(element('div','status','OCR原文：'+line.t));
+   const context=element('div','context',hit.display);context.style&&(context.style.whiteSpace='pre-line');a.append(top,context);
+   if(hit.display!==line.t){const original=element('details','ocr-original'),summary=element('summary','','OCR原文を確認');original.append(summary,element('div','status',line.t));original.addEventListener('click',event=>{event.preventDefault();if(event.target===summary)original.open=!original.open;});a.append(original);}
    results.append(a);
   }
   if(!found.length)results.append(element('div','hint','別の言葉でも試してみてください。'));
