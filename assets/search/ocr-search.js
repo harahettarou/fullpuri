@@ -1,4 +1,4 @@
-/* v19: search overlay only; no correction inference or external API in browser. */
+/* v19 / release 73: offline contextual predictions, no external API in browser. */
 (function(global){
  'use strict';
  const empty=()=>({rows:{},aliases:[]});
@@ -45,15 +45,19 @@
   const r=overlay.rows[page.key+':'+index];
   const row=r&&r.raw_text===line.t?r:null;
   const confirmed=row&&['auto','manual'].includes(row.status);
-  const display=confirmed?(row.normalized_text||'〔罫線・画像模様の誤認識〕'):line.t;
-  if(text.includes(q.n))return {rank:3,score:1,label:'原文一致',display};
+  const inferred=row&&row.status==='candidate'&&row.inferred===true&&Boolean(row.normalized_text);
+  const display=confirmed?(row.normalized_text||'〔罫線・画像模様の誤認識〕'):inferred?row.normalized_text:line.t;
+  if(text.includes(q.n))return {rank:3,score:1,label:inferred?'原文一致（表示は推定・未確定）':'原文一致',display};
   if(row&&['auto','manual'].includes(row.status)&&row.n.includes(q.n))return {rank:2,score:1,label:row.status==='manual'?'確認済み補正一致':'自動補正一致',display:row.normalized_text};
-  if(q.aliases.some(a=>text.includes(a)||(row&&['auto','manual'].includes(row.status)&&row.n.includes(a))))return {rank:2,score:.99,label:'表記揺れ一致',display:row&&row.status!=='candidate'?row.normalized_text:line.t};
-  if(row&&[q.n,...q.aliases].some(a=>row.cn.some(t=>t.includes(a))||row.tn.includes(a)))return {rank:1,score:.96,label:'補正候補（未確定）',display:line.t};
+  if(q.aliases.some(a=>text.includes(a)||(confirmed&&row.n.includes(a))))return {rank:2,score:.99,label:inferred?'表記揺れ一致（表示は推定・未確定）':'表記揺れ一致',display};
+  if(row&&[q.n,...q.aliases].some(a=>row.cn.some(t=>t.includes(a))||row.tn.includes(a))){
+   const option=(row.candidate_texts||[]).find(t=>[q.n,...q.aliases].some(a=>norm(t).includes(a)));
+   return {rank:1,score:.96,label:row.inferred?'文脈・重複転写からの推定（未確定）':'補正候補（未確定）',display:row.inferred?(option||display):line.t};
+  }
   // A confirmed transcription replaces corrupt OCR for fuzzy matching only.
   // Original exact matches still retain the highest priority above.
-  const score=confirmed?fuzzy(q.n,row.n):fuzzy(q.legacy,line.n);
-  return {rank:score?1:0,score,label:confirmed?'補正後の近い候補':'近い候補',display};
+  const score=confirmed||inferred?fuzzy(q.n,row.n):fuzzy(q.legacy,line.n);
+  return {rank:score?1:0,score,label:inferred?'推定文の近い候補（未確定）':confirmed?'補正後の近い候補':'近い候補',display};
  }
  global.OcrCorrectionSearch={load,prepare,match,norm,isReady:()=>ready};
  if(typeof module!=='undefined'&&module.exports)module.exports=global.OcrCorrectionSearch;
