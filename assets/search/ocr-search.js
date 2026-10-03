@@ -46,8 +46,9 @@
   const row=r&&r.raw_text===line.t?r:null;
   const confirmed=row&&['auto','manual'].includes(row.status);
   const inferred=row&&row.status==='candidate'&&row.inferred===true&&Boolean(row.normalized_text);
-  const display=confirmed?(row.normalized_text||'〔罫線・画像模様の誤認識〕'):inferred?row.normalized_text:line.t;
-  if(text.includes(q.n))return {rank:3,score:1,label:inferred?'原文一致（表示は推定・未確定）':'原文一致',display};
+  const formatted=row&&row.status==='none'&&row.display_text&&norm(row.display_text)===text;
+  const display=confirmed?(row.normalized_text||'〔罫線・画像模様の誤認識〕'):inferred?row.normalized_text:formatted?row.display_text:line.t;
+  if(text.includes(q.n))return {rank:3,score:1,label:inferred?'原文一致（表示は推定・未確定）':formatted?'原文一致（空白整形）':'原文一致',display};
   if(row&&['auto','manual'].includes(row.status)&&row.n.includes(q.n))return {rank:2,score:1,label:row.status==='manual'?'確認済み補正一致':'自動補正一致',display:row.normalized_text};
   if(q.aliases.some(a=>text.includes(a)||(confirmed&&row.n.includes(a))))return {rank:2,score:.99,label:inferred?'表記揺れ一致（表示は推定・未確定）':'表記揺れ一致',display};
   if(row&&[q.n,...q.aliases].some(a=>row.cn.some(t=>t.includes(a))||row.tn.includes(a))){
