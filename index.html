@@ -199,5 +199,9 @@ const grid=document.getElementById("grid"),search=document.getElementById("searc
 function render(q=""){const needle=q.trim().toLowerCase().replace(/^no\.?/,"");const items=ranges.filter(x=>{const nums=(x.numbers||Array.from({length:x.end-x.start+1},(_,i)=>x.start+i)).map(String);return !needle||x.title.toLowerCase().includes(needle)||x.id.toLowerCase().includes(needle)||nums.includes(needle)});grid.innerHTML=items.map(x=>`<a class="card" href="${x.file}"><div class="range">${x.label||(x.start===x.end?`No.${x.start}`:`No.${x.start}〜${x.end}`)}</div><div class="title">${x.title}</div><div class="meta">${x.pages}ページ</div></a>`).join("");empty.style.display=items.length?"none":"block"}
 fetch("manifest.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(m=>{ranges=m.ranges;render()}).catch(()=>{empty.textContent="一覧データを読み込めませんでした。";empty.style.display="block"});search.addEventListener("input",()=>render(search.value));
 </script>
+
+<!-- kopuri-review-v1 -->
+<link rel="stylesheet" href="assets/review/review_v1.css">
+<script type="module" src="assets/review/navigation_v1.js"></script>
 </body>
 </html>

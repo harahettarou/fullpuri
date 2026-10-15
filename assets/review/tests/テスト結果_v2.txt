@@ -1,0 +1,29 @@
+✔ register → synchronize → complete → reopen → complete retains exact server history (26.903481ms)
+✔ replay and duplicate completion never increase review count (11.77297ms)
+✔ users cannot read, complete or delete each other’s entries and history (6.936813ms)
+✔ concurrent revisions reject lost updates and keep all changes atomic (7.167861ms)
+✔ deletion leaves tombstone, explicit re-registration retains review history (7.381608ms)
+✔ all target kinds, coordinate validation and untrusted IDs (11.514517ms)
+✔ authentication, origin and revoked/expired sessions are enforced on server (3.557126ms)
+✔ OAuth state, PKCE challenge, one-time exchange and ticket expiry (7.123885ms)
+(node:14) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ client → real API/SQLite → independent client → completion → reload history (63.68947ms)
+✔ offline mutation survives reload and replays once after reconnection (21.795956ms)
+✔ concurrent change is explicit; reapplying already completed entry does not double-count (27.440267ms)
+✔ cached entries and offline queue stay scoped to each account (12.05491ms)
+✔ black words selected from same OCR line remain separate registrations (11.705381ms)
+✔ viewer DOM: three colors and direct/tap/hidden display modes (27.532394ms)
+✔ logout clears local private cache and leaves server-side records intact (12.375765ms)
+✔ viewer DOM: explicit range selection registers actual source coordinates (30.499464ms)
+✔ manager DOM filters and counts match saved records (64.587972ms)
+✔ black OCR text selection registers only user-chosen text without auto buttons (19.530406ms)
+✔ saved target deep link highlights frozen original-image coordinates (18.702188ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 760.307356

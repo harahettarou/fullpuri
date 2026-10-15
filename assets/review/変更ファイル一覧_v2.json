@@ -1,0 +1,1296 @@
+{
+  "version": 2,
+  "baseline": "e75ec42001d07060acb8810d6fcd799da47abcb9",
+  "files": [
+    {
+      "path": "assets/review/build_targets_v1.py",
+      "bytes": 2934,
+      "sha256": "d727bf84343ed68851f4c2aa44f103ff6b540d617aa1fc9bd8e554275a06d9a5"
+    },
+    {
+      "path": "assets/review/catalog_v1.json",
+      "bytes": 42937,
+      "sha256": "98c53eabfcefcaaecfacb28ae1009a5651c2cde6c6339529baa73ebd3a98d232"
+    },
+    {
+      "path": "assets/review/config_v1.js",
+      "bytes": 189,
+      "sha256": "ea00b3bc85a6c2bc5a1bd916e3a50f3460e37bb3635e497fd228ed73c0b363c3"
+    },
+    {
+      "path": "assets/review/core_v1.js",
+      "bytes": 9822,
+      "sha256": "4c6ccdc4c84b253b902013b735359607463434ede2f0e763f861470b33c9cbdb"
+    },
+    {
+      "path": "assets/review/image-switch-targets_v1.json",
+      "bytes": 6545,
+      "sha256": "6981714d06959e37f86e0a043a89f11968c979a125a09c66e68120c3fda09846"
+    },
+    {
+      "path": "assets/review/manager_v1.js",
+      "bytes": 4990,
+      "sha256": "adf01f95237ca613a25fd4824ec21db3c6808e09ab0d4015151f595723ab2df2"
+    },
+    {
+      "path": "assets/review/navigation_v1.js",
+      "bytes": 196,
+      "sha256": "dbd65f5b4aecf48e84a9595916e591a780a15af84b32362f6b124f997de27b29"
+    },
+    {
+      "path": "assets/review/review_v1.css",
+      "bytes": 3296,
+      "sha256": "2fa634d174f8104c99e6142e36e5cb6e050dc532c844e1b8aaff91bcf62f0cf1"
+    },
+    {
+      "path": "assets/review/server/.gitignore",
+      "bytes": 55,
+      "sha256": "04a4f10b26d4da786f4feb0ed00cc7060cd1166bb56abe6177131fb4af656cf0"
+    },
+    {
+      "path": "assets/review/server/migrations/0001_review_v1.sql",
+      "bytes": 3478,
+      "sha256": "d4460678903aadc524ef67cdc5b520db7583374b20380cbef76eaf8ff79793fe"
+    },
+    {
+      "path": "assets/review/server/worker_v1.mjs",
+      "bytes": 8874,
+      "sha256": "13e76f5bf1d266f54bb4b784ddb698994fac18df93a7352080c9a5733af77420"
+    },
+    {
+      "path": "assets/review/server/wrangler_v1.jsonc",
+      "bytes": 415,
+      "sha256": "0622993e33c4d02f628ff5ddbecb666614de6f92981af040d151ff18efed6fb1"
+    },
+    {
+      "path": "assets/review/targets/No000.json",
+      "bytes": 14270,
+      "sha256": "1c1906053254cdc20426a60064fdc73879c0d805c681ac2005ef804d1f488a2b"
+    },
+    {
+      "path": "assets/review/targets/No001.json",
+      "bytes": 30873,
+      "sha256": "99c43ed632b097c83ea5859ccd418c8a1c7fa43b159e1d9fe5e9d4ae3c7325fd"
+    },
+    {
+      "path": "assets/review/targets/No002.json",
+      "bytes": 30503,
+      "sha256": "286334c9f0a49deb48329b0c724508cc5ab4cf6b6104bd49889b8a7463f0af7d"
+    },
+    {
+      "path": "assets/review/targets/No003.json",
+      "bytes": 28214,
+      "sha256": "2988b9d8eeafb44cb71b23fa247923c020ef6a4ba541fa30a9bb3384020dbbc1"
+    },
+    {
+      "path": "assets/review/targets/No004.json",
+      "bytes": 29772,
+      "sha256": "d715d24a24389aed09cd80ccb92f20d4edcae617a46390d970b0294b77df3d1b"
+    },
+    {
+      "path": "assets/review/targets/No005.json",
+      "bytes": 23266,
+      "sha256": "11d0b9624de65b7aeee268e9fc8d7b9b64c0d61b9c6dceb25a86bd96e96dcdda"
+    },
+    {
+      "path": "assets/review/targets/No006.json",
+      "bytes": 25375,
+      "sha256": "305095e550f7f3fba22bc59e05c7a5290e9e14870b167cf467f2c796890724b9"
+    },
+    {
+      "path": "assets/review/targets/No007.json",
+      "bytes": 32117,
+      "sha256": "c50044ae43a032828ae160fbb614398bb9f20c259d29df0d72edf9e2da48a917"
+    },
+    {
+      "path": "assets/review/targets/No008.json",
+      "bytes": 27208,
+      "sha256": "65eab19b3e5bc1a24d293b927bd52fe3224fe82123d0ee846b97677fe098234a"
+    },
+    {
+      "path": "assets/review/targets/No009.json",
+      "bytes": 14898,
+      "sha256": "405e91d180879fe24dfb0c864bb85936cc9a610fcf5c6123380dc8555b264c2a"
+    },
+    {
+      "path": "assets/review/targets/No010.json",
+      "bytes": 26547,
+      "sha256": "a5c13ef1fa09599d6a17beae6bda87be6556dabc0db69bb9a41c3f965e782132"
+    },
+    {
+      "path": "assets/review/targets/No011.json",
+      "bytes": 25487,
+      "sha256": "c22ad1ea38af231ebbbdbbec5b52a85de8bf7577f09f260a4d8ee11e831ace0f"
+    },
+    {
+      "path": "assets/review/targets/No012.json",
+      "bytes": 23812,
+      "sha256": "f5a484caf1a2ef610e5e7c2a905a58718a952a03ce310f5d92febf8e73808895"
+    },
+    {
+      "path": "assets/review/targets/No013.json",
+      "bytes": 23424,
+      "sha256": "100b1111dcae7d8c532a1c2872e6d5282a923bbd2193f6eee93548436ffd27d8"
+    },
+    {
+      "path": "assets/review/targets/No014.json",
+      "bytes": 27017,
+      "sha256": "47fa0db9c82ee9f45d5b3f9bc8ca916a2d7270b38cecd46ccc1bf17279175bac"
+    },
+    {
+      "path": "assets/review/targets/No015.json",
+      "bytes": 26645,
+      "sha256": "f8ec331cbc5bacb0eade0acaec782d35847649c4473e2f9753954ac8a2792ab1"
+    },
+    {
+      "path": "assets/review/targets/No016.json",
+      "bytes": 31350,
+      "sha256": "d635fe8bb18ed8f4964759e3605861ea4110481ff05323b2eae59021288a3d6c"
+    },
+    {
+      "path": "assets/review/targets/No017.json",
+      "bytes": 33899,
+      "sha256": "a9b5fb36c60a4634cfd363a52b636b051360bf15324809f617ecfa6657199507"
+    },
+    {
+      "path": "assets/review/targets/No018.json",
+      "bytes": 27268,
+      "sha256": "ead9b4bb97595a321fa0d325f7f45eb4f3c06d9a3ccfb58414d916cb4db6fe0d"
+    },
+    {
+      "path": "assets/review/targets/No019.json",
+      "bytes": 29638,
+      "sha256": "422969c541500e6839a3f22b677b9ba40589725d030e0c2eefd17d82a1a861ec"
+    },
+    {
+      "path": "assets/review/targets/No020.json",
+      "bytes": 20125,
+      "sha256": "836ba30a3546f08c0f0f1877c515bf5398b7101f5212d1e0fca18272e30ca650"
+    },
+    {
+      "path": "assets/review/targets/No021.json",
+      "bytes": 18704,
+      "sha256": "62f1c8271929950bc5d5ae4b9c0ad31af517dc7a0e102d9249a2459e19241898"
+    },
+    {
+      "path": "assets/review/targets/No022.json",
+      "bytes": 28168,
+      "sha256": "5f7e3c70152f24d8ef5d23516f8c68acc30cdd68b1aaa960ee39732909444b19"
+    },
+    {
+      "path": "assets/review/targets/No023.json",
+      "bytes": 27398,
+      "sha256": "89a2536c9dcf49d1be1fd10a0788abaa865241c6caccb98ab2016e737d92c9db"
+    },
+    {
+      "path": "assets/review/targets/No024.json",
+      "bytes": 25617,
+      "sha256": "cfe4522d02bebe39787d9606495df8221dff2c1729ed292bf018df041f5751e7"
+    },
+    {
+      "path": "assets/review/targets/No025.json",
+      "bytes": 23363,
+      "sha256": "c61e304f423382faec97b356ae39123c168f212769229ae2f90d72170edeff1e"
+    },
+    {
+      "path": "assets/review/targets/No026.json",
+      "bytes": 21101,
+      "sha256": "44fc1a8be52c5756249b69f4f3b3c030376ba5614f1a948e48604a017d9408f0"
+    },
+    {
+      "path": "assets/review/targets/No027.json",
+      "bytes": 24716,
+      "sha256": "db7e0ab52e5fb7f2411e130bbfe85de62fc5b3c9c078eef5c73a08d8a9a0fce9"
+    },
+    {
+      "path": "assets/review/targets/No028.json",
+      "bytes": 24612,
+      "sha256": "ca4f9a02a7df65ffa4e048676016fd4e9568fc3d5a42f10deb98d22ce4bdb0a6"
+    },
+    {
+      "path": "assets/review/targets/No029.json",
+      "bytes": 27687,
+      "sha256": "54f9213cc210a12b8fc41b7a272391c6797343ffb7cf3e417d497299fa46e97d"
+    },
+    {
+      "path": "assets/review/targets/No030.json",
+      "bytes": 6214,
+      "sha256": "f6e40873273c0182693e8668ed5119d30dd412711e43b6be44b9b3ce114a87d2"
+    },
+    {
+      "path": "assets/review/targets/No031.json",
+      "bytes": 30069,
+      "sha256": "2024eb836982e0f237ce0c1ec45074c8b30f05564134ef59f517b54fbeb53674"
+    },
+    {
+      "path": "assets/review/targets/No032.json",
+      "bytes": 27412,
+      "sha256": "3337d44d0ef8d780007ba2832d7a740cd9a44c78b3944234540367d5a86fadcd"
+    },
+    {
+      "path": "assets/review/targets/No033.json",
+      "bytes": 25652,
+      "sha256": "44b170ce2d939d20a41d566cd2b77b8792d045d060ecbbc613250dd0b534937b"
+    },
+    {
+      "path": "assets/review/targets/No034.json",
+      "bytes": 36043,
+      "sha256": "409e9eea77ac9209c22c33ffec12119335f1a1f932cb9dae139725efdf4a7212"
+    },
+    {
+      "path": "assets/review/targets/No035.json",
+      "bytes": 28810,
+      "sha256": "3692d9d8d1b52f21d4dec32ab80c1a049e156cd5e2f447aa4cee7cbb67ac5788"
+    },
+    {
+      "path": "assets/review/targets/No036.json",
+      "bytes": 24332,
+      "sha256": "41244ea2586b462af78b9632eb042fb088c60148792605db8054cef97a9f5af0"
+    },
+    {
+      "path": "assets/review/targets/No037.json",
+      "bytes": 10906,
+      "sha256": "f7878ab47af638e518ceea418594813c6adde7420662fdeae0fce8adc1185be5"
+    },
+    {
+      "path": "assets/review/targets/No038.json",
+      "bytes": 29017,
+      "sha256": "64988f41d3daf666d5b5d40fdbdf594b1a30b04b0c640a684f830093908aba64"
+    },
+    {
+      "path": "assets/review/targets/No039.json",
+      "bytes": 27147,
+      "sha256": "d24b0a0de1deaf96bc7a89cf899973f8bb728f65ddfce2bb2722a5198d63e935"
+    },
+    {
+      "path": "assets/review/targets/No040.json",
+      "bytes": 36242,
+      "sha256": "d91c4d06b735b0a491777e22e9b6b304ebfeb3ae942e0df15f0b0b5dfa1205b1"
+    },
+    {
+      "path": "assets/review/targets/No041.json",
+      "bytes": 27990,
+      "sha256": "6ced08f2e738121b50c29c313f84133ab4e56762c31ba9083a47951e0b0129ad"
+    },
+    {
+      "path": "assets/review/targets/No042.json",
+      "bytes": 24882,
+      "sha256": "053a1baf2ab7a5fca03965c7ccb683000a817692c75be3e6de727e62f249c590"
+    },
+    {
+      "path": "assets/review/targets/No043.json",
+      "bytes": 26752,
+      "sha256": "57d9f51a99832ed6fd414963e37793f7fa8198b6bca34f40c812ed5e7350167a"
+    },
+    {
+      "path": "assets/review/targets/No044.json",
+      "bytes": 23533,
+      "sha256": "e40343edc508b7d8506be64b76c2cd5ca096b1862802b83d89f10b14500688a0"
+    },
+    {
+      "path": "assets/review/targets/No045.json",
+      "bytes": 27770,
+      "sha256": "360f27dfd92dbc6425cae6edfc742d73c765e58eac4c97ac4c1e19b9a5180c0f"
+    },
+    {
+      "path": "assets/review/targets/No046.json",
+      "bytes": 13068,
+      "sha256": "172a30819d837d137855a6ab053158a6fc0e9721baf175327ef65e3ebbf7f830"
+    },
+    {
+      "path": "assets/review/targets/No047.json",
+      "bytes": 29271,
+      "sha256": "ce0af96bae916991dee663b6275866c7f51c08c2ac40deac74f6b4e151385c46"
+    },
+    {
+      "path": "assets/review/targets/No048.json",
+      "bytes": 26135,
+      "sha256": "6edf02d846a8661e78bf6fb9baf9153ce072693bcea21e321bdbadd6a559c712"
+    },
+    {
+      "path": "assets/review/targets/No049.json",
+      "bytes": 28837,
+      "sha256": "3f9113410f83b1df79fa5dc43187722d7acb3e013bfb345cb3927418bb5cd223"
+    },
+    {
+      "path": "assets/review/targets/No050.json",
+      "bytes": 23564,
+      "sha256": "2ef925aae1c590151149095aa0854ca5cc69e4c18ba1d0f014be73918b2da8bf"
+    },
+    {
+      "path": "assets/review/targets/No055.json",
+      "bytes": 24479,
+      "sha256": "f2df5aea5681ef6bebf2f096c4107b947a0b21492057e3d34ff40743828e0b49"
+    },
+    {
+      "path": "assets/review/targets/No056.json",
+      "bytes": 23781,
+      "sha256": "38aefd6248be28b56695f2b412cc02756fbe57d9d71a957c681109a79ceee8a6"
+    },
+    {
+      "path": "assets/review/targets/No057.json",
+      "bytes": 8832,
+      "sha256": "e23520d222b86959f45e320d798ae02fbb9f23e8d814a1e86d860c17a112e0db"
+    },
+    {
+      "path": "assets/review/targets/No058.json",
+      "bytes": 26022,
+      "sha256": "250e046ca499ccfe9a07ca8de03a0aff82b1b05f7eb0b576d1a1908a8437eb3b"
+    },
+    {
+      "path": "assets/review/targets/No059.json",
+      "bytes": 28055,
+      "sha256": "ddbb1df06a020039c35c70da11770eff9f6865db0905cc1b37c4b97c7d627a7b"
+    },
+    {
+      "path": "assets/review/targets/No060.json",
+      "bytes": 26862,
+      "sha256": "8a4270e90c45d62c807c2259e5f57f3a70f7921e660f2943bd1417e1ba1b7cd7"
+    },
+    {
+      "path": "assets/review/targets/No061.json",
+      "bytes": 24964,
+      "sha256": "992fe857c840b1d43e6f25b0b19a91833acb6550fc6a8be5dd6b08b0267f83d8"
+    },
+    {
+      "path": "assets/review/targets/No062.json",
+      "bytes": 22151,
+      "sha256": "83bcb8ec4132ca3e6deb0d20b6ec0433b16f41daf8f083e9d90ca053c0623c0d"
+    },
+    {
+      "path": "assets/review/targets/No063.json",
+      "bytes": 27640,
+      "sha256": "852aa700ff1878a508698838aa5ec0f307ac600b2c879c1d72563a52d3d72336"
+    },
+    {
+      "path": "assets/review/targets/No064.json",
+      "bytes": 25088,
+      "sha256": "99403ee0a7d303fc5895a908e01faf7ec5e3b4df2611a56afa502158292e360c"
+    },
+    {
+      "path": "assets/review/targets/No065.json",
+      "bytes": 27105,
+      "sha256": "514276979cded0ccaac6763bf67ff9af03eabe7833667ab391d46711743e3baf"
+    },
+    {
+      "path": "assets/review/targets/No066.json",
+      "bytes": 26224,
+      "sha256": "0d7b5bd785744ce198d96a4f6cef5940d21382a3e5b15305ccf933de28b4cf36"
+    },
+    {
+      "path": "assets/review/targets/No067.json",
+      "bytes": 21681,
+      "sha256": "0d07bcb0317a1f9ba92548b2e41cc58313cad117c4069a09aa424bc786916649"
+    },
+    {
+      "path": "assets/review/targets/No068.json",
+      "bytes": 23724,
+      "sha256": "d3206b5ec779bca8583f5b6eb8f19eec4125e2af60fd4305626370bb941eefa0"
+    },
+    {
+      "path": "assets/review/targets/No069.json",
+      "bytes": 29671,
+      "sha256": "b29148af64bf1493a88392624cb495f93086283a0bcd8720a0e3a3a8bb338b5f"
+    },
+    {
+      "path": "assets/review/targets/No070.json",
+      "bytes": 30742,
+      "sha256": "9ed0de8954e8234eac7fd11435e2d0fba30ee2451dc251b007fb70df15c2abde"
+    },
+    {
+      "path": "assets/review/targets/No071.json",
+      "bytes": 31993,
+      "sha256": "25ec4755e08daab59e6aba21fe5a568627076c171e191b1aae805e3a3bc70676"
+    },
+    {
+      "path": "assets/review/targets/No072.json",
+      "bytes": 23451,
+      "sha256": "4af7ead08cb9cc36f0e58499d82bf2578628a4293509c0a614c18fa6c9a87f01"
+    },
+    {
+      "path": "assets/review/targets/No073.json",
+      "bytes": 26829,
+      "sha256": "0739857db4ef1a4a0a9d5024b4e11b900fe10af930dde773ee224d914ba0a987"
+    },
+    {
+      "path": "assets/review/targets/No074.json",
+      "bytes": 8369,
+      "sha256": "dc70bad358cc540ccfcbdfcec7fccc5b5d4344ead087c4ac22f58fca5009782f"
+    },
+    {
+      "path": "assets/review/targets/No075.json",
+      "bytes": 5386,
+      "sha256": "50820498c2d4e2b628d6bd9c131594eb05855e53a93c7b3f326fa08725e32559"
+    },
+    {
+      "path": "assets/review/targets/No076.json",
+      "bytes": 27170,
+      "sha256": "5b0ed1abcb55b2394b915cec1b94316d12743bd4084daeca4be208fd113cd2c1"
+    },
+    {
+      "path": "assets/review/targets/No077.json",
+      "bytes": 26418,
+      "sha256": "3aa6f5d4abd5a4041ac9fab46525f109fbf96350de207bb3bb31d1845b4dc3db"
+    },
+    {
+      "path": "assets/review/targets/No078.json",
+      "bytes": 8761,
+      "sha256": "7d443c07bca0cfb3b93d03be3bae5e254e479afd80b6fd873087b7f21ecc48a6"
+    },
+    {
+      "path": "assets/review/targets/No079.json",
+      "bytes": 33094,
+      "sha256": "b4640381d34b193e6687b4bf0a603e2a4fb2519c0b81123c93e5f925b8a9af06"
+    },
+    {
+      "path": "assets/review/targets/No080.json",
+      "bytes": 19021,
+      "sha256": "98c540523913d81f6f63a55bcf3e9ff87fce6cc5cfcb2eb3da6fcc9393852005"
+    },
+    {
+      "path": "assets/review/targets/No081.json",
+      "bytes": 9399,
+      "sha256": "b56d1015451240bb8797a3643d878942b3dcec1e0385bfaa5de531f0f4c2a8b6"
+    },
+    {
+      "path": "assets/review/targets/No082.json",
+      "bytes": 31804,
+      "sha256": "389d8c09187f4cc6b9517e11693f005494ac19a8da2355117b02598f3ad848af"
+    },
+    {
+      "path": "assets/review/targets/No083.json",
+      "bytes": 26106,
+      "sha256": "107fef87b04e1bd42aa0086973cd1f2ea4661272673c624639b0d64978b1d662"
+    },
+    {
+      "path": "assets/review/targets/No084.json",
+      "bytes": 12866,
+      "sha256": "86fdd751314f577bf4806fd8ad5578edd12fe7f5566f7c6ef1d7e531ec3ba442"
+    },
+    {
+      "path": "assets/review/targets/No085.json",
+      "bytes": 51128,
+      "sha256": "bfd44d2c21aa9f17b35744ade786ccd2fc4f259afac639069608b2b93fa6e1d2"
+    },
+    {
+      "path": "assets/review/targets/No086.json",
+      "bytes": 23962,
+      "sha256": "87709f631e34324da63e300782594902908860d030dd74bcecda72a25f9bae09"
+    },
+    {
+      "path": "assets/review/targets/No087.json",
+      "bytes": 24104,
+      "sha256": "7a841356782c95259753605ead3ca38f66001e2ae83a191b4bbabc31cdf7234b"
+    },
+    {
+      "path": "assets/review/targets/No088.json",
+      "bytes": 16813,
+      "sha256": "fcd350d6671af94cee4532b7ee79246052a427d114687e56d3b774a3dea40178"
+    },
+    {
+      "path": "assets/review/targets/No089.json",
+      "bytes": 27388,
+      "sha256": "5ab8c460521d89618518b312a0b5e9d88247be081b49343093e8c8099b24dacf"
+    },
+    {
+      "path": "assets/review/targets/No090.json",
+      "bytes": 28428,
+      "sha256": "d8ae176583d9ac63ebcbabe9c35abdef7eeb05a5f0635aadd9e8d2551b90ee5d"
+    },
+    {
+      "path": "assets/review/targets/No091.json",
+      "bytes": 22685,
+      "sha256": "343f8440fda50aee5471bc1491b7d46f7981c806eee8a3dc6003759f81cbcb29"
+    },
+    {
+      "path": "assets/review/targets/No092.json",
+      "bytes": 26501,
+      "sha256": "b9a7c70afeec62e6e2b058264689fe98b9f5a50aaa90f0c9f3b284adc82f590a"
+    },
+    {
+      "path": "assets/review/targets/No093.json",
+      "bytes": 25541,
+      "sha256": "a799c9832e8b9dcbf4851b67311eb42343d0cd2afbb3aba10fc0a805fc3e36aa"
+    },
+    {
+      "path": "assets/review/targets/No094.json",
+      "bytes": 11764,
+      "sha256": "a08cb794f774fd3762b410a2439806c55988cb38169245db74dfda5b66c3dcef"
+    },
+    {
+      "path": "assets/review/targets/No095.json",
+      "bytes": 22359,
+      "sha256": "501016982d830dd1a80bdffa1139a8c6670a5441be8adb5289cb210889b7c8a6"
+    },
+    {
+      "path": "assets/review/targets/No096.json",
+      "bytes": 26943,
+      "sha256": "62bb25b4e46e577b002e17c763cbbfb36a132606a26d0d4997752a02b741e9bd"
+    },
+    {
+      "path": "assets/review/targets/No097.json",
+      "bytes": 18074,
+      "sha256": "e48634d264abeb534a148275f8c6b87e4a3643b4f4c1c81f7a7955cb4879d7f7"
+    },
+    {
+      "path": "assets/review/targets/No098.json",
+      "bytes": 27411,
+      "sha256": "6d6d1a8d0444a99e98ac96b6b6f4e00aa8a394dde4cd4a81a1c7cc48b2080597"
+    },
+    {
+      "path": "assets/review/targets/No099.json",
+      "bytes": 24673,
+      "sha256": "a13032bdf3868b3c61aa2b4457597f9f4815e7a744f8ec4e61ec0bdde26a5791"
+    },
+    {
+      "path": "assets/review/targets/No100.json",
+      "bytes": 16631,
+      "sha256": "b628e1a2f7fb4841b0130a16ae321949bc7ccf0d297cd0fa3328206fab3e7ccf"
+    },
+    {
+      "path": "assets/review/targets/No101.json",
+      "bytes": 26545,
+      "sha256": "3b92ea07bc743451a50f1f94f4641b1d60038d870cf7e44346142880070c158c"
+    },
+    {
+      "path": "assets/review/targets/No102.json",
+      "bytes": 25465,
+      "sha256": "a7a668ebe41a56815a64d45afa11eea89c383ea168f1ce6ba7c2f54a500b9c76"
+    },
+    {
+      "path": "assets/review/targets/No103.json",
+      "bytes": 23135,
+      "sha256": "9520f4739a1dc8e35da3e4e6064e1ec0f4df554dff3655d7e9c5585bafd51ff0"
+    },
+    {
+      "path": "assets/review/targets/No104.json",
+      "bytes": 8021,
+      "sha256": "4f0a07043377cd22a49ad4fa7b4b8b4ea675e1f88ba5eb1b70fba502b3dd4927"
+    },
+    {
+      "path": "assets/review/targets/No105.json",
+      "bytes": 40099,
+      "sha256": "16af0756b4494a928af301502fc741f1548c822a3f8e4aabb685c7cadf665d1e"
+    },
+    {
+      "path": "assets/review/targets/No106.json",
+      "bytes": 24950,
+      "sha256": "1ae46a96a3eef2f225a4689f61f02234f848532e263de8a9bb200b5b148f1ae7"
+    },
+    {
+      "path": "assets/review/targets/No107.json",
+      "bytes": 26920,
+      "sha256": "a8261b93c050136800aaac1911a1566a517c30af8976d3660a726580c105d6ca"
+    },
+    {
+      "path": "assets/review/targets/No108.json",
+      "bytes": 9245,
+      "sha256": "0fe22547644857094ec589c44f1ec75a3f61343272b74c7efd9801dcbed82df8"
+    },
+    {
+      "path": "assets/review/targets/No109.json",
+      "bytes": 30057,
+      "sha256": "19f1552b41ab63f1975ca6dec2c621875218c70834f980730c7d5587c3ab8a9f"
+    },
+    {
+      "path": "assets/review/targets/No110.json",
+      "bytes": 29699,
+      "sha256": "82781c3331845ea7f2a7eb112031b62de1d0dedcd3001c3c5fa8128625ece272"
+    },
+    {
+      "path": "assets/review/targets/No111.json",
+      "bytes": 29676,
+      "sha256": "482bee8a2ceba8b5a7fa8a72f87d538b4d0e74606b235172da4479f63dbd2863"
+    },
+    {
+      "path": "assets/review/targets/No112.json",
+      "bytes": 27173,
+      "sha256": "333b21d133b03f130e5e64695bb9822c6ef2b7b5e11b58f52b7dd91371594d9f"
+    },
+    {
+      "path": "assets/review/targets/No113.json",
+      "bytes": 28737,
+      "sha256": "10e4965fa8c7e327da5f584e91964346e719352271084aa4e6b25f4d75191146"
+    },
+    {
+      "path": "assets/review/targets/No114.json",
+      "bytes": 24190,
+      "sha256": "1286fcd00d8c56af2d571a3ab92884d5cf354f13671a1ab08968ea554ee3638b"
+    },
+    {
+      "path": "assets/review/targets/No115.json",
+      "bytes": 29356,
+      "sha256": "f36e59b04a671234b3ad266caa64da60a421faacef15633a0fc1ee7d0ddd3b91"
+    },
+    {
+      "path": "assets/review/targets/No116.json",
+      "bytes": 32677,
+      "sha256": "a2ee1da5a8daf5bc4691f458bceddc65527c164fc9665a57cdd9c6adc608b6dc"
+    },
+    {
+      "path": "assets/review/targets/No117.json",
+      "bytes": 31411,
+      "sha256": "c49074904e440a1e8599a2c528b9745db82e15129f688ad5c84724ed1fad93dd"
+    },
+    {
+      "path": "assets/review/targets/No118.json",
+      "bytes": 28166,
+      "sha256": "1930f634c558c83be0aa5c83c33715d6e6c16935435e4e411b2e85f097b616bc"
+    },
+    {
+      "path": "assets/review/targets/No119.json",
+      "bytes": 37315,
+      "sha256": "bc6a56d2b5b5086112dee281205f05b59fea1de530faba1c05636f2d6125b8f3"
+    },
+    {
+      "path": "assets/review/targets/No120.json",
+      "bytes": 27097,
+      "sha256": "445e2e59f7894a68a92d0c267f9655d9872b907747f5cdfad1f051c509454774"
+    },
+    {
+      "path": "assets/review/targets/No121.json",
+      "bytes": 29755,
+      "sha256": "8234339012d06458f086f30dfa52fd4124f8d930bba7955f6093bc63e675c13b"
+    },
+    {
+      "path": "assets/review/targets/No122.json",
+      "bytes": 25431,
+      "sha256": "5192ba920bef880864d935f1f31a46f1d5a6b8f59f56ab0dfeca094f9511c2f2"
+    },
+    {
+      "path": "assets/review/targets/No123.json",
+      "bytes": 36182,
+      "sha256": "b0dd7a917f4b15c15a4d57a2a21649a3a53cf881d3df48356359628d8d76c3bf"
+    },
+    {
+      "path": "assets/review/targets/No124.json",
+      "bytes": 28911,
+      "sha256": "647a31883442529f84d2f0d81b935cd3000f315e580aa271cb096f27e15c0a24"
+    },
+    {
+      "path": "assets/review/targets/No125.json",
+      "bytes": 26911,
+      "sha256": "47b934b26436deb68f677995f22595bb450e465690636ca8fb2570a47f167590"
+    },
+    {
+      "path": "assets/review/targets/No126.json",
+      "bytes": 27291,
+      "sha256": "a6b03055d9c2904b32df530a77d167aac6a07d9f5191326dbaea75dcaf42cd53"
+    },
+    {
+      "path": "assets/review/targets/No127.json",
+      "bytes": 34953,
+      "sha256": "b3982ae8a0b1805295009591492928a54c9d3db4c2e5d016d0e2027c3aa2efed"
+    },
+    {
+      "path": "assets/review/targets/No128.json",
+      "bytes": 28439,
+      "sha256": "63fce4b82e3d30b6126035e41707f63ccc92209fd203f53262aea12d1efc61bf"
+    },
+    {
+      "path": "assets/review/targets/No129.json",
+      "bytes": 33937,
+      "sha256": "98bce8bf593e7bdee535072acccaeaec856b7aaf1ffc08f4a2fa244f44f4317d"
+    },
+    {
+      "path": "assets/review/targets/No130.json",
+      "bytes": 20837,
+      "sha256": "cd9781ff2d8a1c49fd56e29615d9727c7140e63de92f3bcc622de5b8c8bbdbc3"
+    },
+    {
+      "path": "assets/review/targets/No131.json",
+      "bytes": 24086,
+      "sha256": "65e354750e87a68540d2e2dc46e31d0c521f94e8922da7ecec33b152cdfbdc55"
+    },
+    {
+      "path": "assets/review/targets/No132.json",
+      "bytes": 14799,
+      "sha256": "e043ffae4a50b081a8f80a7af8a847157b2cf8c0b6cbfbc1c9d2e7763a595f68"
+    },
+    {
+      "path": "assets/review/targets/No133.json",
+      "bytes": 33449,
+      "sha256": "67894f9e2593f20f9ac7cbfefee57f1359125a6ef3c87a68920aef7f728dd3f3"
+    },
+    {
+      "path": "assets/review/targets/No134.json",
+      "bytes": 32854,
+      "sha256": "77993fb959ac35229c78fbc255226b68d5ec346adf39fdf1bcf7d037ed8e3ed8"
+    },
+    {
+      "path": "assets/review/targets/No135.json",
+      "bytes": 33472,
+      "sha256": "23ac40e7cf6defb3b207e5296a87a363326ad12b6277a8f7ef364becb2d04225"
+    },
+    {
+      "path": "assets/review/targets/No136.json",
+      "bytes": 30103,
+      "sha256": "af5cb3d3f2f887cba396f5c43158021f4e5f7fed38443c40fb56063438837f38"
+    },
+    {
+      "path": "assets/review/targets/No137.json",
+      "bytes": 31700,
+      "sha256": "a89f661d759e5dc824965cf25e94cc82dec580599b729be4beb2271fcab31731"
+    },
+    {
+      "path": "assets/review/targets/No138.json",
+      "bytes": 31305,
+      "sha256": "259eb333f336b2fe0b356ac765d3bf5b6e5ef8a83fc5cf35cea2f28446ccc0eb"
+    },
+    {
+      "path": "assets/review/targets/No139.json",
+      "bytes": 30374,
+      "sha256": "e1da3e7e6a0197366b78f8f56f40fb062cf02d927533b606895b5ca8fc8b4e6c"
+    },
+    {
+      "path": "assets/review/targets/No140.json",
+      "bytes": 34222,
+      "sha256": "f29e8c32b47f63de0fdbd845ad7d93f4a70b37d291e55ba128be3d85706e9e8b"
+    },
+    {
+      "path": "assets/review/targets/No141.json",
+      "bytes": 49295,
+      "sha256": "4a579ce13eed131b7b16db89552ed858d1ef0f430bf2c12b65e7202f422f401c"
+    },
+    {
+      "path": "assets/review/targets/No142.json",
+      "bytes": 27757,
+      "sha256": "bd12c963978aad6452b003ef80bde60579afdab19530c45b97bdc77c3a7e553f"
+    },
+    {
+      "path": "assets/review/targets/No143.json",
+      "bytes": 34409,
+      "sha256": "6c725eb7b7b2b6de138c255357401224594f4733574d54de4eb7d8a7da11826d"
+    },
+    {
+      "path": "assets/review/targets/No144.json",
+      "bytes": 26961,
+      "sha256": "da9fb4994acf9a3f8abb7b64b53e56bd56c3feec072e7750cd8a83593eaf0ac1"
+    },
+    {
+      "path": "assets/review/targets/No145.json",
+      "bytes": 32626,
+      "sha256": "e23fd21a72a63bc7a319d55a814d1b89b4ae55265cd25d9c95a7c80cea0ef995"
+    },
+    {
+      "path": "assets/review/targets/No146.json",
+      "bytes": 31252,
+      "sha256": "9c2e7b976bca5012d3b60ef46c18f4e9fb3ef7c6bcad8867d87e7f0284d5cbe9"
+    },
+    {
+      "path": "assets/review/targets/No147.json",
+      "bytes": 30691,
+      "sha256": "c4a0ed91571bb4e6a52b94a1a0949d39927a847de0f39e371ed2a2ae118c4f24"
+    },
+    {
+      "path": "assets/review/targets/No148.json",
+      "bytes": 31810,
+      "sha256": "8ba88555f1d006e5d463cba6868fb485c274757b42c0d96738174be2c43ccaf6"
+    },
+    {
+      "path": "assets/review/targets/No149.json",
+      "bytes": 33277,
+      "sha256": "80634adae882cc57300dc8eccb4b16e8c7d12bc536598e96315eeec44aa7bc6c"
+    },
+    {
+      "path": "assets/review/targets/No150.json",
+      "bytes": 28716,
+      "sha256": "d868ebb80578690f0cf68306d60566c3f40a9f9faafbf041d932d5dbcd5ee092"
+    },
+    {
+      "path": "assets/review/targets/No151.json",
+      "bytes": 29809,
+      "sha256": "24cc86ee6334233c050bbab48849ca1c6b81933adfdf6de43851c7af866cdea4"
+    },
+    {
+      "path": "assets/review/targets/No152.json",
+      "bytes": 28494,
+      "sha256": "080f3b03aa63cc7e4fa6eec1d86c68ed9bd0aa28f2dcb936e3fba09b27a3ba39"
+    },
+    {
+      "path": "assets/review/targets/No153.json",
+      "bytes": 39275,
+      "sha256": "8743e74a5589bbb356cce3f83d004359f2999cb6c48f60ac4eafac7dba958af9"
+    },
+    {
+      "path": "assets/review/targets/No154.json",
+      "bytes": 63152,
+      "sha256": "29abd13ab1cddf2b6696e2d067bde2cfd3c216c7ceb898c24f97a0368b374808"
+    },
+    {
+      "path": "assets/review/targets/No155.json",
+      "bytes": 31184,
+      "sha256": "b1c630503ba3c3d85ac81f09da45ae620bb8cb45dc7bdbf06e6e5b82c277e089"
+    },
+    {
+      "path": "assets/review/targets/No156.json",
+      "bytes": 41686,
+      "sha256": "b3a4dbf24102700cec33388841eccc59262bd75bb9db7a35e374a6d55741c010"
+    },
+    {
+      "path": "assets/review/targets/No157.json",
+      "bytes": 37128,
+      "sha256": "57022840003f9d4cf6bf8ee797e28f9f62e94ee58b3cd14454956827bdb50ff2"
+    },
+    {
+      "path": "assets/review/targets/No158.json",
+      "bytes": 37530,
+      "sha256": "8047376547a247e02cca03cfa8d9c8b9a520260ecbf5b35bbe61fc8c19159671"
+    },
+    {
+      "path": "assets/review/targets/No159.json",
+      "bytes": 35076,
+      "sha256": "7ec0ccc7d9bfd23e8c2cb574271c401736064ccc19beadd2fe6c7339f06e5814"
+    },
+    {
+      "path": "assets/review/targets/No160.json",
+      "bytes": 39988,
+      "sha256": "219e5df00e1352d1189d376e65d0a980f4b4ef8fc9675b04c0d268a16b3f9da2"
+    },
+    {
+      "path": "assets/review/targets/No161.json",
+      "bytes": 49472,
+      "sha256": "d4ec87ba5b2aaa333b96d4be8edbbddefa062f2b3b1cce9cfacfec97cd59577e"
+    },
+    {
+      "path": "assets/review/targets/No162.json",
+      "bytes": 36498,
+      "sha256": "bd8f04585c2c3c36aa39d5dec52fd92e3dda699700a8055d5034bf72cb077dac"
+    },
+    {
+      "path": "assets/review/targets/No163.json",
+      "bytes": 37259,
+      "sha256": "6d27d4e488cc659547eb4f629d8b6509643c042da12418c4bf3313eb57a4e57f"
+    },
+    {
+      "path": "assets/review/targets/No164.json",
+      "bytes": 29215,
+      "sha256": "d29b76dab7b29d6aed54208060329e11eee685639b2581a37880a686e84a06c7"
+    },
+    {
+      "path": "assets/review/targets/No165.json",
+      "bytes": 30998,
+      "sha256": "8638eb263092ab03155fcf982af04025cfcdd163f2a240112031ccfa20fa07ae"
+    },
+    {
+      "path": "assets/review/targets/No166.json",
+      "bytes": 37304,
+      "sha256": "a3424569b6c5c7d4d5be31394eb9e68848d48b0662b5a90a1cf4bb48395b0871"
+    },
+    {
+      "path": "assets/review/targets/No167.json",
+      "bytes": 34745,
+      "sha256": "3afb072d446ba3d3a3076135040fb20f702fafe8423ca21101d0f4a025808863"
+    },
+    {
+      "path": "assets/review/targets/No168.json",
+      "bytes": 44093,
+      "sha256": "c0909d7bdc629558a2667dc76626082d3d7044087c0c732f5f63440e59bb2f8b"
+    },
+    {
+      "path": "assets/review/targets/No169.json",
+      "bytes": 31119,
+      "sha256": "b783cb62c93b4588226d0a0875a640c2ba934973dddb58314ca0b446df45c2ae"
+    },
+    {
+      "path": "assets/review/targets/No170.json",
+      "bytes": 33836,
+      "sha256": "5671f7c059fcbc28d8b3ea8fbbf4099bda01c4501f704ef7e267934800907a19"
+    },
+    {
+      "path": "assets/review/targets/No171.json",
+      "bytes": 73699,
+      "sha256": "f3a6af0a3b954b924f4be555a83ac972502e5ba46ee382dd1a1c3a757ddb155c"
+    },
+    {
+      "path": "assets/review/targets/No172.json",
+      "bytes": 63338,
+      "sha256": "5d8476316cb55cf75fbf334d1332abc9e9cc3e58a3b2c1129989ed8a37b62889"
+    },
+    {
+      "path": "assets/review/targets/No173.json",
+      "bytes": 131223,
+      "sha256": "f125351da407d21bdb96ce52ff5837ededb6d36d1651d3b0eb7f177c1919cfb5"
+    },
+    {
+      "path": "assets/review/targets/No174.json",
+      "bytes": 59137,
+      "sha256": "9e96d07bd54868b540b2510fde532262801324bec503ecc5b8e24938c4caa826"
+    },
+    {
+      "path": "assets/review/targets/No175.json",
+      "bytes": 50218,
+      "sha256": "8b0e6150890303f6e142fc9d48f523b8b3a7de45515b934bfe10cdeb69900af9"
+    },
+    {
+      "path": "assets/review/targets/No176.json",
+      "bytes": 30518,
+      "sha256": "e71d0a13ccd346a93a0723633cad8fe82f7afd8e94b7097a6dfaa9a40f1504de"
+    },
+    {
+      "path": "assets/review/targets/No177.json",
+      "bytes": 37062,
+      "sha256": "218b9b8e1722395a4d467e8bac8e708f512ee90fe16878efdf2b8134dbdba8da"
+    },
+    {
+      "path": "assets/review/targets/No178.json",
+      "bytes": 57146,
+      "sha256": "f1cf8a729f59cd96c67ffdb5728e9605aa7ceb70fc1c6afd99e4c65874335a94"
+    },
+    {
+      "path": "assets/review/targets/No179.json",
+      "bytes": 102769,
+      "sha256": "37f65b6f714fb9afaafc1fe084083b84c36fc5d5e782805761caa0ceca89d4ce"
+    },
+    {
+      "path": "assets/review/targets/No180.json",
+      "bytes": 34260,
+      "sha256": "f5a0ea85194e626d5ff5a44120c86c3b130a93b2a4d487cc731191ef63ebd7e5"
+    },
+    {
+      "path": "assets/review/targets/No181.json",
+      "bytes": 71909,
+      "sha256": "0abfed4512289300c95129aaee988f77742f20716c7c8ae60792ebb299da15ac"
+    },
+    {
+      "path": "assets/review/targets/No182.json",
+      "bytes": 6351,
+      "sha256": "f213f119d208ec2b862882e5b419fca66083ec69ea41d291597a7ad116cc00f2"
+    },
+    {
+      "path": "assets/review/targets/No183.json",
+      "bytes": 20440,
+      "sha256": "be3454369a80857add859d345398ade9632b5e6b96cf49176cc9bfa89a19e927"
+    },
+    {
+      "path": "assets/review/tests/.gitignore",
+      "bytes": 14,
+      "sha256": "4d56952b0fb13bf8f9b6c13a6d4c34a075bac3af447636a1df4335d7576e2f97"
+    },
+    {
+      "path": "assets/review/tests/api_v1.test.mjs",
+      "bytes": 8340,
+      "sha256": "99e2dbe9fbb9f202192fa61a65bed4420327389ced7cdd272fe100e1274b2f92"
+    },
+    {
+      "path": "assets/review/tests/client_v1.test.mjs",
+      "bytes": 13958,
+      "sha256": "12c9d0d1744c316bf2861a9da3e4a13dfd6d8cd62f47d8bfc5da931c4c84d444"
+    },
+    {
+      "path": "assets/review/tests/compatibility_v1.py",
+      "bytes": 2089,
+      "sha256": "668acbbe78a7eea8e2c61d3c8ed4d47b913da14675d0473a145e23df583b6083"
+    },
+    {
+      "path": "assets/review/tests/package.json",
+      "bytes": 199,
+      "sha256": "2d4652f043bd67b466f649d54ff6cb9d8d0f83d92a86b352659779c64c6a5bbf"
+    },
+    {
+      "path": "assets/review/tests/テスト結果_v2.txt",
+      "bytes": 1962,
+      "sha256": "894c6fef43e18efdf3f694e09bcda0ff25578eee45a48be4f98559dedffda67c"
+    },
+    {
+      "path": "assets/review/tests/互換性検証_v2.json",
+      "bytes": 511,
+      "sha256": "b6f0fe3dcdb572bca638b5bdb32cbafd10ab3e8f9155e5c3c43518c7c1e2ffec"
+    },
+    {
+      "path": "assets/review/viewer_v1.js",
+      "bytes": 15024,
+      "sha256": "c99224d5e3c9e602f140e9e46e7989fc91e027ca320b29cf854f26b5db17863a"
+    },
+    {
+      "path": "assets/review/実装・検証報告_v2.md",
+      "bytes": 10274,
+      "sha256": "9336b567fd5b3b80a9a954f0852dd6a95c8c70da085393353a4b2a79d241cdd8"
+    },
+    {
+      "path": "assets/review/設定手順_v2.md",
+      "bytes": 3379,
+      "sha256": "a0e48e50d46d03d9fd92dc97e50ad61447886460b46938251a5e9f8fdd44d7f1"
+    },
+    {
+      "path": "index.html",
+      "bytes": 8924,
+      "sha256": "7fbec9285cf43c6b15267e59397eafbcdb8cd8f7f413b962fe0e28a9645a28d8"
+    },
+    {
+      "path": "pages/No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
+      "bytes": 78226,
+      "sha256": "09a6259cb41422721efc3864e0d115973e84c149aaef744e2c2e349982c8f999"
+    },
+    {
+      "path": "pages/No010-015_古代ローマ.html",
+      "bytes": 65302,
+      "sha256": "0ee0bc98f0b4ed242422c42a6b6ab3f3f0503972c92cad95669b9f0381ef31da"
+    },
+    {
+      "path": "pages/No016-018_古代インド.html",
+      "bytes": 46821,
+      "sha256": "be85b4086b65b96d57c145a3ce3ab1bb59e94a9fe8802f44015b599e847e255c"
+    },
+    {
+      "path": "pages/No019-021_東南アジアの諸文明.html",
+      "bytes": 47803,
+      "sha256": "106064d6fe43e040713d5f8525e6fb0413f3ad03ce4f9428b3284ba3d940790a"
+    },
+    {
+      "path": "pages/No019-021_東南アジアの諸文明.html",
+      "bytes": 47803,
+      "sha256": "106064d6fe43e040713d5f8525e6fb0413f3ad03ce4f9428b3284ba3d940790a"
+    },
+    {
+      "path": "pages/No022-040_中国史〜元.html",
+      "bytes": 122877,
+      "sha256": "d04ff9ef1fda5178bc59cd818b038b8764b36a1630d921b30a563bcfca9ca7c0"
+    },
+    {
+      "path": "pages/No022-040_荳ｭ蝗ｽ蜿ｲ縲懷・.html",
+      "bytes": 105295,
+      "sha256": "393c8fb586388d9e60a4a452a930acbc93916f16cba30e212147229c8976e16e"
+    },
+    {
+      "path": "pages/No041-046_明・清.html",
+      "bytes": 62642,
+      "sha256": "18004a239b336989482c8440d205fc80d1a477626c5f8fff2d22c9c93e502463"
+    },
+    {
+      "path": "pages/No047-069_ローマ分裂〜大航海時代.html",
+      "bytes": 94146,
+      "sha256": "3f94d14ca60a2a7e02b34bbe791d96aa86af1f7e579f91bf77b20478053fff6c"
+    },
+    {
+      "path": "pages/No070-081_イスラーム史.html",
+      "bytes": 73064,
+      "sha256": "faaf7358da6f98626e87bf9a76de8e98fb5a6887f8a0cd3ea6403e6297744661"
+    },
+    {
+      "path": "pages/No082-084_大航海.html",
+      "bytes": 44353,
+      "sha256": "da1562de22cae26667d8508ea3c988d558d6ca13a5a04f4af1bed9b7d2847196"
+    },
+    {
+      "path": "pages/No085_ルネサンス.html",
+      "bytes": 47894,
+      "sha256": "97fac1684058ef3b9e063502b260cd8b880dc14d7491765175c6ae5db9e5a0d5"
+    },
+    {
+      "path": "pages/No086-104_宗教改革〜産業革命.html",
+      "bytes": 80628,
+      "sha256": "9c023805565bb775452e0c1ef2eebd4a0fdbd48f7dbb403443b9e4f943f5bff5"
+    },
+    {
+      "path": "pages/No105-108_アメリカの成立.html",
+      "bytes": 50092,
+      "sha256": "6942162e16c04ace308545c4941569284f3187317ade7c7117965aae25d1f5e8"
+    },
+    {
+      "path": "pages/No109-114_フランス革命.html",
+      "bytes": 50329,
+      "sha256": "bb0ca17420d53b7c05302fd5a17b8d28c5b03512b9e73fbcb47473be4c433623"
+    },
+    {
+      "path": "pages/No115-123_ウィーン体制と各国の統一.html",
+      "bytes": 71558,
+      "sha256": "26e1d715c6a6e5439e5cd299056eb700aaff192113fdc9bf3622b1ed9ffd0e9a"
+    },
+    {
+      "path": "pages/No124-126_東アジアの激動.html",
+      "bytes": 46306,
+      "sha256": "49afe7c3e0ea6eb450f07d1ac037ce77186432f3ec7c365dd744b42d0a2a1b2e"
+    },
+    {
+      "path": "pages/No127-129_帝国主義の植民地支配.html",
+      "bytes": 60704,
+      "sha256": "3af5d5ed994b149136c4b0617a6254e7d1129543b430021613c128da18b70ec1"
+    },
+    {
+      "path": "pages/No130-135_第一次世界大戦への道.html",
+      "bytes": 72241,
+      "sha256": "be9d5cce6272a46eb80e1308c84ba04896bd38b40800e20a0d4f5a0a30d67063"
+    },
+    {
+      "path": "pages/No136-138_ロシア革命とその影響.html",
+      "bytes": 63222,
+      "sha256": "2d4fd65732160ab877d1e635409e8b40431125c242e7882551f530a3d62c1177"
+    },
+    {
+      "path": "pages/No139-147_戦間期国際政治史.html",
+      "bytes": 112516,
+      "sha256": "2f298cbb99a500faacf47d27b13056ccdf1e5a646ae9c6054e6718ed2bfd8691"
+    },
+    {
+      "path": "pages/No148-153_中国革命史・日本の中国侵略.html",
+      "bytes": 66732,
+      "sha256": "63faafab99992df261cab71c0305b44e1101d0ac6c6407394c98fc643fde3a74"
+    },
+    {
+      "path": "pages/No154-156_第二次世界大戦・戦後国際秩序.html",
+      "bytes": 62179,
+      "sha256": "ec796b76e6611887079c08df17f46e21e8ab964535d2cc1a3a3d10995980f1f2"
+    },
+    {
+      "path": "pages/No157-163_米ソ冷戦の展開.html",
+      "bytes": 78861,
+      "sha256": "0c22838c2f30bf8cdcda3ecaeb4c6c976d200267c2672c85596984644c999c21"
+    },
+    {
+      "path": "pages/No164-166_中華人民共和国の成立と展開.html",
+      "bytes": 52802,
+      "sha256": "2e16aad1dfb3ce86e792fd084367f5973b1ee3d8e28030da5ad4a7f1c12178de"
+    },
+    {
+      "path": "pages/No167-168_中東問題.html",
+      "bytes": 50273,
+      "sha256": "c0cadfe316242b329ebd74757e0e775bcec171135f297e793a12b66ffe104676"
+    },
+    {
+      "path": "pages/No169-171_アフリカ諸国の独立.html",
+      "bytes": 50642,
+      "sha256": "d25b4afac6a69edc8958a352b05a857f967570f4563119c1bc76c2763209bdc2"
+    },
+    {
+      "path": "pages/No172-173_朝鮮半島の歴史.html",
+      "bytes": 63202,
+      "sha256": "67e94ecf5712b6bccde7254ad68e957af513b2b291184f8b0dcdd7873c61ae8d"
+    },
+    {
+      "path": "pages/No174-175_インド・南アジアの現代史.html",
+      "bytes": 53358,
+      "sha256": "af3b5050edceecb94ba6b489b7e3be0b8149434b29ea27255b9dd8f30c095ddb"
+    },
+    {
+      "path": "pages/No176-178_180_冷戦後の世界と現代アメリカ.html",
+      "bytes": 64125,
+      "sha256": "83966a60545f28bb78cee637a1e7385dd1a1fca99434f86666d7cfc5414eeafa"
+    },
+    {
+      "path": "pages/No176_冷戦の終結とソ連崩壊.html",
+      "bytes": 38645,
+      "sha256": "62019e1c8e6b36b7dbcc7520461b5caec531a5dab8f5a91bc48b24b2ff038979"
+    },
+    {
+      "path": "pages/No177_グローバル化する世界.html",
+      "bytes": 39979,
+      "sha256": "60b90cd9a34ad5f177b935df06815f0953b8aacb94b73b91af63973250a51d48"
+    },
+    {
+      "path": "pages/No178_現代アメリカと対テロ戦争.html",
+      "bytes": 49812,
+      "sha256": "e516534faed96754862834df9cba1e37cd72773b76f4247efa8f3b21e989ac96"
+    },
+    {
+      "path": "pages/No179_現代世界史補足資料.html",
+      "bytes": 47512,
+      "sha256": "f40e976ee00ed8db4a0337a50a2f125943df420f307be48af5d84856fcc2977f"
+    },
+    {
+      "path": "pages/No180_現代アメリカと国際社会.html",
+      "bytes": 40215,
+      "sha256": "6fdf528157b893ef9f1e96487b3a9905e9f309e3800e6cb8625da223f41bc09a"
+    },
+    {
+      "path": "pages/No181_東西交渉の道.html",
+      "bytes": 51461,
+      "sha256": "ed2b9dd30b57587cdb017d8de16a73fc44ae58ee4431dd5ca5df0989a74f5766"
+    },
+    {
+      "path": "pages/No182_メキシコ史.html",
+      "bytes": 41106,
+      "sha256": "c536e679dc5bd3625092ab4ada1b1fc783da623a581e6386b6efaaf8c2b7d65c"
+    },
+    {
+      "path": "pages/No183_戦後のアメリカ合衆国.html",
+      "bytes": 40497,
+      "sha256": "6c4f39b30256ad709a0562178d015d264ac613d457d6477a08413c3c1b481649"
+    },
+    {
+      "path": "pages/centuries.html",
+      "bytes": 18221,
+      "sha256": "8de25288ce895f2c1f52f861f502af970ff17714f6b5f63cb17a0ff9675533b0"
+    },
+    {
+      "path": "pages/centuries/view.html",
+      "bytes": 42782,
+      "sha256": "88bcb88d02570b3e04b02780ef0e0b5bffd6e859a17e17fce062232f20dd24d2"
+    },
+    {
+      "path": "pages/century.html",
+      "bytes": 12310,
+      "sha256": "9fa4e635ae5ceda0013c49fb768e945afb7fb7afc6f721152442944215d2cc03"
+    },
+    {
+      "path": "pages/historical-map.html",
+      "bytes": 7509,
+      "sha256": "e5aed71ef03d92e47b74529fdc6eb87841e6f2867f36810e00d2e0a07096934b"
+    },
+    {
+      "path": "pages/regional.html",
+      "bytes": 11204,
+      "sha256": "3b12ce8f3ac2d558448898f8a14ef5e4574b40fc29f423cf2406fd0678e22575"
+    },
+    {
+      "path": "pages/regions/africa.html",
+      "bytes": 171636,
+      "sha256": "085b9ec469f5dc95e360ed1f2295f9fd5dd3502a61c01b69ece6026f6cf78d51"
+    },
+    {
+      "path": "pages/regions/americas.html",
+      "bytes": 283437,
+      "sha256": "0948e17ce7df6fffd80fe9e90af73f5b70dc9252b809249e5d442b4dba14e9bb"
+    },
+    {
+      "path": "pages/regions/central-asia.html",
+      "bytes": 187473,
+      "sha256": "3ca7aef91265c0308fd937d0e938958dbba0c11f4c32d8446c3a9cc86575f66b"
+    },
+    {
+      "path": "pages/regions/east-asia.html",
+      "bytes": 346760,
+      "sha256": "d0b0316f30316718fa524bd1b597c6e0f9e3c9b7b6fb1b1be57678ae4aa0be82"
+    },
+    {
+      "path": "pages/regions/europe.html",
+      "bytes": 613075,
+      "sha256": "20186b768bbedc95240f9ee8b8489cce56f9aa6caad7bfa8aca443722b3bfd99"
+    },
+    {
+      "path": "pages/regions/oceania.html",
+      "bytes": 58359,
+      "sha256": "b663347c94926fa0224d70116a3dac6af491c8fdb7cba218223227d4b0b07854"
+    },
+    {
+      "path": "pages/regions/south-asia.html",
+      "bytes": 155670,
+      "sha256": "20e1c900129a0f4805a3c342cd4389803494cf754b425aa5808555e63aa3a1df"
+    },
+    {
+      "path": "pages/regions/southeast-asia.html",
+      "bytes": 129022,
+      "sha256": "db1115fe570173dbe70f48ec05c445e259be985cfd08903d8df439737549f430"
+    },
+    {
+      "path": "pages/regions/west-asia.html",
+      "bytes": 272407,
+      "sha256": "b49f04fe651fae4027aaba945c2bbe894f9db748b165764dff00a09b361722ea"
+    },
+    {
+      "path": "pages/review.html",
+      "bytes": 2427,
+      "sha256": "ad4a70c9bf807f00fd28f891d8c519cb64942d7939273903ea7f380799a207ba"
+    },
+    {
+      "path": "pages/search.html",
+      "bytes": 9082,
+      "sha256": "54bf638f2462027974c579d477536ace4872f5457249e707b0994c8d1ffe761b"
+    },
+    {
+      "path": "pages/timeline.html",
+      "bytes": 369260,
+      "sha256": "83616376432b3c2267220bb45ac562d51b89136a9dcf74418b8676404b06e03c"
+    }
+  ]
+}

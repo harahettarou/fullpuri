@@ -813,6 +813,7 @@ function renderPageSelect(){
   });
 }
 function loadPage(){
+  queueMicrotask(()=>document.dispatchEvent(new Event("kopuri:page")));
   const p=PAGES[idx],loading=$('#loading');loading.style.display='grid';
   base.onload=()=>{loading.style.display='none';base.decode?.().catch(()=>{})};
   base.onerror=()=>{loading.textContent='PDF原本を読み込めませんでした。'};
@@ -978,5 +979,10 @@ loadPage();
 })();
 </script>
 
+
+<!-- kopuri-review-v1 -->
+<link rel="stylesheet" href="../assets/review/review_v1.css">
+<script>window.KopuriReviewAdapter={page:()=>PAGES[idx]};</script>
+<script type="module" src="../assets/review/viewer_v1.js"></script>
 </body>
 </html>

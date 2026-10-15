@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="referrer" content="no-referrer"><title>復習管理｜古プリ比較システム</title><link rel="icon" href="../assets/icons/favicon.ico"><link rel="stylesheet" href="../assets/review/review_v1.css"></head>
+<body class="kr-manager"><main>
+<a href="../index.html">← 古プリ一覧</a><h1>復習管理</h1><p>チェックした語句や範囲を、自分のペースで復習。</p>
+<section class="kr-card"><div id="account" class="kr-row"></div><p id="status" class="kr-status" role="status" aria-live="polite">読み込み中…</p><p id="notice" class="kr-error" role="alert"></p><div id="stats" class="kr-stats"></div></section>
+<section id="setup" class="kr-card" hidden>端末間同期サービスの設定が必要です。<a href="../assets/review/設定手順_v1.md">管理者向け設定手順</a></section>
+<section id="conflict" class="kr-conflict" hidden><strong>別端末の更新と競合しています</strong><p id="conflictDetail"></p><p>この端末の未送信操作を、最新のサーバー記録と照合して処理します。</p><div class="kr-row"><button id="apply">この端末の操作を適用</button><button id="discard">サーバー側を採用</button></div></section>
+<div class="kr-row">
+<label>状態 <select id="state"><option value="todo">要復習</option><option value="done">復習完了</option><option value="all">すべて</option></select></label>
+<label>対象 <select id="kind"><option value="all">すべて</option><option value="print">No.全体</option><option value="page">ページ</option><option value="word">語句</option><option value="range">指定範囲</option></select></label>
+<label>並べ替え <select id="sort"><option value="no">No.順</option><option value="new">登録日が新しい順</option><option value="old">登録日が古い順</option></select></label>
+<label>No. <input id="no" type="number" min="0" max="9999" placeholder="すべて" style="width:100px"></label>
+</div><p id="count" class="kr-meta"></p><section id="list" aria-label="登録項目一覧"></section>
+<button id="more" hidden>さらに表示</button>
+</main><dialog id="history" class="kr-dialog" aria-label="復習履歴"></dialog><script type="module" src="../assets/review/manager_v1.js"></script></body></html>

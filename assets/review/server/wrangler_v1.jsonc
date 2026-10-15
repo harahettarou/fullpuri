@@ -1,0 +1,11 @@
+{
+  "name": "fullpuri-review",
+  "main": "worker_v1.mjs",
+  "compatibility_date": "2026-10-15",
+  "vars": {
+    "SITE_URL": "https://harahettarou.github.io/fullpuri/",
+    "GITHUB_CLIENT_ID": "Ov23ctjJpFqfQ3W8IT8n"
+  },
+  "d1_databases": [{"binding":"DB","database_name":"fullpuri-review","database_id":"623c1118-53c1-4e66-a5f5-d24b40e9b1f0","migrations_dir":"migrations"}],
+  "triggers": {"crons":["0 3 * * *"]}
+}

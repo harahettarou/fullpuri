@@ -1,0 +1,10 @@
+{
+  "baseline": "e75ec42001d07060acb8810d6fcd799da47abcb9",
+  "packaged_existing_html_unchanged_except_review_hooks": 55,
+  "images_in_archive": 0,
+  "source": "v1 full package plus configured API, public service identifiers, D1 CASE parentheses and v2 documentation",
+  "device_testing": "not performed",
+  "production_health": "user screenshot confirmed ok:true version:1",
+  "production_schema": "user query confirmed 6 tables, 2 indexes, 2 triggers",
+  "production_OAuth_and_save_and_sync": "not verified"
+}

@@ -1,0 +1,1 @@
+{"private":true,"type":"module","scripts":{"test":"node --experimental-vm-modules --test *_v1.test.mjs"},"devDependencies":{"fake-indexeddb":"6.2.5","happy-dom":"20.14.6"},"engines":{"node":">=24"}}
