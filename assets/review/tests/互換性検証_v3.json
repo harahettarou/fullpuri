@@ -1,0 +1,11 @@
+{
+  "baseline": "2418d0f5fd7627c556105d5be7617f57d9c6355a",
+  "existing_HTML_with_only_review_asset_version_upgrade": 55,
+  "review_manager_HTML_updated": 1,
+  "original_viewer_code_unchanged": true,
+  "images_OCR_map_data_in_delta": false,
+  "automated_tests": 26,
+  "automated_tests_passed": 26,
+  "production_notes_deployment": "not deployed",
+  "real_device_notes_testing": "not performed"
+}

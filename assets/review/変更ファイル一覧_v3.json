@@ -1,0 +1,382 @@
+{
+  "version": 3,
+  "baseline": "2418d0f5fd7627c556105d5be7617f57d9c6355a",
+  "requires": "review v2 installed",
+  "files": [
+    {
+      "path": "assets/review/core_v3.js",
+      "bytes": 10046,
+      "sha256": "24d786f9f7ba7262cc5dda79e01225b9d223233e7de6c439666781ecfaa3ce97"
+    },
+    {
+      "path": "assets/review/manager_v3.js",
+      "bytes": 5046,
+      "sha256": "b9e8afa751b9e58c5846a5cb51ba45b22cc04aba496e3a9f80741dee71ca480a"
+    },
+    {
+      "path": "assets/review/navigation_v3.js",
+      "bytes": 205,
+      "sha256": "e3308dfd4ce45e33603c56ced3a6a23028f9d52204eff847a8c44b64acc93d65"
+    },
+    {
+      "path": "assets/review/note_editor_v3.js",
+      "bytes": 2675,
+      "sha256": "939bcc797634011e1dc1b9cb91a93c338b4fad64382402917bfdc946c9678e6a"
+    },
+    {
+      "path": "assets/review/notes_core_v3.js",
+      "bytes": 5383,
+      "sha256": "13f947493b4580b4e556b703f62525e0ccda450ec9c4e7f60155002e9485efe0"
+    },
+    {
+      "path": "assets/review/notes_manager_v3.js",
+      "bytes": 4738,
+      "sha256": "4b261aba0c841b7ee5b3d1884e8e2b1abbd52021683f17493e0f85fce02e8756"
+    },
+    {
+      "path": "assets/review/review_v3.css",
+      "bytes": 3879,
+      "sha256": "2836c3325209788cd833ac54511e419c3cad32313af727ed826e2e7f7d5431f5"
+    },
+    {
+      "path": "assets/review/server/migrations/0002_notes_v3.sql",
+      "bytes": 1610,
+      "sha256": "0b11409dd468f99ce788661b3f0df2a16cdc6cebc7bc28559c1042a2a11ace9c"
+    },
+    {
+      "path": "assets/review/server/worker_v3.mjs",
+      "bytes": 10218,
+      "sha256": "6bba804e1a19c6d1d65a8408582355547bd56d7682188c30a32d910c664b1a2c"
+    },
+    {
+      "path": "assets/review/server/wrangler_v3.jsonc",
+      "bytes": 415,
+      "sha256": "8d23ec8b3788755d5e15eff7deef98ed4eeec5cd95cfb2c0a7fdcfddcffc32ab"
+    },
+    {
+      "path": "assets/review/tests/api_v3.test.mjs",
+      "bytes": 11493,
+      "sha256": "507a808ceca635b729620c11338907fe793219a800ade8a334dcd5d924757427"
+    },
+    {
+      "path": "assets/review/tests/client_v3.test.mjs",
+      "bytes": 20378,
+      "sha256": "1db898d00a194758d79a3e76f1406f5f72c880731aa335ba8c02d7c496ca7843"
+    },
+    {
+      "path": "assets/review/tests/compatibility_v3.py",
+      "bytes": 663,
+      "sha256": "98e66c79da469b3270b8e903cf1673861d93b0e99b1bddb26d4fa521b4a2fd80"
+    },
+    {
+      "path": "assets/review/tests/テスト結果_v3.txt",
+      "bytes": 2656,
+      "sha256": "c4d3adee9c34fe5bc957fce08b36bea92f329ec01044db453b044a752004cea1"
+    },
+    {
+      "path": "assets/review/tests/互換性検証_v3.json",
+      "bytes": 395,
+      "sha256": "30dfc71da1308c78a08cb8e5eeec219ac8f913001d054b6474710ab9da8035c4"
+    },
+    {
+      "path": "assets/review/viewer_v3.js",
+      "bytes": 17926,
+      "sha256": "bcd48205ea7f60e8868ef57bc3e1ae1e054886dd35f29c82f7e82572da328ded"
+    },
+    {
+      "path": "assets/review/実装・検証報告_v3.md",
+      "bytes": 5014,
+      "sha256": "9be4bddcf62938966765a04ceec0ee3cde2de16f0bc1eb997f7cf02f6ce01e40"
+    },
+    {
+      "path": "assets/review/設定手順_v3.md",
+      "bytes": 5105,
+      "sha256": "1914901c38bfdd6df832d2538391abdde2b93b364bec2e9d9f45c1f853a8bf07"
+    },
+    {
+      "path": "index.html",
+      "bytes": 8924,
+      "sha256": "8c3dad7ff47cb80202e631e1eb62e122019a5ff74efcc6e49ccc031855d958e7"
+    },
+    {
+      "path": "pages/No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
+      "bytes": 78226,
+      "sha256": "280d74fc276f672783e97a4f8fdd8e566c4294fd50a49de470655ebba70c32de"
+    },
+    {
+      "path": "pages/No010-015_古代ローマ.html",
+      "bytes": 65302,
+      "sha256": "44a60d26f339765d9b0b06afb92857844da264596458ab23a4fd670d6830c732"
+    },
+    {
+      "path": "pages/No016-018_古代インド.html",
+      "bytes": 46821,
+      "sha256": "c0f31b8327b5263c78da1a8976661b900c39cd94934583a7cb48bafcf64acf11"
+    },
+    {
+      "path": "pages/No019-021_東南アジアの諸文明.html",
+      "bytes": 47803,
+      "sha256": "790dd780ebe15b6cefc4beb2374c7be6a6a127b3ad2efe38f0beb3ae4b76ba8c"
+    },
+    {
+      "path": "pages/No019-021_東南アジアの諸文明.html",
+      "bytes": 47803,
+      "sha256": "790dd780ebe15b6cefc4beb2374c7be6a6a127b3ad2efe38f0beb3ae4b76ba8c"
+    },
+    {
+      "path": "pages/No022-040_中国史〜元.html",
+      "bytes": 122877,
+      "sha256": "b408f33f65b218be51b502cf737f6a7e990dcd5cfddaa90036d197bd0e3b1839"
+    },
+    {
+      "path": "pages/No022-040_荳ｭ蝗ｽ蜿ｲ縲懷・.html",
+      "bytes": 105295,
+      "sha256": "059279e2c0f652155d98d594f4e85f90a1cbbfd7f487b28948e05f4605d101aa"
+    },
+    {
+      "path": "pages/No041-046_明・清.html",
+      "bytes": 62642,
+      "sha256": "3a61a13a8425ffb0e08dcb98b7be354b8113656dfc60864dff25888e730e1f43"
+    },
+    {
+      "path": "pages/No047-069_ローマ分裂〜大航海時代.html",
+      "bytes": 94146,
+      "sha256": "1366c617734b1363b5fe53e49fe74978184bca3361dcd764e13a00d498c11b44"
+    },
+    {
+      "path": "pages/No070-081_イスラーム史.html",
+      "bytes": 73064,
+      "sha256": "a67911223f38efbec3783614f6c2c8eb97c9cd30de4954e944cda82c168ac517"
+    },
+    {
+      "path": "pages/No082-084_大航海.html",
+      "bytes": 44353,
+      "sha256": "5204101224fdb745461efd1ebacab659386b35c055a5bd7e38741391e5898d9d"
+    },
+    {
+      "path": "pages/No085_ルネサンス.html",
+      "bytes": 47894,
+      "sha256": "af7c2e320eaa3f61e6a3506bafba2ad3948f4f83abb2dfb649ea131f8041bc7d"
+    },
+    {
+      "path": "pages/No086-104_宗教改革〜産業革命.html",
+      "bytes": 80628,
+      "sha256": "73d7d6cb9991cabc634e3cc56291ae81242e2a771b750aad490891246477e288"
+    },
+    {
+      "path": "pages/No105-108_アメリカの成立.html",
+      "bytes": 50092,
+      "sha256": "3430ec59c83d2d88f15b1b339430ee61c92da5b33d3b39e294a206f2119b8cee"
+    },
+    {
+      "path": "pages/No109-114_フランス革命.html",
+      "bytes": 50329,
+      "sha256": "9f509858a7c2d5b624958457b390297ae0a0ae680dbdbadd94327ee3da7a6ac2"
+    },
+    {
+      "path": "pages/No115-123_ウィーン体制と各国の統一.html",
+      "bytes": 71558,
+      "sha256": "89883e8b9e4135df3ce503da15a69a81b8097714e638c19469a4c64c4069b83e"
+    },
+    {
+      "path": "pages/No124-126_東アジアの激動.html",
+      "bytes": 46306,
+      "sha256": "9fab0a6f2fc027e620e901e1bdef37ae4aeb36cf15caf9da0e6e206da0fbeabb"
+    },
+    {
+      "path": "pages/No127-129_帝国主義の植民地支配.html",
+      "bytes": 60704,
+      "sha256": "0e74ea1e358e7ced39c5eaa22a8772a6649d23e985be9552608ead9f966dde74"
+    },
+    {
+      "path": "pages/No130-135_第一次世界大戦への道.html",
+      "bytes": 72241,
+      "sha256": "2e38d40abcdcbca23d9c2c982f52f2c857a529ce6ac5d90c0ee59bf1eb291158"
+    },
+    {
+      "path": "pages/No136-138_ロシア革命とその影響.html",
+      "bytes": 63222,
+      "sha256": "426a3250da928d07c9923c8742fa750dcb32977fb9c232368a357f81b367a0bf"
+    },
+    {
+      "path": "pages/No139-147_戦間期国際政治史.html",
+      "bytes": 112516,
+      "sha256": "b772c1378ccb2ec38cc953041a4bbf4708cf8d3e50aa4d09494c445c717e3b80"
+    },
+    {
+      "path": "pages/No148-153_中国革命史・日本の中国侵略.html",
+      "bytes": 66732,
+      "sha256": "bc7947401664786bde955d936781e6ae41a258ae32ac67745b5c88279ac441aa"
+    },
+    {
+      "path": "pages/No154-156_第二次世界大戦・戦後国際秩序.html",
+      "bytes": 62179,
+      "sha256": "898ed871475275e0448be1c65520b33f476fbd62279c1a651f81c59474a6ea94"
+    },
+    {
+      "path": "pages/No157-163_米ソ冷戦の展開.html",
+      "bytes": 78861,
+      "sha256": "35d96e2c3363f06970cb272bac1ef2e013c8a8de5d7219ae367eb05d4cb05713"
+    },
+    {
+      "path": "pages/No164-166_中華人民共和国の成立と展開.html",
+      "bytes": 52802,
+      "sha256": "8d911dbf70add34fb0d79cc084a091f6836a595b68e31d5d751db9211b12bff8"
+    },
+    {
+      "path": "pages/No167-168_中東問題.html",
+      "bytes": 50273,
+      "sha256": "4111eff496ef117a6256fb2fe825d5b5af9cadd3d7a8b1385ffa3636cac710b8"
+    },
+    {
+      "path": "pages/No169-171_アフリカ諸国の独立.html",
+      "bytes": 50642,
+      "sha256": "f0116531cc34671d88299a7ac9312127cd501ba58461722e0ae31a3cb6d4ae2f"
+    },
+    {
+      "path": "pages/No172-173_朝鮮半島の歴史.html",
+      "bytes": 63202,
+      "sha256": "1b0c3672dd897f4e20d4175713bdc5754c87e758309eacf4a174f152b988af8f"
+    },
+    {
+      "path": "pages/No174-175_インド・南アジアの現代史.html",
+      "bytes": 53358,
+      "sha256": "699645cff474982c1d9b5d9099feba5e818e9904c7c18baa36ace408ebb3d13b"
+    },
+    {
+      "path": "pages/No176-178_180_冷戦後の世界と現代アメリカ.html",
+      "bytes": 64125,
+      "sha256": "231d33cd50a2a1de47777e687708fea9ac1e8ee900f79a988549abaac7f1f4e0"
+    },
+    {
+      "path": "pages/No176_冷戦の終結とソ連崩壊.html",
+      "bytes": 38645,
+      "sha256": "5e77f7d018182b76d29eed27bfda1193fa33475e7038db09a0da117b636d766a"
+    },
+    {
+      "path": "pages/No177_グローバル化する世界.html",
+      "bytes": 39979,
+      "sha256": "6c8bdd35f27d53c8dec8f0f5b79266ea7f67910cb3ea1cd6387e17bedba3df22"
+    },
+    {
+      "path": "pages/No178_現代アメリカと対テロ戦争.html",
+      "bytes": 49812,
+      "sha256": "243d18109b49c5d42e8f69c90e8250bcbe8c48d8e7dc5c95e8a224717be416ed"
+    },
+    {
+      "path": "pages/No179_現代世界史補足資料.html",
+      "bytes": 47512,
+      "sha256": "57f1c20d5addd9c39173f2cf5292b68ce2f67dcaf653967249c61e28b56f27eb"
+    },
+    {
+      "path": "pages/No180_現代アメリカと国際社会.html",
+      "bytes": 40215,
+      "sha256": "d15927e8573eb0f19c7eb7c0c1092e0e2a6e348af5c1b7c4ed7bf2aed8447188"
+    },
+    {
+      "path": "pages/No181_東西交渉の道.html",
+      "bytes": 51461,
+      "sha256": "10673792fb860aa3a1ee74965618940b87bf27e05cb95c1077dfef2d75c23aba"
+    },
+    {
+      "path": "pages/No182_メキシコ史.html",
+      "bytes": 41106,
+      "sha256": "544d087667eef7afccf00d345de02d6ccb459b596a67656c329cd8684f2a8ff4"
+    },
+    {
+      "path": "pages/No183_戦後のアメリカ合衆国.html",
+      "bytes": 40497,
+      "sha256": "71815b2aca832affe02840951753947d383df1a76bf5cdf55a66d7b823a5f918"
+    },
+    {
+      "path": "pages/centuries.html",
+      "bytes": 18221,
+      "sha256": "024b6c11d40e482d444f0bd205294010d436a432b9faad678c7e0ca92231a7da"
+    },
+    {
+      "path": "pages/centuries/view.html",
+      "bytes": 42782,
+      "sha256": "6ecc2abf776268068251dda51d0316b3bdb295df20a0134b779e012e26c2c868"
+    },
+    {
+      "path": "pages/century.html",
+      "bytes": 12310,
+      "sha256": "63a8b69e4f6daef15e83b92673117cfa97561f4b1d40af030f805e21732fcfbb"
+    },
+    {
+      "path": "pages/historical-map.html",
+      "bytes": 7509,
+      "sha256": "932c4f43fc3feface617799f000732da648ab0fbd7be08fadb33d9b1a2a42a41"
+    },
+    {
+      "path": "pages/notes.html",
+      "bytes": 2618,
+      "sha256": "98f8136af4a6f617879694d88768c051b26023cd1ec52ade187b266a149ff079"
+    },
+    {
+      "path": "pages/regional.html",
+      "bytes": 11204,
+      "sha256": "e8a62187a44f2f6ebbda052756b1d9fef9fb786ec0a5686dd0d8c26ba35589c3"
+    },
+    {
+      "path": "pages/regions/africa.html",
+      "bytes": 171636,
+      "sha256": "afeb711534edabee3d7f201feecb14e8f17b2f196d4c5824949f2f5b264cd908"
+    },
+    {
+      "path": "pages/regions/americas.html",
+      "bytes": 283437,
+      "sha256": "86eb44c3c7f6b6776fb913d181e539dc97f0cac13d014a22c03b71d5ab160d85"
+    },
+    {
+      "path": "pages/regions/central-asia.html",
+      "bytes": 187473,
+      "sha256": "b5c2940bdc28517c5c5127b54213066a160d96ce379d62bc75918e8ac7a21cf9"
+    },
+    {
+      "path": "pages/regions/east-asia.html",
+      "bytes": 346760,
+      "sha256": "f394dc9b5c5faa0999f69ab5a8c2276f789195c6d4ee4700bf14a3c3d3551f35"
+    },
+    {
+      "path": "pages/regions/europe.html",
+      "bytes": 613075,
+      "sha256": "915ccad575f809e4b12b509eb293f54748b8844d791460304cb3c55e60d449d7"
+    },
+    {
+      "path": "pages/regions/oceania.html",
+      "bytes": 58359,
+      "sha256": "6f3b6c74c3af5efe9e124c10b6f1a4fb341c07780f51d7b56a1ec2747ed7f77f"
+    },
+    {
+      "path": "pages/regions/south-asia.html",
+      "bytes": 155670,
+      "sha256": "58cfac0da3aee7ca66dbd4f70e93e951495e1b38614d1c4263a9a01f5727e3e8"
+    },
+    {
+      "path": "pages/regions/southeast-asia.html",
+      "bytes": 129022,
+      "sha256": "4bf957589f30b4cf8e3428d96696fb2399a67356975c793f071ae137aba148af"
+    },
+    {
+      "path": "pages/regions/west-asia.html",
+      "bytes": 272407,
+      "sha256": "8c88440a4f9d66571409f0f7f136076ae2c57c8a51f98bbaa093d6c75880af21"
+    },
+    {
+      "path": "pages/review.html",
+      "bytes": 2548,
+      "sha256": "25a21550ea726e41d3aeaac4645d8c4a6aa2c1467817b00207a9ec00515e6e26"
+    },
+    {
+      "path": "pages/search.html",
+      "bytes": 9082,
+      "sha256": "6f4ad06ed5846907718e7eb8aadb432632a08add6c15732c18fffe0f86f51a06"
+    },
+    {
+      "path": "pages/timeline.html",
+      "bytes": 369260,
+      "sha256": "93ef5553a7022c1071bb9c9ba9fa4fab1234f933a7043a707e419cce13184afc"
+    }
+  ]
+}

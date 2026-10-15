@@ -1,0 +1,36 @@
+✔ register → synchronize → complete → reopen → complete retains exact server history (27.106041ms)
+✔ replay and duplicate completion never increase review count (8.760397ms)
+✔ users cannot read, complete or delete each other’s entries and history (7.832494ms)
+✔ concurrent revisions reject lost updates and keep all changes atomic (4.527657ms)
+✔ deletion leaves tombstone, explicit re-registration retains review history (5.091473ms)
+✔ all target kinds, coordinate validation and untrusted IDs (13.446919ms)
+✔ authentication, origin and revoked/expired sessions are enforced on server (4.611011ms)
+✔ OAuth state, PKCE challenge, one-time exchange and ticket expiry (8.428734ms)
+✔ notes save, replay, edit, delete and restore are independent from review history (11.495103ms)
+✔ notes reject stale revision, untrusted identity, wrong origin and invalid body (8.249859ms)
+✔ all note target types save without registering review items (15.458864ms)
+(node:16) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ client → real API/SQLite → independent client → completion → reload history (64.701601ms)
+✔ offline mutation survives reload and replays once after reconnection (19.462433ms)
+✔ concurrent change is explicit; reapplying already completed entry does not double-count (31.305473ms)
+✔ cached entries and offline queue stay scoped to each account (23.813032ms)
+✔ black words selected from same OCR line remain separate registrations (14.927526ms)
+✔ viewer DOM: three colors and direct/tap/hidden display modes (40.968333ms)
+✔ logout clears local private cache and leaves server-side records intact (15.937709ms)
+✔ viewer DOM: explicit range selection registers actual source coordinates (43.308785ms)
+✔ manager DOM filters and counts match saved records (69.324871ms)
+✔ black OCR text selection registers only user-chosen text without auto buttons (39.887915ms)
+✔ saved target deep link highlights frozen original-image coordinates (38.476546ms)
+✔ notes two clients, offline reload, conflict merge, logout and account isolation (43.002275ms)
+✔ notes editor saves plain text without review registration and manager searches safely (25.438558ms)
+✔ viewer notes icon follows source target, can be hidden, and range memo leaves reviews empty (38.529078ms)
+✔ notes deep link keeps original image coordinates and stale editor retains typed content (57.216041ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1025.931599
