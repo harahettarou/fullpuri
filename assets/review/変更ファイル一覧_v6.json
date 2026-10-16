@@ -1,0 +1,21 @@
+{
+  "version": 6,
+  "files": [
+    {
+      "path": "pages/review.html",
+      "sha256": "e6b1e8855b44b3f7ae04a378bbc107c6671f0dc59f5cd1a60b6868f7275d2bd1"
+    },
+    {
+      "path": "assets/review/manager_v6.js",
+      "sha256": "0655c4e4d2d93c23258d872b26e4bd6938600421afc9ec40357b605d7617b1d6"
+    },
+    {
+      "path": "assets/review/catalog_v5.json",
+      "sha256": "bf103d3863190f4ab98f83e4f4a1c4e859b57caa85b8c7b705ce448480378b97"
+    },
+    {
+      "path": "assets/review/適用手順_v6.md",
+      "sha256": "b3210cfb8af62a7f100b5af109e8c55eeb11c01190c0616bd449096d3c777a70"
+    }
+  ]
+}
