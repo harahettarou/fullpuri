@@ -1,0 +1,27 @@
+(node:13) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ client → real API/SQLite → independent client → completion → reload history (52.527301ms)
+✔ offline mutation survives reload and replays once after reconnection (13.720135ms)
+✔ concurrent change is explicit; reapplying already completed entry does not double-count (19.220981ms)
+✔ cached entries and offline queue stay scoped to each account (10.617081ms)
+✔ black words selected from same OCR line remain separate registrations (9.176668ms)
+✔ viewer DOM: three colors and direct/tap/hidden display modes (24.922393ms)
+✔ logout clears local private cache and leaves server-side records intact (8.396903ms)
+✔ viewer DOM: explicit range selection registers actual source coordinates (29.624604ms)
+✔ manager DOM filters and counts match saved records (40.455432ms)
+✔ black OCR text selection registers only user-chosen text without auto buttons (27.498727ms)
+✔ saved target deep link highlights frozen original-image coordinates (23.244508ms)
+✔ notes two clients, offline reload, conflict merge, logout and account isolation (32.320021ms)
+✔ notes editor saves plain text without review registration and manager searches safely (19.787269ms)
+✔ viewer notes icon follows source target, can be hidden, and range memo leaves reviews empty (35.671624ms)
+✔ notes deep link keeps original image coordinates and stale editor retains typed content (45.51233ms)
+✔ launcher only shows memo count for the current No and hides it after deletion (61.030146ms)
+✔ independent launcher clearance follows navigation height after resize (10.097281ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 760.480672
