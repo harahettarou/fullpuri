@@ -1,0 +1,26 @@
+(node:13) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ client → real API/SQLite → independent client → completion → reload history (59.130419ms)
+✔ offline mutation survives reload and replays once after reconnection (13.413504ms)
+✔ concurrent change is explicit; reapplying already completed entry does not double-count (21.238671ms)
+✔ cached entries and offline queue stay scoped to each account (11.054734ms)
+✔ black words selected from same OCR line remain separate registrations (10.120812ms)
+✔ viewer DOM: three colors and direct/tap/hidden display modes (27.110224ms)
+✔ logout clears local private cache and leaves server-side records intact (9.856035ms)
+✔ viewer DOM: explicit range selection registers actual source coordinates (30.259547ms)
+✔ manager DOM filters and counts match saved records (55.191746ms)
+✔ black OCR text selection registers only user-chosen text without auto buttons (29.009745ms)
+✔ saved target deep link highlights frozen original-image coordinates (25.977509ms)
+✔ notes two clients, offline reload, conflict merge, logout and account isolation (33.180366ms)
+✔ notes editor saves plain text without review registration and manager searches safely (21.225671ms)
+✔ viewer notes icon follows source target, can be hidden, and range memo leaves reviews empty (34.728831ms)
+✔ notes deep link keeps original image coordinates and stale editor retains typed content (46.794436ms)
+✔ review launcher docks inside zoom controls and stays unique after state changes (21.169547ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 741.723636
