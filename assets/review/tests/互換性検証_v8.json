@@ -1,0 +1,11 @@
+{
+  "baseline": "a789ac62bd8a00875b7a381336d747b634398954",
+  "existing_HTML_with_only_entry_script_changes": 57,
+  "viewer_pages": 48,
+  "automated_tests": 37,
+  "pass": 37,
+  "fail": 0,
+  "production_google_login": "not verified",
+  "real_devices_google_login": "not verified",
+  "images_in_zip": 0
+}
