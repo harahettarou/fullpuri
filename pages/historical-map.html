@@ -11,6 +11,7 @@
 <link rel="manifest" href="../manifest.json">
 <link rel="stylesheet" href="../assets/vendor/maplibre-gl/maplibre-gl.css">
 <link rel="stylesheet" href="../assets/historical-map/historical-map.css?v=20260829e">
+<link rel="stylesheet" href="../assets/historical-map/event-locations.css?v=20261017">
 </head>
 <body>
 <header><div class="head"><a class="siteBrand" href="../index.html" aria-label="古プリ比較システムのトップページ"><img src="../assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><a href="../index.html">ナンバー順</a><a href="regional.html">地域・時代順</a><a href="centuries.html">世紀別</a><a href="search.html">文字検索</a><a href="timeline.html">総合年表</a><span class="active" aria-current="page">歴史地図</span></nav></div></header>
@@ -31,7 +32,7 @@
       <button id="layerButton" class="settingsButton" type="button" aria-expanded="false" aria-controls="layerPanel">表示設定</button>
       <a id="timelineLinkTop" class="timelineLink" href="timeline.html?year=1848">年表</a>
     </div>
-    <label class="sliderLabel"><span class="srOnly">年を連続して移動</span><input id="yearSlider" type="range" min="-3399" max="2026" step="1" value="1848"></label>
+    <label class="sliderLabel"><span class="srOnly">年を連続して移動</span><input id="yearSlider" type="range" min="-4999" max="2026" step="1" value="1848"></label>
     <div id="layerPanel" class="layerPanel" hidden>
       <strong>地図の表示</strong>
       <label><input id="togglePolitics" type="checkbox" checked> 政治領域</label>
@@ -41,6 +42,8 @@
     </div>
     <div id="activeAttribution" class="activeAttribution">政治領域データを準備中です。</div>
   </section>
+
+  <section id="eventLocationPanel" class="eventLocationPanel" aria-label="選択した出来事の場所" aria-live="polite" hidden></section>
 
   <section class="mapCard" aria-label="歴史世界地図">
     <div id="map" role="application" aria-label="指定した年の歴史世界地図"></div>
@@ -72,7 +75,8 @@
 
 <script src="../assets/vendor/maplibre-gl/maplibre-gl.js"></script>
 <script src="../assets/vendor/maplibre-gl-dates/maplibre-gl-dates.js"></script>
-<script src="../assets/historical-map/historical-map.js?v=20260829n"></script>
+<script src="../assets/historical-map/event-locations.js?v=20261017"></script>
+<script src="../assets/historical-map/historical-map.js?v=20261017"></script>
 
 <!-- kopuri-review-v1 -->
 <link rel="stylesheet" href="../assets/review/review_v3.css">
