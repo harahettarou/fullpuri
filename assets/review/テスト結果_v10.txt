@@ -1,0 +1,50 @@
+✔ register → synchronize → complete → reopen → complete retains exact server history (23.265873ms)
+✔ replay and duplicate completion never increase review count (12.35533ms)
+✔ users cannot read, complete or delete each other’s entries and history (7.265824ms)
+✔ concurrent revisions reject lost updates and keep all changes atomic (7.679577ms)
+✔ deletion leaves tombstone, explicit re-registration retains review history (6.2338ms)
+✔ all target kinds, coordinate validation and untrusted IDs (11.09403ms)
+✔ authentication, origin and revoked/expired sessions are enforced on server (3.493672ms)
+✔ OAuth state, PKCE challenge, one-time exchange and ticket expiry (8.243796ms)
+✔ notes save, replay, edit, delete and restore are independent from review history (8.227342ms)
+✔ notes reject stale revision, untrusted identity, wrong origin and invalid body (7.356851ms)
+✔ all note target types save without registering review items (9.809785ms)
+(node:14) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ client → real API/SQLite → independent client → completion → reload history (58.745042ms)
+✔ offline mutation survives reload and replays once after reconnection (14.270744ms)
+✔ concurrent change is explicit; reapplying already completed entry does not double-count (19.237436ms)
+✔ cached entries and offline queue stay scoped to each account (12.913901ms)
+✔ black words selected from same OCR line remain separate registrations (14.300169ms)
+✔ viewer DOM: three colors and direct/tap/hidden display modes (38.078214ms)
+✔ logout clears local private cache and leaves server-side records intact (14.126438ms)
+✔ viewer DOM: explicit range selection registers actual source coordinates (39.087547ms)
+✔ manager DOM filters and counts match saved records (50.406855ms)
+✔ black OCR text selection registers only user-chosen text without auto buttons (31.447328ms)
+✔ saved target deep link highlights frozen original-image coordinates (26.328558ms)
+✔ notes two clients, offline reload, conflict merge, logout and account isolation (37.054123ms)
+✔ notes editor saves plain text without review registration and manager searches safely (22.88554ms)
+✔ viewer notes icon follows source target, can be hidden, and range memo leaves reviews empty (41.044955ms)
+✔ notes deep link keeps original image coordinates and stale editor retains typed content (58.827459ms)
+✔ launcher only shows memo count for the current No and hides it after deletion (71.052153ms)
+✔ independent launcher clearance follows navigation height after resize (11.12032ms)
+✔ Google link ticket keeps existing local cache, notes and account ownership (19.342565ms)
+✔ provider UI supports Google, legacy GitHub and explicit linking without showing review answers (9.198335ms)
+✔ memo anchors remain visible without room for an icon, follow scaled stage and hide independently (32.153453ms)
+✔ page notes list includes No-wide notes, excludes other pages, focuses exact anchor and opens editor (52.805859ms)
+✔ study dialog groups review and memo actions and deduplicates account email and saved status (24.37137ms)
+✔ Google explicit link preserves legacy GitHub review, notes and history across future logins (32.32712ms)
+✔ Google standalone account stays isolated and cannot be silently merged into GitHub (8.793025ms)
+✔ a Google identity cannot be taken over or replaced; source session is checked at exchange (15.663898ms)
+✔ Google flow rejects wrong state, expired state, wrong front verifier and ticket replay (9.081979ms)
+✔ Google tokens require a valid signature, issuer, audience, nonce, time and subject (8.547985ms)
+✔ link endpoints enforce authentication and origin; cancellation does not link an account (4.100817ms)
+✔ matching email addresses do not merge distinct Google subjects (10.920788ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1084.755289

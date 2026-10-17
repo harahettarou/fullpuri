@@ -1,0 +1,221 @@
+{
+  "base": "0f0e439e0c9652fe0f6cc56807471b90ed091073",
+  "files": [
+    {
+      "path": "assets/review/account_controls_v10.js",
+      "sha256": "6f747fb243a676b65f437da399e5c8bf235b4fea30cb96261b8ee68ec624e43a"
+    },
+    {
+      "path": "assets/review/review_v10.css",
+      "sha256": "14a7b1ebcea2cb985bdb5297d89b72fe1564229875ca737bce1d31badcc038a9"
+    },
+    {
+      "path": "assets/review/tests/client_v10.test.mjs",
+      "sha256": "ecf85092f3abf9fb1dd0ace81d4207f62f1d58336f8fc74136b1e8df9d791990"
+    },
+    {
+      "path": "assets/review/viewer_v10.js",
+      "sha256": "1cae5ebad2fe70e0c80859ce463810b61bca5ce9b10ff988747dc22812b6bd4b"
+    },
+    {
+      "path": "assets/review/テスト結果_v10.txt",
+      "sha256": "1e6bd3c57c18c2a96de61f8a7787daddfeef768de03aae087b8564de028625e6"
+    },
+    {
+      "path": "assets/review/適用手順・確認結果_v10.md",
+      "sha256": "09b02455d9b1686bfe8c53f797efff985872322342b1dcc4e64785169a37e0a6"
+    },
+    {
+      "path": "pages/No001-009_古代オリエント・ギリシャ・ヘレニズム.html",
+      "sha256": "cfdcf6df433edb47787575aed48edf1fc14df82cef600cd98fcbdc662f65187c"
+    },
+    {
+      "path": "pages/No010-015_古代ローマ.html",
+      "sha256": "c658edc6e617743cf4d8a7cfb5b52a98e3db04d1bf483f5e7bf97faddd2b2936"
+    },
+    {
+      "path": "pages/No016-018_古代インド.html",
+      "sha256": "c496f250885090da31b2f9271ae7675b49f86674092ddb9ed5d158f69a64f554"
+    },
+    {
+      "path": "pages/No019-021_東南アジアの諸文明.html",
+      "sha256": "57cc7eba40df5c2d2a3e5821ec9de39136dc607fbef6f1ae254ba8a9c4388c6e"
+    },
+    {
+      "path": "pages/No019-021_東南アジアの諸文明.html",
+      "sha256": "57cc7eba40df5c2d2a3e5821ec9de39136dc607fbef6f1ae254ba8a9c4388c6e"
+    },
+    {
+      "path": "pages/No022-040_中国史〜元.html",
+      "sha256": "a1c75d23e87a02aa94d8e5ddcea99ad5cab7fe689254274787dc95da596f42f6"
+    },
+    {
+      "path": "pages/No022-040_荳ｭ蝗ｽ蜿ｲ縲懷・.html",
+      "sha256": "19e09fe5c4bf0013e53f28688200b5223b2fa92d22d41bbb474dd88b5a5eb843"
+    },
+    {
+      "path": "pages/No041-046_明・清.html",
+      "sha256": "e1efcc37326d807f3dfdfc7d4a48553a4d1952e8814ecdc417e1fa30b0e81e4e"
+    },
+    {
+      "path": "pages/No047-069_ローマ分裂〜大航海時代.html",
+      "sha256": "d789105c886a2f108cbe4cf26493c3f5213bd2a55f940eb914f7a4647b479906"
+    },
+    {
+      "path": "pages/No070-081_イスラーム史.html",
+      "sha256": "d9eec3a81926d7e4a763d7fbe27147afb30762423d7dce4a678878a5f462e4f7"
+    },
+    {
+      "path": "pages/No082-084_大航海.html",
+      "sha256": "730d6eb957873dc812acb02da116f45a27640123a7d5ab21941cf5136a9702e1"
+    },
+    {
+      "path": "pages/No085_ルネサンス.html",
+      "sha256": "ee9617b60f6dce1bac9336a2e627f8b6223a4930f283385b74cfafa860220b67"
+    },
+    {
+      "path": "pages/No086-104_宗教改革〜産業革命.html",
+      "sha256": "b2b9c878b4382251b9ccc67b183b45f96eeccfa5d7062e007aaa91873341ca38"
+    },
+    {
+      "path": "pages/No105-108_アメリカの成立.html",
+      "sha256": "4b468cdb090fdb2a58514fc65d8ae45d1d1440bce686b5087ab013a3f25b8719"
+    },
+    {
+      "path": "pages/No109-114_フランス革命.html",
+      "sha256": "75d8e4b7d239aec1ad29c6003d2e46c0aca6575950a04383aa37193f6e231a70"
+    },
+    {
+      "path": "pages/No115-123_ウィーン体制と各国の統一.html",
+      "sha256": "d9f811e2cb8face008b20e3137a7c3486505a5187296b0f9c7cceef86ca0ca51"
+    },
+    {
+      "path": "pages/No124-126_東アジアの激動.html",
+      "sha256": "265385e772b8410e51493135556867a3a4f3130302b97fe365f301d2a4364f7d"
+    },
+    {
+      "path": "pages/No127-129_帝国主義の植民地支配.html",
+      "sha256": "7fd0cf20c7a4df32fc234c4cb5c55805483ee67ec3459435792a7e31f6f9eec1"
+    },
+    {
+      "path": "pages/No130-135_第一次世界大戦への道.html",
+      "sha256": "5a576381098b770ecea71e0a662012f143d0d43c28e872189605fcdb4c293142"
+    },
+    {
+      "path": "pages/No136-138_ロシア革命とその影響.html",
+      "sha256": "11e5204c7627b0b6b3637ae847ce911db5bd772c08303aa8387177d34cba71d0"
+    },
+    {
+      "path": "pages/No139-147_戦間期国際政治史.html",
+      "sha256": "c377870b40d81523db3038c307f64f88a33882f88ef896560a68ea7138affd31"
+    },
+    {
+      "path": "pages/No148-153_中国革命史・日本の中国侵略.html",
+      "sha256": "8ba669eaef1d969f45ee9f032aef6fa204b56679692f7e217a863fd7a97f864d"
+    },
+    {
+      "path": "pages/No154-156_第二次世界大戦・戦後国際秩序.html",
+      "sha256": "207deb59561d4df525103a3345f928e0fc01f6707a4740ca283bdc2345f71813"
+    },
+    {
+      "path": "pages/No157-163_米ソ冷戦の展開.html",
+      "sha256": "e51b10449037a75bee85d00aba2f3639506ee841a2da85b3464c43a39f364645"
+    },
+    {
+      "path": "pages/No164-166_中華人民共和国の成立と展開.html",
+      "sha256": "3cfbcf1917526c6ce9d04144036c5acf6ee353d6b609bfe55640528b23388e82"
+    },
+    {
+      "path": "pages/No167-168_中東問題.html",
+      "sha256": "f57872484f2bda7dcc0403556c8c9affb14ea432d29476bdd8c26db77b2840b3"
+    },
+    {
+      "path": "pages/No169-171_アフリカ諸国の独立.html",
+      "sha256": "09f3007abe7cd39423f616497480a0902d5a1764f770dfa8df580ded1a06ea00"
+    },
+    {
+      "path": "pages/No172-173_朝鮮半島の歴史.html",
+      "sha256": "850de5318526dcbd0bf61a8718ee97b6ab1b57c28988075517e96a1fe78bc56b"
+    },
+    {
+      "path": "pages/No174-175_インド・南アジアの現代史.html",
+      "sha256": "fdb7a70030d89c14b0f17dd4ab3a581d9329bc737a970e035ed8a90d80e6a206"
+    },
+    {
+      "path": "pages/No176-178_180_冷戦後の世界と現代アメリカ.html",
+      "sha256": "f58a1e53fbaa0236530eb751701405fe981f049df9d0e756b3abb3f5a2443588"
+    },
+    {
+      "path": "pages/No176_冷戦の終結とソ連崩壊.html",
+      "sha256": "a0e610bcf950a782f503449ef03f5ae77eb5f43a494a2179d19c5f519740a98f"
+    },
+    {
+      "path": "pages/No177_グローバル化する世界.html",
+      "sha256": "0ec88a40ac030c99566b03ab1d4f1634df611a75952ef55d06413a812ed460ef"
+    },
+    {
+      "path": "pages/No178_現代アメリカと対テロ戦争.html",
+      "sha256": "c90c61f4e6a4e7c341bbed035a1d65f34aeccdd358c31739af331beebb019181"
+    },
+    {
+      "path": "pages/No179_現代世界史補足資料.html",
+      "sha256": "85d40671bd2ecb7b087f25d58517172589da362a627aa3f9feebb7b40c4f0a05"
+    },
+    {
+      "path": "pages/No180_現代アメリカと国際社会.html",
+      "sha256": "3e5a39647fd4bc63a0429a286c9e2e82a2a40449ee1c87ba674f8f7016fa8d46"
+    },
+    {
+      "path": "pages/No181_東西交渉の道.html",
+      "sha256": "837b4004a8d1aa90604dc42e16e9f83f958f0edff3c0c386e443902352e95e76"
+    },
+    {
+      "path": "pages/No182_メキシコ史.html",
+      "sha256": "7d6b7f9cf64157c7d189156bdd2a2c1f4e42eec042ae62e11029949a07a59b9d"
+    },
+    {
+      "path": "pages/No183_戦後のアメリカ合衆国.html",
+      "sha256": "98c6636ab1a48405cf55ea93e2fec1ea77e00c8a990458e9a4a1d75240a00c89"
+    },
+    {
+      "path": "pages/centuries/view.html",
+      "sha256": "b7fba64a22352c11745d529d0b78ccd94ab8381bae48f177ae9d904dfbb7a5d9"
+    },
+    {
+      "path": "pages/regions/africa.html",
+      "sha256": "36115672875d99eb0cdb4344ed1321cf0be1b5ff6d0e773f17a6d2692c78771f"
+    },
+    {
+      "path": "pages/regions/americas.html",
+      "sha256": "b3ef7cab0864b911ad1fe306cdf8fb81e95dc4d8c4ca4e22fd4e6ed1167ab1a9"
+    },
+    {
+      "path": "pages/regions/central-asia.html",
+      "sha256": "3705ade411f0c51002809b793bf966d1dc843b7bd4ec30908da7a579015bd70f"
+    },
+    {
+      "path": "pages/regions/east-asia.html",
+      "sha256": "29dff8dbdb97b941c2f091116ca2dad8b5e49ceff018084264896539227725ba"
+    },
+    {
+      "path": "pages/regions/europe.html",
+      "sha256": "70e28f8c82aa0e395797a5f3287681334945bd1f3cabf471a37ad183843213b4"
+    },
+    {
+      "path": "pages/regions/oceania.html",
+      "sha256": "32906c026ac942771f821d94731b680ce5151f089e35eef66e328a5f6017e93a"
+    },
+    {
+      "path": "pages/regions/south-asia.html",
+      "sha256": "eb43343e549d9979b13bdb92cbab7158ec7c88d9643e45b8e9cebb958b528788"
+    },
+    {
+      "path": "pages/regions/southeast-asia.html",
+      "sha256": "539d26c05d6ba4dae9b245fb939f2aa7465eef7f5b512d36d2db407e0e3f5947"
+    },
+    {
+      "path": "pages/regions/west-asia.html",
+      "sha256": "91d041fda6cb2035c774c54656364fe556595c774ca79d41caa71038b6c81fee"
+    }
+  ]
+}
