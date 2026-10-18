@@ -1,0 +1,47 @@
+{
+  "base": "0f8cf85895ce3e8ac6e3410f00cb722e959efe6e",
+  "version": 16,
+  "backend": "Existing Worker v15, SQL/R2 changes not required",
+  "files": [
+    {
+      "path": "assets/materials/editor_model_v16.js",
+      "sha256": "ab85b7ec231a9ef5d96fd5973a45872c543c5d58a28150b7e94f479174907449"
+    },
+    {
+      "path": "assets/materials/materials_v16.css",
+      "sha256": "27ed32f67a3e5c783bf2841649b75a4bd2e137cec0cbdea21763565aac7087bf"
+    },
+    {
+      "path": "assets/materials/viewer_v16.js",
+      "sha256": "c98b9974a4ec749fdc6a67f839f028ff6b1ec8634819fbc5358ecbb71ede0844"
+    },
+    {
+      "path": "assets/materials/使い方と更新内容_v16.md",
+      "sha256": "15ed75320f492b3c3a1f008b4b10e44a6f57fe993af078e3412e83c9c68ffa06"
+    },
+    {
+      "path": "assets/materials/検証結果_v16/ブラウザ結果_v16.json",
+      "sha256": "ee486233f115362bfbe9c2e81a887502edf735bb3c77b9ca29243ea2d66bb091"
+    },
+    {
+      "path": "assets/materials/検証結果_v16/自動テスト結果_v16.txt",
+      "sha256": "fa7972b759a4db1d478d333dfae0f51238ec8cddcb21f17ae14d58cc10a9a90b"
+    },
+    {
+      "path": "assets/review/tests/browser_e2e_v16.mjs",
+      "sha256": "79e4a62a3ecdf1a5112b1e07059a588c56c65e961736d2902b831cbba850eb16"
+    },
+    {
+      "path": "assets/review/tests/editor_model_v16.test.mjs",
+      "sha256": "7ca317ca0ec73ead3db5ccc22187c8d480af096420225ec5b9df137b077aaf07"
+    },
+    {
+      "path": "assets/review/tests/materials_client_v16.test.mjs",
+      "sha256": "ad8c0ebcfb0620d6f63a7d8d7a0ff4742e3ccb0e0e07bc947532b2dd66908fce"
+    },
+    {
+      "path": "pages/material.html",
+      "sha256": "8538a30616dbd284102701c0a175f64bf6a01021618fd61a9083d893cc17e6c0"
+    }
+  ]
+}

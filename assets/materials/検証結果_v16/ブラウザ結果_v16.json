@@ -1,0 +1,86 @@
+[
+  {
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "pdf_render": true,
+    "colors": true,
+    "zoom": true,
+    "review": true,
+    "note": true,
+    "page_overflow": false,
+    "errors": []
+  },
+  {
+    "device": "phone touch emulation",
+    "range": true,
+    "pinch": true
+  },
+  {
+    "device": "phone",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "pdf_render": true,
+    "colors": true,
+    "zoom": true,
+    "review": true,
+    "note": true,
+    "page_overflow": false,
+    "errors": []
+  },
+  {
+    "device": "tablet",
+    "viewport": {
+      "width": 810,
+      "height": 1080
+    },
+    "pdf_render": true,
+    "colors": true,
+    "zoom": true,
+    "review": true,
+    "note": true,
+    "page_overflow": false,
+    "errors": []
+  },
+  {
+    "device": "desktop editor",
+    "tap_text": true,
+    "green_marker": true,
+    "red_range": true,
+    "preview_independent_colors": true,
+    "save": true,
+    "publish": true,
+    "errors": []
+  },
+  {
+    "device": "phone editor",
+    "tap_text": true,
+    "green_marker": true,
+    "red_range": true,
+    "preview_independent_colors": true,
+    "save": true,
+    "publish": true,
+    "errors": []
+  },
+  {
+    "device": "tablet editor",
+    "tap_text": true,
+    "green_marker": true,
+    "red_range": true,
+    "preview_independent_colors": true,
+    "save": true,
+    "publish": true,
+    "errors": []
+  },
+  {
+    "device": "desktop upload",
+    "pdf_parse": true,
+    "xhr_original_upload": true,
+    "editor_open": true,
+    "errors": []
+  }
+]
