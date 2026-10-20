@@ -1,0 +1,10 @@
+{
+  "base": "7766579d16971bd23f48846331f6261f2327089a",
+  "checked_pages": 48,
+  "manifest_references": "passed",
+  "image_references": "passed",
+  "embedded_base64_images": "none",
+  "git_diff_check": "passed",
+  "original_images_or_pdfs_in_update": false,
+  "production_records_modified": false
+}

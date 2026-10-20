@@ -1,0 +1,51 @@
+{
+  "base": "7766579d16971bd23f48846331f6261f2327089a",
+  "version": 17,
+  "backend": "Existing Worker v15; no SQL/R2 changes",
+  "files": [
+    {
+      "path": "assets/materials/display_model_v17.js",
+      "sha256": "e9f35c53f0e255e23b327548617a67ddf6da6e308f247aac112d85492c5d17c4"
+    },
+    {
+      "path": "assets/materials/materials_v17.css",
+      "sha256": "624430e710af77c60ef37cd4d873d43bb512c4d314b1c82ad61a7c2de718e9ed"
+    },
+    {
+      "path": "assets/materials/viewer_v17.js",
+      "sha256": "d0cf187a8548496a4888faf7efd4d686749ca0118838918f5fb4436f1f8b959e"
+    },
+    {
+      "path": "assets/materials/使い方と更新内容_v17.md",
+      "sha256": "5bff23ce39a06fb72fb05b5c6f7cfbd90a24dae48f6c37a58194d6c7daa86dda"
+    },
+    {
+      "path": "assets/materials/検証結果_v17/サイト検証_v17.json",
+      "sha256": "2d8edd5ab5761f847aea2de24ba4b813c547ae67f2d7f767c3ff2f0044ffcace"
+    },
+    {
+      "path": "assets/materials/検証結果_v17/ブラウザ結果_v17.json",
+      "sha256": "bd5257fb4ac14f89d7b6f7a5fe3d3bdb09fd02b4346bb2d835e56ff6c6640b4d"
+    },
+    {
+      "path": "assets/materials/検証結果_v17/自動テスト結果_v17.txt",
+      "sha256": "3834ab91a984ddc17dca482a1663f6d5e9f1e21bda8840fb1ab8b27ccf876dc7"
+    },
+    {
+      "path": "assets/review/tests/browser_e2e_v17.mjs",
+      "sha256": "5480c22d0063c23e32cef742e8545e4ebd8be9a71bbcf2160212b357b177b819"
+    },
+    {
+      "path": "assets/review/tests/display_model_v17.test.mjs",
+      "sha256": "bd9cd0cab60e709b6f0d5899edf7748518e612fbc2f37a69f1ba8c1994958c86"
+    },
+    {
+      "path": "assets/review/tests/materials_client_v17.test.mjs",
+      "sha256": "25fead65a8e32b3384c9513c4a33418d23cf67c35a0e576e88a3974328a98a6f"
+    },
+    {
+      "path": "pages/material.html",
+      "sha256": "10686ef9312e5667bf52bb10205271f371d02033bf436cbaba2c26ed4bd337a0"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {clampZoom,pageBaseWidth,outsideRects,subtractRect,cleanRanges} from '../../materials/display_model_v17.js';
+const area=rs=>rs.reduce((n,r)=>n+r[2]*r[3],0);
+test('zoom limits and classic host width',()=>{assert.equal(clampZoom(10),25);assert.equal(clampZoom(0),25);assert.equal(clampZoom(-25),25);assert.equal(clampZoom(450),400);assert.equal(clampZoom(112.28),112.5);assert.equal(pageBaseWidth(390,true),374);assert.equal(pageBaseWidth(1440),980);assert.equal(pageBaseWidth(100),280)});
+test('overlapping selected rectangles form a union with disjoint complement',()=>{const rs=[[.1,.1,.4,.4],[.3,.3,.4,.4]],parts=outsideRects(rs);assert.ok(Math.abs(area(parts)-.72)<1e-10);for(let i=0;i<parts.length;i++)for(let j=i+1;j<parts.length;j++)assert.ok(Math.abs(area(subtractRect(parts[i],parts[j]))-area([parts[i]]))<1e-10);assert.equal(area(outsideRects([[0,0,1,1]])),0);assert.deepEqual(outsideRects([]),[[0,0,1,1]])});
+test('range input validates coordinates and page keys without mutating stored values',()=>{const input={'1':[{rect:[.1,.2,.3,.4],name:'範囲',enabled:false},{rect:[.9,0,.5,1]}],bad:[{rect:[0,0,1,1]}]};const out=cleanRanges(input);assert.equal(out['1'].length,1);assert.equal(out['1'][0].enabled,false);assert.equal(out.bad,undefined);assert.equal(input['1'].length,2)});
