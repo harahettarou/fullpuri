@@ -1,0 +1,79 @@
+{
+  "base_commit": "03070f0dba74968dca3e04b626b55d97d2c4cb74",
+  "unit_tests": {
+    "tests": 105,
+    "pass": 105,
+    "fail": 0
+  },
+  "browser": [
+    {
+      "device": "desktop",
+      "header_extra_height": 0,
+      "launch_size": {
+        "x": 1333,
+        "y": 134,
+        "width": 80,
+        "height": 24
+      },
+      "red_hide_keep": true,
+      "green_edit_color_resize": true,
+      "direct_move": true,
+      "double_click_or_double_tap_delete": true,
+      "body_answer_different_pages": true,
+      "persist_publish": true,
+      "independent_answer_page": true,
+      "errors": []
+    },
+    {
+      "device": "phone",
+      "header_extra_height": 0,
+      "launch_size": {
+        "x": 313,
+        "y": 214,
+        "width": 72,
+        "height": 22
+      },
+      "red_hide_keep": true,
+      "green_edit_color_resize": true,
+      "direct_move": true,
+      "double_click_or_double_tap_delete": true,
+      "body_answer_different_pages": true,
+      "persist_publish": true,
+      "independent_answer_page": true,
+      "errors": []
+    },
+    {
+      "device": "tablet",
+      "header_extra_height": 0,
+      "launch_size": {
+        "x": 718,
+        "y": 144,
+        "width": 80,
+        "height": 24
+      },
+      "red_hide_keep": true,
+      "green_edit_color_resize": true,
+      "direct_move": true,
+      "double_click_or_double_tap_delete": true,
+      "body_answer_different_pages": true,
+      "persist_publish": true,
+      "independent_answer_page": true,
+      "errors": []
+    },
+    {
+      "unfinished_pair_reload_recovery": true,
+      "existing_number_body_answer_edit": true,
+      "space_preview": true,
+      "cursor_wheel_zoom": true,
+      "errors": []
+    }
+  ],
+  "original_PAGES_unchanged_html_count": 38,
+  "images_pdf_modified": false,
+  "not_verified": [
+    "real iPhone/iPad/Android",
+    "Safari",
+    "production deployment",
+    "Windows update bat"
+  ]
+}

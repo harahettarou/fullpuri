@@ -1,0 +1,1 @@
+export async function resolve(specifier,context,nextResolve){return nextResolve(/\/server\/worker_v(?:15|18)\.mjs$/.test(specifier)?specifier.replace(/worker_v(?:15|18)\.mjs$/,'worker_v19.mjs'):specifier,context)}
