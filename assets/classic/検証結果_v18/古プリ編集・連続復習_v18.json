@@ -1,0 +1,54 @@
+[
+  {
+    "device": "desktop",
+    "classic_original_image": true,
+    "admin_text_placement": true,
+    "save": true,
+    "publish": true,
+    "independent_public_view": true,
+    "non_admin_editor_hidden": true,
+    "errors": []
+  },
+  {
+    "device": "phone",
+    "classic_original_image": true,
+    "admin_text_placement": true,
+    "save": true,
+    "publish": true,
+    "independent_public_view": true,
+    "non_admin_editor_hidden": true,
+    "errors": []
+  },
+  {
+    "device": "tablet",
+    "classic_original_image": true,
+    "admin_text_placement": true,
+    "save": true,
+    "publish": true,
+    "independent_public_view": true,
+    "non_admin_editor_hidden": true,
+    "errors": []
+  },
+  {
+    "unplaced_input_reload_recovery": true,
+    "response_loss_replay_exactly_once": true,
+    "concurrent_conflict_retains_input": true,
+    "explicit_reconciliation": true
+  },
+  {
+    "native_green_edit": true,
+    "native_orange_edit": true
+  },
+  {
+    "direct_start_without_manager": true,
+    "manager_order": true,
+    "material_to_classic": true,
+    "same_page_next": true,
+    "cross_unit_next": true,
+    "deep_link_highlight": true,
+    "complete_history_count": 3,
+    "failed_save_stays_on_item": true,
+    "retry_complete_once": true,
+    "errors": []
+  }
+]

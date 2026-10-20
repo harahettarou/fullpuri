@@ -993,7 +993,7 @@ loadPage();
 
 <!-- kopuri-review-v1 -->
 <link rel="stylesheet" href="../assets/review/review_v13.css">
-<script>window.KopuriReviewAdapter={page:()=>PAGES[idx]};</script>
-<script type="module" src="../assets/review/viewer_v14.js"></script>
+<script>window.KopuriReviewAdapter={page:()=>PAGES[idx],pages:()=>PAGES,redraw:()=>{if(typeof LOSSLESS_FONT_SIZE_CACHE!=='undefined')PAGES.flatMap(p=>p.numberPairs||[]).forEach(p=>LOSSLESS_FONT_SIZE_CACHE.delete(p));drawOverlays();drawGuides()},view:()=>({orange:document.getElementById('orangeToggle').checked,green:document.getElementById('greenToggle').checked,mode,drawing,ranges:rangesFor().filter(r=>r.enabled!==false).map(r=>[r.x,r.y,r.w,r.h])})};</script>
+<script type="module" src="../assets/review/viewer_v18.js"></script>
 </body>
 </html>

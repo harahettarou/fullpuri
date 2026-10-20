@@ -1,0 +1,134 @@
+(node:13) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ register → synchronize → complete → reopen → complete retains exact server history (45.341697ms)
+✔ replay and duplicate completion never increase review count (13.479884ms)
+✔ users cannot read, complete or delete each other’s entries and history (19.865166ms)
+✔ concurrent revisions reject lost updates and keep all changes atomic (8.939045ms)
+✔ deletion leaves tombstone, explicit re-registration retains review history (12.835546ms)
+✔ all target kinds, coordinate validation and untrusted IDs (18.202205ms)
+✔ authentication, origin and revoked/expired sessions are enforced on server (5.512269ms)
+✔ OAuth state, PKCE challenge, one-time exchange and ticket expiry (10.166446ms)
+✔ notes save, replay, edit, delete and restore are independent from review history (10.161279ms)
+✔ notes reject stale revision, untrusted identity, wrong origin and invalid body (16.829666ms)
+✔ all note target types save without registering review items (13.55066ms)
+✔ shared memo is visible and editable across users while existing private notes remain isolated (9.490535ms)
+✔ shared deletion and restoration require server-configured admin, including forged client roles (20.691838ms)
+✔ shared memo revision conflicts and operation replay preserve exact audit snapshots (10.837551ms)
+✔ shared endpoints enforce authentication, origin, target identity and nonempty bodies (10.699493ms)
+✔ shared history paginates without dropping or duplicating revisions (79.104395ms)
+✔ without an admin configuration nobody can delete; all target types share stable IDs (11.479892ms)
+(node:14) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ canonical page fingerprints match; divergent legacy aliases are detected; editable native coordinates are valid (426.153878ms)
+✔ only authenticated admin can save/edit/history; public only sees explicit published snapshot (35.606319ms)
+✔ atomic revisions, idempotent replay and lost response do not duplicate history (8.97813ms)
+✔ invalid page/source/rect/script fields rejected or sanitized; draft cannot leak through public query (7.853474ms)
+✔ publish/edit/unpublish retains independent snapshots and exact audit data without touching learning tables (9.638562ms)
+✔ native green/orange patches operate on existing render references and restore original values (7.425245ms)
+✔ all 412 canonical defaults pass the live server validator (562.810141ms)
+(node:15) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+✔ client → real API/SQLite → independent client → completion → reload history (61.771927ms)
+✔ offline mutation survives reload and replays once after reconnection (17.727126ms)
+✔ concurrent change is explicit; reapplying already completed entry does not double-count (25.331113ms)
+✔ cached entries and offline queue stay scoped to each account (16.706425ms)
+✔ black words selected from same OCR line remain separate registrations (12.153724ms)
+✔ viewer DOM: three colors and direct/tap/hidden display modes (48.72505ms)
+✔ logout clears local private cache and leaves server-side records intact (12.991796ms)
+✔ viewer DOM: explicit range selection registers actual source coordinates (69.002771ms)
+✔ manager DOM filters and counts match saved records (77.661229ms)
+✔ black OCR text selection registers only user-chosen text without auto buttons (58.252812ms)
+✔ saved target deep link highlights frozen original-image coordinates (38.525948ms)
+✔ notes two clients, offline reload, conflict merge, logout and account isolation (45.063339ms)
+✔ notes editor saves plain text without review registration and manager searches safely (41.861686ms)
+✔ viewer notes icon follows source target, can be hidden, and range memo leaves reviews empty (47.726113ms)
+✔ notes deep link keeps original image coordinates and stale editor retains typed content (110.197448ms)
+✔ launcher only shows memo count for the current No and hides it after deletion (88.026084ms)
+✔ independent launcher clearance follows navigation height after resize (15.208078ms)
+✔ Google link ticket keeps existing local cache, notes and account ownership (23.947508ms)
+✔ provider UI supports Google, legacy GitHub and explicit linking without showing review answers (10.881792ms)
+✔ memo anchors remain visible without room for an icon, follow scaled stage and hide independently (52.373141ms)
+✔ page notes list includes No-wide notes, excludes other pages, focuses exact anchor and opens editor (62.412948ms)
+✔ study dialog groups review and memo actions and deduplicates account email and saved status (39.714506ms)
+✔ new default is shared; independent signed-in users synchronize a memo and retain private scope separately (52.319159ms)
+✔ shared offline writes survive reload and prevent logout, then replay once on recovery (28.193829ms)
+✔ shared conflict resolution retains local text, refuses restoring deleted rows through put, allows discard (37.350186ms)
+✔ shared editor defaults to public scope; only admins receive delete UI and manager can restore with history (64.34603ms)
+✔ shared manager hides delete for a non-admin while personal delete remains available and deep links specify scope (50.228901ms)
+✔ viewer defaults to shared, both scopes open independently and shared memo URL restores proper display (60.788323ms)
+✔ account switch never renders another users personal memo while shared cache reloads (22.920194ms)
+✔ new memo defaults to shared even while personal list is selected and existing private content is not auto-published (14.776608ms)
+✔ existing private memo can be explicitly published and shared deletion leaves personal memo and audit intact (24.784528ms)
+✔ cancelling publication leaves both server and input unchanged (14.583508ms)
+✔ publishing into an existing different shared memo refuses overwrite and retains original input (18.363021ms)
+✔ offline publication fails safely and can be retried after synchronization without removing personal source (20.630562ms)
+✔ destination write failure queues publication while preserving personal source and retry logs only once (24.644576ms)
+✔ copying shared memo to personal and deleting personal do not remove shared memo (17.393063ms)
+✔ shared delete button follows server role changes while editor stays open (16.769836ms)
+✔ upgrade starts with both scopes displayed and opening a private deep link does not overwrite saved display preference (5.861904ms)
+(node:16) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ zoom limits and classic host width (0.982818ms)
+✔ overlapping selected rectangles form a union with disjoint complement (1.227316ms)
+✔ range input validates coordinates and page keys without mutating stored values (0.454244ms)
+(node:22) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ tap placement is clamped to original page and independent of display pixels (1.613446ms)
+✔ old green-mask schema maps to a green cover without changing saved kind or rect (1.014355ms)
+✔ orange/red/green rendering controls are independent and editor always exposes targets (0.180702ms)
+(node:28) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Google explicit link preserves legacy GitHub review, notes and history across future logins (54.179106ms)
+✔ Google standalone account stays isolated and cannot be silently merged into GitHub (23.337031ms)
+✔ a Google identity cannot be taken over or replaced; source session is checked at exchange (27.813401ms)
+✔ Google flow rejects wrong state, expired state, wrong front verifier and ticket replay (15.218724ms)
+✔ Google tokens require a valid signature, issuer, audience, nonce, time and subject (10.335976ms)
+✔ link endpoints enforce authentication and origin; cancellation does not link an account (5.996011ms)
+✔ matching email addresses do not merge distinct Google subjects (19.504102ms)
+(node:30) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+✔ library lists/filters subjects and exposes editor only for configured administrator (208.030959ms)
+✔ viewer adds orange/red/green/black text and masks, applies edit/undo, saves and publishes (517.961165ms)
+✔ saved range connects review/memo and follows zoom/colored visibility without changing identity (319.541657ms)
+✔ offline draft and operation survive reload; response loss retry commits exactly one revision (336.580682ms)
+✔ concurrent save retains editor input and requires explicit revision reconciliation (347.32534ms)
+✔ managers show material titles without answer spoilers and link to exact page and saved target (352.008331ms)
+✔ logout clears document content from active viewer but keeps server original and learning records (125.224955ms)
+✔ dedicated orange/green/red actions create independent layers and preview before publication (564.170372ms)
+✔ layer filter, edit existing text, move source coordinates, and isolated deletion (429.045564ms)
+✔ unplaced text cannot silently disappear on save, reload, or changing to a marker tool (439.575837ms)
+✔ public green toggle is a real green cover; source and user review identity survive display changes (373.215363ms)
+✔ classic defaults, 25 percent zoom, header toggle and wrapped page navigation (1991.880836ms)
+✔ display ranges restore per account and deleting ranges preserves annotations and review (515.123375ms)
+(node:80) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./")); register("./assets/review/tests/worker_loader_v18.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ only configured authenticated admin can create, upload, edit, publish and archive (34.82574ms)
+✔ draft/PDF/history invisible to another user until explicit publish; edit query cannot bypass ACL (10.123642ms)
+✔ PDF stored and served byte-for-byte, upload/retry immutable; publish requires original (11.659958ms)
+✔ draft edits never modify published snapshot until a new explicit publish (14.53833ms)
+✔ optimistic concurrent saves, exact idempotent replay and operation ID misuse (9.359575ms)
+✔ unpublish/archive hide originals and notes while preserving history; restore explicit (16.077765ms)
+✔ invalid metadata, excessive sizes, malformed annotations and out-of-bounds rectangles rejected (14.266582ms)
+✔ upload rejects non-PDF, wrong length or checksum without marking ready (11.214752ms)
+✔ material review, private/shared notes, sync, completion and history reuse authenticated storage (18.556773ms)
+✔ material identity cannot bypass ACL by dropping or forging metadata (5.927253ms)
+✔ geometry, visibility, stable IDs and deep links remain independent of zoom and color switches (1.776011ms)
+✔ missing R2 reports setup state; bad origin and invalid sessions fail closed (4.820268ms)
+ℹ tests 100
+ℹ suites 0
+ℹ pass 100
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11582.266018
