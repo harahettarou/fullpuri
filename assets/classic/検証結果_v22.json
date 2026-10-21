@@ -1,0 +1,92 @@
+[
+  {
+    "device": {
+      "width": 390,
+      "height": 664
+    },
+    "touch_zoom_and_two_finger_pan": true,
+    "one_finger_pan": true,
+    "navigation_does_not_edit": true,
+    "green_switch_from_pan_draws": true,
+    "draw_does_not_resize_selected_marker": true,
+    "pan_toggle_restores_draw_and_select": true
+  },
+  {
+    "device": {
+      "width": 810,
+      "height": 1080
+    },
+    "touch_zoom_and_two_finger_pan": true,
+    "one_finger_pan": true,
+    "navigation_does_not_edit": true,
+    "green_switch_from_pan_draws": true,
+    "draw_does_not_resize_selected_marker": true,
+    "pan_toggle_restores_draw_and_select": true
+  },
+  {
+    "device": "desktop",
+    "header_extra_height": 0,
+    "launch_size": {
+      "x": 1333,
+      "y": 134,
+      "width": 80,
+      "height": 24
+    },
+    "red_hide_keep": true,
+    "green_edit_color_resize": true,
+    "direct_move": true,
+    "double_click_or_double_tap_delete": true,
+    "body_answer_different_pages": true,
+    "persist_publish": true,
+    "independent_answer_page": true,
+    "errors": []
+  },
+  {
+    "device": "phone",
+    "header_extra_height": 0,
+    "launch_size": {
+      "x": 313,
+      "y": 214,
+      "width": 72,
+      "height": 22
+    },
+    "red_hide_keep": true,
+    "green_edit_color_resize": true,
+    "direct_move": true,
+    "double_click_or_double_tap_delete": true,
+    "body_answer_different_pages": true,
+    "persist_publish": true,
+    "independent_answer_page": true,
+    "errors": []
+  },
+  {
+    "device": "tablet",
+    "header_extra_height": 0,
+    "launch_size": {
+      "x": 718,
+      "y": 144,
+      "width": 80,
+      "height": 24
+    },
+    "red_hide_keep": true,
+    "green_edit_color_resize": true,
+    "direct_move": true,
+    "double_click_or_double_tap_delete": true,
+    "body_answer_different_pages": true,
+    "persist_publish": true,
+    "independent_answer_page": true,
+    "errors": []
+  },
+  {
+    "unfinished_pair_reload_recovery": true,
+    "existing_number_body_answer_edit": true,
+    "space_preview": true,
+    "cursor_wheel_zoom": true,
+    "errors": []
+  },
+  {
+    "added_mask_tap_registration_and_reload": true,
+    "direct_green_buttons": true,
+    "red_region_list_registration": true
+  }
+]
