@@ -14,32 +14,33 @@
       "start": 1886,
       "end": 1913,
       "file": "cshapes-1886-1913.json",
-      "features": 309,
-      "bytes": 2015609
+      "features": 351,
+      "bytes": 2637006
     },
     {
       "id": "1914-1945",
       "start": 1914,
       "end": 1945,
       "file": "cshapes-1914-1945.json",
-      "features": 324,
-      "bytes": 3063150
+      "features": 377,
+      "bytes": 3998114
     },
     {
       "id": "1946-1990",
       "start": 1946,
       "end": 1990,
       "file": "cshapes-1946-1990.json",
-      "features": 327,
-      "bytes": 2114854
+      "features": 402,
+      "bytes": 2822892
     },
     {
       "id": "1991-2019",
       "start": 1991,
       "end": 2019,
       "file": "cshapes-1991-2019.json",
-      "features": 201,
-      "bytes": 1961177
+      "features": 249,
+      "bytes": 2341741
     }
-  ]
+  ],
+  "educational_revision": "2026-10-22"
 }

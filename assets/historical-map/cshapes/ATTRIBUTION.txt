@@ -27,3 +27,5 @@ Changes made for this website:
 
 This derived dataset is distributed under the same CC BY-NC-SA 4.0 license.
 It may not be used for commercial purposes. Adaptations must use the same license.
+
+2026-10-22 revision: date-dependent educational Japanese names; source geometries, color classes and anchors preserved. Original names and intervals retained in properties. Historical labels do not assert independent sovereignty or all wartime control.

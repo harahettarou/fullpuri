@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-29-cliopatria",
+  "version": "2026-10-22-educational-audit",
   "dataset": "古プリ補完政治領域データ（Cliopatria派生）",
   "source_title": "Cliopatria: a geospatial database of world-wide political entities from 3400 BCE to 2024 CE",
   "source_url": "https://doi.org/10.1038/s41597-025-04516-9",
@@ -19,23 +19,23 @@
       "end": -2001,
       "file": "cliopatria-bce-3400--2001.json",
       "features": 27,
-      "bytes": 64407
+      "bytes": 75763
     },
     {
       "id": "bce-2000--1001",
       "start": -2000,
       "end": -1001,
       "file": "cliopatria-bce-2000--1001.json",
-      "features": 80,
-      "bytes": 207705
+      "features": 78,
+      "bytes": 233200
     },
     {
       "id": "bce-1000--1",
       "start": -1000,
       "end": -1,
       "file": "cliopatria-bce-1000--1.json",
-      "features": 932,
-      "bytes": 3265661
+      "features": 913,
+      "bytes": 3589264
     },
     {
       "id": "ce-1-249",
@@ -43,103 +43,104 @@
       "end": 249,
       "file": "cliopatria-ce-1-249.json",
       "features": 277,
-      "bytes": 1379100
+      "bytes": 1499186
     },
     {
       "id": "ce-250-499",
       "start": 250,
       "end": 499,
       "file": "cliopatria-ce-250-499.json",
-      "features": 544,
-      "bytes": 2395612
+      "features": 546,
+      "bytes": 2636315
     },
     {
       "id": "ce-500-749",
       "start": 500,
       "end": 749,
       "file": "cliopatria-ce-500-749.json",
-      "features": 724,
-      "bytes": 2813022
+      "features": 709,
+      "bytes": 3071987
     },
     {
       "id": "ce-750-999",
       "start": 750,
       "end": 999,
       "file": "cliopatria-ce-750-999.json",
-      "features": 1152,
-      "bytes": 3634969
+      "features": 1146,
+      "bytes": 4112233
     },
     {
       "id": "ce-1000-1199",
       "start": 1000,
       "end": 1199,
       "file": "cliopatria-ce-1000-1199.json",
-      "features": 1122,
-      "bytes": 2906313
+      "features": 1108,
+      "bytes": 3360474
     },
     {
       "id": "ce-1200-1399",
       "start": 1200,
       "end": 1399,
       "file": "cliopatria-ce-1200-1399.json",
-      "features": 1489,
-      "bytes": 4158127
+      "features": 1471,
+      "bytes": 4758305
     },
     {
       "id": "ce-1400-1499",
       "start": 1400,
       "end": 1499,
       "file": "cliopatria-ce-1400-1499.json",
-      "features": 881,
-      "bytes": 2863944
+      "features": 868,
+      "bytes": 3216382
     },
     {
       "id": "ce-1500-1599",
       "start": 1500,
       "end": 1599,
       "file": "cliopatria-ce-1500-1599.json",
-      "features": 825,
-      "bytes": 3221921
+      "features": 806,
+      "bytes": 3528628
     },
     {
       "id": "ce-1600-1699",
       "start": 1600,
       "end": 1699,
       "file": "cliopatria-ce-1600-1699.json",
-      "features": 783,
-      "bytes": 4036028
+      "features": 750,
+      "bytes": 4253074
     },
     {
       "id": "ce-1700-1749",
       "start": 1700,
       "end": 1749,
       "file": "cliopatria-ce-1700-1749.json",
-      "features": 489,
-      "bytes": 2615919
+      "features": 479,
+      "bytes": 2798825
     },
     {
       "id": "ce-1750-1799",
       "start": 1750,
       "end": 1799,
       "file": "cliopatria-ce-1750-1799.json",
-      "features": 679,
-      "bytes": 3933058
+      "features": 663,
+      "bytes": 4168402
     },
     {
       "id": "ce-1800-1849",
       "start": 1800,
       "end": 1849,
       "file": "cliopatria-ce-1800-1849.json",
-      "features": 967,
-      "bytes": 5114863
+      "features": 940,
+      "bytes": 5462785
     },
     {
       "id": "ce-1850-1885",
       "start": 1850,
       "end": 1885,
       "file": "cliopatria-ce-1850-1885.json",
-      "features": 647,
-      "bytes": 4130752
+      "features": 633,
+      "bytes": 4392946
     }
-  ]
+  ],
+  "revision_note": "名称の取り違えと既知の存続年代外表示を修正。全境界を史料で確定したデータではない。"
 }
