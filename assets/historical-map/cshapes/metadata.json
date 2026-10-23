@@ -14,8 +14,8 @@
       "start": 1886,
       "end": 1913,
       "file": "cshapes-1886-1913.json",
-      "features": 351,
-      "bytes": 2637006
+      "features": 352,
+      "bytes": 2695791
     },
     {
       "id": "1914-1945",
@@ -23,7 +23,7 @@
       "end": 1945,
       "file": "cshapes-1914-1945.json",
       "features": 377,
-      "bytes": 3998114
+      "bytes": 4048129
     },
     {
       "id": "1946-1990",
@@ -31,7 +31,7 @@
       "end": 1990,
       "file": "cshapes-1946-1990.json",
       "features": 402,
-      "bytes": 2822892
+      "bytes": 2865449
     },
     {
       "id": "1991-2019",
@@ -39,8 +39,10 @@
       "end": 2019,
       "file": "cshapes-1991-2019.json",
       "features": 249,
-      "bytes": 2341741
+      "bytes": 2376222
     }
   ],
-  "educational_revision": "2026-10-22"
+  "educational_revision": "2026-10-23",
+  "end_date_semantics": "Raw CShapes end dates are inclusive; derived e is the following day (exclusive).",
+  "endpoint_reference": "https://raw.githubusercontent.com/cran/cshapes/master/R/cshp.R"
 }

@@ -29,3 +29,6 @@ This derived dataset is distributed under the same CC BY-NC-SA 4.0 license.
 It may not be used for commercial purposes. Adaptations must use the same license.
 
 2026-10-22 revision: date-dependent educational Japanese names; source geometries, color classes and anchors preserved. Original names and intervals retained in properties. Historical labels do not assert independent sovereignty or all wartime control.
+
+2026-10-23: 原データの終了日（当日を含む）を翌日未満の内部区間へ変換。modern-label-anchors.json は2019年のラベル位置のみを参考利用（政治領域の延長なし）。CC BY-NC-SA 4.0を継承。
+広域の海面マスクは既存Natural Earth陸地から生成。Natural Earthはpublic domain。https://www.naturalearthdata.com/about/terms-of-use/
