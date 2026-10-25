@@ -999,6 +999,6 @@ loadPage();
 <!-- kopuri-review-v1 -->
 <link rel="stylesheet" href="../assets/review/review_v13.css">
 <script>window.KopuriReviewAdapter={page:()=>PAGES[idx],pages:()=>PAGES,redraw:()=>{if(typeof LOSSLESS_ANSWER_PAIRS_BY_PAGE!=='undefined'){LOSSLESS_ANSWER_PAIRS_BY_PAGE.clear();LOSSLESS_BODY_PAIRS_BY_PAGE.clear();for(const pair of LOSSLESS_ALL_NUMBER_PAIRS){for(const [map,key]of [[LOSSLESS_ANSWER_PAIRS_BY_PAGE,pair.answerPageKey],[LOSSLESS_BODY_PAIRS_BY_PAGE,pair.bodyPageKey]]){const rows=map.get(key)||[];rows.push(pair);map.set(key,rows)}}}if(typeof LOSSLESS_FONT_SIZE_CACHE!=='undefined')PAGES.flatMap(p=>p.numberPairs||[]).forEach(p=>LOSSLESS_FONT_SIZE_CACHE.delete(p));drawOverlays();drawGuides()},view:()=>({orange:document.getElementById('orangeToggle').checked,green:document.getElementById('greenToggle').checked,mode,drawing,ranges:rangesFor().filter(r=>r.enabled!==false).map(r=>[r.x,r.y,r.w,r.h])})};</script>
-<script type="module" src="../assets/review/viewer_v26.js"></script>
+<script type="module" src="../assets/review/viewer_v28.js"></script>
 </body>
 </html>
