@@ -1,0 +1,7 @@
+# Repository metadata is not website content (its pack files exceed 25 MiB).
+**/.git
+
+# Local dependencies and Wrangler output are not website content either.
+**/node_modules
+**/.wrangler
+**/.DS_Store
