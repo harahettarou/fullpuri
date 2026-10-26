@@ -178,11 +178,20 @@ body>main{
 
 
 .modeNav,.modes{flex-wrap:wrap}
-</style></head><body><header><div class="head"><a class="siteBrand" href="../index.html" aria-label="古プリ比較システムのトップページ"><img src="../assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><a href="../index.html">ナンバー順</a><a href="regional.html">地域・時代順</a><a href="centuries.html">世紀別</a><span class="active" aria-current="page">文字検索</span><a href="timeline.html">総合年表</a><a href="historical-map.html">歴史地図</a></nav></div></header><main><h1>画像内文字検索</h1><p class="lead">プリント画像の印刷文字と手書き文字をOCRで読み取って検索します。少し違う文字でも候補を表示し、開いたページで該当位置を赤枠で示します。</p><div class="searchBox"><input id="q" class="search" type="search" inputmode="search" autocomplete="off" placeholder="例：アヘン戦争、ルネサンス、ウィーン体制" aria-label="画像内の文字を検索"><div id="status" class="status">検索データを読み込み中…</div></div><div id="results" class="results"><div class="hint">文字を入力してください。</div></div></main>
+
+/* Text memo search v1 */
+#memo-search{margin:0 0 20px}#memo-search h2{font-size:18px;margin:10px 0}
+.memo-controls,.memo-account{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:8px 0}
+#memo-search select,#memo-search button{font:inherit;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:7px 10px}
+#memo-search button:disabled{opacity:.5}.memo-account p{width:100%;font-size:12px;color:var(--sub);margin:0}
+#memo-search .result{border-left-color:var(--green)}.memo-account .kr-error{color:#b3261e}
+#memo-search .context{white-space:pre-wrap}#memo-search .status{white-space:pre-line}
+</style></head><body><header><div class="head"><a class="siteBrand" href="../index.html" aria-label="古プリ比較システムのトップページ"><img src="../assets/icons/icon-192.png" alt=""><span>古プリ比較システム</span></a><nav class="modeNav" aria-label="閲覧方法"><a href="../index.html">ナンバー順</a><a href="regional.html">地域・時代順</a><a href="centuries.html">世紀別</a><span class="active" aria-current="page">文字検索</span><a href="timeline.html">総合年表</a><a href="historical-map.html">歴史地図</a></nav></div></header><main><h1>文字・メモ検索</h1><p class="lead">プリント画像の文字と、文字入力した共通メモ・自分の個人メモを検索します。メモの検索にはログインが必要です。検索結果から元の位置を開けます。</p><div class="searchBox"><input id="q" class="search" type="search" inputmode="search" autocomplete="off" placeholder="例：アヘン戦争、ルネサンス、ウィーン体制" aria-label="プリントの文字・メモ本文を検索"><div id="status" class="status">検索データを読み込み中…</div></div><section id="memo-search" aria-label="メモ検索"></section><div id="results" class="results"><div class="hint">文字を入力してください。</div></div></main>
 <script src="../assets/search/ocr-search.js?v=77"></script>
 <script src="../assets/search/search-app.js?v=77"></script>
 <!-- kopuri-review-v1 -->
 <link rel="stylesheet" href="../assets/review/review_v3.css">
 <script type="module" src="../assets/review/navigation_v12.js"></script>
+<script type="module" src="../assets/search/memo-search_v1.js"></script>
 </body></html>
 
