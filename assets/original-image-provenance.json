@@ -778,6 +778,24 @@
         3200
       ],
       "extraction": "Unmodified single full-page JPEG stream; no resizing or recompression"
+    },
+    {
+      "asset": "assets/No169-171/No169_p3_base_v2.jpg",
+      "key": "No169_p3",
+      "sha256": "5c04c2130e6aadf0f33577be310a75cd2a99c626547006a54d16a38431d7cfd5",
+      "source_kind": "drive_pdf",
+      "source_url": "https://drive.google.com/file/d/1AKrB5Ho9TpB-Xf-IYLahdzZiev3CneLS/view",
+      "source_member": "No169(3/3).pdf",
+      "source_page": 1,
+      "source_pdf_sha256": "eed87a5fe6afa7b55c96ee01a0017df194197a426637851af76cbe31b31bfef2",
+      "source_sha256": "5c04c2130e6aadf0f33577be310a75cd2a99c626547006a54d16a38431d7cfd5",
+      "source_pixel_sha256": "ce96e107c5e6fb221745cdc6334af4173013f0876cb3dadf565cb37c8504c1d5",
+      "output_pixel_sha256": "ce96e107c5e6fb221745cdc6334af4173013f0876cb3dadf565cb37c8504c1d5",
+      "size": [
+        2104,
+        3096
+      ],
+      "extraction": "Unmodified single full-page JPEG stream; no resizing or recompression"
     }
   ]
 }
