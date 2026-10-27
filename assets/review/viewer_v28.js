@@ -1,6 +1,6 @@
 import {memoSummary} from './memo_summary_v28.js';
 import {observeLayout,targetCache} from './layout_v26.js';
-import {initClassicEditor} from '../classic/editor_v25.js';
+import {initClassicEditor} from '../classic/editor_v26.js';
 import {initSequence,startReview} from './sequence_v18.js';
 import {fillAccount} from './account_controls_v12.js';
 import * as R from './core_v12.js';
