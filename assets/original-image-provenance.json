@@ -742,6 +742,42 @@
       ],
       "generation_method": "unchanged-original-bytes",
       "replacement_pdf_name": "Adobe Scan 2026年10月6日.pdf"
+    },
+    {
+      "asset": "assets/No167-168/No168_p3_base.jpg",
+      "key": "No168_p3",
+      "sha256": "b41e3702cd568da36267078579913b336952f0b8e3e6dd2f1225bdd3c0694dc5",
+      "source_kind": "drive_pdf",
+      "source_url": "https://drive.google.com/file/d/1RPC67tzYcJuByCHezyg5iI_c4MCS1RB6/view",
+      "source_member": "No168(3/3).pdf",
+      "source_page": 1,
+      "source_pdf_sha256": "88756811891260eff00044700cef2aec56fe7f651325e300deb53ff80a94c4d9",
+      "source_sha256": "b41e3702cd568da36267078579913b336952f0b8e3e6dd2f1225bdd3c0694dc5",
+      "source_pixel_sha256": "1577beb580db6fd20c871d45f9f99d577b5a57f1d3f01d1284e85cfc9e1cb352",
+      "output_pixel_sha256": "1577beb580db6fd20c871d45f9f99d577b5a57f1d3f01d1284e85cfc9e1cb352",
+      "size": [
+        2168,
+        3256
+      ],
+      "extraction": "Unmodified single full-page JPEG stream; no resizing or recompression"
+    },
+    {
+      "asset": "assets/No169-171/No169_p3_base.jpg",
+      "key": "No169_p3",
+      "sha256": "d7a5b7049a565e7b90b230645489b14d436813bbc4ae9f3b67987825433c6b3f",
+      "source_kind": "drive_pdf",
+      "source_url": "https://drive.google.com/file/d/1Bs6jaBqqjLHQgC187tjeiVGxtXrWZt_p/view",
+      "source_member": "No169(3/3).pdf",
+      "source_page": 1,
+      "source_pdf_sha256": "e090b281860a0832e67dc14d70255f214bf039821db0cc5ec15c0c7206db7723",
+      "source_sha256": "d7a5b7049a565e7b90b230645489b14d436813bbc4ae9f3b67987825433c6b3f",
+      "source_pixel_sha256": "28dac6ecfc4b7b866f93ba56f80df482c9c76c8d58042480b8f3a7b60cd4f2d8",
+      "output_pixel_sha256": "28dac6ecfc4b7b866f93ba56f80df482c9c76c8d58042480b8f3a7b60cd4f2d8",
+      "size": [
+        2240,
+        3200
+      ],
+      "extraction": "Unmodified single full-page JPEG stream; no resizing or recompression"
     }
   ]
 }
