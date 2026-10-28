@@ -6,7 +6,7 @@ export async function openEditor(target,scope=N.creationScope()){
  if(!R.state().auth)throw Error('先にログインしてください');
  const id=await R.targetId(R.canonical(target)),note=N.state().allNotes.find(n=>n.id===id&&n.scope===scope),expected=note?.version||0;
  if(note?.pending)throw Error('このメモは保存待ちです。メモ一覧で再同期・競合解決をしてください');
- if(note?.deleted&&scope==='shared')throw Error('この共通メモは削除済みです。管理者がメモ一覧から復元できます');
+ if(note?.deleted&&scope==='shared'&&!N.canDelete(scope))throw Error('この共通メモは削除済みです。管理者がメモ一覧から復元できます');
  const dialog=el('dialog');dialog.className='kr-dialog kn-editor';dialog.setAttribute('aria-label','メモの編集');
  const heading=el('h2',`No.${target.no} のメモ`),where=el('p',target.text||'指定箇所'),text=el('textarea');text.maxLength=6000;text.value=note&&!note.deleted?note.body:'';text.placeholder='覚え方・間違えた理由・補足など';text.setAttribute('aria-label','メモ本文');
  const scopeLabel=el('label','保存先 '),select=el('select');select.setAttribute('aria-label','メモの保存先');select.innerHTML='<option value="shared">共通メモ（ログインした全員に公開）</option><option value="private">個人メモ（自分だけ）</option>';select.value=scope;select.disabled=false;scopeLabel.append(select);

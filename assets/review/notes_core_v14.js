@@ -38,7 +38,7 @@ export async function copyScope(target,body,expected,from){
  if(!source||source.deleted||source.pending||source.version!==expected)throw Error('元のメモが更新されています。入力内容をコピーしてから開き直してください');
  const next=from==='private'?'shared':'private',dest=service(next),existing=dest.state().notes.find(n=>n.id===id);
  if(existing?.pending)throw Error('追加先のメモは保存待ちです');
- if(next==='shared'&&existing?.deleted)throw Error('この箇所の共通メモは削除済みです。管理者による復元が必要です');
+ if(next==='shared'&&existing?.deleted&&!state().is_admin)throw Error('この箇所の共通メモは削除済みです。管理者による復元が必要です');
  if(existing&&!existing.deleted&&existing.body!==body)throw Error('追加先に別の内容のメモがあります。内容を確認・統合してください。元のメモは残っています');
  if(!existing||existing.deleted)await dest.put(target,body,existing?.version||0);
  if(R.state().auth?.user_id!==uid)throw Error('ログイン状態が変わりました。元のメモは残しています');
