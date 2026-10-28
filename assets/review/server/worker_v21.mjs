@@ -297,6 +297,7 @@ async function route(req,env){
  if(path==='/auth/google/start'&&req.method==='GET')return Response.redirect(await startGoogle(req,env,url.searchParams.get('challenge')),302);
  if(path==='/auth/google/callback'&&req.method==='GET')return googleCallback(req,env,url);
  if(path==='/auth/start'&&req.method==='GET'){
+  if(!env.GITHUB_CLIENT_ID||!env.GITHUB_CLIENT_SECRET)fail(503,'GitHubログインは未設定です。Googleでログインしてください');
   const challenge=url.searchParams.get('challenge');if(!validToken(challenge))fail(400,'認証情報が不正です');
   const state=random(),verifier=random();
   await env.DB.prepare('INSERT INTO oauth_states VALUES(?,?,?,?)').bind(await hash(state),challenge,verifier,Date.now()+600000).run();
@@ -305,6 +306,7 @@ async function route(req,env){
   return Response.redirect(u.href,302);
  }
  if(path==='/auth/callback'&&req.method==='GET'){
+  if(!env.GITHUB_CLIENT_ID||!env.GITHUB_CLIENT_SECRET)fail(503,'GitHubログインは未設定です。Googleでログインしてください');
   const state=url.searchParams.get('state');if(!validToken(state))fail(400,'認証をやり直してください');
   const saved=await env.DB.prepare('DELETE FROM oauth_states WHERE state_hash=? AND expires>? RETURNING *').bind(await hash(state),Date.now()).first();
   if(!saved||!url.searchParams.get('code'))fail(400,'認証をやり直してください');
@@ -317,7 +319,7 @@ async function route(req,env){
  }
  // Bearer-only API; no third-party cookies or client-asserted user IDs.
  if(req.headers.get('origin')!==origin)fail(403,'許可されていない接続元です');
- if(path==='/auth/providers'&&req.method==='GET')return json({github:!!env.GITHUB_CLIENT_ID,google:googleReady(env)});
+ if(path==='/auth/providers'&&req.method==='GET')return json({github:!!(env.GITHUB_CLIENT_ID&&env.GITHUB_CLIENT_SECRET),google:googleReady(env)});
  if(path==='/auth/exchange'&&req.method==='POST'){
   const b=await body(req);if(!validToken(b.ticket)||!validToken(b.verifier))fail(400,'認証情報が不正です');
   const row=await env.DB.prepare('DELETE FROM tickets WHERE ticket_hash=? AND challenge=? AND expires>? RETURNING *').bind(await hash(b.ticket),await hash(b.verifier),Date.now()).first();
@@ -372,7 +374,7 @@ export default {
  async fetch(req,env){
   let allowed='';try{allowed=site(env).origin}catch{return json({error:'SITE_URLを設定してください'},503)}
   if(req.method==='OPTIONS')return new Response(null,{status:req.headers.get('origin')===allowed?204:403,headers:{'Access-Control-Allow-Origin':allowed,'Access-Control-Allow-Methods':'GET, POST, PUT, OPTIONS','Access-Control-Allow-Headers':'Authorization, Content-Type, X-File-SHA256','Access-Control-Max-Age':'600',Vary:'Origin'}});
-  let res;try{if(!env.GITHUB_CLIENT_ID||!env.GITHUB_CLIENT_SECRET||!env.DB)fail(503,'認証・保存サービスの設定が必要です');res=await route(req,env)}catch(error){res=json({error:error.status?error.message:'保存サービスでエラーが発生しました'},error.status||500)}
+  let res;try{if(!env.DB)fail(503,'保存データベースの設定が必要です');res=await route(req,env)}catch(error){res=json({error:error.status?error.message:'保存サービスでエラーが発生しました'},error.status||500)}
   const headers=new Headers(res.headers);headers.set('Access-Control-Allow-Origin',allowed);headers.set('Vary','Origin');headers.set('Cache-Control','no-store');headers.set('Referrer-Policy','no-referrer');headers.set('X-Content-Type-Options','nosniff');
   return new Response(res.body,{status:res.status,headers});
  },
