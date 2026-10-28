@@ -7,8 +7,8 @@ export async function openEditor(target,scope=N.creationScope()){
  if(note?.pending)throw Error('このメモは保存待ちです。メモ一覧で再同期・競合解決をしてください');
  if(note?.deleted&&scope==='shared')throw Error('この共通メモは削除済みです。管理者がメモ一覧から復元できます');
  const dialog=el('dialog');dialog.className='kr-dialog kn-editor';dialog.setAttribute('aria-label','メモの編集');
- const heading=el('h2',`${target.material?target.material.title+" "+target.material.page+"ページ":"No."+target.no} のメモ`),where=el('p',target.text||'指定箇所'),text=el('textarea');text.maxLength=6000;text.value=note&&!note.deleted?note.body:'';text.placeholder='覚え方・間違えた理由・補足など';text.setAttribute('aria-label','メモ本文');
- const scopeLabel=el('label','保存先 '),select=el('select');select.setAttribute('aria-label','メモの保存先');select.innerHTML='<option value="shared">共通メモ（ログインした全員に公開）</option><option value="private">個人メモ（自分だけ）</option>';select.value=scope;select.disabled=false;scopeLabel.append(select);
+ const heading=el('h2',`${target.material?target.material.title+" "+target.material.page+"ページ":"No."+target.no} のメモ`),where=el('p',target.text||'指定箇所'),text=el('textarea');text.style.fontSize='16px';text.maxLength=6000;text.value=note&&!note.deleted?note.body:'';text.placeholder='覚え方・間違えた理由・補足など';text.setAttribute('aria-label','メモ本文');
+ const scopeLabel=el('label','保存先 '),select=el('select');select.style.fontSize='16px';select.setAttribute('aria-label','メモの保存先');select.innerHTML='<option value="shared">共通メモ（ログインした全員に公開）</option><option value="private">個人メモ（自分だけ）</option>';select.value=scope;select.disabled=false;scopeLabel.append(select);
  const help=el('p',scope==='shared'?'ログインした全員が閲覧・編集できます。削除・復元は管理者のみです。':'このメモは自分だけが閲覧・編集・削除できます。');help.className='kr-note';
  const notice=el('p');notice.className='kr-error';notice.setAttribute('role','alert');const count=el('p');count.className='kr-meta';
  const buttons=el('div');buttons.className='kr-row kn-editor-actions';let busy=false,saved=text.value;

@@ -31,3 +31,6 @@
 .kn-note-outline[data-scope=private]:not([data-kind=page]):not([data-kind=print]){outline-style:dotted}
 
 .kn-editor-actions{position:sticky;bottom:-16px;background:#fff;padding:10px 0 4px;border-top:1px solid #dbe3dc;z-index:2}.kn-editor .kn-delete{color:#a42d22;border-color:#c5665c;margin-left:auto}.kn-editor [hidden]{display:none!important}
+
+/* Memo fields must not inherit the 15px dialog/manager text on iPhone. */
+.kn-editor textarea,.kn-editor select,.kn-conflict textarea{font-size:16px}
