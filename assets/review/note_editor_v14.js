@@ -1,3 +1,4 @@
+import {preserveNoteViewport} from './note_viewport_v1.js';
 import * as R from './core_v12.js';
 import * as N from './notes_core_v14.js';
 const el=(tag,text)=>{const n=document.createElement(tag);if(text)n.textContent=text;return n};
@@ -32,5 +33,5 @@ export async function openEditor(target,scope=N.creationScope()){
  const warn=e=>{if(text.value!==saved){e.preventDefault();e.returnValue=''}};window.addEventListener('beforeunload',warn);dialog.addEventListener('close',()=>window.removeEventListener('beforeunload',warn),{once:true});
  dialog.addEventListener('cancel',e=>{e.preventDefault();close()});dialog.addEventListener('close',()=>dialog.remove());
  const owner=R.state().auth?.user_id;const unsubscribe=R.subscribe(()=>{if(R.state().auth?.user_id!==owner)dialog.close()});dialog.addEventListener('close',unsubscribe,{once:true});
- dialog.append(heading,scopeLabel,help,where,text,count,notice,buttons);document.body.append(dialog);dialog.showModal();text.focus();
+ dialog.append(heading,scopeLabel,help,where,text,count,notice,buttons);preserveNoteViewport(dialog);document.body.append(dialog);dialog.showModal();text.focus({preventScroll:true});
 }
