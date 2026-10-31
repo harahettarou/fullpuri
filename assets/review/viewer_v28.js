@@ -98,7 +98,6 @@ function render(){
    button('No.全体を登録・確認',()=>openTarget(baseTarget('print'))),
    button('このページを登録・確認',()=>openTarget(baseTarget('page'))),
    button('範囲を囲んで登録',()=>startSelection('range')),
-   button('文字を選択・検索用に修正',()=>startSelection('black')),
    button('このページの語句一覧',openTargetList)
   ]),
   actionGroup('メモ',[
