@@ -9,7 +9,7 @@ export async function openWordActions(target){
  try{await C.refresh()}catch{}
  if(R.state().auth?.user_id!==owner)throw Error('ログイン状態が変わりました');
  const dialog=el('dialog');dialog.className='kr-dialog';dialog.setAttribute('aria-label','文字を修正');
- const heading=el('h2','文字を修正'),help=el('p','正しい文字を入力してください。「保存」は検索用に保存、「復習に登録」は保存と復習登録をして終了します。');help.className='kr-note';
+ const heading=el('h2','文字を修正'),help=el('p','正しい文字を入力してください。「修正を保存」は検索用に保存、「復習に登録」は保存と復習登録をして終了します。');help.className='kr-note';
  const text=el('textarea');text.setAttribute('aria-label','修正する文字');text.maxLength=1000;text.rows=4;text.style.cssText='font-size:16px;width:100%;box-sizing:border-box';
  let current=C.find(target.page,target.rect),expected=current?.version||0,savedFull=null,busy=false;
  text.value=current?.text??target.text;
@@ -29,7 +29,7 @@ export async function openWordActions(target){
   }
   dialog.close();
  }
- controls.append(button('保存',()=>save(false)),button('復習に登録',()=>save(true)),button('閉じる',()=>dialog.close()));
+ controls.append(button('修正を保存',()=>save(false)),button('復習に登録',()=>save(true)),button('閉じる',()=>dialog.close()));
  dialog.addEventListener('cancel',e=>{if(busy)e.preventDefault()});
  const stop=R.subscribe(()=>{if(R.state().auth?.user_id!==owner)dialog.close()});dialog.addEventListener('close',()=>{stop();dialog.remove()},{once:true});
  dialog.append(heading,help,text,notice,controls);preserveNoteViewport(dialog);document.body.append(dialog);dialog.showModal();text.focus({preventScroll:true});
