@@ -58,17 +58,17 @@ function noteFor(t){const ns=N.state().notes.filter(live);if(t.kind==='print')re
 async function openTarget(t,source=''){
  const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'));
  menu.append(el('p','',t.text||`${colors[t.color]||''}文字（範囲を登録）`));
- if(t.kind==='word')menu.append(button('文字を選択・検索用に修正',()=>{menu.close();return openWordActions(t)}));
+ if(t.kind==='word')menu.append(button('文字を修正',()=>{menu.close();return openWordActions(t)}));
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
  else if(e?.pending)menu.append(el('p','','この項目は保存待ちです。'));
  else if(e){
   menu.append(el('p','kr-meta',`復習 ${e.review_count}回 ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
   menu.append(button(e.state==='todo'?'復習完了にする':'再び要復習にする',async()=>{await R.act(e.state==='todo'?'complete':'reopen',t);menu.close()}));
- }else menu.append(button('要復習に登録',async()=>{await R.act('register',t);menu.close()}));
+ }else menu.append(button('復習に登録',async()=>{await R.act('register',t);menu.close()}));
  if(R.state().auth){
   const notes=N.state().notes.filter(n=>live(n)&&n.id===note?.id);
   for(const n of notes){menu.append(el('p','kr-meta',n.scope==='shared'?'共通メモ':'個人メモ'),el('p','kn-body',n.body),button((n.scope==='shared'?'共通':'個人')+'メモを見る・編集',async()=>{menu.close();await openEditor(n.target,n.scope)}));}
-  if(!notes.some(n=>n.scope===N.creationScope()))menu.append(button('メモを書く',async()=>{menu.close();await openEditor(t)}));
+  if(!notes.some(n=>n.scope===N.creationScope()))menu.append(button('メモを記入',async()=>{menu.close();await openEditor(t)}));
  }
  if(e&&!e.pending)menu.append(button('この項目から続けて復習',()=>startReview(e.id)));
  menu.showModal();
@@ -172,7 +172,7 @@ async function blackAt(pt,forNote=false){
  if(!forNote){
   const target=allTargets().filter(t=>within(pt,t.rect)).sort((a,b)=>a.rect[2]*a.rect[3]-b.rect[2]*b.rect[3])[0];
   const line=hits[0];const rect=target?.rect||line?.rect||[Math.min(pt[0],.84),Math.min(pt[1],.97),.15,.025];
-  await openWordActions({...baseTarget('word'),color:target?.color||'black',rect,text:target?.text||line?.text||''});return;
+  await openTarget({...baseTarget('word'),color:target?.color||'black',rect,text:target?.text||line?.text||''});return;
  }
  if(!hits.length){message('OCR文字が見つかりません。「範囲を囲んでメモ」を使ってください');return}
  const line=hits[0];menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','黒文字を選択'));
