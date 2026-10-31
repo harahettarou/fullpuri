@@ -22,21 +22,19 @@ export async function openWordActions(target){
  const chosen=()=>{const s=selection||selectedText(text.value,0,0);if(!s.text.trim())throw Error('文字を入力または選択してください');return s};
  const register=async value=>{checkOwner();await R.act('register',{...target,text:value.trim(),kind:'word',color:target.color||'black'});notice.textContent='復習に登録しました。'+R.state().status};
  const startCorrection=alsoReview=>{
-  checkOwner();const s=chosen(),line=text.value;current=C.find(target.page,target.rect);const expected=current?.version||0;
-  heading.textContent='検索用の文字を修正';help.textContent='正しい文字を入力してください。検索用の修正は共通で保存され、ほかの端末からも使えます。';
+  checkOwner();const s=chosen(),line=text.value;current=C.find(target.page,target.rect);let expected=current?.version||0,savedFull=null;
+  heading.textContent=alsoReview?'修正して復習に登録':'検索用の文字を修正';help.textContent=alsoReview?'正しい文字を入力してください。検索用の文字を共通で保存し、自分の復習にも登録して終了します。':'正しい文字を入力してください。検索用の修正を共通で保存して終了します。';
   text.value=s.text;selection=null;controls.replaceChildren();
-  controls.append(button('検索用に保存',async()=>{
+  controls.append(button(alsoReview?'修正を保存して復習に登録':'検索用に保存',async()=>{
    checkOwner();const value=text.value.trim();if(!value)throw Error('正しい文字を入力してください');
    const full=replaceSelection(line,s,value);if(full.length>1000)throw Error('修正後の文字は1000文字以内にしてください');
-   notice.textContent='保存中…';current=await C.put(target,full,expected);
-   text.value=value;text.readOnly=true;heading.textContent='検索用の文字を保存しました';help.textContent='この文字で検索できます。必要なら続けて復習に登録できます。';
-   controls.replaceChildren(button('この文字を復習に登録',()=>register(value)),button('閉じる',()=>dialog.close()));
-   notice.textContent='検索用に保存しました。';
+   notice.textContent='保存中…';if(savedFull!==full){current=await C.put(target,full,expected);expected=current.version;savedFull=full}
    if(alsoReview)await register(value);
+   dialog.close();
   }),button('戻る',()=>{text.value=line;selection=null;showChoices()}),button('閉じる',()=>dialog.close()));
   text.focus({preventScroll:true});text.select();
  };
- function showChoices(){heading.textContent='文字を選択して登録';help.textContent='必要な文字だけを選択できます。選択しない場合は全文が対象です。読み取れていない文字は入力してください。';controls.replaceChildren(button('検索用の文字を修正',()=>startCorrection(false)),button('復習に登録',()=>register(chosen().text)),button('修正して復習に登録',()=>startCorrection(true)),button('閉じる',()=>dialog.close()))}
+ function showChoices(){heading.textContent='文字を選択して登録';help.textContent='必要な文字だけを選択して、操作を選んでください。保存すると画面を閉じて終了します。選択しない場合は全文が対象です。';controls.replaceChildren(button('検索用の文字を修正',()=>startCorrection(false)),button('復習に登録',async()=>{await register(chosen().text);dialog.close()}),button('修正して復習に登録',()=>startCorrection(true)),button('閉じる',()=>dialog.close()))}
  dialog.addEventListener('cancel',e=>{if(busy)e.preventDefault()});
  const stop=R.subscribe(()=>{if(R.state().auth?.user_id!==owner)dialog.close()});dialog.addEventListener('close',()=>{stop();dialog.remove()},{once:true});
  showChoices();dialog.append(heading,help,text,notice,controls);preserveNoteViewport(dialog);document.body.append(dialog);dialog.showModal();
