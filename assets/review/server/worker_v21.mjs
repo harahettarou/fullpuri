@@ -290,10 +290,40 @@ async function classicRoute(req,env,url){
  fail(404,'見つかりません');
 }
 
+
+export function validateCorrection(input){
+ const t=validateTarget(input.target);
+ if(t.kind!=='word'||t.material||!Object.hasOwn(CLASSIC_PAGES,t.page)||(/^No[0-9]{3}/.test(t.page)&&Number(t.page.slice(2,5))!==t.no))fail(400,'古プリの文字を選択してください');
+ if(typeof input.text!=='string'||!input.text.trim()||input.text.length>1000||!Number.isSafeInteger(input.expected)||input.expected<0)fail(400,'修正文字と保存状態を確認してください');
+ return {target:t,text:input.text.trim(),expected:input.expected};
+}
+const correctionView=r=>({id:r.id,page:r.page,no:r.no,rect:JSON.parse(r.rect),text:r.text,original:r.original,version:r.version,updated_at:r.updated_at});
+async function correctionRoute(req,env,url,user){
+ if(req.method==='GET'){
+  const after=url.searchParams.get('after')||'';if(after&&!validToken(after))fail(400,'続きの指定が不正です');
+  const {results}=await env.DB.prepare('SELECT * FROM ocr_corrections WHERE id>? ORDER BY id LIMIT 501').bind(after).all();
+  return json({corrections:results.slice(0,500).map(correctionView),next:results.length>500?results[499].id:null});
+ }
+ if(req.method!=='POST')fail(405,'対応していない操作です');
+ const {target:t,text,expected}=validateCorrection(await body(req));
+ const id=await hash(JSON.stringify([t.page,t.rect])),now=new Date().toISOString();
+ // One atomic compare-and-swap; a stale tab cannot overwrite a newer correction.
+ const row=expected===0
+  ? await env.DB.prepare('INSERT INTO ocr_corrections(id,page,no,rect,text,original,version,updated_at,updated_by) VALUES(?,?,?,?,?,?,1,?,?) ON CONFLICT(id) DO NOTHING RETURNING *').bind(id,t.page,t.no,JSON.stringify(t.rect),text,t.text,now,user.user_id).first()
+  : await env.DB.prepare('UPDATE ocr_corrections SET text=?,version=version+1,updated_at=?,updated_by=? WHERE id=? AND version=? RETURNING *').bind(text,now,user.user_id,id,expected).first();
+ if(!row){
+  const existing=await env.DB.prepare('SELECT text,version FROM ocr_corrections WHERE id=?').bind(id).first();
+  if(existing?.text===text&&existing.version===expected+1){const saved=await env.DB.prepare('SELECT * FROM ocr_corrections WHERE id=?').bind(id).first();return json({correction:correctionView(saved)})}
+  fail(409,'別の画面で文字が修正されました。閉じて開き直してから修正してください');
+ }
+ return json({correction:correctionView(row)});
+}
+
 async function route(req,env){
  const url=new URL(req.url),path=url.pathname,origin=site(env).origin;
  if(path.startsWith('/classic-edits/'))return await classicRoute(req,env,url);
- if(path==='/health')return json({ok:true,version:19,materials_configured:!!env.MATERIALS_BUCKET,features:['review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
+ if(path==='/ocr-corrections'&&req.method==='GET')return correctionRoute(req,env,url,null);
+ if(path==='/health')return json({ok:true,version:22,materials_configured:!!env.MATERIALS_BUCKET,features:['ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
  if(path==='/auth/google/start'&&req.method==='GET')return Response.redirect(await startGoogle(req,env,url.searchParams.get('challenge')),302);
  if(path==='/auth/google/callback'&&req.method==='GET')return googleCallback(req,env,url);
  if(path==='/auth/start'&&req.method==='GET'){
@@ -329,6 +359,7 @@ async function route(req,env){
   return json({token,user_id:identity.user_id,login:identity.login,expires,provider:identity.provider});
  }
  const user=await authenticate(req,env),uid=user.user_id;
+ if(path==='/ocr-corrections')return correctionRoute(req,env,url,user);
  if(path==='/materials'||path.startsWith('/materials/'))return await materialRoute(req,env,url,user);
  if(path==='/auth/google/link'&&req.method==='POST'){const b=await body(req);return json({url:await startGoogle(req,env,b.challenge,user)})}
  if(path==='/me'&&req.method==='GET'){const linked=await env.DB.prepare('SELECT display_login FROM google_identities WHERE user_id=?').bind(uid).first();return json({user_id:uid,login:user.login,expires:user.expires,account:{google_linked:!!linked,google_label:linked?.display_login||'',shared_notes_admin:sharedAdmin(env,uid)}})}
@@ -380,3 +411,4 @@ export default {
  },
  async scheduled(_event,env){const now=Date.now();await env.DB.batch(['sessions','oauth_states','tickets','google_states','google_tickets'].map(t=>env.DB.prepare(`DELETE FROM ${t} WHERE expires<?`).bind(now)))}
 };
+

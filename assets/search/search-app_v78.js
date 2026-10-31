@@ -4,6 +4,11 @@
  let pages=[],loaded=false,overlayReady=false,orangeReady=false,timer=0;
  const initialQuery=new URLSearchParams(location.search).get('q');if(initialQuery!==null)input.value=initialQuery;
  const orangeByPage=new Map();
+ let corrections=[],correctionsByPage=new Map();
+ import('../review/ocr_corrections_v1.js').then(C=>{
+  const update=()=>{corrections=C.state();correctionsByPage=new Map();for(const c of corrections){const list=correctionsByPage.get(c.page)||[];list.push(c);correctionsByPage.set(c.page,list)}render()};C.subscribe(update);return C.refresh();
+ }).catch(()=>{console.warn('手動修正を読み込めませんでした。OCR・メモ検索は継続します。')});
+ const correctionFor=(page,line)=>(correctionsByPage.get(page.key)||[]).find(c=>[line.x/page.width,line.y/page.height,line.w/page.width,line.h/page.height].every((v,i)=>Math.abs(v-c.rect[i])<.000003));
  const norm=value=>value.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-96)).replace(/[^0-9a-zぁ-ん一-龯々〆ヵヶ]+/g,'');
  function grams(value){const size=value.length<5?2:3,out=[];if(value.length<=size)return[value];for(let i=0;i<=value.length-size;i++)out.push(value.slice(i,i+size));return out;}
  let fuzzyQuery='',cachedGrams=[],cachedCounts=new Map();
@@ -32,6 +37,7 @@
   for(const page of pages){
    let best=null;
    for(const [index,line] of page.lines.entries()){
+    if(correctionFor(page,line))continue;
     const m=window.OcrCorrectionSearch?OcrCorrectionSearch.match(rawQuery,page,line,index,fuzzy):{score:fuzzy(q,line.n),rank:line.n.includes(q)?3:1,label:line.n.includes(q)?'原文一致':'近い候補',display:line.t};
     if(m.score&&(!best||m.rank>best.rank||(m.rank===best.rank&&m.score>best.score)))best={line,...m};
    }
@@ -40,6 +46,10 @@
     m.label=m.rank===3?'オレンジ文字一致':m.rank===2?'オレンジ文字・表記揺れ一致':'オレンジ文字・近い候補';
     // Prefer the supplied text/box on equal matches, so the answer is visible.
     if(m.score&&(!best||m.rank>best.rank||(m.rank===best.rank&&m.score>=best.score)))best={line,...m,source:'orange'};
+   }
+   for(const c of (correctionsByPage.get(page.key)||[])){
+    const score=fuzzy(q,norm(c.text));
+    if(score&&(!best||best.rank<4||score>best.score))best={line:{t:c.original,x:c.rect[0]*page.width,y:c.rect[1]*page.height,w:c.rect[2]*page.width,h:c.rect[3]*page.height},score,rank:4,label:score===1?'登録・修正した文字一致':'登録・修正した文字の候補',display:c.text};
    }
    if(best)found.push({page,...best});
   }
@@ -90,3 +100,4 @@
  }).catch(()=>{status.textContent='OCRデータを読み込めませんでした。メモ検索は継続します。';});
  window.KopuriSearchTest={fuzzy,render};
 })();
+

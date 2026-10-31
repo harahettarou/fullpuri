@@ -6,6 +6,8 @@ import {fillAccount} from './account_controls_v12.js';
 import * as R from './core_v12.js';
 import * as N from './notes_core_v14.js';
 import {openEditor} from './note_editor_v14.js';
+import {openWordActions} from './word_actions_v1.js';
+import * as C from './ocr_corrections_v1.js';
 const adapter=window.KopuriReviewAdapter,stage=document.getElementById('stage');
 const colors={red:'赤',green:'緑',orange:'オレンジ',black:'黒'};
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n};
@@ -56,7 +58,7 @@ function noteFor(t){const ns=N.state().notes.filter(live);if(t.kind==='print')re
 async function openTarget(t,source=''){
  const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'));
  menu.append(el('p','',t.text||`${colors[t.color]||''}文字（範囲を登録）`));
- if(source==='ocr')menu.append(el('p','kr-note','文字列は原文OCRの参考表示です。読み取りが崩れていても選択位置で保存します。'));
+ if(t.kind==='word')menu.append(button('文字を選択・検索用に修正',()=>{menu.close();return openWordActions(t)}));
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
  else if(e?.pending)menu.append(el('p','','この項目は保存待ちです。'));
  else if(e){
@@ -92,7 +94,7 @@ function render(){
    button('No.全体を登録・確認',()=>openTarget(baseTarget('print'))),
    button('このページを登録・確認',()=>openTarget(baseTarget('page'))),
    button('範囲を囲んで登録',()=>startSelection('range')),
-   button('黒文字を選んで登録',()=>startSelection('black')),
+   button('文字を選択・検索用に修正',()=>startSelection('black')),
    button('このページの語句一覧',openTargetList)
   ]),
   actionGroup('メモ',[
@@ -167,7 +169,12 @@ function point(e){const r=stage.getBoundingClientRect();return [Math.max(0,Math.
 function within(pt,r){return pt[0]>=r[0]&&pt[0]<=r[0]+r[2]&&pt[1]>=r[1]&&pt[1]<=r[1]+r[3]}
 async function blackAt(pt,forNote=false){
  const hits=(data?.lines||[]).filter(l=>within(pt,l.rect)).sort((a,b)=>a.rect[2]*a.rect[3]-b.rect[2]*b.rect[3]);
- if(!hits.length){message('OCR文字が見つかりません。「範囲を囲んで登録」を使ってください');if(!settings.open)settings.showModal();return}
+ if(!forNote){
+  const target=allTargets().filter(t=>within(pt,t.rect)).sort((a,b)=>a.rect[2]*a.rect[3]-b.rect[2]*b.rect[3])[0];
+  const line=hits[0];const rect=target?.rect||line?.rect||[Math.min(pt[0],.84),Math.min(pt[1],.97),.15,.025];
+  await openWordActions({...baseTarget('word'),color:target?.color||'black',rect,text:target?.text||line?.text||''});return;
+ }
+ if(!hits.length){message('OCR文字が見つかりません。「範囲を囲んでメモ」を使ってください');return}
  const line=hits[0];menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','黒文字を選択'));
  const text=el('textarea');text.value=line.text;text.setAttribute('aria-label','選択したOCR文字');
  menu.append(el('p','kr-note','必要な文字を選択して登録してください。選択しない場合は全文を登録します。位置はこのOCR行の範囲で保存します。'),text,button(forNote?'選択した文字にメモ':'選択した文字を要復習に登録',async()=>{
@@ -175,16 +182,19 @@ async function blackAt(pt,forNote=false){
   if(!value.trim())throw Error('文字を選択してください');const t={...baseTarget('word'),color:'black',rect:line.rect,text:value.trim().slice(0,1000)};menu.close();if(forNote)await openEditor(t);else await R.act('register',t);
  }));menu.showModal();text.focus();text.select();
 }
-let down=null;
+let down=null,holdTimer=0;
+function cancelHold(){clearTimeout(holdTimer);down=null}
 if(stage){
- stage.addEventListener('pointerdown',e=>{if(stage.classList.contains('kc-editing')||e.target.closest('.kr-mark,.kr-selection,.kc-capture')||stage.classList.contains('drawing')||selection||display==='hidden')return;down={id:e.pointerId,x:e.clientX,y:e.clientY,at:Date.now(),pt:point(e)}},{capture:true,passive:true});
- stage.addEventListener('pointermove',e=>{if(down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>7)down=null},{capture:true,passive:true});
- stage.addEventListener('pointercancel',()=>down=null,{passive:true});
- stage.addEventListener('touchstart',e=>{if(e.touches.length>1)down=null},{passive:true});
+ stage.addEventListener('pointerdown',e=>{if(!e.isPrimary){cancelHold();return}if(stage.classList.contains('kc-editing')||e.target.closest('.kr-mark,.kr-selection,.kc-capture')||stage.classList.contains('drawing')||selection)return;cancelHold();down={id:e.pointerId,x:e.clientX,y:e.clientY,at:Date.now(),pt:point(e)};const d=down;holdTimer=setTimeout(()=>{cancelHold();if(page&& !stage.classList.contains('drawing')&&!stage.classList.contains('kc-editing'))blackAt(d.pt).catch(e=>message(e.message))},600)},{capture:true,passive:true});
+ stage.addEventListener('pointermove',e=>{if(down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>7)cancelHold()},{capture:true,passive:true});
+ stage.addEventListener('pointercancel',cancelHold,{passive:true});
+ stage.addEventListener('contextmenu',e=>{if(down||menu.open)e.preventDefault()});
+ stage.addEventListener('touchstart',e=>{if(e.touches.length>1)cancelHold()},{passive:true});
+ document.addEventListener('kopuri:page',cancelHold);
  document.addEventListener('pointerup',e=>{
-  const d=down;down=null;if(!d||d.id!==e.pointerId||Math.hypot(e.clientX-d.x,e.clientY-d.y)>7||stage.classList.contains('drawing'))return;
+  const d=down;cancelHold();if(!d||d.id!==e.pointerId||Math.hypot(e.clientX-d.x,e.clientY-d.y)>7||stage.classList.contains('drawing')||display==='hidden')return;
   const hit=allTargets().filter(t=>within(d.pt,t.rect)).sort((a,b)=>a.rect[2]*a.rect[3]-b.rect[2]*b.rect[3])[0];
-  if(hit)setTimeout(()=>openTarget(hit,hit.source),0);else if(Date.now()-d.at>550)setTimeout(()=>blackAt(d.pt),0);
+  if(hit)setTimeout(()=>openTarget(hit,hit.source),0);
  },{capture:true,passive:true});
  cancelLayout=observeLayout(stage,()=>display==='direct'||memoVisible&&display!=='hidden'&&pageNotes().length>0,renderLayer);
  document.addEventListener('kopuri:page',changedPage);
@@ -212,8 +222,11 @@ R.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 N.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 // Start read-only coordinates immediately; keep authentication/notes initialization ordered.
 const firstPage=changedPage();
+// OCR search corrections are independent of review registrations and memo filters.
+C.refresh().catch(()=>{});
 await R.init();await N.init();await firstPage;await changedPage();render();
 
 document.addEventListener('kopuri:classic-edits',render);
 await initClassicEditor();
 await initSequence();
+
