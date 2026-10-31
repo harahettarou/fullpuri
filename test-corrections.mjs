@@ -47,7 +47,7 @@ failReview=true;d=await open();await click(d,'復習に登録');assert.equal(d.o
 console.log('Editor: direct entry, three buttons, save only, save and review, selected word, close and failure retries passed');
 
 const menu=new Element('dialog');let openedCorrection=0,openedNote=0;
-const menuContext=vm.createContext({menu,R,N:{state:()=>({notes:[]}),creationScope:()=> 'shared'},entryFor:()=>undefined,noteFor:()=>undefined,live:()=>true,colors:{black:'黒'},el:(tag,cls,text)=>{const e=new Element(tag);e.className=cls;e.textContent=text;return e},button:(label,fn)=>{const b=new Element('button');b.textContent=label;b.onclick=fn;return b},openWordActions:async()=>{openedCorrection++},openEditor:async()=>{openedNote++},fillAccount:()=>{}});
+const menuContext=vm.createContext({menu,R,correctedTarget:t=>t,N:{state:()=>({notes:[]}),creationScope:()=> 'shared'},entryFor:()=>undefined,noteFor:()=>undefined,live:()=>true,colors:{black:'黒'},el:(tag,cls,text)=>{const e=new Element(tag);e.className=cls;e.textContent=text;return e},button:(label,fn)=>{const b=new Element('button');b.textContent=label;b.onclick=fn;return b},openWordActions:async()=>{openedCorrection++},openEditor:async()=>{openedNote++},fillAccount:()=>{}});
 const viewer=readFileSync(new URL('./assets/review/viewer_v28.js',import.meta.url),'utf8');
 vm.runInContext(viewer.slice(viewer.indexOf('async function openTarget('),viewer.indexOf('function allTargets(')),menuContext);
 await menuContext.openTarget(target);assert.deepEqual(nodes(menu).filter(n=>n.tag==='button').map(n=>n.textContent),['閉じる','文字を修正','復習に登録','メモを記入']);await click(menu,'文字を修正');assert.equal(openedCorrection,1);assert.equal(menu.open,false);
@@ -55,3 +55,11 @@ await menuContext.openTarget(target);const reviews=registrations.length;await cl
 await menuContext.openTarget(target);await click(menu,'メモを記入');assert.equal(openedNote,1);assert.equal(menu.open,false);
 assert.ok(viewer.includes("await openTarget({...baseTarget('word')"),'long press opens the same initial menu');
 console.log('Initial menu: correction goes directly to editor; original review and memo handlers preserved');
+const misread={...target,text:'P2A—Y2CSWE1#'},fixed='アンダーソン(SWE)';
+menuContext.C={find:()=>({text:fixed,original:misread.text})};
+vm.runInContext(viewer.slice(viewer.indexOf('function correctedTarget('),viewer.indexOf('function noteFor(')),menuContext);
+let entries=[];R.state=()=>({auth:{user_id:'user1'},status:'サーバー保存済み',entries});R.formatDate=()=> '未復習';
+await menuContext.openTarget(misread);assert.ok(nodes(menu).some(n=>n.textContent===fixed));assert.ok(!nodes(menu).some(n=>n.textContent===misread.text),'misread OCR is not shown');await click(menu,'復習に登録');assert.equal(registrations.at(-1).text,fixed,'new review uses corrected text');
+entries=[{id:'corrected',target:{...misread,text:fixed},state:'todo',review_count:0}];await menuContext.openTarget(misread);assert.ok(nodes(menu).some(n=>n.textContent==='要復習'),'reopening original box finds corrected registration');await click(menu,'復習完了にする');assert.equal(registrations.at(-1).text,fixed);
+entries=[{id:'legacy',target:misread,state:'todo',review_count:3}];await menuContext.openTarget(misread);assert.ok(nodes(menu).some(n=>n.textContent===fixed));await click(menu,'復習完了にする');assert.equal(registrations.at(-1).text,misread.text,'existing review identity and history are preserved');
+console.log('Correction display: corrected title only, corrected registration found, old history kept and new registration uses corrected text');

@@ -46,25 +46,29 @@ let data=null,page=null,layer=null,selection=null,focusTarget=null,focusIsNote=f
 function rectStyle(n,r){Object.assign(n.style,{left:r[0]*100+'%',top:r[1]*100+'%',width:r[2]*100+'%',height:r[3]*100+'%'});}
 function baseTarget(kind){return {kind,no:page.no,page:page.key,color:'',text:kind==='print'?`No.${page.no} 全体`:page.label,rect:[0,0,1,1]}}
 const live=e=>e&&!e.deleted;
+function correctedTarget(t){const correction=t.kind==='word'?C.find(t.page,t.rect):null;return correction?{...t,text:correction.text}:t}
 function anchorMatch(t,s){if(s.kind!==t.kind||s.page!==t.page||s.color!==t.color||t.color==='black'&&s.text!==t.text)return false;if(s.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002))return true;if(!t.text||t.text!==s.text)return false;const a=t.rect,b=s.rect,intersection=Math.max(0,Math.min(a[0]+a[2],b[0]+b[2])-Math.max(a[0],b[0]))*Math.max(0,Math.min(a[1]+a[3],b[1]+b[3])-Math.max(a[1],b[1]));return intersection/(a[2]*a[3]+b[2]*b[3]-intersection)>.8}
 function entryFor(t){
  const entries=R.state().entries.filter(live);
  if(t.kind==='print')return entries.find(e=>e.target.kind==='print'&&e.target.no===t.no);
  if(t.kind==='page')return entries.find(e=>e.target.kind==='page'&&e.target.page===t.page);
  // Retain original saved boxes. Nearby OCR changes never rewrite or move them.
- const exact=entries.find(e=>e.target.kind===t.kind&&e.target.page===t.page&&e.target.color===t.color&&(t.color!=='black'||e.target.text===t.text)&&e.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));if(exact)return exact;const candidates=entries.filter(e=>anchorMatch(t,e.target));return candidates.length===1?candidates[0]:undefined;
+ const corrected=correctedTarget(t),correction=t.kind==='word'?C.find(t.page,t.rect):null;
+ const sameBox=entries.filter(e=>e.target.kind===t.kind&&e.target.page===t.page&&e.target.color===t.color&&e.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));
+ const exact=t.color==='black'?sameBox.find(e=>e.target.text===corrected.text)||sameBox.find(e=>e.target.text===t.text)||sameBox.find(e=>correction&&e.target.text===correction.original):sameBox[0];
+ if(exact)return exact;const candidates=entries.filter(e=>anchorMatch(corrected,e.target)||anchorMatch(t,e.target));return candidates.length===1?candidates[0]:undefined;
 }
 function noteFor(t){const ns=N.state().notes.filter(live);if(t.kind==='print')return ns.find(n=>n.target.kind==='print'&&n.target.no===t.no);if(t.kind==='page')return ns.find(n=>n.target.kind==='page'&&n.target.page===t.page);const exact=ns.find(n=>n.target.kind===t.kind&&n.target.page===t.page&&n.target.color===t.color&&(t.color!=='black'||n.target.text===t.text)&&n.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));if(exact)return exact;const candidates=ns.filter(n=>anchorMatch(t,n.target));return candidates.length===1?candidates[0]:undefined}
 async function openTarget(t,source=''){
  const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'));
- menu.append(el('p','',t.text||`${colors[t.color]||''}文字（範囲を登録）`));
+ menu.append(el('p','',correctedTarget(t).text||`${colors[t.color]||''}文字（範囲を登録）`));
  if(t.kind==='word')menu.append(button('文字を修正',()=>{menu.close();return openWordActions(t)}));
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
  else if(e?.pending)menu.append(el('p','','この項目は保存待ちです。'));
  else if(e){
   menu.append(el('p','kr-meta',`復習 ${e.review_count}回 ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
   menu.append(button(e.state==='todo'?'復習完了にする':'再び要復習にする',async()=>{await R.act(e.state==='todo'?'complete':'reopen',t);menu.close()}));
- }else menu.append(button('復習に登録',async()=>{await R.act('register',t);menu.close()}));
+ }else menu.append(button('復習に登録',async()=>{await R.act('register',correctedTarget(t));menu.close()}));
  if(R.state().auth){
   const notes=N.state().notes.filter(n=>live(n)&&n.id===note?.id);
   for(const n of notes){menu.append(el('p','kr-meta',n.scope==='shared'?'共通メモ':'個人メモ'),el('p','kn-body',n.body),button((n.scope==='shared'?'共通':'個人')+'メモを見る・編集',async()=>{menu.close();await openEditor(n.target,n.scope)}));}
@@ -128,14 +132,14 @@ function renderLayer(){
    const pos=candidates.find(([x,y])=>x>=0&&y>=0&&x+bsize<=rect.width&&y+bsize<=rect.height&&!boxes.some(b=>x<b[0]+bsize&&x+bsize>b[0]&&y<b[1]+bsize&&y+bsize>b[1])&&!targets.some(o=>{const q=o.rect;return x<(q[0]+q[2])*rect.width&&x+bsize>q[0]*rect.width&&y<(q[1]+q[3])*rect.height&&y+bsize>q[1]*rect.height})&&!(data?.lines||[]).some(o=>{const q=o.rect;return x<(q[0]+q[2])*rect.width&&x+bsize>q[0]*rect.width&&y<(q[1]+q[3])*rect.height&&y+bsize>q[1]*rect.height}));
    if(!pos)continue;boxes.push(pos);shown++;
    const b=button(note&&memoVisible?'✎':e?.state==='done'?'✓':e?.state==='todo'?'!':'+',()=>openTarget(t,t.source));b.className='kr-mark';b.dataset.state=e?.state||'none';b.dataset.color=t.color;if(note&&memoVisible){b.dataset.note='true';b.title='青枠のメモを見る・編集'}
-   b.setAttribute('aria-label',`${colors[t.color]||'範囲'}：${t.text||'語句'}・${e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'}${note?'・メモあり':''}`);
+   b.setAttribute('aria-label',`${colors[t.color]||'範囲'}：${correctedTarget(t).text||'語句'}・${e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'}${note?'・メモあり':''}`);
    b.style.left=pos[0]/rect.width*100+'%';b.style.top=pos[1]/rect.height*100+'%';b.addEventListener('pointerdown',ev=>ev.stopPropagation());layer.append(b);
   }
   coverage.textContent=display==='direct'?`直接表示 ${shown}/${targets.length}件。余白がない箇所は文字をタップするか、語句一覧から登録できます。`:'対象の文字またはメモアイコンをタップすると操作が表示されます。メモの箇所は青枠で表示します。アイコンの余白がない場合は「このページのメモ」から開けます。';
  }else coverage.textContent=display==='hidden'?'画像上のチェックUIを非表示にしています。':'対象の文字をタップすると操作が表示されます。';
  if(focusTarget&&(focusTarget.kind==='print'?focusTarget.no===page.no:focusTarget.page===page.key)&&(!focusIsNote||memoVisible&&display!=='hidden')){const mark=el('div',focusIsNote?'kr-focus kn-note-focus':'kr-focus');rectStyle(mark,focusTarget.rect);layer.append(mark);}
 }
-function openTargetList(){settings.close();menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','このページの語句・範囲'));for(const t of allTargets()){const row=el('div','kr-row');row.append(button(`${colors[t.color]||'範囲'}：${t.text||'文字範囲'}`,()=>{menu.close();return openTarget(t,t.source)}));menu.append(row)}menu.showModal()}
+function openTargetList(){settings.close();menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','このページの語句・範囲'));for(const t of allTargets()){const row=el('div','kr-row');row.append(button(`${colors[t.color]||'範囲'}：${correctedTarget(t).text||'文字範囲'}`,()=>{menu.close();return openTarget(t,t.source)}));menu.append(row)}menu.showModal()}
 async function changedPage(){
  if(!adapter)return;const p=adapter.page();if(!p)return;
  if(page?.key===p.key)return;const tick=++sequence;page=p;data=null;cancelSelection();focusTarget=null;focusIsNote=false;render();
@@ -219,6 +223,7 @@ function startSelection(kind){
  });
 }
 R.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
+C.subscribe(render);
 N.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 // Start read-only coordinates immediately; keep authentication/notes initialization ordered.
 const firstPage=changedPage();
