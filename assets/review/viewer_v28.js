@@ -98,7 +98,6 @@ function render(){
    button('No.全体を登録・確認',()=>openTarget(baseTarget('print'))),
    button('このページを登録・確認',()=>openTarget(baseTarget('page'))),
    button('範囲を囲んで登録',()=>startSelection('range')),
-   button('このページの語句一覧',openTargetList)
   ]),
   actionGroup('メモ',[
    button('No.全体にメモ',()=>{settings.close();return openEditor(baseTarget('print'))}),
@@ -133,11 +132,10 @@ function renderLayer(){
    b.setAttribute('aria-label',`${colors[t.color]||'範囲'}：${correctedTarget(t).text||'語句'}・${e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'}${note?'・メモあり':''}`);
    b.style.left=pos[0]/rect.width*100+'%';b.style.top=pos[1]/rect.height*100+'%';b.addEventListener('pointerdown',ev=>ev.stopPropagation());layer.append(b);
   }
-  coverage.textContent=display==='direct'?`直接表示 ${shown}/${targets.length}件。余白がない箇所は文字をタップするか、語句一覧から登録できます。`:'対象の文字またはメモアイコンをタップすると操作が表示されます。メモの箇所は青枠で表示します。アイコンの余白がない場合は「このページのメモ」から開けます。';
+  coverage.textContent=display==='direct'?`直接表示 ${shown}/${targets.length}件。余白がない箇所は文字をタップ・長押しして登録できます。`:'対象の文字またはメモアイコンをタップすると操作が表示されます。メモの箇所は青枠で表示します。アイコンの余白がない場合は「このページのメモ」から開けます。';
  }else coverage.textContent=display==='hidden'?'画像上のチェックUIを非表示にしています。':'対象の文字をタップすると操作が表示されます。';
  if(focusTarget&&(focusTarget.kind==='print'?focusTarget.no===page.no:focusTarget.page===page.key)&&(!focusIsNote||memoVisible&&display!=='hidden')){const mark=el('div',focusIsNote?'kr-focus kn-note-focus':'kr-focus');rectStyle(mark,focusTarget.rect);layer.append(mark);}
 }
-function openTargetList(){settings.close();menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','このページの語句・範囲'));for(const t of allTargets()){const row=el('div','kr-row');row.append(button(`${colors[t.color]||'範囲'}：${correctedTarget(t).text||'文字範囲'}`,()=>{menu.close();return openTarget(t,t.source)}));menu.append(row)}menu.showModal()}
 async function changedPage(){
  if(!adapter)return;const p=adapter.page();if(!p)return;
  if(page?.key===p.key)return;const tick=++sequence;page=p;data=null;cancelSelection();focusTarget=null;focusIsNote=false;render();
