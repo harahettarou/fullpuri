@@ -131,14 +131,27 @@ async function sharedRoute(req,env,url,user){
 // Included in the single-file Worker build. Original PDF objects are immutable.
 const MATERIAL_MAX_BYTES=50*1024*1024,materialId=s=>typeof s==='string'&&/^[a-f0-9]{32}$/.test(s);
 async function materialBody(req){const text=await req.text();if(encoder.encode(text).byteLength>300000)fail(413,'教材の編集データが大きすぎます');try{return JSON.parse(text)}catch{fail(400,'不正なJSONです')}}
-function materialData(d,pages){
+export function validateMaterialCorrections(value,pages){
+ if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>pages)fail(400,'教材の修正データが不正です');
+ const result={};
+ const rect=r=>{if(!Array.isArray(r)||r.length!==4||!r.every(Number.isFinite)||r.some(v=>v<0)||r[2]<=0||r[3]<=0||r[0]+r[2]>1.000001||r[1]+r[3]>1.000001)fail(400,'修正範囲が不正です');return r.map(v=>Math.round(v*1e6)/1e6)};
+ for(const [key,doc]of Object.entries(value)){
+  if(!/^[1-9][0-9]*$/.test(key)||Number(key)>pages||!doc||typeof doc!=='object')fail(400,'修正するページが不正です');
+  const regions={};for(const name of ['hide','keep']){const rows=doc.regions?.[name]||[];if(!Array.isArray(rows)||rows.length>1000)fail(400,'修正範囲が多すぎます');regions[name]=rows.map(rect)}
+  if(!Array.isArray(doc.pairs||[])||(doc.pairs||[]).length>1000)fail(400,'番号対応が多すぎます');const ids=new Set();
+  const pairs=(doc.pairs||[]).map(p=>{if(!p||typeof p.id!=='string'||!/^[A-Za-z0-9_-]{1,64}$/.test(p.id)||ids.has(p.id)||typeof p.text!=='string'||!p.text.trim()||p.text.length>500||!Number.isFinite(p.font_size)||p.font_size<4||p.font_size>512||typeof p.answer_page!=='string'||!/^pdf_[1-9][0-9]*$/.test(p.answer_page)||Number(p.answer_page.slice(4))>pages||typeof p.enabled!=='boolean')fail(400,'番号対応の内容を確認してください');ids.add(p.id);return {id:p.id,text:p.text,font_size:p.font_size,enabled:p.enabled,body_rect:rect(p.body_rect),answer_page:p.answer_page,answer_rect:rect(p.answer_rect)}});
+  result[key]={regions,pairs};
+ }
+ return result;
+}
+export function materialData(d,pages){
  if(!d||typeof d!=='object'||typeof d.title!=='string'||!d.title.trim()||d.title.length>200||typeof d.subject!=='string'||!d.subject.trim()||d.subject.length>60||typeof d.folder!=='string'||d.folder.length>100||!Array.isArray(d.annotations)||d.annotations.length>1000)fail(400,'教材名・教科・フォルダーを確認してください');
  const ids=new Set(),annotations=d.annotations.map(a=>{
   if(!a||typeof a.id!=='string'||!/^[a-zA-Z0-9_-]{1,64}$/.test(a.id)||ids.has(a.id)||!Number.isInteger(a.page)||a.page<1||a.page>pages||!['text','red-mask','green-mask'].includes(a.kind)||!Array.isArray(a.rect)||a.rect.length!==4||!a.rect.every(Number.isFinite)||a.rect.some(v=>v<0)||a.rect[2]<=0||a.rect[3]<=0||a.rect[0]+a.rect[2]>1.000001||a.rect[1]+a.rect[3]>1.000001)fail(400,'追加文字・範囲の位置が不正です');
   ids.add(a.id);const value={id:a.id,page:a.page,kind:a.kind,rect:a.rect.map(v=>Math.round(v*1e6)/1e6)};
-  if(a.kind==='text'){if(typeof a.text!=='string'||!a.text.trim()||a.text.length>500||!['orange','red','green','black'].includes(a.color)||!Number.isFinite(a.font_size)||a.font_size<4||a.font_size>144)fail(400,'文字・色・大きさを確認してください');Object.assign(value,{text:a.text,color:a.color,font_size:a.font_size})}return value;
+  if(a.kind==='text'){if(typeof a.text!=='string'||!a.text.trim()||a.text.length>500||!['orange','red','green','black'].includes(a.color)||!Number.isFinite(a.font_size)||a.font_size<4||a.font_size>512)fail(400,'文字・色・大きさを確認してください');Object.assign(value,{text:a.text,color:a.color,font_size:a.font_size})}if(a.kind==='green-mask'&&a.color!==undefined){if(typeof a.color!=='string'||!/^#[a-fA-F0-9]{6}$/.test(a.color))fail(400,'遮蔽色が不正です');value.color=a.color}return value;
  });
- const value={title:d.title.trim(),subject:d.subject.trim(),folder:d.folder.trim(),annotations};if(encoder.encode(JSON.stringify(value)).byteLength>240000)fail(413,'編集内容が多すぎます。教材を分けてください');return value;
+ const value={title:d.title.trim(),subject:d.subject.trim(),folder:d.folder.trim(),annotations,...(d.corrections!==undefined?{corrections:validateMaterialCorrections(d.corrections,pages)}:{})};if(encoder.encode(JSON.stringify(value)).byteLength>240000)fail(413,'編集内容が多すぎます。教材を分けてください');return value;
 }
 async function materialAccess(env,id,user){
  if(!materialId(id))fail(404,'教材が見つかりません');
@@ -323,7 +336,7 @@ async function route(req,env){
  const url=new URL(req.url),path=url.pathname,origin=site(env).origin;
  if(path.startsWith('/classic-edits/'))return await classicRoute(req,env,url);
  if(path==='/ocr-corrections'&&req.method==='GET')return correctionRoute(req,env,url,null);
- if(path==='/health')return json({ok:true,version:22,materials_configured:!!env.MATERIALS_BUCKET,features:['ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
+ if(path==='/health')return json({ok:true,version:23,materials_configured:!!env.MATERIALS_BUCKET,features:['material-classic-editor','ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
  if(path==='/auth/google/start'&&req.method==='GET')return Response.redirect(await startGoogle(req,env,url.searchParams.get('challenge')),302);
  if(path==='/auth/google/callback'&&req.method==='GET')return googleCallback(req,env,url);
  if(path==='/auth/start'&&req.method==='GET'){
@@ -411,4 +424,5 @@ export default {
  },
  async scheduled(_event,env){const now=Date.now();await env.DB.batch(['sessions','oauth_states','tickets','google_states','google_tickets'].map(t=>env.DB.prepare(`DELETE FROM ${t} WHERE expires<?`).bind(now)))}
 };
+
 
