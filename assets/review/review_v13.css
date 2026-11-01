@@ -25,7 +25,7 @@
 .kr-action-grid{display:grid;grid-template-columns:1fr;gap:8px}.kr-action-grid button{width:100%;text-align:left;margin:0;font-size:14px;padding:9px 10px;min-height:44px}
 .kr-panel-details{border-top:1px solid #dbe3dc;padding:10px 0}.kr-panel-details summary{cursor:pointer;color:#204a3b;font-weight:700;padding:4px 0}.kr-panel-details label{display:block;margin:8px 0}.kr-panel-details .kr-row{margin:8px 0}.kr-panel-details strong{overflow-wrap:anywhere;width:100%}
 .kr-organized .kr-status:empty,.kr-organized [role=alert]:empty{display:none}
-@media(max-width:480px){.kr-action-groups{grid-template-columns:1fr;gap:10px}.kr-action-grid{grid-template-columns:1fr 1fr}.kr-action-grid button:last-child{grid-column:1/-1}.kr-action-group{padding:10px}.kr-organized{padding:14px}}
+@media(max-width:480px){.kr-action-groups{grid-template-columns:1fr;gap:12px}.kr-action-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:8px}.kr-action-grid button{min-width:0;min-height:64px;height:100%;text-align:center;text-wrap:balance;line-height:1.5}.kr-action-grid button:last-child:nth-child(odd){grid-column:1/-1}.kr-action-group{padding:10px}.kr-organized{padding:14px}}
 
 /* Shared memo controls inherit the existing compact layout. */
 .kr-dialog select{max-width:100%}.kr-manager input[type=checkbox]{padding:0;width:auto}.kr-manager [hidden]{display:none!important}.kr-dialog details .kn-body{padding:10px;background:#f4f8fb}.kr-dialog details summary{cursor:pointer;overflow-wrap:anywhere}
