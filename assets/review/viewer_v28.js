@@ -104,7 +104,6 @@ function render(){
    button('No.全体にメモ',()=>{settings.close();return openEditor(baseTarget('print'))}),
    button('このページにメモ',()=>{settings.close();return openEditor(baseTarget('page'))}),
    button('範囲を囲んでメモ',()=>startSelection('note-range')),
-   button('黒文字を選んでメモ',()=>startSelection('note-black')),
    button('このページのメモ（'+pageNotes().length+'件）',openPageNotes)
   ])
  );
