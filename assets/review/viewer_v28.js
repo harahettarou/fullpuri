@@ -32,6 +32,7 @@ let display;try{display=localStorage.getItem('kopuri-review-display-v1')||'tap'}
 select.onchange=()=>{display=select.value;try{localStorage.setItem('kopuri-review-display-v1',display)}catch{};render()};
 const displayLabel=el('label','','チェックの表示 ');displayLabel.append(select);options.append(displayLabel);
 const actions=el('div','kr-action-groups');settings.append(actions);
+const rangeCorrection=button('範囲を囲んで文字を修正',()=>startSelection('correct-range'));rangeCorrection.style.cssText='width:100%;margin:12px 0 0';settings.insertBefore(rangeCorrection,actions);
 const a=el('a','','復習管理');a.href=new URL('pages/review.html',R.rootURL);
 const links=el('nav','kr-panel-links');links.setAttribute('aria-label','復習とメモの一覧');links.append(a,noteLink);settings.insertBefore(links,status);
 const memoViewLabel=el('label','','メモの表示 '),memoView=el('select');memoView.setAttribute('aria-label','メモの表示範囲');memoView.innerHTML='<option value="shared">共通メモ</option><option value="private">個人メモ</option><option value="both">両方</option>';memoView.value=N.state().view;memoView.onchange=()=>N.setView(memoView.value);memoViewLabel.append(memoView);
@@ -202,7 +203,7 @@ if(stage){
 function cancelSelection(){selection?.remove();selection=null;}
 function startSelection(kind){
  if(!R.state().auth)throw Error('先にログインしてください');
- if(stage.classList.contains('drawing'))throw Error('既存の範囲追加操作を終えてください');
+ if(stage.classList.contains('drawing')||stage.classList.contains('kc-editing'))throw Error('既存の編集・範囲追加操作を終えてください');
  settings.close();cancelSelection();selection=el('div','kr-selection');stage.append(selection);
  const cancel=button('選択を中止',cancelSelection);Object.assign(cancel.style,{position:'sticky',top:'8px',left:'8px',zIndex:2});cancel.addEventListener('pointerdown',e=>e.stopPropagation());selection.append(cancel);
  let start=null,rect=null,pointer=null;
@@ -214,6 +215,7 @@ function startSelection(kind){
  selection.addEventListener('pointerup',e=>{
   if(!start||pointer!==e.pointerId)return;e.stopPropagation();const end=point(e),r=[Math.min(end[0],start[0]),Math.min(end[1],start[1]),Math.abs(end[0]-start[0]),Math.abs(end[1]-start[1])];cancelSelection();
   if(kind==='black'||kind==='note-black'){blackAt(end,kind==='note-black');return}if(r[2]<.005||r[3]<.005)return;
+  if(kind==='correct-range'){const target={...baseTarget('word'),color:'black',rect:r,text:''};focusTarget=target;focusIsNote=false;render();openWordActions(target).catch(e=>message(e.message));return}
   const t={...baseTarget('range'),rect:r,text:'指定範囲'};if(kind==='note-range'){openEditor(t).catch(e=>message(e.message));return}menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','範囲を要復習に登録'));
   const name=el('textarea');name.setAttribute('aria-label','範囲の名前');name.value='指定範囲';menu.append(name,button('登録',async()=>{t.text=name.value.trim().slice(0,1000)||'指定範囲';await R.act('register',t);menu.close()}));menu.showModal();
  });
