@@ -24,7 +24,7 @@ const settings=el('dialog','kr-dialog kr-organized');settings.setAttribute('aria
 const heading=el('div','kr-panel-heading');heading.append(el('h2','','復習・メモ'),button('閉じる',()=>settings.close()));settings.append(heading);
 const noteLink=el('a','','メモ一覧');noteLink.href=new URL('pages/notes.html',R.rootURL);
 let memoVisible=true;try{memoVisible=localStorage.getItem('kopuri-note-icons-v3')!=='hidden'}catch{}
-const iconLabel=el('label'),iconCheck=el('input');iconCheck.type='checkbox';iconCheck.checked=memoVisible;iconCheck.onchange=()=>{memoVisible=iconCheck.checked;try{localStorage.setItem('kopuri-note-icons-v3',memoVisible?'show':'hidden')}catch{}render()};iconLabel.append(iconCheck,document.createTextNode(' メモの位置・アイコンを表示'));
+const iconLabel=el('label'),iconCheck=el('input');iconCheck.type='checkbox';iconCheck.checked=memoVisible;iconCheck.onchange=()=>{memoVisible=iconCheck.checked;if(!memoVisible)revealNote=false;try{localStorage.setItem('kopuri-note-icons-v3',memoVisible?'show':'hidden')}catch{}render()};iconLabel.append(iconCheck,document.createTextNode(' メモの位置・アイコンを表示'));
 const status=el('p','kr-status'),notice=el('p','kr-status'),coverage=el('p','kr-note');status.setAttribute('role','status');notice.setAttribute('role','alert');
 const account=el('div','kr-row');settings.append(status,notice);
 const options=el('div','kr-row'),select=el('select');select.setAttribute('aria-label','チェックボタンの表示方式');select.innerHTML='<option value="direct">直接表示</option><option value="tap">タップ表示</option><option value="hidden">チェックUI非表示</option>';
@@ -43,7 +43,7 @@ function actionGroup(title,items){const section=el('section','kr-action-group');
 
 document.body.append(settings);
 const menu=el('dialog','kr-dialog');menu.setAttribute('aria-label','復習対象の登録');document.body.append(menu);
-let data=null,page=null,layer=null,selection=null,focusTarget=null,focusIsNote=false,noteLinkApplied=false,sequence=0;
+let data=null,page=null,layer=null,selection=null,focusTarget=null,focusIsNote=false,revealNote=false,noteLinkApplied=false,sequence=0;
 function rectStyle(n,r){Object.assign(n.style,{left:r[0]*100+'%',top:r[1]*100+'%',width:r[2]*100+'%',height:r[3]*100+'%'});}
 function baseTarget(kind){return {kind,no:page.no,page:page.key,color:'',text:kind==='print'?`No.${page.no} 全体`:page.label,rect:[0,0,1,1]}}
 const live=e=>e&&!e.deleted;
@@ -59,9 +59,9 @@ function entryFor(t){
  const exact=t.color==='black'?sameBox.find(e=>e.target.text===corrected.text)||sameBox.find(e=>e.target.text===t.text)||sameBox.find(e=>correction&&e.target.text===correction.original):sameBox[0];
  if(exact)return exact;const candidates=entries.filter(e=>anchorMatch(corrected,e.target)||anchorMatch(t,e.target));return candidates.length===1?candidates[0]:undefined;
 }
-function noteFor(t){const ns=N.state().notes.filter(live);if(t.kind==='print')return ns.find(n=>n.target.kind==='print'&&n.target.no===t.no);if(t.kind==='page')return ns.find(n=>n.target.kind==='page'&&n.target.page===t.page);const exact=ns.find(n=>n.target.kind===t.kind&&n.target.page===t.page&&n.target.color===t.color&&(t.color!=='black'||n.target.text===t.text)&&n.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));if(exact)return exact;const candidates=ns.filter(n=>anchorMatch(t,n.target));return candidates.length===1?candidates[0]:undefined}
+function noteFor(t,notes=N.state().notes){const ns=notes.filter(live);if(t.kind==='print')return ns.find(n=>n.target.kind==='print'&&n.target.no===t.no);if(t.kind==='page')return ns.find(n=>n.target.kind==='page'&&n.target.page===t.page);const exact=ns.find(n=>n.target.kind===t.kind&&n.target.page===t.page&&n.target.color===t.color&&(t.color!=='black'||n.target.text===t.text)&&n.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));if(exact)return exact;const candidates=ns.filter(n=>anchorMatch(t,n.target));return candidates.length===1?candidates[0]:undefined}
 async function openTarget(t,source=''){
- const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'));
+ const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;revealNote=false;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'));
  menu.append(el('p','',correctedTarget(t).text||`${colors[t.color]||''}文字（範囲を登録）`));
  if(t.kind==='word')menu.append(button('文字を修正',()=>{menu.close();return openWordActions(t)}));
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
@@ -91,7 +91,7 @@ let cancelLayout=()=>{};
 function render(){
  const s=R.state(),ns=N.state();memoView.value=ns.view;const reviewStatus=s.status.replace(/^復習[：:]?\s*/,''),memoStatus=ns.status.replace(/^メモ[：:]?\s*/,'');status.textContent=reviewStatus===memoStatus?'復習・メモ：'+reviewStatus:'復習：'+reviewStatus+' ／ メモ：'+memoStatus;const suffix=s.conflict?'・競合あり':/失敗|期限/.test(s.status)?'・同期エラー':/保存中|同期中/.test(s.status)?'・保存中':s.queue.length?'・保存待ち':'';const memo=memoSummary(ns,page),currentMemoCount=memo.total;memoScopeRow.hidden=!memo.hidden;memoScopeLabel.textContent=`このページにはメモ${memo.total}件があります（現在の表示範囲：${memo.shown}件）。`;launcher.textContent=`復習 ${s.entries.filter(e=>live(e)&&e.state==='todo').length}件${currentMemoCount?'・メモ '+currentMemoCount+'件':''}${suffix}${ns.conflict?'・メモ競合':/失敗/.test(ns.status)?'・メモ保存失敗':ns.queue.length?'・メモ保存待ち':''}`;launcher.title=s.status;launcher.setAttribute('aria-label',launcher.textContent+' '+s.status);
  fillAccount(account,async()=>{await R.flush();await R.refresh();await N.sync()});
- if(focusIsNote&&focusTarget&&!noteFor(focusTarget)){focusTarget=null;focusIsNote=false}
+ if(focusIsNote&&focusTarget&&!noteFor(focusTarget,revealNote?ns.allNotes:ns.notes)){focusTarget=null;focusIsNote=false}
  if(!stage||!page)return;
  actions.replaceChildren(
   actionGroup('復習',[
@@ -104,7 +104,7 @@ function render(){
    button('No.全体にメモ',()=>{settings.close();return openEditor(baseTarget('print'))}),
    button('このページにメモ',()=>{settings.close();return openEditor(baseTarget('page'))}),
    button('範囲を囲んでメモ',()=>startSelection('note-range')),
-   button('このページのメモ（'+pageNotes().length+'件）',openPageNotes)
+   button('このページのメモ（'+currentMemoCount+'件）',openPageNotes)
   ])
  );
  renderLayer();
@@ -115,7 +115,7 @@ function renderLayer(){
  layer?.remove();layer=el('div','kr-layer');stage.append(layer);
  // Draw from the saved note anchor, independently of OCR/button placement.
  // A transparent, non-interactive outline preserves text, scroll and pinch gestures.
- if(memoVisible&&display!=='hidden')for(const note of pageNotes()){
+ if(memoVisible)for(const note of pageNotes()){
   const mark=el('div','kn-note-outline');mark.dataset.kind=note.target.kind;mark.dataset.noteId=note.id;mark.dataset.scope=note.scope;
   mark.setAttribute('aria-hidden','true');rectStyle(mark,note.target.rect);layer.append(mark);
  }
@@ -135,7 +135,7 @@ function renderLayer(){
   }
   coverage.textContent=display==='direct'?`直接表示 ${shown}/${targets.length}件。余白がない箇所は文字をタップ・長押しして登録できます。`:'対象の文字またはメモアイコンをタップすると操作が表示されます。メモの箇所は青枠で表示します。アイコンの余白がない場合は「このページのメモ」から開けます。';
  }else coverage.textContent=display==='hidden'?'画像上のチェックUIを非表示にしています。':'対象の文字をタップすると操作が表示されます。';
- if(focusTarget&&(focusTarget.kind==='print'?focusTarget.no===page.no:focusTarget.page===page.key)&&(!focusIsNote||memoVisible&&display!=='hidden')){const mark=el('div',focusIsNote?'kr-focus kn-note-focus':'kr-focus');rectStyle(mark,focusTarget.rect);layer.append(mark);}
+ if(focusTarget&&(focusTarget.kind==='print'?focusTarget.no===page.no:focusTarget.page===page.key)&&(!focusIsNote||memoVisible||revealNote)){const mark=el('div',focusIsNote?'kr-focus kn-note-focus':'kr-focus');rectStyle(mark,focusTarget.rect);layer.append(mark);}
 }
 async function changedPage(){
  if(!adapter)return;const p=adapter.page();if(!p)return;
@@ -148,21 +148,21 @@ async function highlightFromURL(){
  const params=new URLSearchParams(location.search),noteId=params.get('note'),id=noteId||params.get('review');if(!id)return;
  const scope=params.get('noteScope')||'private';const entry=(noteId?N.state().allNotes:R.state().entries).find(e=>e.id===id&&live(e)&&(!noteId||e.scope===scope));if(!entry||entry.target.kind==='print'&&entry.target.no!==page.no||entry.target.kind!=='print'&&entry.target.page!==page.key)return;
  if(noteId&&!noteLinkApplied){noteLinkApplied=true;if(N.state().view!=='both'&&N.state().view!==scope)N.setView(scope,false)}
- focusOn(entry.target,!!noteId);
+ focusOn(entry.target,!!noteId,!!noteId);
 }
-function pageNotes(){return N.state().notes.filter(n=>live(n)&&(n.target.kind==='print'?n.target.no===page?.no:n.target.page===page?.key))}
-function focusOn(target,isNote=true){
- focusTarget=target;focusIsNote=isNote;render();requestAnimationFrame(()=>{
+function pageNotes(notes=N.state().notes){return notes.filter(n=>live(n)&&(n.target.kind==='print'?n.target.no===page?.no:n.target.page===page?.key))}
+function focusOn(target,isNote=true,reveal=false){
+ focusTarget=target;focusIsNote=isNote;revealNote=reveal;render();requestAnimationFrame(()=>{
   const r=stage.getBoundingClientRect(),q=target.rect,scroller=document.getElementById('scroller');if(!scroller)return;const b=scroller.getBoundingClientRect();
   scroller.scrollBy({left:r.left+(q[0]+q[2]/2)*r.width-(b.left+b.width/2),top:r.top+q[1]*r.height-(b.top+b.height/3),behavior:'smooth'});
  });
 }
 function openPageNotes(){
  settings.close();menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','このページのメモ'));
- const notes=pageNotes();if(!notes.length)menu.append(el('p','','このページにメモはありません。'));
+ const notes=pageNotes(N.state().allNotes);if(!notes.length)menu.append(el('p','','このページにメモはありません。'));
  notes.forEach((note,i)=>{
   const kind={print:'No.全体',page:'ページ全体',word:'語句',range:'指定範囲'}[note.target.kind];
-  const row=el('div','kr-row');row.append(el('span','',`メモ${i+1}・${note.scope==='shared'?'共通':'個人'}・${kind}`),button('位置を表示',()=>{menu.close();focusOn(note.target)}),button('メモを見る・編集',async()=>{menu.close();focusOn(note.target);await openEditor(note.target,note.scope)}));menu.append(row);
+  const row=el('div','kr-row');row.append(el('span','',`メモ${i+1}・${note.scope==='shared'?'共通':'個人'}・${kind}`),button('位置を表示',()=>{menu.close();focusOn(note.target,true,true)}),button('メモを見る・編集',async()=>{menu.close();focusOn(note.target,true,true);await openEditor(note.target,note.scope)}));menu.append(row);
  });menu.showModal();
 }
 
@@ -216,7 +216,14 @@ function startSelection(kind){
   if(!start||pointer!==e.pointerId)return;e.stopPropagation();const end=point(e),r=[Math.min(end[0],start[0]),Math.min(end[1],start[1]),Math.abs(end[0]-start[0]),Math.abs(end[1]-start[1])];cancelSelection();
   if(kind==='black'||kind==='note-black'){blackAt(end,kind==='note-black');return}if(r[2]<.005||r[3]<.005)return;
   if(kind==='correct-range'){const target={...baseTarget('word'),color:'black',rect:r,text:''};focusTarget=target;focusIsNote=false;render();openWordActions(target).catch(e=>message(e.message));return}
-  const t={...baseTarget('range'),rect:r,text:'指定範囲'};if(kind==='note-range'){openEditor(t).catch(e=>message(e.message));return}menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','範囲を要復習に登録'));
+  const t={...baseTarget('range'),rect:r,text:'指定範囲'};
+  if(kind==='note-range'){
+   openEditor(t,N.creationScope(),()=>{
+    if(page?.key!==t.page||!memoVisible)return;
+    focusTarget=t;focusIsNote=true;revealNote=true;render();
+   }).catch(e=>message(e.message));return;
+  }
+  menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','範囲を要復習に登録'));
   const name=el('textarea');name.setAttribute('aria-label','範囲の名前');name.value='指定範囲';menu.append(name,button('登録',async()=>{t.text=name.value.trim().slice(0,1000)||'指定範囲';await R.act('register',t);menu.close()}));menu.showModal();
  });
 }
