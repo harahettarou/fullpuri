@@ -6,8 +6,8 @@
  const orangeByPage=new Map();
  let corrections=[],correctionsByPage=new Map();
  import('../review/ocr_corrections_v1.js').then(C=>{
-  const update=()=>{corrections=C.state();correctionsByPage=new Map();for(const c of corrections){const list=correctionsByPage.get(c.page)||[];list.push(c);correctionsByPage.set(c.page,list)}render()};C.subscribe(update);return C.refresh();
- }).catch(()=>{console.warn('手動修正を読み込めませんでした。OCR・メモ検索は継続します。')});
+  const update=()=>{corrections=C.state();correctionsByPage=new Map();for(const c of corrections){const list=correctionsByPage.get(c.page)||[];list.push(c);correctionsByPage.set(c.page,list)}render()};C.subscribe(update);update();return C.refresh();
+ }).catch(()=>{console.warn('最新の手動修正を取得できませんでした。読み込み済みのデータで検索します。')});
  const correctionFor=(page,line)=>(correctionsByPage.get(page.key)||[]).find(c=>[line.x/page.width,line.y/page.height,line.w/page.width,line.h/page.height].every((v,i)=>Math.abs(v-c.rect[i])<.000003));
  const norm=value=>value.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-96)).replace(/[^0-9a-zぁ-ん一-龯々〆ヵヶ]+/g,'');
  function grams(value){const size=value.length<5?2:3,out=[];if(value.length<=size)return[value];for(let i=0;i<=value.length-size;i++)out.push(value.slice(i,i+size));return out;}
