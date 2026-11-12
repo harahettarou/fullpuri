@@ -336,7 +336,7 @@ async function route(req,env){
  const url=new URL(req.url),path=url.pathname,origin=site(env).origin;
  if(path.startsWith('/classic-edits/'))return await classicRoute(req,env,url);
  if(path==='/ocr-corrections'&&req.method==='GET')return correctionRoute(req,env,url,null);
- if(path==='/health')return json({ok:true,version:23,materials_configured:!!env.MATERIALS_BUCKET,features:['material-classic-editor','ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
+ if(path==='/health')return json({ok:true,version:24,materials_configured:!!env.MATERIALS_BUCKET,features:['uncertain-review','material-classic-editor','ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
  if(path==='/auth/google/start'&&req.method==='GET')return Response.redirect(await startGoogle(req,env,url.searchParams.get('challenge')),302);
  if(path==='/auth/google/callback'&&req.method==='GET')return googleCallback(req,env,url);
  if(path==='/auth/start'&&req.method==='GET'){
@@ -404,8 +404,8 @@ async function route(req,env){
  }
  if(path==='/operations'&&req.method==='POST'){
   const b=await body(req);
-  if(!validToken(b.op_id)||!validToken(b.id)||!Number.isInteger(b.expected)||b.expected<0||!['register','complete','reopen','delete'].includes(b.action))fail(400,'操作が不正です');
-  const t=validateTarget(b.target);if(b.action==='put'||b.action==='register'||path==='/shared-note-operations')await materialTargetAccess(env,t,user);if(await targetId(t)!==b.id)fail(400,'対象IDが一致しません');
+  if(!validToken(b.op_id)||!validToken(b.id)||!Number.isInteger(b.expected)||b.expected<0||!['register','uncertain','complete','reopen','delete'].includes(b.action))fail(400,'操作が不正です');
+  const t=validateTarget(b.target);if(['register','uncertain'].includes(b.action))await materialTargetAccess(env,t,user);if(await targetId(t)!==b.id)fail(400,'対象IDが一致しません');
   // A single INSERT and database triggers atomically validate revision, mutate and log history.
   try{await env.DB.prepare('INSERT OR IGNORE INTO operations VALUES(?,?,?,?,?,?,?)').bind(uid,b.op_id,b.id,b.action,JSON.stringify(t),b.expected,new Date().toISOString()).run()}
   catch(error){if(String(error).includes('version_conflict'))fail(409,'別端末で更新されました。変更内容を確認してください');throw error}

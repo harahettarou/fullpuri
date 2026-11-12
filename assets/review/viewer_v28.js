@@ -61,7 +61,7 @@ function entryFor(t){
 }
 function noteFor(t,notes=N.state().notes){const ns=notes.filter(live);if(t.kind==='print')return ns.find(n=>n.target.kind==='print'&&n.target.no===t.no);if(t.kind==='page')return ns.find(n=>n.target.kind==='page'&&n.target.page===t.page);const exact=ns.find(n=>n.target.kind===t.kind&&n.target.page===t.page&&n.target.color===t.color&&(t.color!=='black'||n.target.text===t.text)&&n.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));if(exact)return exact;const candidates=ns.filter(n=>anchorMatch(t,n.target));return candidates.length===1?candidates[0]:undefined}
 async function openTarget(t,source=''){
- const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;revealNote=false;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'));
+ const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;revealNote=false;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',R.reviewLabel(e)));
  menu.append(el('p','',correctedTarget(t).text||`${colors[t.color]||''}文字（範囲を登録）`));
  if(t.kind==='word')menu.append(button('文字を修正',()=>{menu.close();return openWordActions(t)}));
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
@@ -69,7 +69,9 @@ async function openTarget(t,source=''){
  else if(e){
   menu.append(el('p','kr-meta',`復習 ${e.review_count}回 ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
   menu.append(button(e.state==='todo'?'復習完了にする':'再び要復習にする',async()=>{await R.act(e.state==='todo'?'complete':'reopen',t);menu.close()}));
+  if(R.isUncertain(e))menu.append(button('要復習に切り替え',async()=>{await R.act('reopen',t);menu.close()}));
  }else menu.append(button('復習に登録',async()=>{await R.act('register',correctedTarget(t));menu.close()}));
+ if(R.state().auth&&!e?.pending&&!R.isUncertain(e))menu.append(button('△ 不安にする',async()=>{await R.act('uncertain',correctedTarget(t));menu.close()}));
  if(R.state().auth){
   const notes=N.state().notes.filter(n=>live(n)&&n.id===note?.id);
   for(const n of notes){menu.append(el('p','kr-meta',n.scope==='shared'?'共通メモ':'個人メモ'),el('p','kn-body',n.body),button((n.scope==='shared'?'共通':'個人')+'メモを見る・編集',async()=>{menu.close();await openEditor(n.target,n.scope)}));}
@@ -119,18 +121,26 @@ function renderLayer(){
   const mark=el('div','kn-note-outline');mark.dataset.kind=note.target.kind;mark.dataset.noteId=note.id;mark.dataset.scope=note.scope;
   mark.setAttribute('aria-hidden','true');rectStyle(mark,note.target.rect);layer.append(mark);
  }
+ if(display!=='hidden')for(const e of R.state().entries){
+  if(!live(e)||!R.isUncertain(e)||e.target.page!==page.key||!['range','word'].includes(e.target.kind))continue;
+  const outline=el('div','kr-uncertain-outline');rectStyle(outline,e.target.rect);
+  const badge=button('△',()=>openTarget(e.target));badge.className='kr-mark kr-uncertain-badge';
+  badge.setAttribute('aria-label','△ 不安：'+(correctedTarget(e.target).text||'指定箇所'));
+  outline.append(badge);layer.append(outline);
+ }
  if(display==='direct'||memoVisible&&display!=='hidden'){
   const boxes=[],bsize=matchMedia('(pointer:coarse)').matches?24:19,rect=stage.getBoundingClientRect();
   const targets=display==='direct'||pageNotes().length?allTargets():[],visibleTargets=display==='direct'?targets:targets.filter(t=>noteFor(t));let shown=0;
   for(const t of visibleTargets){
    const e=entryFor(t),note=noteFor(t),r=t.rect;
+   if(R.isUncertain(e)&&(!note||!memoVisible))continue;
    // Prefer a blank margin. Skip dense locations; tapping always remains available.
    const candidates=[[r[0]*rect.width-bsize-3,r[1]*rect.height],[ (r[0]+r[2])*rect.width+3,r[1]*rect.height],[r[0]*rect.width,r[1]*rect.height-bsize-3]];
    for(const dy of [-1,1,-2,2,-3,3])for(const x of [r[0]*rect.width-bsize-3,(r[0]+r[2])*rect.width+3])candidates.push([x,r[1]*rect.height+dy*(bsize+3)]);
    const pos=candidates.find(([x,y])=>x>=0&&y>=0&&x+bsize<=rect.width&&y+bsize<=rect.height&&!boxes.some(b=>x<b[0]+bsize&&x+bsize>b[0]&&y<b[1]+bsize&&y+bsize>b[1])&&!targets.some(o=>{const q=o.rect;return x<(q[0]+q[2])*rect.width&&x+bsize>q[0]*rect.width&&y<(q[1]+q[3])*rect.height&&y+bsize>q[1]*rect.height})&&!(data?.lines||[]).some(o=>{const q=o.rect;return x<(q[0]+q[2])*rect.width&&x+bsize>q[0]*rect.width&&y<(q[1]+q[3])*rect.height&&y+bsize>q[1]*rect.height}));
    if(!pos)continue;boxes.push(pos);shown++;
    const b=button(note&&memoVisible?'✎':e?.state==='done'?'✓':e?.state==='todo'?'!':'+',()=>openTarget(t,t.source));b.className='kr-mark';b.dataset.state=e?.state||'none';b.dataset.color=t.color;if(note&&memoVisible){b.dataset.note='true';b.title='青枠のメモを見る・編集'}
-   b.setAttribute('aria-label',`${colors[t.color]||'範囲'}：${correctedTarget(t).text||'語句'}・${e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'}${note?'・メモあり':''}`);
+   b.setAttribute('aria-label',`${colors[t.color]||'範囲'}：${correctedTarget(t).text||'語句'}・${R.reviewLabel(e)}${note?'・メモあり':''}`);
    b.style.left=pos[0]/rect.width*100+'%';b.style.top=pos[1]/rect.height*100+'%';b.addEventListener('pointerdown',ev=>ev.stopPropagation());layer.append(b);
   }
   coverage.textContent=display==='direct'?`直接表示 ${shown}/${targets.length}件。余白がない箇所は文字をタップ・長押しして登録できます。`:'対象の文字またはメモアイコンをタップすると操作が表示されます。メモの箇所は青枠で表示します。アイコンの余白がない場合は「このページのメモ」から開けます。';
@@ -223,8 +233,10 @@ function startSelection(kind){
     focusTarget=t;focusIsNote=true;revealNote=true;render();
    }).catch(e=>message(e.message));return;
   }
-  menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','範囲を要復習に登録'));
-  const name=el('textarea');name.setAttribute('aria-label','範囲の名前');name.value='指定範囲';menu.append(name,button('登録',async()=>{t.text=name.value.trim().slice(0,1000)||'指定範囲';await R.act('register',t);menu.close()}));menu.showModal();
+  menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','','範囲を復習に登録'));
+  const name=el('textarea');name.setAttribute('aria-label','範囲の名前');name.value='指定範囲';
+  const save=async action=>{t.text=name.value.trim().slice(0,1000)||'指定範囲';await R.act(action,t);menu.close()};
+  menu.append(name,button('要復習に登録',()=>save('register')),button('△ 不安にする',()=>save('uncertain')));menu.showModal();
  });
 }
 R.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});

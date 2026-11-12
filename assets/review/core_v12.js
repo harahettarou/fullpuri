@@ -7,13 +7,15 @@ export const hash=async s=>base64(await crypto.subtle.digest('SHA-256',enc.encod
 export const targetId=t=>hash(JSON.stringify([t.kind,t.kind==='print'?t.no:t.page,t.color,t.kind==='print'||t.kind==='page'?[]:t.rect,t.color==='black'?t.text:'']));
 export const canonical=t=>({...t,rect:t.rect.map(v=>Math.round(v*1e6)/1e6)});
 export const formatDate=s=>s?new Date(s).toLocaleString('ja-JP'):'未復習';
+export const isUncertain=e=>e?.state==='todo'&&e.mark==='uncertain';
+export const reviewLabel=e=>isUncertain(e)?'△ 不安':e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録';
 export function project(base,queue){
  const map=new Map(base.map(e=>[e.id,structuredClone(e)]));
- for(const op of queue){let e=map.get(op.id);if(op.action==='register'){
-  e=e||{id:op.id,target:op.target,created_at:null,review_count:0,version:0};e.state='todo';e.deleted=0;e.completed_at=null;
+ for(const op of queue){let e=map.get(op.id);if(op.action==='register'||op.action==='uncertain'){
+  e=e||{id:op.id,target:op.target,created_at:null,review_count:0,version:0};e.state='todo';e.mark=op.action==='uncertain'?'uncertain':'review';e.deleted=0;e.completed_at=null;
  }else if(!e)continue;
  else if(op.action==='complete'&&e.state==='todo'){e.state='done';e.review_count++;e.last_reviewed_at=null;e.completed_at=null}
- else if(op.action==='reopen'){e.state='todo';e.completed_at=null}
+ else if(op.action==='reopen'){e.state='todo';e.mark='review';e.completed_at=null}
  else if(op.action==='delete')e.deleted=1;
  e.version++;e.pending=true;map.set(op.id,e);
  }return [...map.values()];
@@ -76,9 +78,10 @@ export async function act(action,target){
  await change('user:'+uid,d=>{
   d=d||{base:[],queue:[]};const projected=project(d.base||[],d.queue||[]),e=projected.find(e=>e.id===id);
   if((d.queue||[]).some(o=>o.id===id))throw Error('この項目は保存待ちです');
-  if(action==='register'&&e&&!e.deleted) return d;
+  if(action==='register'&&e&&!e.deleted&&!isUncertain(e))return d;
+  if(action==='uncertain'&&!e?.deleted&&isUncertain(e))return d;
   if(action==='complete'&&e?.state==='done')return d;
-  if(action==='reopen'&&e?.state==='todo')return d;
+  if(action==='reopen'&&e?.state==='todo'&&!isUncertain(e))return d;
   const op={op_id:random(),id,action,target:e?.target||target,expected:e?.version||0};
   return {...d,queue:[...(d.queue||[]),op]};
  });await reload();status='保存中…';emit();channel?.postMessage('change');await flush();
@@ -106,8 +109,13 @@ export async function resolveConflict(apply){
  await change('user:'+uid,d=>{
   const rest=d.queue.filter(o=>o.op_id!==op.op_id);
   // Explicit reapply uses the latest server revision. Completing an already done entry is a no-op.
-  const fulfilled=op.action==='complete'&&current?.state==='done'&&!current.deleted||op.action==='reopen'&&current?.state==='todo'&&!current.deleted||op.action==='delete'&&current?.deleted||op.action==='register'&&current&&!current.deleted;
-  if(apply&&!fulfilled){if(op.action!=='register'&&(!current||current.deleted))throw Error('対象は他の端末で削除済みです。サーバー側を採用してください');rest.unshift({...op,op_id:random(),expected:current?.version||0})}
+  const active=current&&!current.deleted;
+  const fulfilled=op.action==='complete'&&active&&current.state==='done'
+   ||op.action==='reopen'&&active&&current.state==='todo'&&!isUncertain(current)
+   ||op.action==='delete'&&current?.deleted
+   ||op.action==='register'&&active&&!isUncertain(current)
+   ||op.action==='uncertain'&&active&&isUncertain(current);
+  if(apply&&!fulfilled){if(!['register','uncertain'].includes(op.action)&&(!current||current.deleted))throw Error('対象は他の端末で削除済みです。サーバー側を採用してください');rest.unshift({...op,op_id:random(),expected:current?.version||0})}
   return {base:data.entries,queue:rest};
  });conflict=false;await reload();await flush();
 }
