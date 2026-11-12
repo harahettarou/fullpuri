@@ -35,3 +35,6 @@
 
 /* Memo fields must not inherit the 15px dialog/manager text on iPhone. */
 .kn-editor textarea,.kn-editor select,.kn-conflict textarea{font-size:16px}
+
+.kr-uncertain-outline{position:absolute;box-sizing:border-box;outline:1px solid #8a5a13;outline-offset:1px;pointer-events:none}
+.kr-uncertain-outline .kr-uncertain-badge{left:0;top:0;z-index:1;background:#fff0cc;border-color:#8a5a13;color:#67430e}

@@ -6,7 +6,7 @@
 <section id="setup" class="kr-card" hidden>端末間同期サービスの設定が必要です。<a href="../assets/review/設定手順_v2.md">管理者向け設定手順</a></section>
 <section id="conflict" class="kr-conflict" hidden><strong>別端末の更新と競合しています</strong><p id="conflictDetail"></p><p>この端末の未送信操作を、最新のサーバー記録と照合して処理します。</p><div class="kr-row"><button id="apply">この端末の操作を適用</button><button id="discard">サーバー側を採用</button></div></section>
 <div class="kr-row">
-<label>状態 <select id="state"><option value="todo">要復習</option><option value="done">復習完了</option><option value="all">すべて</option></select></label>
+<label>状態 <select id="state"><option value="pending">未完了（すべて）</option><option value="todo">要復習</option><option value="uncertain">△ 不安</option><option value="done">復習完了</option><option value="all">すべて</option></select></label>
 <label>対象 <select id="kind"><option value="all">すべて</option><option value="print">No.全体</option><option value="page">ページ</option><option value="word">語句</option><option value="range">指定範囲</option></select></label>
 <label>並べ替え <select id="sort"><option value="no">No.順</option><option value="new">登録日が新しい順</option><option value="old">登録日が古い順</option></select></label>
 <label>No. <input id="no" type="number" min="0" max="9999" placeholder="すべて" style="width:100px"></label>
