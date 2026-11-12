@@ -60,8 +60,8 @@ function entryFor(t){
  if(exact)return exact;const candidates=entries.filter(e=>anchorMatch(corrected,e.target)||anchorMatch(t,e.target));return candidates.length===1?candidates[0]:undefined;
 }
 function noteFor(t,notes=N.state().notes){const ns=notes.filter(live);if(t.kind==='print')return ns.find(n=>n.target.kind==='print'&&n.target.no===t.no);if(t.kind==='page')return ns.find(n=>n.target.kind==='page'&&n.target.page===t.page);const exact=ns.find(n=>n.target.kind===t.kind&&n.target.page===t.page&&n.target.color===t.color&&(t.color!=='black'||n.target.text===t.text)&&n.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));if(exact)return exact;const candidates=ns.filter(n=>anchorMatch(t,n.target));return candidates.length===1?candidates[0]:undefined}
-async function openTarget(t,source=''){
- const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;revealNote=false;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',R.reviewLabel(e)));
+async function openTarget(t,source='',selectedEntry){
+ const e=selectedEntry||entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;revealNote=false;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',R.reviewLabel(e)));
  menu.append(el('p','',correctedTarget(t).text||`${colors[t.color]||''}文字（範囲を登録）`));
  if(t.kind==='word')menu.append(button('文字を修正',()=>{menu.close();return openWordActions(t)}));
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
@@ -71,7 +71,7 @@ async function openTarget(t,source=''){
   menu.append(button(e.state==='todo'?'復習完了にする':'再び要復習にする',async()=>{await R.act(e.state==='todo'?'complete':'reopen',t);menu.close()}));
   if(R.isUncertain(e))menu.append(button('要復習に切り替え',async()=>{await R.act('reopen',t);menu.close()}));
  }else menu.append(button('復習に登録',async()=>{await R.act('register',correctedTarget(t));menu.close()}));
- if(R.state().auth&&!e?.pending&&!R.isUncertain(e))menu.append(button('△ 不安にする',async()=>{await R.act('uncertain',correctedTarget(t));menu.close()}));
+ if(R.state().auth&&!e?.pending&&!R.isUncertain(e))menu.append(button('△ 不安にする',async()=>{await R.act('uncertain',e?.target||correctedTarget(t));menu.close()}));
  if(R.state().auth){
   const notes=N.state().notes.filter(n=>live(n)&&n.id===note?.id);
   for(const n of notes){menu.append(el('p','kr-meta',n.scope==='shared'?'共通メモ':'個人メモ'),el('p','kn-body',n.body),button((n.scope==='shared'?'共通':'個人')+'メモを見る・編集',async()=>{menu.close();await openEditor(n.target,n.scope)}));}
@@ -124,7 +124,7 @@ function renderLayer(){
  if(display!=='hidden')for(const e of R.state().entries){
   if(!live(e)||!R.isUncertain(e)||e.target.page!==page.key||!['range','word'].includes(e.target.kind))continue;
   const outline=el('div','kr-uncertain-outline');rectStyle(outline,e.target.rect);
-  const badge=button('△',()=>openTarget(e.target));badge.className='kr-mark kr-uncertain-badge';
+  const badge=button('△',()=>openTarget(e.target,'',e));badge.className='kr-mark kr-uncertain-badge';
   badge.setAttribute('aria-label','△ 不安：'+(correctedTarget(e.target).text||'指定箇所'));
   outline.append(badge);layer.append(outline);
  }
