@@ -55,7 +55,6 @@ function prepareLogin(){
 }
 export async function login(provider='google'){
  if(!['google','github'].includes(provider))throw Error('ログイン方法が不正です');
- if(provider==='google'&&!providers.google)throw Error('Googleログインは準備中です');
  const verifier=prepareLogin();sessionStorage.removeItem('kopuri-google-link-user');
  location.assign(API_URL.replace(/\/$/,'')+(provider==='google'?'/auth/google/start':'/auth/start')+'?challenge='+await hash(verifier));
 }
