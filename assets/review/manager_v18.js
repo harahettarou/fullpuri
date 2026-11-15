@@ -35,11 +35,7 @@ function render(){
   const complete=button(e.state==='todo'?'復習完了':'要復習へ戻す',()=>R.act(e.state==='todo'?'complete':'reopen',t));complete.disabled=!!e.pending;
   const del=button('削除',async()=>{if(confirm('この登録を削除しますか？要復習・完了一覧から除外します。'))await R.act('delete',t)});del.disabled=!!e.pending;
   const changeMark=button(R.isUncertain(e)?'要復習に切り替え':'△ 不安にする',()=>R.act(R.isUncertain(e)?'reopen':'uncertain',t));changeMark.disabled=!!e.pending;
-  actions.append(complete,changeMark,button('履歴',async()=>{
-   const d=await R.history(e.id),dialog=$('history');dialog.replaceChildren(button('閉じる',()=>dialog.close()),el('h2','','復習履歴'));
-   const labels={register:'登録',uncertain:'△ 不安',complete:'復習完了',reopen:'要復習へ再登録',delete:'削除'};
-   for(const h of d.history)dialog.append(el('p','',R.formatDate(h.at)+'：'+labels[h.action]));dialog.showModal();
-  }),del);card.append(actions);$('list').append(card);
+  actions.append(complete,changeMark,del);card.append(actions);$('list').append(card);
  }
 }
 for(const id of ['state','kind','sort','no'])$(id).onchange=()=>{limit=60;render()};
