@@ -30,11 +30,11 @@ function render(){
   card.append(el('span','kr-pill',`${kind[t.kind]}${colors[t.color]?'・'+colors[t.color]:''} ／ ${R.reviewLabel(e)}${e.pending?'・未送信':''}`),el('h2','',itemLabel(t)));
   card.append(el('p','kr-meta',`登録：${e.created_at?R.formatDate(e.created_at):'サーバー保存待ち'} ／ 復習 ${e.review_count}回${e.pending?'（未確定操作を含む）':''} ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
   if(e.completed_at)card.append(el('p','kr-meta','復習完了：'+R.formatDate(e.completed_at)));
-  const actions=el('div','kr-row'),p=catalog[t.page];
-  if(t.material||p){const link=el('a','','元の位置を開く');const u=t.material?new URL(materialLink(t,{review:e.id})):new URL(p.href,R.rootURL);if(!t.material){u.searchParams.set('page',t.page);u.searchParams.set('review',e.id)}link.href=u.href;link.onclick=async event=>{event.preventDefault();try{const session=await createSequence(rows);u.searchParams.set('review_session',session);location.assign(u.href)}catch(e){$('notice').textContent=e.message}};actions.append(link)}
-  const complete=button(e.state==='todo'?'復習完了':'要復習へ戻す',()=>R.act(e.state==='todo'?'complete':'reopen',t));complete.disabled=!!e.pending;
+  const actions=el('div','kr-row kr-review-actions'),p=catalog[t.page];
+  if(t.material||p){const link=el('a','','元の位置');link.setAttribute('aria-label','元の位置を開く');const u=t.material?new URL(materialLink(t,{review:e.id})):new URL(p.href,R.rootURL);if(!t.material){u.searchParams.set('page',t.page);u.searchParams.set('review',e.id)}link.href=u.href;link.onclick=async event=>{event.preventDefault();try{const session=await createSequence(rows);u.searchParams.set('review_session',session);location.assign(u.href)}catch(e){$('notice').textContent=e.message}};actions.append(link)}
+  const complete=button(e.state==='todo'?'復習完了':'要復習へ',()=>R.act(e.state==='todo'?'complete':'reopen',t));complete.disabled=!!e.pending;
   const del=button('削除',async()=>{if(confirm('この登録を削除しますか？要復習・完了一覧から除外します。'))await R.act('delete',t)});del.disabled=!!e.pending;
-  const changeMark=button(R.isUncertain(e)?'要復習に切り替え':'△ 不安にする',()=>R.act(R.isUncertain(e)?'reopen':'uncertain',t));changeMark.disabled=!!e.pending;
+  const changeMark=button(R.isUncertain(e)?'要復習へ':'△ 不安',()=>R.act(R.isUncertain(e)?'reopen':'uncertain',t));changeMark.disabled=!!e.pending;changeMark.setAttribute('aria-label',R.isUncertain(e)?'要復習に切り替え':'△ 不安にする');
   actions.append(complete,changeMark,del);card.append(actions);$('list').append(card);
  }
 }
