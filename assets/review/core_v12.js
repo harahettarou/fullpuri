@@ -27,16 +27,25 @@ export async function change(key,fn){const db=await database();return new Promis
 const events=new EventTarget();
 let providers={github:true,google:false},accountInfo={google_linked:false};
 let auth=null,base=[],queue=[],status='ログインしてください',syncing=false,conflict=false;
+const expiredMessage='ログインの有効期限が切れました。再ログインしてください';
+let rejectedToken=null;
+function isSessionExpired(){
+ return !!auth&&(auth.token===rejectedToken||Number.isFinite(auth.expires)&&auth.expires<=Date.now());
+}
 let channel;try{channel=new BroadcastChannel('kopuri-review-v1');channel.onmessage=()=>reload().then(()=>flush()).catch(showError)}catch{}
 function emit(){events.dispatchEvent(new Event('change'));}
 export const subscribe=fn=>{events.addEventListener('change',fn);return()=>events.removeEventListener('change',fn)};
-export const state=()=>({auth,entries:project(base,queue),queue,status,conflict,configured:!!API_URL,providers,account:accountInfo});
+export const state=()=>({auth,sessionExpired:isSessionExpired(),entries:project(base,queue),queue,status,conflict,configured:!!API_URL,providers,account:accountInfo});
 function showError(e){status=e.message||String(e);emit();}
-async function reload(){const next=await read('auth'),d=next?await read('user:'+next.user_id):null,latest=await read('auth');if(next?.token!==latest?.token)return reload();auth=next;base=d?.base||[];queue=d?.queue||[];emit();}
+async function reload(){const next=await read('auth'),d=next?await read('user:'+next.user_id):null,latest=await read('auth');if(next?.token!==latest?.token)return reload();auth=next;if(isSessionExpired())status=expiredMessage;base=d?.base||[];queue=d?.queue||[];emit();}
 export async function api(path,options={},session=auth){
  if(!API_URL)throw Error('同期サービスは未設定です');
  const response=await fetch(API_URL.replace(/\/$/,'')+path,{...options,headers:{'Content-Type':'application/json',...(session?{Authorization:'Bearer '+session.token}:{}),...options.headers},signal:AbortSignal.timeout(20000)});
- const data=await response.json();if(!response.ok)throw Object.assign(Error(data.error||'通信に失敗しました'),{status:response.status});return data;
+ const data=await response.json();
+ if(response.status===401&&session?.token&&session.token===auth?.token&&rejectedToken!==session.token){
+  rejectedToken=session.token;status=expiredMessage;emit();
+ }
+ if(!response.ok)throw Object.assign(Error(data.error||'通信に失敗しました'),{status:response.status});return data;
 }
 function prepareLogin(){
  if(!API_URL)throw Error('同期サービスの外部設定が必要です');
@@ -64,13 +73,13 @@ export async function logout(){
  const uid=auth.user_id;if((await read('notes:user:'+uid))?.queue?.length||(await read('shared-notes:user:'+uid))?.queue?.length)throw Error('メモに未送信の変更があります。メモ一覧で保存・競合解決を終えてください');await api('/auth/logout',{method:'POST',body:'{}'});await change('user:'+uid,()=>undefined);await change('notes:user:'+uid,()=>undefined);await change('shared-notes:user:'+uid,()=>undefined);await change('auth',()=>undefined);auth=null;accountInfo={google_linked:false};base=[];queue=[];status='ログアウトしました。サーバーの記録は保持されています';channel?.postMessage('logout');emit();
 }
 export async function refresh(){
- if(!auth)return;
+ if(!auth||isSessionExpired())return;
  const session=auth;status='同期中…';emit();
  try{const [me,data]=await Promise.all([api('/me',{},session),api('/entries',{},session)]);
   if(auth?.token!==session.token)return;
   if(me.user_id!==session.user_id)throw Error('アカウント情報が一致しません');accountInfo=me.account||{google_linked:false};
   await change('user:'+session.user_id,d=>{const merged=new Map(data.entries.map(e=>[e.id,e]));for(const e of d?.base||[]){if(!merged.has(e.id)||merged.get(e.id).version<e.version)merged.set(e.id,e)}return {...d,base:[...merged.values()]}});await reload();status=conflict?'別端末の更新と競合しています。復習管理で確認してください':queue.length?'未送信 '+queue.length+'件':'サーバー保存済み';emit();
- }catch(e){if(auth?.token!==session.token)return;status=e.status===401?'ログインの有効期限が切れました。再ログインしてください':'同期失敗：'+e.message+'（未送信の変更はこの端末に保持）';emit();}
+ }catch(e){if(auth?.token!==session.token)return;status=e.status===401?expiredMessage:'同期失敗：'+e.message+'（未送信の変更はこの端末に保持）';emit();}
 }
 export async function act(action,target){
  if(!auth)throw Error('先にログインしてください');
@@ -87,9 +96,9 @@ export async function act(action,target){
  });await reload();status='保存中…';emit();channel?.postMessage('change');await flush();
 }
 export async function flush(){
- if(syncing||!auth||!API_URL)return;syncing=true;
+ if(syncing||!auth||!API_URL||isSessionExpired())return;syncing=true;
  const run=async()=>{
-  await reload();if(!auth)return;const session=auth,uid=auth.user_id;
+  await reload();if(!auth||isSessionExpired())return;const session=auth,uid=auth.user_id;
   while(true){
    const d=await read('user:'+uid),op=d?.queue?.[0];if(!op)break;
    if(auth?.token!==session.token)break;
@@ -97,7 +106,7 @@ export async function flush(){
    try{const result=await api('/operations',{method:'POST',body:JSON.stringify(op)},session);
     await change('user:'+uid,current=>({...current,base:[...(current.base||[]).filter(e=>e.id!==op.id),result.entry],queue:(current.queue||[]).filter(o=>o.op_id!==op.op_id)}));
     conflict=false;channel?.postMessage('saved');await reload();
-   }catch(e){conflict=e.status===409;status=conflict?'別端末の更新と競合しています。復習管理で確認してください':'保存失敗：'+e.message+'（変更はこの端末に保持・再送待ち）';emit();return;}
+   }catch(e){conflict=e.status===409;status=e.status===401?expiredMessage:conflict?'別端末の更新と競合しています。復習管理で確認してください':'保存失敗：'+e.message+'（変更はこの端末に保持・再送待ち）';emit();return;}
   }
   status='サーバー保存済み';emit();
  };
