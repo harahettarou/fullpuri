@@ -5,3 +5,7 @@
 
 .ml-hit.ml-uncertain{border:2px solid #8a5a13;background:transparent}
 .ml-uncertain>span{position:absolute;left:0;top:0;padding:0 4px;border-radius:4px;background:#fff0cc;color:#67430e;font-weight:700}
+
+/* Learning marks stay visible without tinting the underlying page. */
+.ml-hit:not(.review){border-color:#1785c299;background:transparent}
+.ml-hit.focus{border:2px solid #d7257399;box-shadow:none;animation:none}
