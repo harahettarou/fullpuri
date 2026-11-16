@@ -336,7 +336,7 @@ async function route(req,env){
  const url=new URL(req.url),path=url.pathname,origin=site(env).origin;
  if(path.startsWith('/classic-edits/'))return await classicRoute(req,env,url);
  if(path==='/ocr-corrections'&&req.method==='GET')return correctionRoute(req,env,url,null);
- if(path==='/health')return json({ok:true,version:24,materials_configured:!!env.MATERIALS_BUCKET,features:['uncertain-review','material-classic-editor','ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
+ if(path==='/health')return json({ok:true,version:25,materials_configured:!!env.MATERIALS_BUCKET,features:['uncertain-review','material-classic-editor','ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
  if(path==='/auth/google/start'&&req.method==='GET')return Response.redirect(await startGoogle(req,env,url.searchParams.get('challenge')),302);
  if(path==='/auth/google/callback'&&req.method==='GET')return googleCallback(req,env,url);
  if(path==='/auth/start'&&req.method==='GET'){
@@ -367,7 +367,8 @@ async function route(req,env){
   const b=await body(req);if(!validToken(b.ticket)||!validToken(b.verifier))fail(400,'認証情報が不正です');
   const row=await env.DB.prepare('DELETE FROM tickets WHERE ticket_hash=? AND challenge=? AND expires>? RETURNING *').bind(await hash(b.ticket),await hash(b.verifier),Date.now()).first();
   const identity=row?{...row,provider:'github'}:await exchangeGoogle(env,b.ticket,b.verifier);
-  const token=random(),expires=Date.now()+30*86400000;
+  const sessionDays=identity.provider==='google'?90:30;
+  const token=random(),expires=Date.now()+sessionDays*86400000;
   await env.DB.prepare('INSERT INTO sessions VALUES(?,?,?,?)').bind(await hash(token),identity.user_id,identity.login,expires).run();
   return json({token,user_id:identity.user_id,login:identity.login,expires,provider:identity.provider});
  }
