@@ -1,3 +1,4 @@
+import {canonicalPageIndex} from '../classic/catalog_from_html_v20.js';
 import {memoSummary} from './memo_summary_v28.js';
 import {observeLayout,targetCache} from './layout_v26.js';
 import {fillAccount} from './account_controls_v12.js';
@@ -207,4 +208,49 @@ R.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 N.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 // Start read-only coordinates immediately; keep authentication/notes initialization ordered.
 const firstPage=changedPage();
+addClassicEditorLink();
 await R.init();await N.init();await firstPage;await changedPage();render();
+
+function addClassicEditorLink(){
+ const pageInfo=document.getElementById('pageInfo');
+ if(!pageInfo)return;
+ const css=el('link');
+ css.rel='stylesheet';
+ css.href=new URL('../classic/editor_v21.css',import.meta.url);
+ document.head.append(css);
+ const line=el('div','kc-page-line');
+ const link=el('a','kc-edit-button','古プリを編集');
+ link.hidden=true;
+ pageInfo.before(line);
+ line.append(pageInfo,link);
+
+ let request=null;
+ async function update(){
+  const {auth,sessionExpired,account}=R.state();
+  const page=adapter.page();
+  if(!auth||sessionExpired||!account.shared_notes_admin||!page){
+   request=null;
+   link.hidden=true;
+   return;
+  }
+  if(request?.page===page)return;
+  const current={page};
+  request=current;
+  link.hidden=true;
+  try{
+   const index=await canonicalPageIndex(page,R.rootURL);
+   if(request!==current)return;
+   const href=new URL(encodeURI(index[page.key].href),R.rootURL);
+   href.searchParams.set('page',page.key);
+   href.searchParams.set('edit','1');
+   link.href=href.href;
+   link.hidden=false;
+  }catch(error){
+   if(request===current)request=null;
+   console.error('古プリの編集先を取得できませんでした',error);
+  }
+ }
+ R.subscribe(update);
+ document.addEventListener('kopuri:page',update);
+ update();
+}

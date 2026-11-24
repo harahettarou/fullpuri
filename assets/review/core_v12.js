@@ -37,7 +37,7 @@ function emit(){events.dispatchEvent(new Event('change'));}
 export const subscribe=fn=>{events.addEventListener('change',fn);return()=>events.removeEventListener('change',fn)};
 export const state=()=>({auth,sessionExpired:isSessionExpired(),entries:project(base,queue),queue,status,conflict,configured:!!API_URL,providers,account:accountInfo});
 function showError(e){status=e.message||String(e);emit();}
-async function reload(){const next=await read('auth'),d=next?await read('user:'+next.user_id):null,latest=await read('auth');if(next?.token!==latest?.token)return reload();auth=next;if(isSessionExpired())status=expiredMessage;base=d?.base||[];queue=d?.queue||[];emit();}
+async function reload(){const next=await read('auth'),d=next?await read('user:'+next.user_id):null,latest=await read('auth');if(next?.token!==latest?.token)return reload();if(auth?.user_id!==next?.user_id)accountInfo={google_linked:false};auth=next;if(isSessionExpired())status=expiredMessage;base=d?.base||[];queue=d?.queue||[];emit();}
 export async function api(path,options={},session=auth){
  if(!API_URL)throw Error('同期サービスは未設定です');
  const response=await fetch(API_URL.replace(/\/$/,'')+path,{...options,headers:{'Content-Type':'application/json',...(session?{Authorization:'Bearer '+session.token}:{}),...options.headers},signal:AbortSignal.timeout(20000)});
@@ -74,9 +74,14 @@ export async function logout(){
 export async function refresh(){
  if(!auth||isSessionExpired())return;
  const session=auth;status='同期中…';emit();
- try{const [me,data]=await Promise.all([api('/me',{},session),api('/entries',{},session)]);
+ try{
+  const accountRequest=api('/me',{},session).then(me=>{
+   if(auth?.token!==session.token)return;
+   if(me.user_id!==session.user_id)throw Error('アカウント情報が一致しません');
+   accountInfo=me.account||{google_linked:false};emit();
+  });
+  const [,data]=await Promise.all([accountRequest,api('/entries',{},session)]);
   if(auth?.token!==session.token)return;
-  if(me.user_id!==session.user_id)throw Error('アカウント情報が一致しません');accountInfo=me.account||{google_linked:false};
   await change('user:'+session.user_id,d=>{const merged=new Map(data.entries.map(e=>[e.id,e]));for(const e of d?.base||[]){if(!merged.has(e.id)||merged.get(e.id).version<e.version)merged.set(e.id,e)}return {...d,base:[...merged.values()]}});await reload();status=conflict?'別端末の更新と競合しています。復習管理で確認してください':queue.length?'未送信 '+queue.length+'件':'サーバー保存済み';emit();
  }catch(e){if(auth?.token!==session.token)return;status=e.status===401?expiredMessage:'同期失敗：'+e.message+'（未送信の変更はこの端末に保持）';emit();}
 }

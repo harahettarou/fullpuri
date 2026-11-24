@@ -246,9 +246,8 @@ N.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 const firstPage=changedPage();
 // OCR search corrections are independent of review registrations and memo filters.
 C.refresh().catch(()=>{});
-await R.init();await N.init();await firstPage;await changedPage();render();
-
 document.addEventListener('kopuri:classic-edits',render);
-await initClassicEditor();
+const editorReady=initClassicEditor().catch(error=>console.error('古プリの編集を初期化できませんでした',error));
+await R.init();await N.init();await firstPage;await changedPage();render();
+await editorReady;
 await initSequence();
-
