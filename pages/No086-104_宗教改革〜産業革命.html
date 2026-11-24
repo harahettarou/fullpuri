@@ -46,8 +46,7 @@ button{cursor:pointer}
 .sectionTitle{font-weight:800;margin:4px 0 10px}
 .help{font-size:13px;line-height:1.65;color:var(--sub);background:#f7f7f5;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:14px}
 .ranges{display:grid;gap:7px}
-.rangeRow{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
-.rangeName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rangeRow{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 8px}
 .del{border:0;background:transparent;color:#a34734;font-size:18px}
 .empty{font-size:13px;color:var(--sub)}
 .viewer{min-width:0;min-height:0;height:100%;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr) auto;width:100%}
@@ -780,16 +779,11 @@ function drawGuides(){
   ctx.clearRect(0,0,p.width,p.height);
   if(mode!=='range'&&!drawing)return;
   ctx.lineWidth=Math.max(2,p.width/500);
-  ctx.font=`${Math.max(18,p.width/45)}px sans-serif`;
   rangesFor().forEach(r=>{
     const x=r.x*p.width,y=r.y*p.height,w=r.w*p.width,h=r.h*p.height;
     ctx.strokeStyle=r.enabled===false?'rgba(120,120,120,.65)':'rgba(222,111,60,.95)';
     ctx.setLineDash(r.enabled===false?[8,7]:[]);
     ctx.strokeRect(x,y,w,h);
-    ctx.fillStyle='rgba(255,255,255,.82)';
-    ctx.fillRect(x,y,Math.min(w,ctx.measureText(r.name).width+16),Math.max(24,p.width/35));
-    ctx.fillStyle='#512b1a';
-    ctx.fillText(r.name,x+6,y+Math.max(18,p.width/48));
   });
   ctx.setLineDash([]);
   if(tempRect){
@@ -804,10 +798,10 @@ function renderRanges(){
     const row=document.createElement('div');row.className='rangeRow';
     const c=document.createElement('input');c.type='checkbox';c.checked=x.enabled!==false;
     c.onchange=()=>{r[i].enabled=c.checked;saveRanges();drawOverlays();drawGuides()};
-    const n=document.createElement('div');n.className='rangeName';n.textContent=x.name;
-    const d=document.createElement('button');d.className='del';d.textContent='×';
+    c.setAttribute('aria-label',`指定範囲 ${i+1}を表示`);
+    const d=document.createElement('button');d.className='del';d.textContent='×';d.setAttribute('aria-label',`指定範囲 ${i+1}を削除`);
     d.onclick=()=>{r.splice(i,1);saveRanges();renderRanges();drawOverlays();drawGuides()};
-    row.append(c,n,d);box.appendChild(row);
+    row.append(c,d);box.appendChild(row);
   });
 }
 function renderPageSelect(){
@@ -853,8 +847,8 @@ dc.addEventListener('pointermove',e=>{
 dc.addEventListener('pointerup',e=>{
   if(!drawing||!tempRect)return;e.preventDefault();
   if(tempRect.w>.015&&tempRect.h>.015){
-    const r=rangesFor(),name=prompt('範囲の名前',`範囲 ${r.length+1}`)||`範囲 ${r.length+1}`;
-    r.push({...tempRect,name,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
+    const r=rangesFor();
+    r.push({...tempRect,enabled:true});rangeStore[PAGES[idx].key]=r;saveRanges();renderRanges();drawOverlays();toast('範囲を保存しました')
   }
   tempRect=null;dragStart=null;drawing=false;stage.classList.remove('drawing');$('#addRange').textContent='＋ 範囲を追加';drawOverlays();drawGuides()
 });
