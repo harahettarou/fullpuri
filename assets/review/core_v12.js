@@ -8,13 +8,15 @@ export const targetId=t=>hash(JSON.stringify([t.kind,t.kind==='print'?t.no:t.pag
 export const canonical=t=>({...t,rect:t.rect.map(v=>Math.round(v*1e6)/1e6)});
 export const formatDate=s=>s?new Date(s).toLocaleString('ja-JP'):'未復習';
 export const isUncertain=e=>e?.state==='todo'&&e.mark==='uncertain';
-export const reviewLabel=e=>isUncertain(e)?'△ 不安':e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録';
+export const isRepeat=e=>e?.state==='todo'&&!isUncertain(e)&&(e.mistake_count??0)>0;
+export const reviewLabel=e=>isUncertain(e)?'△ 不安':isRepeat(e)?'もう一度復習':e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録';
 export function project(base,queue){
  const map=new Map(base.map(e=>[e.id,structuredClone(e)]));
  for(const op of queue){let e=map.get(op.id);if(op.action==='register'||op.action==='uncertain'){
   e=e||{id:op.id,target:op.target,created_at:null,review_count:0,version:0};e.state='todo';e.mark=op.action==='uncertain'?'uncertain':'review';e.deleted=0;e.completed_at=null;
  }else if(!e)continue;
  else if(op.action==='complete'&&e.state==='todo'){e.state='done';e.review_count++;e.last_reviewed_at=null;e.completed_at=null}
+ else if(op.action==='repeat'&&!e.deleted&&e.state==='todo'){e.mistake_count=(e.mistake_count??0)+1;e.mark='review'}
  else if(op.action==='reopen'){e.state='todo';e.mark='review';e.completed_at=null}
  else if(op.action==='delete')e.deleted=1;
  e.version++;e.pending=true;map.set(op.id,e);
@@ -93,6 +95,7 @@ export async function act(action,target){
   if((d.queue||[]).some(o=>o.id===id))throw Error('この項目は保存待ちです');
   if(action==='register'&&e&&!e.deleted&&!isUncertain(e))return d;
   if(action==='uncertain'&&!e?.deleted&&isUncertain(e))return d;
+  if(action==='repeat'&&(!e||e.deleted||e.state!=='todo'))throw Error('未完了の復習項目を選んでください');
   if(action==='complete'&&e?.state==='done')return d;
   if(action==='reopen'&&e?.state==='todo'&&!isUncertain(e))return d;
   const op={op_id:random(),id,action,target:e?.target||target,expected:e?.version||0};
@@ -128,6 +131,7 @@ export async function resolveConflict(apply){
    ||op.action==='delete'&&current?.deleted
    ||op.action==='register'&&active&&!isUncertain(current)
    ||op.action==='uncertain'&&active&&isUncertain(current);
+  if(apply&&op.action==='repeat'&&active&&current.state!=='todo')throw Error('別端末で復習が完了しました。サーバー側を採用してください');
   if(apply&&!fulfilled){if(!['register','uncertain'].includes(op.action)&&(!current||current.deleted))throw Error('対象は他の端末で削除済みです。サーバー側を採用してください');rest.unshift({...op,op_id:random(),expected:current?.version||0})}
   return {base:data.entries,queue:rest};
  });conflict=false;await reload();await flush();

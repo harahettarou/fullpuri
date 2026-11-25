@@ -67,7 +67,8 @@ async function openTarget(t,source='',selectedEntry){
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
  else if(e?.pending)menu.append(el('p','','この項目は保存待ちです。'));
  else if(e){
-  menu.append(el('p','kr-meta',`復習 ${e.review_count}回 ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
+  menu.append(el('p','kr-meta',`復習 ${e.review_count}回 ／ 間違い ${e.mistake_count??0}回 ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
+  if(e.state==='todo')menu.append(button('もう一度復習',async()=>{await R.act('repeat',t);menu.close()}));
   menu.append(button(e.state==='todo'?'復習完了にする':'再び要復習にする',async()=>{await R.act(e.state==='todo'?'complete':'reopen',t);menu.close()}));
   if(R.isUncertain(e))menu.append(button('要復習に切り替え',async()=>{await R.act('reopen',t);menu.close()}));
  }else menu.append(button('復習に登録',async()=>{await R.act('register',correctedTarget(t));menu.close()}));

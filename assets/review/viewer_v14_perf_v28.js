@@ -53,13 +53,14 @@ function entryFor(t){
 }
 function noteFor(t){const ns=N.state().notes.filter(live);if(t.kind==='print')return ns.find(n=>n.target.kind==='print'&&n.target.no===t.no);if(t.kind==='page')return ns.find(n=>n.target.kind==='page'&&n.target.page===t.page);const exact=ns.find(n=>n.target.kind===t.kind&&n.target.page===t.page&&n.target.color===t.color&&(t.color!=='black'||n.target.text===t.text)&&n.target.rect.every((v,i)=>Math.abs(v-t.rect[i])<.000002));if(exact)return exact;const candidates=ns.filter(n=>anchorMatch(t,n.target));return candidates.length===1?candidates[0]:undefined}
 async function openTarget(t,source=''){
- const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',e?.state==='todo'?'要復習':e?.state==='done'?'復習完了':'未登録'));
+ const e=entryFor(t),note=noteFor(t);if(note){focusTarget=note.target;focusIsNote=true;render()}t=e?.target||note?.target||t;menu.replaceChildren(button('閉じる',()=>menu.close()),el('h2','',R.reviewLabel(e)));
  menu.append(el('p','',t.text||`${colors[t.color]||''}文字（範囲を登録）`));
  if(source==='ocr')menu.append(el('p','kr-note','文字列は原文OCRの参考表示です。読み取りが崩れていても選択位置で保存します。'));
  if(!R.state().auth){const controls=el('div','kr-row');fillAccount(controls);menu.append(controls)}
  else if(e?.pending)menu.append(el('p','','この項目は保存待ちです。'));
  else if(e){
-  menu.append(el('p','kr-meta',`復習 ${e.review_count}回 ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
+  menu.append(el('p','kr-meta',`復習 ${e.review_count}回 ／ 間違い ${e.mistake_count??0}回 ／ 最終：${R.formatDate(e.last_reviewed_at)}`));
+  if(e.state==='todo')menu.append(button('もう一度復習',async()=>{await R.act('repeat',t);menu.close()}));
   menu.append(button(e.state==='todo'?'復習完了にする':'再び要復習にする',async()=>{await R.act(e.state==='todo'?'complete':'reopen',t);menu.close()}));
  }else menu.append(button('要復習に登録',async()=>{await R.act('register',t);menu.close()}));
  if(R.state().auth){
