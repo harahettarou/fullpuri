@@ -1,6 +1,6 @@
 import {materialCorrectionEditor} from './correction_editor_v19.js';
 import {paintCorrections} from './correction_render_v19.js';
-import {initSequence,startReview} from '../review/sequence_v18.js';
+import {initSequence,startReview} from '../review/sequence_v18.js?v=shared-row';
 import * as R from '../review/core_v12.js';
 import * as N from '../review/notes_core_v14.js';
 import {openEditor} from '../review/note_editor_v15.js';

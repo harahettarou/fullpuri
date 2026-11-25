@@ -1,14 +1,15 @@
 .ks-bar{--ks-left:max(8px,env(safe-area-inset-left));position:fixed;left:var(--ks-left);right:var(--ks-right,max(8px,env(safe-area-inset-right)));margin-inline:auto;z-index:31;width:max-content;max-width:calc(100% - var(--ks-left) - var(--ks-right,max(8px,env(safe-area-inset-right))));border:1px solid #16866f;border-radius:15px;background:#fffffff5;box-shadow:0 4px 16px #0002;font-size:13px;box-sizing:border-box}
+ .ks-bar.ks-with-launcher{width:auto;margin-inline:0}
 .ks-bar[hidden],.ks-bar [hidden]{display:none!important}
-.ks-controls{display:flex;align-items:center;gap:7px;overflow-x:auto;white-space:nowrap;padding:9px calc(12px + var(--ks-overlap,0px)) 9px 12px;border-radius:inherit}
+.ks-controls{display:flex;flex-wrap:nowrap;align-items:center;gap:7px;overflow-x:auto;scrollbar-width:none;white-space:nowrap;padding:9px calc(12px + var(--ks-overlap,0px)) 9px 12px;border-radius:inherit}
 .ks-controls>*{flex:none}
 .ks-bar a,.ks-bar button{font:inherit;background:#fff;color:#126e65;border:1px solid #d4d1c9;border-radius:8px;padding:8px;text-decoration:none;cursor:pointer;text-align:center}
 .ks-bar button:disabled{opacity:.5}
-.ks-status{position:absolute;bottom:calc(100% + 4px);left:0;max-width:calc(100% - var(--ks-overlap,0px));box-sizing:border-box;padding:4px 8px;border-radius:6px;background:#fff;font-size:12px;color:#aa3020;overflow-wrap:anywhere}
+.ks-status{font-size:12px;color:#aa3020}
 .ks-status:empty{display:none}
 @media(max-width:600px){
  .ks-bar{font-size:12px}
  .ks-controls{padding:6px calc(6px + var(--ks-overlap,0px)) 6px 6px;gap:5px}
  .ks-bar a,.ks-bar button{padding:7px}
- body.ks-active .kr-launch{max-width:min(8rem,32vw);white-space:normal;overflow-wrap:anywhere}
+ body.ks-active .kr-launch{max-width:min(8rem,32vw);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }

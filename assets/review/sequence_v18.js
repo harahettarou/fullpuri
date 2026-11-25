@@ -6,23 +6,29 @@ export function entryURL(e,catalog,session){const t=e.target;let u;if(t.material
 export async function startReview(current){const entries=R.state().entries.filter(e=>!e.deleted&&(e.state==='todo'||e.id===current)).sort((a,b)=>a.target.no-b.target.no||a.target.page.localeCompare(b.target.page,'ja',{numeric:true}));if(!entries.length)throw Error('要復習の登録がありません');const response=await fetch(new URL('assets/classic/catalog_v18.json',R.rootURL));if(!response.ok)throw Error('移動情報を取得できません');const catalog=await response.json(),session=await createSequence(entries),url=entryURL(entries.find(e=>e.id===current)||entries[0],catalog,session);if(!url)throw Error('元プリントが見つかりません');location.assign(url.href)}
 export async function initSequence(){
  const params=new URLSearchParams(location.search),current=params.get('review');if(!current)return;let session=params.get(param),uid=null,ids=[],busy=false,initializing=false,closed=false;
- const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('./sequence_v18.css?v=single-row',import.meta.url);document.head.append(css);
+ const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('./sequence_v18.css?v=shared-row',import.meta.url);document.head.append(css);
  const box=document.createElement('section');box.className='ks-bar';box.setAttribute('aria-label','復習を続ける');box.hidden=true;const label=document.createElement('span'),status=document.createElement('span');status.setAttribute('role','status');status.className='ks-status';
- const previous=document.createElement('a'),next=document.createElement('a'),finish=document.createElement('button'),repeat=document.createElement('button'),close=document.createElement('button');previous.textContent='← 前の復習';next.textContent='次の復習 →';finish.textContent='復習完了して次へ';repeat.textContent='もう一度復習';close.textContent='閉じる';close.onclick=()=>{closed=true;box.remove();document.body.classList.remove('ks-active');observer.disconnect();window.removeEventListener('resize',position);window.visualViewport?.removeEventListener('resize',position);window.visualViewport?.removeEventListener('scroll',position)};const controls=document.createElement('div');controls.className='ks-controls';controls.append(finish,repeat,previous,next,close,label);box.append(controls,status);document.body.append(box);
+ const previous=document.createElement('a'),next=document.createElement('a'),finish=document.createElement('button'),repeat=document.createElement('button'),close=document.createElement('button');previous.textContent='← 前の復習';next.textContent='次の復習 →';finish.textContent='復習完了して次へ';repeat.textContent='もう一度復習';close.textContent='閉じる';close.onclick=()=>{closed=true;box.remove();document.body.classList.remove('ks-active');observer.disconnect();window.removeEventListener('resize',position);window.visualViewport?.removeEventListener('resize',position);window.visualViewport?.removeEventListener('scroll',position)};const controls=document.createElement('div');controls.className='ks-controls';controls.append(finish,repeat,previous,next,close,label,status);box.append(controls);document.body.append(box);
  const bottom=document.querySelector('.nav')||document.getElementById('bottomNav');
  const launcher=document.querySelector('.kr-launch');
  function position(){
   const nav=bottom?.getBoundingClientRect();
-  box.style.bottom=Math.max(0,nav?innerHeight-nav.top:0)+8+'px';
   const button=launcher?.getBoundingClientRect();
   const overlap=button?.width?16:0;
+  box.classList.toggle('ks-with-launcher',!!overlap);
   box.style.setProperty('--ks-overlap',overlap+'px');
-  if(overlap)box.style.setProperty('--ks-right',Math.ceil(innerWidth-button.left-overlap)+'px');
-  else box.style.removeProperty('--ks-right');
+  if(overlap){
+   box.style.setProperty('--ks-right',Math.ceil(innerWidth-button.left-overlap)+'px');
+   const height=box.getBoundingClientRect().height;
+   box.style.bottom=Math.max(0,innerHeight-button.bottom+(button.height-height)/2-3)+'px';
+  }else{
+   box.style.removeProperty('--ks-right');
+   box.style.bottom=Math.max(0,nav?innerHeight-nav.top:0)+8+'px';
+  }
  }
  const observer=new ResizeObserver(position);
  if(bottom)observer.observe(bottom);
- if(launcher)observer.observe(launcher);
+ if(launcher){observer.observe(launcher);observer.observe(box)}
  window.addEventListener('resize',position);
  window.visualViewport?.addEventListener('resize',position);
  window.visualViewport?.addEventListener('scroll',position);
