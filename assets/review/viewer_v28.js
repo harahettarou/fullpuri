@@ -197,7 +197,7 @@ async function blackAt(pt,forNote=false){
 let down=null,holdTimer=0;
 function cancelHold(){clearTimeout(holdTimer);down=null}
 if(stage){
- stage.addEventListener('pointerdown',e=>{if(!e.isPrimary){cancelHold();return}if(stage.classList.contains('kc-editing')||e.target.closest('.kr-mark,.kr-selection,.kc-capture')||stage.classList.contains('drawing')||selection)return;cancelHold();down={id:e.pointerId,x:e.clientX,y:e.clientY,at:Date.now(),pt:point(e)};const d=down;holdTimer=setTimeout(()=>{cancelHold();if(page&& !stage.classList.contains('drawing')&&!stage.classList.contains('kc-editing'))blackAt(d.pt).catch(e=>message(e.message))},600)},{capture:true,passive:true});
+ stage.addEventListener('pointerdown',e=>{if(!e.isPrimary){cancelHold();return}if(stage.classList.contains('kc-editing')||e.target.closest('.kr-mark,.kr-selection,.kc-capture,.kr-search-edit')||stage.classList.contains('drawing')||selection)return;cancelHold();down={id:e.pointerId,x:e.clientX,y:e.clientY,at:Date.now(),pt:point(e)};const d=down;holdTimer=setTimeout(()=>{cancelHold();if(page&& !stage.classList.contains('drawing')&&!stage.classList.contains('kc-editing'))blackAt(d.pt).catch(e=>message(e.message))},600)},{capture:true,passive:true});
  stage.addEventListener('pointermove',e=>{if(down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>7)cancelHold()},{capture:true,passive:true});
  stage.addEventListener('pointercancel',cancelHold,{passive:true});
  stage.addEventListener('contextmenu',e=>{if(down||menu.open)e.preventDefault()});
@@ -244,11 +244,41 @@ R.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 C.subscribe(render);
 N.subscribe(()=>{render();if(!focusTarget)highlightFromURL()});
 // Start read-only coordinates immediately; keep authentication/notes initialization ordered.
+function initSearchHitEditor(){
+ const marker=document.getElementById('searchHit');
+ const params=new URLSearchParams(location.search),key=params.get('page'),rawRect=params.get('hit');
+ if(!stage||!adapter||!marker||!key||!rawRect)return;
+ const pixels=rawRect.split(',').map(Number);
+ if(pixels.length!==4||!pixels.every(Number.isFinite)||pixels.some((v,i)=>i<2?v<0:v<=0))return;
+ marker.classList.add('kr-search-edit');
+ marker.tabIndex=0;marker.setAttribute('role','button');
+ marker.setAttribute('aria-label','検索結果の文字を修正');
+ marker.title='検索結果の文字を修正';
+ let opening=false;
+ const open=safe(async()=>{
+  const current=adapter.page();
+  if(opening||selection||stage.classList.contains('drawing')||stage.classList.contains('kc-editing')||current?.key!==key)return;
+  const [x,y,w,h]=pixels;
+  const rect=[x/current.width,y/current.height,Math.min(w,current.width-x)/current.width,Math.min(h,current.height-y)/current.height];
+  if(!rect.every(Number.isFinite)||rect[2]<=0||rect[3]<=0)return;
+  const text=(params.get('hit_text')??params.get('q')??'').slice(0,1000);
+  opening=true;
+  try{await openWordActions({kind:'word',page:key,no:current.no,rect,text,color:params.get('orange')==='1'?'orange':'black'})}
+  finally{opening=false}
+ });
+ // Keep mouse dragging and the page's word-selection gestures from taking over the hit.
+ marker.addEventListener('pointerdown',e=>e.stopPropagation());
+ marker.addEventListener('click',open);
+ marker.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  e.preventDefault();open();
+ });
+}
 const firstPage=changedPage();
 // OCR search corrections are independent of review registrations and memo filters.
 C.refresh().catch(()=>{});
 document.addEventListener('kopuri:classic-edits',render);
 const editorReady=initClassicEditor().catch(error=>console.error('古プリの編集を初期化できませんでした',error));
-await R.init();await N.init();await firstPage;await changedPage();render();
+await R.init();initSearchHitEditor();await N.init();await firstPage;await changedPage();render();
 await editorReady;
 await initSequence();

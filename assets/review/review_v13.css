@@ -41,3 +41,6 @@
 
 /* Keep the text visible beneath the OCR search result marker. */
 #searchHit{border:2px solid #ef3d3299;background:transparent;box-shadow:none}
+
+#stage:not(.drawing):not(.kc-editing) #searchHit.kr-search-edit{pointer-events:auto;cursor:pointer;z-index:7}
+#searchHit.kr-search-edit:focus-visible{outline:3px solid #1464b7;outline-offset:4px}
