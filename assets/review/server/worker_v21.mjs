@@ -332,11 +332,30 @@ async function correctionRoute(req,env,url,user){
  return json({correction:correctionView(row)});
 }
 
+const ocrOwner=(env,uid)=>Boolean(env.OCR_OWNER_USER_ID)&&uid===env.OCR_OWNER_USER_ID;
+async function ocrExclusionRoute(req,env,user){
+ if(req.method==='GET'){
+  const {results}=await env.DB.prepare('SELECT id,page,rect FROM ocr_exclusions ORDER BY id').all();
+  return json({exclusions:results.map(row=>({...row,rect:JSON.parse(row.rect)}))});
+ }
+ if(req.method!=='POST')fail(405,'対応していない操作です');
+ if(!ocrOwner(env,user?.user_id))fail(403,'検索結果からの除外・復元はオーナーのみです');
+ const input=await body(req);
+ if(!input||typeof input.excluded!=='boolean')fail(400,'除外の指定が不正です');
+ const t=validateTarget({kind:'word',no:input.no,page:input.page,rect:input.rect,color:'black',text:''});
+ if(!Object.hasOwn(CLASSIC_PAGES,t.page)||(/^No[0-9]{3}/.test(t.page)&&Number(t.page.slice(2,5))!==t.no))fail(400,'古プリの文字位置を指定してください');
+ const id=await hash(JSON.stringify([t.page,t.rect]));
+ if(input.excluded)await env.DB.prepare('INSERT INTO ocr_exclusions(id,page,rect) VALUES(?,?,?) ON CONFLICT(id) DO NOTHING').bind(id,t.page,JSON.stringify(t.rect)).run();
+ else await env.DB.prepare('DELETE FROM ocr_exclusions WHERE id=?').bind(id).run();
+ return json({excluded:input.excluded,entry:{id,page:t.page,rect:t.rect}});
+}
+
 async function route(req,env){
  const url=new URL(req.url),path=url.pathname,origin=site(env).origin;
  if(path.startsWith('/classic-edits/'))return await classicRoute(req,env,url);
+ if(path==='/ocr-exclusions'&&req.method==='GET')return ocrExclusionRoute(req,env,null);
  if(path==='/ocr-corrections'&&req.method==='GET')return correctionRoute(req,env,url,null);
- if(path==='/health')return json({ok:true,version:26,materials_configured:!!env.MATERIALS_BUCKET,features:['repeat-review','uncertain-review','material-classic-editor','ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
+ if(path==='/health')return json({ok:true,version:27,materials_configured:!!env.MATERIALS_BUCKET,features:['ocr-owner-exclusions','repeat-review','uncertain-review','material-classic-editor','ocr-corrections','review','notes','google-login','account-linking','shared-notes','shared-note-history','materials','classic-editing','review-sequence','classic-correction-mode'],shared_admin_configured:!!String(env.ADMIN_USER_IDS||'').trim(),google_configured:googleReady(env)});
  if(path==='/auth/google/start'&&req.method==='GET')return Response.redirect(await startGoogle(req,env,url.searchParams.get('challenge')),302);
  if(path==='/auth/google/callback'&&req.method==='GET')return googleCallback(req,env,url);
  if(path==='/auth/start'&&req.method==='GET'){
@@ -373,10 +392,11 @@ async function route(req,env){
   return json({token,user_id:identity.user_id,login:identity.login,expires,provider:identity.provider});
  }
  const user=await authenticate(req,env),uid=user.user_id;
+ if(path==='/ocr-exclusions')return ocrExclusionRoute(req,env,user);
  if(path==='/ocr-corrections')return correctionRoute(req,env,url,user);
  if(path==='/materials'||path.startsWith('/materials/'))return await materialRoute(req,env,url,user);
  if(path==='/auth/google/link'&&req.method==='POST'){const b=await body(req);return json({url:await startGoogle(req,env,b.challenge,user)})}
- if(path==='/me'&&req.method==='GET'){const linked=await env.DB.prepare('SELECT display_login FROM google_identities WHERE user_id=?').bind(uid).first();return json({user_id:uid,login:user.login,expires:user.expires,account:{google_linked:!!linked,google_label:linked?.display_login||'',shared_notes_admin:sharedAdmin(env,uid)}})}
+ if(path==='/me'&&req.method==='GET'){const linked=await env.DB.prepare('SELECT display_login FROM google_identities WHERE user_id=?').bind(uid).first();return json({user_id:uid,login:user.login,expires:user.expires,account:{google_linked:!!linked,google_label:linked?.display_login||'',shared_notes_admin:sharedAdmin(env,uid),ocr_owner:ocrOwner(env,uid)}})}
  if(path==='/auth/logout'&&req.method==='POST'){
   await env.DB.prepare('DELETE FROM sessions WHERE token_hash=?').bind(user.token_hash).run();return json({ok:true});
  }

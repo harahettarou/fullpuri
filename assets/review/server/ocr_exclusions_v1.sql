@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS ocr_exclusions (
+ id TEXT PRIMARY KEY,
+ page TEXT NOT NULL,
+ rect TEXT NOT NULL
+);
